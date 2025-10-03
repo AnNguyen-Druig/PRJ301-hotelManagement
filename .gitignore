@@ -1,0 +1,6 @@
+*.war
+/build/
+/dist/
+/nbproject/private/
+/src-code/HotelManagementSystem/build/
+/src-code/HotelManagementSystem/nbproject/private/
