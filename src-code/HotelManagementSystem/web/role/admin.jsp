@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>I am Admin Nhat Quang</h1>
+        <h1>I am Admin Quang Cho</h1>
     </body>
 </html>
