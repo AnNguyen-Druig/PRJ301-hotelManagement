@@ -51,19 +51,19 @@ public class LoginController extends HttpServlet {
                     String url = IConstants.LOGIN_PAGE;
 
                     switch (role) {
-                        case "admin":
+                        case "Admin":
                             url = IConstants.ADMIN_PAGE;
                             break;
-                        case "receptionist":
+                        case "Receptionist":
                             url = IConstants.RECEPTIONIST_PAGE;
                             break;
-                        case "manager":
+                        case "Manager":
                             url = IConstants.MANAGER_PAGE;
                             break;
-                        case "housekeeping":
+                        case "Housekeeping":
                             url = IConstants.HOUSEKEEPING_PAGE;
                             break;
-                        case "servicestaff":
+                        case "Servicestaff":
                             url = IConstants.SERVICE_PAGE;
                             break;
                         default:

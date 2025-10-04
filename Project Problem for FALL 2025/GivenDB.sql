@@ -1,5 +1,6 @@
--- Create Database
-CREATE DATABASE HotelManagement;
+﻿-- Create Database với collation hỗ trợ tiếng Việt
+CREATE DATABASE HotelManagement
+
 GO
 
 USE HotelManagement;
@@ -10,11 +11,11 @@ GO
 -- ==========================
 CREATE TABLE GUEST (
     GuestID INT IDENTITY(1,1) PRIMARY KEY,
-    FullName NVARCHAR(100) NOT NULL,
-    Phone NVARCHAR(20) UNIQUE,
-    Email NVARCHAR(100) UNIQUE,
-    Address NVARCHAR(200),
-    IDNumber NVARCHAR(50),   -- Passport/ID Card
+    FullName NVARCHAR(100) COLLATE Vietnamese_CI_AS NOT NULL,
+    Phone NVARCHAR(20) COLLATE Vietnamese_CI_AS UNIQUE,
+    Email NVARCHAR(100) COLLATE Vietnamese_CI_AS UNIQUE,
+    Address NVARCHAR(200) COLLATE Vietnamese_CI_AS,
+    IDNumber NVARCHAR(50) COLLATE Vietnamese_CI_AS,   -- Passport/ID Card
     DateOfBirth DATE
 );
 
@@ -23,7 +24,7 @@ CREATE TABLE GUEST (
 -- ==========================
 CREATE TABLE ROOM_TYPE (
     RoomTypeID INT IDENTITY(1,1) PRIMARY KEY,
-    TypeName NVARCHAR(50) NOT NULL,
+    TypeName NVARCHAR(50) COLLATE Vietnamese_CI_AS NOT NULL,
     Capacity INT NOT NULL CHECK (Capacity > 0),
     PricePerNight DECIMAL(10,2) NOT NULL CHECK (PricePerNight >= 0)
 );
@@ -33,9 +34,9 @@ CREATE TABLE ROOM_TYPE (
 -- ==========================
 CREATE TABLE ROOM (
     RoomID INT IDENTITY(1,1) PRIMARY KEY,
-    RoomNumber NVARCHAR(10) UNIQUE NOT NULL,
+    RoomNumber NVARCHAR(10) COLLATE Vietnamese_CI_AS UNIQUE NOT NULL,
     RoomTypeID INT NOT NULL,
-    Status NVARCHAR(20) CHECK (Status IN ('Available', 'Occupied', 'Dirty', 'Maintenance')),
+    Status NVARCHAR(20) COLLATE Vietnamese_CI_AS CHECK (Status IN ('Available', 'Occupied', 'Dirty', 'Maintenance')),
     FOREIGN KEY (RoomTypeID) REFERENCES ROOM_TYPE(RoomTypeID)
 );
 
@@ -49,7 +50,7 @@ CREATE TABLE BOOKING (
     CheckInDate DATE NOT NULL,
     CheckOutDate DATE NOT NULL,
     BookingDate DATE DEFAULT GETDATE(),
-    Status NVARCHAR(20) CHECK (Status IN ('Reserved', 'Checked-in', 'Checked-out', 'Canceled')),
+    Status NVARCHAR(20) COLLATE Vietnamese_CI_AS CHECK (Status IN ('Reserved', 'Checked-in', 'Checked-out', 'Canceled')),
     FOREIGN KEY (GuestID) REFERENCES GUEST(GuestID),
     FOREIGN KEY (RoomID) REFERENCES ROOM(RoomID),
     CHECK (CheckOutDate > CheckInDate)
@@ -60,8 +61,8 @@ CREATE TABLE BOOKING (
 -- ==========================
 CREATE TABLE SERVICE (
     ServiceID INT IDENTITY(1,1) PRIMARY KEY,
-    ServiceName NVARCHAR(100) NOT NULL,
-    ServiceType NVARCHAR(50),  -- e.g., Food, Laundry, Spa
+    ServiceName NVARCHAR(100) COLLATE Vietnamese_CI_AS NOT NULL,
+    ServiceType NVARCHAR(50) COLLATE Vietnamese_CI_AS,  -- e.g., Food, Laundry, Spa
     Price DECIMAL(10,2) NOT NULL CHECK (Price >= 0)
 );
 
@@ -86,7 +87,7 @@ CREATE TABLE INVOICE (
     BookingID INT NOT NULL UNIQUE,
     IssueDate DATE DEFAULT GETDATE(),
     TotalAmount DECIMAL(12,2) NOT NULL CHECK (TotalAmount >= 0),
-    Status NVARCHAR(20) CHECK (Status IN ('Unpaid', 'Paid', 'Canceled')),
+    Status NVARCHAR(20) COLLATE Vietnamese_CI_AS CHECK (Status IN ('Unpaid', 'Paid', 'Canceled')),
     FOREIGN KEY (BookingID) REFERENCES BOOKING(BookingID)
 );
 
@@ -98,8 +99,8 @@ CREATE TABLE PAYMENT (
     BookingID INT NOT NULL,
     PaymentDate DATE DEFAULT GETDATE(),
     Amount DECIMAL(12,2) NOT NULL CHECK (Amount >= 0),
-    PaymentMethod NVARCHAR(50) CHECK (PaymentMethod IN ('Cash', 'Credit Card', 'Debit Card', 'Online')),
-    Status NVARCHAR(20) CHECK (Status IN ('Pending', 'Completed', 'Failed')),
+    PaymentMethod NVARCHAR(50) COLLATE Vietnamese_CI_AS CHECK (PaymentMethod IN ('Cash', 'Credit Card', 'Debit Card', 'Online')),
+    Status NVARCHAR(20) COLLATE Vietnamese_CI_AS CHECK (Status IN ('Pending', 'Completed', 'Failed')),
     FOREIGN KEY (BookingID) REFERENCES BOOKING(BookingID)
 );
 
@@ -108,32 +109,71 @@ CREATE TABLE PAYMENT (
 -- ==========================
 CREATE TABLE STAFF (
     StaffID INT IDENTITY(1,1) PRIMARY KEY,
-    FullName NVARCHAR(100) NOT NULL,
-    Role NVARCHAR(50) CHECK (Role IN ('Receptionist', 'Manager', 'Housekeeping', 'ServiceStaff', 'Admin')),
-    Username NVARCHAR(50) UNIQUE NOT NULL,
-    PasswordHash NVARCHAR(255) NOT NULL, -- store hashed password
-    Phone NVARCHAR(20),
-    Email NVARCHAR(100)
+    FullName NVARCHAR(100) COLLATE Vietnamese_CI_AS NOT NULL,
+    Role NVARCHAR(50) COLLATE Vietnamese_CI_AS CHECK (Role IN ('Receptionist', 'Manager', 'Housekeeping', 'ServiceStaff', 'Admin')),
+    Username NVARCHAR(50) COLLATE Vietnamese_CI_AS UNIQUE NOT NULL,
+    PasswordHash NVARCHAR(255) COLLATE Vietnamese_CI_AS NOT NULL, -- store hashed password
+    Phone NVARCHAR(20) COLLATE Vietnamese_CI_AS,
+    Email NVARCHAR(100) COLLATE Vietnamese_CI_AS
 );
 
 
 -- ==========================
 -- Sample Data (Optional)
 -- ==========================
+
+-- Additional data for ROOM_TYPE table
 INSERT INTO ROOM_TYPE (TypeName, Capacity, PricePerNight)
 VALUES 
-('Single', 1, 50.00),
-('Double', 2, 80.00),
-('Suite', 4, 150.00);
+(N'Single', 1, 50.00),
+(N'Double', 2, 80.00),
+(N'Suite', 4, 150.00),
+(N'Deluxe', 3, 120.00),
+(N'Family', 5, 200.00),
+(N'Executive', 2, 100.00);
 
+
+
+-- Additional data for ROOM table
 INSERT INTO ROOM (RoomNumber, RoomTypeID, Status)
 VALUES 
-('101', 1, 'Available'),
-('102', 2, 'Available'),
-('201', 3, 'Available');
+(N'101', 1, N'Available'),
+(N'102', 2, N'Available'),
+(N'201', 3, N'Available'),
+(N'103', 1, N'Available'),
+(N'104', 2, N'Occupied'),
+(N'202', 3, N'Dirty'),
+(N'203', 4, N'Available'),
+(N'204', 5, N'Maintenance'),
+(N'301', 6, N'Available');
 
+
+
+-- Additional data for SERVICE table
 INSERT INTO SERVICE (ServiceName, ServiceType, Price)
 VALUES
-('Breakfast', 'Food', 10.00),
-('Laundry', 'Laundry', 5.00),
-('Spa Massage', 'Spa', 30.00);
+(N'Breakfast', N'Food', 10.00),
+(N'Laundry', N'Laundry', 5.00),
+(N'Spa Massage', N'Spa', 30.00),
+(N'Lunch Buffet', N'Food', 15.00),
+(N'Dry Cleaning', N'Laundry', 8.00),
+(N'Gym Access', N'Spa', 20.00),
+(N'Room Service Delivery', N'Food', 5.00),
+(N'Swimming Pool', N'Spa', 25.00);
+
+
+
+-- Additional data for STAFF table
+INSERT INTO STAFF (FullName, Role, Username, PasswordHash, Phone, Email)
+VALUES 
+(N'Nguyễn Trần Đạt Ân', N'Admin', N'AnNguyen', N'123', N'0123456789', N'nguyentrandatan@gmail.com'),
+(N'Trịnh Nhật Quang', N'Admin', N'QuangTrinh', N'456', N'0987654321', N'trinhnhatquang@gmail.com'),
+(N'Nguyễn Bá Đại', N'Admin', N'NguyenDai', N'789', N'0123459876', N'nguyenbadai@gmail.com'),
+(N'Nguyễn Văn Vỹ', N'Receptionist', N'VanVy', N'111', N'0999900001', N'nguyenvanv@hotel.com'),
+(N'Trần Thị Anh', N'Manager', N'AnhTran', N'222', N'0200011112', N'tranthiw@hotel.com'),
+(N'Lê Văn Bảo', N'Housekeeping', N'BaoLe', N'333', N'0311122223', N'levanx@hotel.com'),
+(N'Phạm Thị Yến', N'ServiceStaff', N'PhamYen', N'444', N'0422233334', N'phamthiy@hotel.com'),
+(N'Hoàng Văn An', N'Receptionist', N'AnHoang', N'555', N'04333344445', N'hoangvanz@hotel.com'),
+(N'Vũ Thị Lựu', N'Housekeeping', N'VuLuu', N'666', N'06444455556', N'vuthiaa@hotel.com'),
+(N'Đặng Văn Bảo', N'ServiceStaff', N'DangBao', N'777', N'07555566667', N'dangvanbb@hotel.com'),
+(N'Bùi Thị Cung', N'Manager', N'BuiCung', N'888', N'09666677778', N'buithicc@hotel.com');

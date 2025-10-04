@@ -22,6 +22,7 @@ public interface IConstants {
     //Action
     public final String AC_DEFAULT = "default";
     public final String AC_LOGIN = "Login";
+    public final String AC_LOGOUT = "logout";
 
     //Controller
     public final String CTL_LOGIN = "LoginController";

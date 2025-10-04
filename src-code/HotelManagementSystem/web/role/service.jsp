@@ -13,5 +13,6 @@
     </head>
     <body>
         <h1>I am Service</h1>
+        <h4><a href="MainController?action=logout">Logout</a><h4>
     </body>
 </html>
