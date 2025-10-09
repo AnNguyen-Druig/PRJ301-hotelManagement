@@ -12,8 +12,10 @@
         <title>Home Page</title>
     </head>
     <body>
-        <a href="<%=request.getContextPath()%>/MainController?action=Login">
+        <a href="<%=request.getContextPath()%>/MainController?action=default"">
             <img src="<%=request.getContextPath()%>/img/logo.jpg" alt="Logo"/>
         </a>
+        <a href="MainController?action=booking">Booking</a>
+        <a href="MainController?action=Login Staff">Đăng Nhập/Đăng Ký</a>
     </body>
 </html>

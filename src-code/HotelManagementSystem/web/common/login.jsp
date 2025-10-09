@@ -16,7 +16,8 @@
         <form action="MainController" method="post">
             <p>Username: <input type="text" name="txtusername"></p>
             <p>Password: <input type="password" name="txtpassword"></p>
-            <p><input type="submit" name="action" value="Login"></p>
+            <p><input type="submit" name="action" value="Login Staff"></p>
+            <p><input type="submit" name="action" value="Login Member"></p>
         </form>
         
         <p>
@@ -27,5 +28,6 @@
                 }
             %>
         </p>
+        <a href="MainController?action=Sign Up">Đăng Ký</a>
     </body>
 </html>

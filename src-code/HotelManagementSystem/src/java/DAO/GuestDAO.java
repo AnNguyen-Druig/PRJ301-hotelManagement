@@ -1,0 +1,105 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package DAO;
+
+import DTO.GuestDTO;
+import DTO.StaffDTO;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import mylib.DBUtills;
+
+/**
+ *
+ * @author Admin
+ */
+public class GuestDAO {
+    
+    public boolean createGuest(GuestDTO guest) {
+        boolean success = false;
+        Connection cn = null;
+        
+        try {
+            cn = DBUtills.getConnection();
+            String sql = "INSERT INTO GUEST (Username, PasswordHash, FullName, Phone, Email, Address, DateOfBirth, IDNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setString(1, guest.getUsername());
+            ps.setString(2, guest.getPassword());
+            ps.setString(3, guest.getFullName());
+            ps.setString(4, guest.getPhone());
+            ps.setString(5, guest.getEmail());
+            ps.setString(6, guest.getAddress());
+            ps.setDate(7, guest.getDateOfBirth());
+            ps.setString(8, guest.getIDNumber());
+            
+            int rowsAffected = ps.executeUpdate();
+            if(rowsAffected > 0) {
+                success = true;
+            }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return success;
+    }
+    
+    public GuestDTO getLoginMember(String username, String password) {
+        Connection cn = null;
+        GuestDTO result = null;
+        try {
+            cn = DBUtills.getConnection();
+
+            String sql = "SELECT GuestID, FullName, Phone, Email, Address, IDNumber, DateOfBirth, Username, PasswordHash FROM GUEST WHERE Username = ? AND PasswordHash = ? COLLATE Latin1_General_CS_AS;";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet table = ps.executeQuery();
+            if (table != null) {
+                while (table.next()) {
+                    int guestID = table.getInt("GuestID");
+                    String fullName = table.getString("FullName");
+                    String address = table.getString("Address");
+                    String phone = table.getString("Phone");
+                    String email = table.getString("Email");
+                    String idNumber = table.getString("IDNumber");
+                    Date dateOfBirth = table.getDate("DateOfBirth");
+
+                    result = new GuestDTO(guestID, fullName, phone, email, address, idNumber, dateOfBirth, username, password);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        try {
+            Connection cn = null;
+            cn = DBUtills.getConnection();
+            System.out.println("Connected DB: " + cn.getCatalog());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

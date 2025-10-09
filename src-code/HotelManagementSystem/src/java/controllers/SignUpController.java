@@ -2,76 +2,64 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import mylib.IConstants;
 
 /**
  *
  * @author Admin
  */
-public class MainController extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+@WebServlet(name="SignUpController", urlPatterns={"/SignUpController"})
+public class SignUpController extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = IConstants.DEFAULT_PAGE;
+        String url = "";
         try {
-            String action = request.getParameter("action");
-            if (action == null) {
-                action = IConstants.AC_DEFAULT;
-            }
-
-            switch (action) {
-                case IConstants.AC_DEFAULT:
-                    url = IConstants.DEFAULT_PAGE;
-                    break;
-                case IConstants.AC_SIGNUP:
-                    url = IConstants.CTL_SIGNUP;
-                    break;
-                case IConstants.AC_LOGINSTAFF:
-                    url = IConstants.CTL_LOGINSTAFF;
-                    break;
-                case IConstants.AC_LOGINGUEST:
-                    url = IConstants.CTL_LOGINGUEST;
-                    break;
-                case IConstants.AC_LOGOUT:
-                    url = IConstants.DEFAULT_PAGE;
-                    break;
-                case IConstants.AC_BOOKING:
-                    url = IConstants.CTL_BOOKING;
-                    break;
+            String username = request.getParameter("guest_username");
+            String password = request.getParameter("guest_password");
+            String fullname = request.getParameter("guest_fullname");
+            String phone  = request.getParameter("guest_phone");
+            String email = request.getParameter("guest_email");
+            String address = request.getParameter("guest_address");
+            String dateOfBirth = request.getParameter("guest_dateofbirth");
+            String idNumber = request.getParameter("guest_idnumber");
+            
+            if(username != null && password != null && phone != null && email != null 
+                    && address != null && dateOfBirth != null && idNumber != null) {
+                
+                //ép kiểu dateOfBirth từ String sang Date
+                try {
+                    java.sql.Date dateOfBirth_value = java.sql.Date.valueOf(dateOfBirth);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         } catch (Exception e) {
-            e.printStackTrace();
         } finally {
-            try {
-                request.getRequestDispatcher(url).forward(request, response);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -79,13 +67,12 @@ public class MainController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
-    }
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -93,13 +80,12 @@ public class MainController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override
