@@ -5,6 +5,7 @@
 
 package controllers;
 
+import DAO.GuestDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -35,23 +36,19 @@ public class SignUpController extends HttpServlet {
         try {
             String username = request.getParameter("guest_username");
             String password = request.getParameter("guest_password");
+            String password_again = request.getParameter("guest_password_again");
             String fullname = request.getParameter("guest_fullname");
             String phone  = request.getParameter("guest_phone");
             String email = request.getParameter("guest_email");
             String address = request.getParameter("guest_address");
             String dateOfBirth = request.getParameter("guest_dateofbirth");
             String idNumber = request.getParameter("guest_idnumber");
+            String nhanThongBaoEmail = request.getParameter("nhanemail");
             
-            if(username != null && password != null && phone != null && email != null 
-                    && address != null && dateOfBirth != null && idNumber != null) {
-                
-                //ép kiểu dateOfBirth từ String sang Date
-                try {
-                    java.sql.Date dateOfBirth_value = java.sql.Date.valueOf(dateOfBirth);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            String errorMsg = "";
+            GuestDAO guestDAO = new GuestDAO();
+            
+            
         } catch (Exception e) {
         } finally {
         }

@@ -102,4 +102,32 @@ public class GuestDAO {
             e.printStackTrace();
         }
     }
+    
+    //Hàm dùng để kiểm tra username có tồn tại hay chưa
+    public boolean checkUsernameExisted(String username) {
+        boolean result = false;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            
+            String sql = "SELECT * FROM GUEST WHERE Username = ?";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet table = ps.executeQuery();
+            
+            while(table.next()) {
+                result = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+            }
+        }
+        return result;
+    }
 }
