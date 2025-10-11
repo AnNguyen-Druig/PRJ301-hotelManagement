@@ -41,5 +41,7 @@ public interface IConstants {
     // Messages
     public final String ERR_EMPTY_FIELD = "Username and Password must not be empty!";
     public final String ERR_INVALID_LOGIN = "Username or Password incorrect!";
+    public final String ERR_INVALID_USERNAME = "Username already existed! Enter another username!";
+    public final String ERR_INVALID_PASSWORD = "Password not match!";
 
 }

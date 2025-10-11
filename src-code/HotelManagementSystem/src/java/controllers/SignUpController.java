@@ -66,28 +66,32 @@ public class SignUpController extends HttpServlet {
                 request.setAttribute("idNumber", idNumber);
                 request.setAttribute("nhanThongBaoEmail", nhanThongBaoEmail);
 
-                String errorMsg = "";
                 GuestDAO guestDAO = new GuestDAO();
+                boolean hasError = false;
                 if (guestDAO.checkUsernameExisted(username)) {
-                    errorMsg += "Username already existed! Enter another username!";
+                    request.setAttribute("ERROR", IConstants.ERR_INVALID_USERNAME);
+                    hasError = true;
                 }
 
                 if (!password.equals(password_again)) {
-                    errorMsg += "Password not match!";
+                    request.setAttribute("ERROR", IConstants.ERR_INVALID_PASSWORD);
+                    hasError = true;
+                }
+                
+                if(hasError) {
+                    request.getRequestDispatcher(IConstants.SIGNUP_PAGE).forward(request, response);
+                    return;
                 }
 
-                if (errorMsg.length() > 0) {     //Nếu có lỗi xảy ra, báo lỗi đến signup.jsp
-                    url = IConstants.SIGNUP_PAGE;
-                } else {        //Nếu ko có lỗi -> Xử lý tiếp
-                    GuestDTO guest = new GuestDTO(fullname, phone, email, address, idNumber, dateOfBirth_value, username, password);
-                    guestDAO.signUpGuest(guest);
-                    url = IConstants.SIGNUP_SUCCESS_PAGE;
-                }
+                GuestDTO guest = new GuestDTO(fullname, phone, email, address, idNumber, dateOfBirth_value, username, password);
+                guestDAO.signUpGuest(guest);
+                url = IConstants.SIGNUP_SUCCESS_PAGE;
 
                 request.getRequestDispatcher(url).forward(request, response);
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
