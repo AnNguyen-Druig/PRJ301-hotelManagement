@@ -41,7 +41,7 @@ public class LoginGuestController extends HttpServlet {
             String password = request.getParameter("txtpassword");
             if (username != null && !username.trim().isEmpty()
                     && password != null && !password.trim().isEmpty()) {
-
+                
                 GuestDAO guestDAO = new GuestDAO();
                 GuestDTO guest = guestDAO.getLoginMember(username, password);
                 if (guest != null) {

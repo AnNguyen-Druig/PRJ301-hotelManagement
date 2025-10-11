@@ -55,6 +55,39 @@ public class GuestDAO {
         return success;
     }
     
+    public int signUpGuest(GuestDTO guest) {
+        int result = 0;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            String sql = "INSERT INTO GUEST (FullName, Phone, Email, Address, IDNumber, DateOfBirth, Username, PasswordHash) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setNString(1, guest.getFullName());
+            ps.setString(2, guest.getPhone());
+            ps.setString(3, guest.getEmail());
+            ps.setString(4, guest.getAddress());
+            ps.setString(5, guest.getIDNumber());
+            ps.setDate(6, guest.getDateOfBirth());
+            ps.setString(7, guest.getUsername());
+            ps.setString(8, guest.getPassword());
+            
+            result = ps.executeUpdate();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+        return result;
+    }
+    
     public GuestDTO getLoginMember(String username, String password) {
         Connection cn = null;
         GuestDTO result = null;
@@ -116,7 +149,7 @@ public class GuestDAO {
             ResultSet table = ps.executeQuery();
             
             while(table.next()) {
-                result = true;
+                result = true;  //true có nghĩa là username đó đã tồn tại rồi -> báo lỗi
             }
         } catch (Exception e) {
             e.printStackTrace();

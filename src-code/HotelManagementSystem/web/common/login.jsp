@@ -28,6 +28,6 @@
                 }
             %>
         </p>
-        <a href="MainController?action=Sign Up">Đăng Ký</a>
+        <a href="MainController?action=signupPage">Đăng Ký</a>
     </body>
 </html>

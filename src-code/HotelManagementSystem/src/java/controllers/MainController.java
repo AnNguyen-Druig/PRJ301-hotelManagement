@@ -41,6 +41,9 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_DEFAULT:
                     url = IConstants.DEFAULT_PAGE;
                     break;
+                case IConstants.AC_SIGNUP_PAGE:
+                    url = IConstants.SIGNUP_PAGE;
+                    break;
                 case IConstants.AC_SIGNUP:
                     url = IConstants.CTL_SIGNUP;
                     break;
