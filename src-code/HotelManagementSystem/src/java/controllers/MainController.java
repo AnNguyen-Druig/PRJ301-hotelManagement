@@ -54,7 +54,7 @@ public class MainController extends HttpServlet {
                     url = IConstants.CTL_LOGINGUEST;
                     break;
                 case IConstants.AC_LOGOUT:
-                    url = IConstants.DEFAULT_PAGE;
+                    url = IConstants.CTL_LOGOUT;
                     break;
                 case IConstants.AC_BOOKING:
                     url = IConstants.CTL_BOOKING;
