@@ -37,6 +37,7 @@ public interface IConstants {
     public final String CTL_LOGINGUEST = "LoginGuestController";
     public final String CTL_SIGNUP = "SignUpController";
     public final String CTL_BOOKING = "BookingController";
+    public final String CTL_LOGOUT = "LogoutController";
 
     // Messages
     public final String ERR_EMPTY_FIELD = "Username and Password must not be empty!";
