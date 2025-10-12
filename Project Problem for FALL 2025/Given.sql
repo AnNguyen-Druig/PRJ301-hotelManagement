@@ -5,8 +5,17 @@
 -- No VIEWs, ready for development/testing.
 -- ======================================================
 
-DROP DATABASE IF EXISTS HotelManagement;
+USE master;
 GO
+
+ALTER DATABASE HotelManagement 
+SET SINGLE_USER 
+WITH ROLLBACK IMMEDIATE;
+GO
+
+DROP DATABASE HotelManagement;
+GO
+
 
 CREATE DATABASE HotelManagement COLLATE Vietnamese_CI_AS;
 GO

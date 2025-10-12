@@ -42,6 +42,8 @@ public interface IConstants {
     public final String CTL_GETROOM = "GetRoomController";
     public final String CTL_FILTERROOM = "FilterRoomController";
     public final String CTL_BOOKING_ROOM= "BookingRoomController";
+    public final String CTL_LOGOUT = "LogoutController";
+
 
     // Messages
     public final String ERR_EMPTY_FIELD = "Username and Password must not be empty!";
