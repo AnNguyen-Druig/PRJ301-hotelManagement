@@ -5,20 +5,26 @@
 
 package controllers;
 
+import DAO.RoomDAO;
+import DTO.RoomDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
+
 import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mylib.IConstants;
 
 /**
  *
- * @author Admin
+ * @author ASUS
  */
-@WebServlet(name="BookingController", urlPatterns={"/BookingController"})
-public class BookingController extends HttpServlet {
+@WebServlet(name="FilterRoomController", urlPatterns={"/FilterRoomController"})
+public class FilterRoomController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,17 +36,18 @@ public class BookingController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet BookingController</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet BookingController at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        try {
+            String roomType = request.getParameter("roomtype");
+            RoomDAO d = new RoomDAO();
+            ArrayList<RoomDTO> list = d.filterRoomType(roomType);
+            if(list!=null && !list.isEmpty()) {
+                request.setAttribute("ALLROOM", list);
+                request.getRequestDispatcher(IConstants.BOOKING_ROOM_PAGE).forward(request, response);
+            } else {
+                request.setAttribute("ERROR", IConstants.ERR_EMPTY_ROOM);
+                request.getRequestDispatcher(IConstants.BOOKING_ROOM_PAGE).forward(request, response);
+            }
+        } catch (Exception e) {
         }
     } 
 

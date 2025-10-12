@@ -17,11 +17,11 @@ import mylib.DBUtills;
  * @author Admin
  */
 public class GuestDAO {
-    
+
     public boolean createGuest(GuestDTO guest) {
         boolean success = false;
         Connection cn = null;
-        
+
         try {
             cn = DBUtills.getConnection();
             String sql = "INSERT INTO GUEST (Username, PasswordHash, FullName, Phone, Email, Address, DateOfBirth, IDNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -34,18 +34,17 @@ public class GuestDAO {
             ps.setString(6, guest.getAddress());
             ps.setDate(7, guest.getDateOfBirth());
             ps.setString(8, guest.getIDNumber());
-            
+
             int rowsAffected = ps.executeUpdate();
-            if(rowsAffected > 0) {
+            if (rowsAffected > 0) {
                 success = true;
             }
-            
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
-                if(cn != null) {
+                if (cn != null) {
                     cn.close();
                 }
             } catch (Exception e) {
@@ -54,7 +53,7 @@ public class GuestDAO {
         }
         return success;
     }
-    
+
     public int signUpGuest(GuestDTO guest) {
         int result = 0;
         Connection cn = null;
@@ -70,24 +69,24 @@ public class GuestDAO {
             ps.setDate(6, guest.getDateOfBirth());
             ps.setString(7, guest.getUsername());
             ps.setString(8, guest.getPassword());
-            
+
             result = ps.executeUpdate();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
-                if(cn != null) {
+                if (cn != null) {
                     cn.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        
+
         return result;
     }
-    
+
     public GuestDTO getLoginMember(String username, String password) {
         Connection cn = null;
         GuestDTO result = null;
@@ -135,32 +134,70 @@ public class GuestDAO {
             e.printStackTrace();
         }
     }
-    
+
     //Hàm dùng để kiểm tra username có tồn tại hay chưa
     public boolean checkUsernameExisted(String username) {
         boolean result = false;
         Connection cn = null;
         try {
             cn = DBUtills.getConnection();
-            
+
             String sql = "SELECT * FROM GUEST WHERE Username = ?";
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setString(1, username);
             ResultSet table = ps.executeQuery();
-            
-            while(table.next()) {
+
+            while (table.next()) {
                 result = true;  //true có nghĩa là username đó đã tồn tại rồi -> báo lỗi
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
-                if(cn != null) {
+                if (cn != null) {
                     cn.close();
                 }
             } catch (Exception e) {
             }
         }
         return result;
+    }
+
+    public GuestDTO getGuestByID(int guestID) {
+        GuestDTO guest = null;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "SELECT [Username],[PasswordHash],,[FullName],[Phone],[Email],[Address],[IDNumber],[DateOfBirth]"
+                        + " FROM [dbo].[GUEST] "
+                        + "WHERE [GuestID] = ?";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setInt(1, guestID);
+                ResultSet table = st.executeQuery();
+                if(table != null) {
+                    while(table.next()) { 
+                        String username = table.getString("Username");
+                        String password = table.getString("PasswordHash");
+                        String fullName = table.getString("FullName");
+                        String address = table.getString("Address");
+                        String phone = table.getString("Phone");
+                        String email = table.getString("Email");
+                        String idNumber = table.getString("IDNumber");
+                        Date dateOfBirth = table.getDate("DateOfBirth");
+                        guest = new GuestDTO(guestID, fullName, phone, email, address, idNumber, dateOfBirth, username, password);
+                    }
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+            }
+        }
+        return guest;
     }
 }

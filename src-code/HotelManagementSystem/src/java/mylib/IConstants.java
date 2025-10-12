@@ -13,8 +13,8 @@ public interface IConstants {
     //View
     public final String DEFAULT_PAGE = "/common/homepage.jsp";
     public final String LOGIN_PAGE = "/common/login.jsp";
-    public final String BOOKING_PAGE = "/common/booking.jsp";
     public final String SIGNUP_PAGE = "/common/signup.jsp";
+    public final String BOOKING_ROOM_PAGE = "/common/bookingroompage.jsp";
     public final String SIGNUP_SUCCESS_PAGE = "/common/signup_success.jsp";
     public final String ADMIN_PAGE = "/role/admin.jsp";
     public final String RECEPTIONIST_PAGE = "/role/receptionist.jsp";
@@ -22,6 +22,8 @@ public interface IConstants {
     public final String HOUSEKEEPING_PAGE = "/role/housekeeping.jsp";
     public final String SERVICE_PAGE = "/role/service.jsp";
     public final String GUEST_PAGE = "/role/guest.jsp";
+    public final String BOOKING_INFORMATION_PAGE = "/common/bookinginformationpage.jsp";
+    
 
     //Action
     public final String AC_DEFAULT = "default";
@@ -31,17 +33,21 @@ public interface IConstants {
     public final String AC_SIGNUP_PAGE = "signupPage";
     public final String AC_LOGOUT = "logout";
     public final String AC_BOOKING = "booking";
+    public final String AC_BOOKING_ROOM = "bookingroom";
 
     //Controller
     public final String CTL_LOGINSTAFF = "LoginController";
     public final String CTL_LOGINGUEST = "LoginGuestController";
     public final String CTL_SIGNUP = "SignUpController";
-    public final String CTL_BOOKING = "BookingController";
+    public final String CTL_GETROOM = "GetRoomController";
+    public final String CTL_FILTERROOM = "FilterRoomController";
+    public final String CTL_BOOKING_ROOM= "BookingRoomController";
 
     // Messages
     public final String ERR_EMPTY_FIELD = "Username and Password must not be empty!";
     public final String ERR_INVALID_LOGIN = "Username or Password incorrect!";
     public final String ERR_INVALID_USERNAME = "Username already existed! Enter another username!";
     public final String ERR_INVALID_PASSWORD = "Password not match!";
+    public final String ERR_EMPTY_ROOM = "Het phong";
 
 }
