@@ -13,5 +13,6 @@
     </head>
     <body>
         <h1>Đăng Ký Thành Viên thành công!</h1>
+        <a href="MainController?action=Login Member">Quay về trang Đăng Nhập</a>
     </body>
 </html>

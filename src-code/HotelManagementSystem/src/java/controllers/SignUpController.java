@@ -38,7 +38,8 @@ public class SignUpController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        String url = IConstants.SIGNUP_PAGE;
+        //String url = IConstants.SIGNUP_PAGE;
+        String url = "";
         try {
             String username = request.getParameter("guest_username");
             String password = request.getParameter("guest_password");
@@ -107,7 +108,8 @@ public class SignUpController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        // Lần đầu vào chỉ show form signup, KHÔNG check lỗi
+        request.getRequestDispatcher(IConstants.SIGNUP_PAGE).forward(request, response);
     }
 
     /**
