@@ -54,6 +54,48 @@ public class RoomDAO {
 
         return result;
     }
+    
+    public ArrayList<RoomDTO> getAllRoomsForManager() {
+        ArrayList<RoomDTO> result = new ArrayList<>();
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "SELECT R.RoomID, R.RoomNumber, R.RoomTypeID, R.Status, RT.TypeName\n"
+                            + "FROM dbo.ROOM as R\n"
+                            + "INNER JOIN dbo.ROOM_TYPE as RT on RT.RoomTypeID = r.RoomTypeID";
+                PreparedStatement st = cn.prepareStatement(sql);
+                ResultSet table = st.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        int roomID = table.getInt("RoomID");
+                        String roomNumber = table.getString("RoomNumber");
+                        String status = table.getString("Status");
+                        String typeName = table.getString("TypeName");
+
+                        RoomDTO room = new RoomDTO();
+                        room.setRoomID(roomID);
+                        room.setRoomNumber(roomNumber);
+                        room.setRoomStatus(status); 
+                        room.setTypeName(typeName);
+
+                        result.add(room);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 
     public ArrayList<RoomDTO> filterRoomType(String roomType) {
         ArrayList<RoomDTO> result = new ArrayList<>();
@@ -90,5 +132,17 @@ public class RoomDAO {
             }
         }
         return result;
+    }
+    
+    public boolean updateRoomStatus(int roomId, String newStatus) {
+        String sql = "UPDATE ROOM SET Status = ? WHERE RoomID = ?";
+        try (Connection cn = DBUtills.getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setString(1, newStatus);
+            ps.setInt(2, roomId);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

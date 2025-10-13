@@ -4,15 +4,16 @@
     Author     : Admin
 --%>
 
+<%@page import="mylib.IConstants"%>
+<%@page import="DTO.StaffDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Manager Page</title>
     </head>
     <body>
-        <h1>I am Manager</h1>
-        <h4><a href="MainController?action=logout">Logout</a><h4>
+        
     </body>
 </html>

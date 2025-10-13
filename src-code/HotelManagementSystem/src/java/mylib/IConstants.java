@@ -23,7 +23,7 @@ public interface IConstants {
     public final String SERVICE_PAGE = "/role/service.jsp";
     public final String GUEST_PAGE = "/role/guest.jsp";
     public final String BOOKING_INFORMATION_PAGE = "/common/bookinginformationpage.jsp";
-    
+    public final String MANAGE_ROOM_STATUS = "/common/manageroomstatus.jsp";
 
     //Action
     public final String AC_DEFAULT = "default";
@@ -34,7 +34,9 @@ public interface IConstants {
     public final String AC_LOGOUT = "logout";
     public final String AC_BOOKING = "booking";
     public final String AC_BOOKING_ROOM = "bookingroom";
-
+    public final String AC_UPDATE_STATUS = "update_status";
+    public final String AC_GO_BACK_STATUS = "goback";
+    
     //Controller
     public final String CTL_LOGINSTAFF = "LoginController";
     public final String CTL_LOGINGUEST = "LoginGuestController";
@@ -43,6 +45,7 @@ public interface IConstants {
     public final String CTL_FILTERROOM = "FilterRoomController";
     public final String CTL_BOOKING_ROOM= "BookingRoomController";
     public final String CTL_LOGOUT = "LogoutController";
+    public final String CTL_MANAGE_ROOM_STATUS = "ManageRoomStatus";
 
 
     // Messages
