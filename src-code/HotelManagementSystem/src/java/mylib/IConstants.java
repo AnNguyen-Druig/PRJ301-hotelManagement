@@ -22,7 +22,7 @@ public interface IConstants {
     public final String HOUSEKEEPING_PAGE = "/role/housekeeping.jsp";
     public final String SERVICE_PAGE = "/role/service.jsp";
     public final String GUEST_PAGE = "/role/guest.jsp";
-    public final String BOOKING_INFORMATION_PAGE = "/common/bookinginformationpage.jsp";
+    public final String BOOKING_ROOM_REGISTER_PAGE = "/common/bookingroomregisterpage.jsp";
     
 
     //Action
@@ -34,6 +34,7 @@ public interface IConstants {
     public final String AC_LOGOUT = "logout";
     public final String AC_BOOKING = "booking";
     public final String AC_BOOKING_ROOM = "bookingroom";
+    public final String AC_SAVE_BOOKING_ROOM = "savebookingroom";
 
     //Controller
     public final String CTL_LOGINSTAFF = "LoginController";
@@ -43,6 +44,7 @@ public interface IConstants {
     public final String CTL_FILTERROOM = "FilterRoomController";
     public final String CTL_BOOKING_ROOM= "BookingRoomController";
     public final String CTL_LOGOUT = "LogoutController";
+    public final String CTL_SAVE_BOOKING_ROOM = "SaveBookingRoomController";
 
 
     // Messages

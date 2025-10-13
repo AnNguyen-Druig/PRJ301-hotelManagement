@@ -169,7 +169,7 @@ public class GuestDAO {
         try {
             cn = DBUtills.getConnection();
             if (cn != null) {
-                String sql = "SELECT [Username],[PasswordHash],,[FullName],[Phone],[Email],[Address],[IDNumber],[DateOfBirth]"
+                String sql = "SELECT [Username],[PasswordHash],[FullName],[Phone],[Email],[Address],[IDNumber],[DateOfBirth]"
                         + " FROM [dbo].[GUEST] "
                         + "WHERE [GuestID] = ?";
                 PreparedStatement st = cn.prepareStatement(sql);

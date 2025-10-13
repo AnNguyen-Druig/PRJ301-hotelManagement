@@ -41,6 +41,9 @@ public class GetRoomController extends HttpServlet {
             if(list!=null) {
                 request.setAttribute("ALLROOM", list);
                 request.getRequestDispatcher(IConstants.BOOKING_ROOM_PAGE).forward(request, response);
+            } else {
+                request.setAttribute("ERROR", IConstants.ERR_EMPTY_ROOM);
+                request.getRequestDispatcher(IConstants.BOOKING_ROOM_PAGE).forward(request, response);
             }
         } catch (Exception e) {
         }

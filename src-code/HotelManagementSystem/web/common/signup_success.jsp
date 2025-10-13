@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Đăng Ký Thành Viên thành công!</h1>
+        <h1>Đăng Ký Thành Viên thành công! và booking thành công</h1>
     </body>
 </html>

@@ -18,42 +18,51 @@
     <body>
         <%
             GuestDTO guest = (GuestDTO) session.getAttribute("USER");
-            if(guest == null) {
+            if (guest == null) {
                 request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
-            } else { 
-                %>
-                <form action="FilterRoomController">
-                    <label for="roomtype">Loai Phong</label>
-                    <select id="roomtype" name="roomtype">
-                        <option value="">--- Chon ---</option>
-                        <option value="Single">Single</option>
-                        <option value="Double">Double</option> 
-                        <option value="Suite">Suite</option>
-                        <option value="Deluxe">Deluxe</option>
-                        <option value="Family">Family</option>
-                        <option value="Executive">Executive</option>
-                    </select>
-                    <button type="submit">Lọc</button>
-                </form>
-                <%
-                ArrayList<RoomDTO> roomList = (ArrayList<RoomDTO>) request.getAttribute("ALLROOM");
-                if(roomList!=null && !roomList.isEmpty()) {
-                    for(RoomDTO r : roomList) {
-                        %>
-                        <p>RoomID: <%= r.getRoomID() %></p>
-                        <p>TypeName: <%= r.getTypeName() %></p>
-                        <p>Capacity: <%= r.getCapacity() %></p>
-                        <p>PricePerNight: <%= r.getPricePerNight() %></p>
-                        <a href="MainController?roomID=<%= r.getRoomID() %>&guestID=<%= guest.getGuestID() %>&action=bookingroom">  Dat Phong  </a> 
-              
-                        <%
+            } else {
+                String typeName = "Tat ca";
+                if (request.getParameter("roomtype") != null) {
+                    typeName = request.getParameter("roomtype");
+                }
+        %>
+        <form action="<%= IConstants.CTL_FILTERROOM%>">
+            <label for="roomtype">Loai Phong</label>
+            <select id="roomtype" name="roomtype">
+                <option value="<%= typeName%>"><%= typeName%></option>
+                <option value="Single">Single</option>
+                <option value="Double">Double</option> 
+                <option value="Suite">Suite</option>
+                <option value="Deluxe">Deluxe</option>
+                <option value="Family">Family</option>
+                <option value="Executive">Executive</option>
+            </select>
+            <input type="submit" value="filter">
+        </form>
+        <%
+            ArrayList<RoomDTO> roomList = (ArrayList<RoomDTO>) request.getAttribute("ALLROOM");
+            if (roomList != null && !roomList.isEmpty()) {
+                for (RoomDTO r : roomList) {
+        %>
+        <p>RoomID: <%= r.getRoomID()%></p>
+        <p>TypeName: <%= r.getTypeName()%></p>
+        <p>Capacity: <%= r.getCapacity()%></p>
+        <p>PricePerNight: <%= r.getPricePerNight()%></p>
+<!--                        <a href="MainController?roomID=<%= r.getRoomID()%>&guestID=<%= guest.getGuestID()%>&action=bookingroom">  Dat Phong  </a> -->
+        <form action="MainController" method="POST">
+            <input type="hidden" name="roomID" value="<%= r.getRoomID()%>">
+            <input type="hidden" name="guestID" value="<%= guest.getGuestID()%>">
+            <button type="submit" value="bookingroom" name="action">Dat Phong</button>
+        </form>
+
+        <%
                     }
-                } else { 
+                } else {
                     String error = (String) request.getAttribute("ERROR");
-                    if(error != null && !error.trim().isEmpty()) {
+                    if (error != null && !error.trim().isEmpty()) {
                         out.print(error);
                     }
-                  }
+                }
             }
         %>
     </body>

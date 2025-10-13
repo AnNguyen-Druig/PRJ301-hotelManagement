@@ -20,22 +20,17 @@ public class RoomDTO {
     public RoomDTO() {
     }
 
-    public RoomDTO(int roomID, String roomNumber, int roomTypeID, String roomStatus) {
+    public RoomDTO(int roomID, String roomNumber, int roomTypeID, String roomStatus, String typeName, int capacity, double pricePerNight) {
         this.roomID = roomID;
         this.roomNumber = roomNumber;
         this.roomTypeID = roomTypeID;
         this.roomStatus = roomStatus;
-    }
-    
-    public RoomDTO(int roomID, String typeName, int capacity, double pricePerNight) {
-        this.roomID = roomID;
         this.typeName = typeName;
         this.capacity = capacity;
         this.pricePerNight = pricePerNight;
     }
-
-    public RoomDTO(int roomID, String roomNumber, int roomTypeID, String roomStatus, String typeName, int capacity, double pricePerNight) {
-        this.roomID = roomID;
+    
+    public RoomDTO( String roomNumber, int roomTypeID, String roomStatus, String typeName, int capacity, double pricePerNight) {
         this.roomNumber = roomNumber;
         this.roomTypeID = roomTypeID;
         this.roomStatus = roomStatus;
