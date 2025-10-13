@@ -12,7 +12,7 @@ public class RoomDTO {
     private int roomID;
     private String roomNumber;
     private int roomTypeID;
-    private int roomStatus;
+    private String roomStatus;
     private String typeName;
     private int capacity;
     private double pricePerNight;
@@ -20,7 +20,7 @@ public class RoomDTO {
     public RoomDTO() {
     }
 
-    public RoomDTO(int roomID, String roomNumber, int roomTypeID, int roomStatus) {
+    public RoomDTO(int roomID, String roomNumber, int roomTypeID, String roomStatus) {
         this.roomID = roomID;
         this.roomNumber = roomNumber;
         this.roomTypeID = roomTypeID;
@@ -34,7 +34,7 @@ public class RoomDTO {
         this.pricePerNight = pricePerNight;
     }
 
-    public RoomDTO(int roomID, String roomNumber, int roomTypeID, int roomStatus, String typeName, int capacity, double pricePerNight) {
+    public RoomDTO(int roomID, String roomNumber, int roomTypeID, String roomStatus, String typeName, int capacity, double pricePerNight) {
         this.roomID = roomID;
         this.roomNumber = roomNumber;
         this.roomTypeID = roomTypeID;
@@ -68,11 +68,11 @@ public class RoomDTO {
         this.roomTypeID = roomTypeID;
     }
 
-    public int getRoomStatus() {
+    public String getRoomStatus() {
         return roomStatus;
     }
 
-    public void setRoomStatus(int roomStatus) {
+    public void setRoomStatus(String roomStatus) {
         this.roomStatus = roomStatus;
     }
 
@@ -99,7 +99,7 @@ public class RoomDTO {
     public void setPricePerNight(double pricePerNight) {
         this.pricePerNight = pricePerNight;
     }
-    
+
     
     
     
