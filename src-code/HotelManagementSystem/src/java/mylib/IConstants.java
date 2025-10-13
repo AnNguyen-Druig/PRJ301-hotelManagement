@@ -14,8 +14,8 @@ public interface IConstants {
     public final String DEFAULT_PAGE = "/common/homepage.jsp";
     public final String LOGIN_PAGE = "/common/login.jsp";
     public final String SIGNUP_PAGE = "/common/signup.jsp";
-    public final String BOOKING_ROOM_PAGE = "/common/bookingroompage.jsp";
     public final String SIGNUP_SUCCESS_PAGE = "/common/signup_success.jsp";
+    public final String BOOKING_ROOM_PAGE = "/common/bookingroompage.jsp";
     public final String ADMIN_PAGE = "/role/admin.jsp";
     public final String RECEPTIONIST_PAGE = "/role/receptionist.jsp";
     public final String MANAGER_PAGE = "/role/manager.jsp";
@@ -29,8 +29,7 @@ public interface IConstants {
     public final String AC_DEFAULT = "default";
     public final String AC_LOGINSTAFF = "Login Staff";
     public final String AC_LOGINGUEST = "Login Member";
-    public final String AC_SIGNUP = "signup";
-    public final String AC_SIGNUP_PAGE = "signupPage";
+    public final String AC_SIGNUP = "Signup";
     public final String AC_LOGOUT = "logout";
     public final String AC_BOOKING = "booking";
     public final String AC_BOOKING_ROOM = "bookingroom";

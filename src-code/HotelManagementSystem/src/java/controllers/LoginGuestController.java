@@ -74,7 +74,8 @@ public class LoginGuestController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        // Lần đầu vào chỉ show form login, KHÔNG check lỗi
+        request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
     } 
 
     /** 

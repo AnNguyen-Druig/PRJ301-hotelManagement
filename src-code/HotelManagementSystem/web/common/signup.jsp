@@ -21,24 +21,63 @@
         </style>
     </head>
     <body>
+        <%
+
+            String errorMsg = (String) request.getAttribute("ERROR");
+            if (errorMsg == null) {
+                errorMsg = "";
+            }
+
+            String username = (String) request.getAttribute("username");
+            if (username == null) {
+                username = "";
+            }
+
+            String fullname = (String) request.getAttribute("fullname");
+            if (fullname == null) {
+                fullname = "";
+            }
+
+            String phone = (String) request.getAttribute("phone");
+            if (phone == null) {
+                phone = "";
+            }
+
+            String email = (String) request.getAttribute("email");
+            if (email == null) {
+                email = "";
+            }
+
+            String address = (String) request.getAttribute("address");
+            if (address == null) {
+                address = "";
+            }
+
+            String dateOfBirth = (String) request.getAttribute("dateOfBirth");
+            if (dateOfBirth == null) {
+                dateOfBirth = "";
+            }
+
+            String idNumber = (String) request.getAttribute("idNumber");
+            if (idNumber == null) {
+                idNumber = "";
+            }
+
+            String nhanThongBaoEmail = (String) request.getAttribute("nhanThongBaoEmail");
+            if (nhanThongBaoEmail == null) {
+                nhanThongBaoEmail = "";
+            }
+
+        %>
+
         <h1 style="text-align: center;">Đăng Ký Thành Viên</h1>
-        <!--        <form action="MainController" method="post">
-                    <p>Username: <input type="text" name="guest_username"></p>
-                    <p>Password: <input type="password" name="guest_password"></p>
-                    <p>Fullname: <input type="text" name="guest_fullname"></p>
-                    <p>Phone: <input type="tel" name="guest_phone"></p>
-                    <p>Email: <input type="email" name="guest_email"></p>
-                    <p>Address: <input type="text" name="guest_address"></p>
-                    <p>Date Of Birth: <input type="date" name="guest_dateofbirth"></p>
-                    <p>ID Number: <input type="number" name="guest_idnumber" min="10" max="12"></p>
-                </form>-->
 
         <div class="container">
             <form action="MainController" method="post">
                 <h3>Tài Khoản</h3>
                 <div class="mb-3">
                     <label for="guest_username" class="form-label">Username <span class="red">*</span></label>
-                    <input type="text" class="form-control" name="guest_username" required="">
+                    <input type="text" class="form-control" name="guest_username" required="" value="<%=username%>">
                 </div>
                 <div class="mb-3">
                     <label for="guest_password" class="form-label">Password <span class="red">*</span></label>
@@ -50,28 +89,28 @@
                 </div>
                 <h3>Thông Tin Khách Hàng</h3>
                 <div class="mb-3">
-                    <label for="guest_password" class="form-label">Fullname <span class="red">*</span></label>
-                    <input type="text" class="form-control" name="guest_fullname" required="">
+                    <label for="guest_fullname" class="form-label">Full name <span class="red">*</span></label>
+                    <input type="text" class="form-control" name="guest_fullname" required="" value="<%=fullname%>">
                 </div>
                 <div class="mb-3">
                     <label for="guest_phone" class="form-label">Phone <span class="red">*</span></label>
-                    <input type="tel" class="form-control" name="guest_phone" required="">
+                    <input type="tel" class="form-control" name="guest_phone" required="" value="<%=phone%>">
                 </div>
                 <div class="mb-3">
                     <label for="guest_email" class="form-label">Email <span class="red">*</span></label>
-                    <input type="email" class="form-control" name="guest_email" required="">
+                    <input type="email" class="form-control" name="guest_email" required="" value="<%=email%>">
                 </div>
                 <div class="mb-3">
                     <label for="guest_dateofbirth" class="form-label">Date Of Birth <span class="red">*</span></label>
-                    <input type="date" class="form-control" name="guest_dateofbirth" required="">
+                    <input type="date" class="form-control" name="guest_dateofbirth" required="" value="<%=dateOfBirth%>">
                 </div>
                 <div class="mb-3">
                     <label for="guest_idnumber" class="form-label">ID Number <span class="red">*</span></label>
-                    <input type="number" class="form-control" name="guest_idnumber" min="10" max="12" required="">
+                    <input type="number" class="form-control" name="guest_idnumber" min="10" max="12" required="" value="<%=idNumber%>">
                 </div>
                 <div class="mb-3">
                     <label for="guest_address" class="form-label">Address</label>
-                    <input type="text" class="form-control" name="guest_address">
+                    <input type="text" class="form-control" name="guest_address" value="<%=address%>">
                 </div>
                 <div class="mb-3">
                     <label for="condition" class="form-label">Đồng ý với các điều khoản của Hotel <span class="red">*</span></label>
@@ -82,7 +121,7 @@
                     <input type="checkbox" class="form-check-input" name="nhanemail">
                 </div>
 
-                <input class="btn btn-primary form-control" type="submit" value="signup" name="action" id="submit" style="visibility: hidden">
+                <input class="btn btn-primary form-control" type="submit" value="Signup" name="action" id="submit" style="visibility: hidden">
             </form>
         </div>
     </body>
