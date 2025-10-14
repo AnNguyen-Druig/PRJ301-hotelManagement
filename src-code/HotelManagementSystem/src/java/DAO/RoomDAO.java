@@ -138,7 +138,6 @@ public class RoomDAO {
         }
         return result;
     }
-<<<<<<< HEAD
     
     public boolean updateRoomStatus(int roomId, String newStatus) {
         String sql = "UPDATE ROOM SET Status = ? WHERE RoomID = ?";
@@ -150,8 +149,8 @@ public class RoomDAO {
             e.printStackTrace();
             return false;
         }
-=======
-
+    }
+    
     public RoomDTO getRoomByID(int roomID) {
         Connection cn = null;
         RoomDTO room = null;
@@ -213,6 +212,5 @@ public class RoomDAO {
             }
         }
         return result;
->>>>>>> 85193788154a760a9aeeb7745e3a7b6335f93a1b
     }
 }
