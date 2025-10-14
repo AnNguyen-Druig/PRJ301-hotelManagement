@@ -5,6 +5,10 @@
 
 package controllers;
 
+import DAO.GuestDAO;
+import DAO.RoomDAO;
+import DTO.GuestDTO;
+import DTO.RoomDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -33,7 +37,22 @@ public class BookingRoomController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        try {
+            int roomID = Integer.parseInt(request.getParameter("roomID"));
+            int guestID = Integer.parseInt(request.getParameter("guestID"));
+            
+            RoomDAO roomDAO = new RoomDAO();
+            RoomDTO room = roomDAO.getRoomByID(roomID);
+            request.setAttribute("ROOM", room);
+            
+            GuestDAO guestDAO = new GuestDAO();
+            GuestDTO guest = guestDAO.getGuestByID(guestID);
+            request.setAttribute("GUEST", guest);
+            
+            request.getRequestDispatcher(IConstants.BOOKING_ROOM_REGISTER_PAGE).forward(request, response);
+            
+        } catch (Exception e) {
+        }
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -47,7 +66,7 @@ public class BookingRoomController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher(IConstants.BOOKING_INFORMATION_PAGE).forward(request, response);
+        processRequest(request, response);
     } 
 
     /** 
@@ -70,6 +89,6 @@ public class BookingRoomController extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }// </editor-fold>  
 
 }

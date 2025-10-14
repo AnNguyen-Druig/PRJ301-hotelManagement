@@ -12,6 +12,9 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <h1>QUANG QUANG QUANG BOOKING THANH CONG</h1>
         <h1>Đăng Ký Thành Viên thành công!</h1>
+        <a href="MainController?action=Login Member">Quay về trang Đăng Nhập</a>
+
     </body>
 </html>

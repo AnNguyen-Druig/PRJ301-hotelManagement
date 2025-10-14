@@ -23,7 +23,7 @@ public class RoomDAO {
         try {
             cn = DBUtills.getConnection();
             if (cn != null) {
-                String sql = "SELECT r.RoomID, rt.TypeName, rt.Capacity, rt.PricePerNight\n"
+                String sql = "SELECT *\n"
                         + "FROM dbo.ROOM AS r\n"
                         + "INNER JOIN dbo.ROOM_TYPE AS rt ON rt.RoomTypeID = r.RoomTypeID\n"
                         + "WHERE r.Status = ?";
@@ -33,10 +33,13 @@ public class RoomDAO {
                 if (table != null) {
                     while (table.next()) {
                         int roomID = table.getInt("RoomID");
+                        String roomNumber = table.getString("RoomNumber");
+                        int roomTypeID = table.getInt("RoomTypeID");
+                        String roomStatus = table.getString("Status");
                         String typeName = table.getString("TypeName");
                         int capacity = table.getInt("Capacity");
                         double pricePerNight = table.getDouble("PricePerNight");
-                        RoomDTO room = new RoomDTO(roomID, typeName, capacity, pricePerNight);
+                        RoomDTO room = new RoomDTO(roomID, roomNumber, roomTypeID, roomStatus, typeName, capacity, pricePerNight);
                         result.add(room);
                     }
                 }
@@ -103,7 +106,7 @@ public class RoomDAO {
         try {
             cn = DBUtills.getConnection();
             if (cn != null) {
-                String sql = "SELECT r.RoomID, rt.TypeName, rt.Capacity, rt.PricePerNight\n"
+                String sql = "SELECT *\n"
                         + "FROM dbo.ROOM AS r\n"
                         + "INNER JOIN dbo.ROOM_TYPE AS rt ON rt.RoomTypeID = r.RoomTypeID\n"
                         + "WHERE r.Status = ? AND rt.TypeName = ?";
@@ -111,13 +114,15 @@ public class RoomDAO {
                 st.setString(1, "Available");
                 st.setString(2, roomType);
                 ResultSet table = st.executeQuery();
-                if(table != null) {
-                    while(table.next()) {
+                if (table != null) {
+                    while (table.next()) {
                         int roomID = table.getInt("RoomID");
-                        String typeName = table.getString("TypeName");
+                        String roomNumber = table.getString("RoomNumber");
+                        int roomTypeID = table.getInt("RoomTypeID");
+                        String roomStatus = table.getString("Status");
                         int capacity = table.getInt("Capacity");
                         double pricePerNight = table.getDouble("PricePerNight");
-                        RoomDTO room = new RoomDTO(roomID, typeName, capacity, pricePerNight);
+                        RoomDTO room = new RoomDTO(roomID, roomNumber, roomTypeID, roomStatus, roomType, capacity, pricePerNight);
                         result.add(room);
                     }
                 }
@@ -133,6 +138,7 @@ public class RoomDAO {
         }
         return result;
     }
+<<<<<<< HEAD
     
     public boolean updateRoomStatus(int roomId, String newStatus) {
         String sql = "UPDATE ROOM SET Status = ? WHERE RoomID = ?";
@@ -144,5 +150,69 @@ public class RoomDAO {
             e.printStackTrace();
             return false;
         }
+=======
+
+    public RoomDTO getRoomByID(int roomID) {
+        Connection cn = null;
+        RoomDTO room = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "SELECT *\n"
+                        + "FROM dbo.ROOM as r\n"
+                        + "INNER JOIN dbo.ROOM_TYPE AS rt ON rt.RoomTypeID = r.RoomTypeID\n"
+                        + "WHERE r.RoomID = ?";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setInt(1, roomID);
+                ResultSet table = st.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        String roomNumber = table.getString("RoomNumber");
+                        int roomTypeID = table.getInt("RoomTypeID");
+                        String roomStatus = table.getString("Status");
+                        String typeName = table.getString("TypeName");
+                        int capacity = table.getInt("Capacity");
+                        double pricePerNight = table.getDouble("PricePerNight");
+                        room = new RoomDTO(roomID, roomNumber, roomTypeID, roomStatus, typeName, capacity, pricePerNight);
+                    }
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+            }
+        }
+        return room;
+    }
+
+    public int updateRoomStatus(int roomID) {
+        int result = 0;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "UPDATE dbo.ROOM SET Status = ? WHERE RoomID = ?";
+
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setString(1, "Occupied");
+                st.setInt(2, roomID);
+                result = st.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+            }
+        }
+        return result;
+>>>>>>> 85193788154a760a9aeeb7745e3a7b6335f93a1b
     }
 }

@@ -41,9 +41,6 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_DEFAULT:
                     url = IConstants.DEFAULT_PAGE;
                     break;
-                case IConstants.AC_SIGNUP_PAGE:
-                    url = IConstants.SIGNUP_PAGE;
-                    break;
                 case IConstants.AC_SIGNUP:
                     url = IConstants.CTL_SIGNUP;
                     break;
@@ -62,11 +59,16 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_BOOKING_ROOM:
                     url = IConstants.CTL_BOOKING_ROOM;
                     break;
+<<<<<<< HEAD
                 case IConstants.AC_UPDATE_STATUS:
                     url = IConstants.CTL_MANAGE_ROOM_STATUS;
                     break;
                 case IConstants.AC_PERFORM_UPDATE: 
                     url = IConstants.CTL_MANAGE_ROOM_STATUS;
+=======
+                case IConstants.AC_SAVE_BOOKING_ROOM:
+                    url = IConstants.CTL_SAVE_BOOKING_ROOM;
+>>>>>>> 85193788154a760a9aeeb7745e3a7b6335f93a1b
                     break;
             }
         } catch (Exception e) {
