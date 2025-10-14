@@ -71,6 +71,12 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_GO_BACK_STATUS:
                     url = IConstants.HOUSEKEEPING_PAGE;
                     break;
+                case IConstants.AC_GET_ROOM_SERVICE:
+                    url = IConstants.CTL_SERVICE_ROOM_CONTROLLER;
+                    break;
+                case IConstants.AC_CHOOSE_SERVICE_PAGE:
+                    url = IConstants.CHOOSE_SERVICE_PAGE;
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
