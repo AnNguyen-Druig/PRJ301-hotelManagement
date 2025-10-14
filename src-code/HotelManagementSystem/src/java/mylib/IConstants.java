@@ -36,6 +36,8 @@ public interface IConstants {
     public final String AC_BOOKING_ROOM = "bookingroom";
     public final String AC_UPDATE_STATUS = "update_status";
     public final String AC_GO_BACK_STATUS = "goback";
+    public final String AC_UPDATE_ROOM_STATUS = "update_room_status";
+    public final String AC_PERFORM_UPDATE = "perform_room_update";
     
     //Controller
     public final String CTL_LOGINSTAFF = "LoginController";

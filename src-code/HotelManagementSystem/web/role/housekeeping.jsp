@@ -44,5 +44,5 @@
             <li><a href=""></a>Update service completion status</li>
             <li><a href="MainController?action=update_status">Update room status</a></li>
         </ul>
-        </body>
+    </body>
 </html>
