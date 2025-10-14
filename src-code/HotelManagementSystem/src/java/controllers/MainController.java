@@ -64,8 +64,12 @@ public class MainController extends HttpServlet {
                     break;
                 case IConstants.AC_PERFORM_UPDATE: 
                     url = IConstants.CTL_MANAGE_ROOM_STATUS;
+                    break;
                 case IConstants.AC_SAVE_BOOKING_ROOM:
                     url = IConstants.CTL_SAVE_BOOKING_ROOM;
+                    break;
+                case IConstants.AC_GO_BACK_STATUS:
+                    url = IConstants.HOUSEKEEPING_PAGE;
                     break;
             }
         } catch (Exception e) {
