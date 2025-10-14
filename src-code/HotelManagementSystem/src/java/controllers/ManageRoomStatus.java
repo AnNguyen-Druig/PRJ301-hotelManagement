@@ -10,6 +10,7 @@ import DTO.RoomDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,16 +41,15 @@ public class ManageRoomStatus extends HttpServlet {
         try {
             RoomDAO dao = new RoomDAO();
             ArrayList<RoomDTO> list = dao.getAllRoomsForManager();
-            if (list != null && !list.isEmpty()) {
+            if(list != null && !list.isEmpty()){
                 request.setAttribute("ROOM_LIST", list);
-            } else {
-                request.setAttribute("ERROR", "Không tìm thấy dữ liệu phòng. Vui lòng kiểm tra lại database.");
+            }else{
+                request.setAttribute("ERROR", "No room found in database");
             }
-        } catch (Exception e) {
-            log("Error at ManageRoomStatus GET: " + e.toString());
-            request.setAttribute("ERROR", "Lỗi hệ thống: " + e.getMessage());
-        } finally {
             request.getRequestDispatcher(url).forward(request, response);
+          
+        }catch(Exception e){
+            System.out.println(e);
         }
     }
 
@@ -77,7 +77,25 @@ public class ManageRoomStatus extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String url = IConstants.MANAGE_ROOM_STATUS;
+       try {
+            String action = request.getParameter("action");
+            RoomDAO dao = new RoomDAO();
+
+            if (IConstants.AC_PERFORM_UPDATE.equals(action)) {
+                int roomId = Integer.parseInt(request.getParameter("roomId"));
+                String newStatus = request.getParameter("newStatus");
+                dao.updateRoomStatus(roomId, newStatus);
+            }
+            
+            List<RoomDTO> roomList = dao.getAllRoomsForManager();
+            request.setAttribute("ROOM_LIST", roomList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
+        }
     }
 
     /** 
