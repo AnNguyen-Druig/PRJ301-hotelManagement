@@ -69,42 +69,47 @@ public class SignUpController extends HttpServlet {
 
                 GuestDAO guestDAO = new GuestDAO();
                 boolean hasError = false;
+
+                // Kiểm tra username
                 if (guestDAO.checkUsernameExisted(username)) {
-                    request.setAttribute("ERROR", IConstants.ERR_INVALID_USERNAME);
+                    request.setAttribute("ERROR_USERNAME", IConstants.ERR_INVALID_USERNAME);
                     hasError = true;
                 }
 
+                // Kiểm tra mật khẩu
                 if (!password.equals(password_again)) {
-                    request.setAttribute("ERROR", IConstants.ERR_INVALID_PASSWORDNOTMATCH);
+                    request.setAttribute("ERROR_PASSWORD", IConstants.ERR_INVALID_PASSWORDNOTMATCH);
+                    hasError = true;
+                } else if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")) {
+                    request.setAttribute("ERROR_PASSWORD", IConstants.ERR_INVALID_PASSWORDFORM);
                     hasError = true;
                 }
-                
-                if(!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")) {
-                    request.setAttribute("ERROR", IConstants.ERR_INVALID_PASSWORDFORM);
+
+                // Kiểm tra họ tên
+                if (!fullname.matches("^[A-Za-zÀ-ỹ\\s]+$")) {
+                    request.setAttribute("ERROR_FULLNAME", IConstants.ERR_INVALID_FULLNAME);
                     hasError = true;
                 }
-                
-                if(!fullname.matches("^[A-Za-z\\s]+$")) {
-                    request.setAttribute("ERROR", IConstants.ERR_INVALID_FULLNAME);
+
+                // Kiểm tra số điện thoại
+                if (!phone.matches("^0\\d{9}$")) {
+                    request.setAttribute("ERROR_PHONE", IConstants.ERR_INVALID_PHONE);
                     hasError = true;
                 }
-                
-                if(!phone.matches("^0\\d{9}$")) {
-                    request.setAttribute("ERROR", IConstants.ERR_INVALID_PHONE);
+
+                // Kiểm tra email
+                if (!email.matches("^[^@]+@[^@]+\\.[^@]+$")) {
+                    request.setAttribute("ERROR_EMAIL", IConstants.ERR_INVALID_EMAIL);
                     hasError = true;
                 }
-                
-                if(!email.matches("^[^@]+@[^@]+\\.[^@]+$")) {
-                    request.setAttribute("ERROR", IConstants.ERR_INVALID_EMAIL);
+
+                // Kiểm tra CCCD
+                if (!idNumber.matches("^\\d{12}$")) {
+                    request.setAttribute("ERROR_IDNUMBER", IConstants.ERR_INVALID_IDNUMBER);
                     hasError = true;
                 }
-                
-                if(!idNumber.matches("^\\d{12}$")) {
-                    request.setAttribute("ERROR", IConstants.ERR_INVALID_IDNUMBER);
-                    hasError = true;
-                }
-                
-                if(hasError) {
+
+                if (hasError) {
                     request.getRequestDispatcher(IConstants.SIGNUP_PAGE).forward(request, response);
                     return;
                 }
