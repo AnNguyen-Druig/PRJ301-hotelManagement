@@ -79,7 +79,7 @@ public class SignUpController extends HttpServlet {
                     hasError = true;
                 }
                 
-                if(!password.matches("\"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$\"")) {
+                if(!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")) {
                     request.setAttribute("ERROR", IConstants.ERR_INVALID_PASSWORDFORM);
                     hasError = true;
                 }
