@@ -4,7 +4,9 @@
  */
 package controllers;
 
+import DAO.GuestDAO;
 import DAO.StaffDAO;
+import DTO.GuestDTO;
 import DTO.StaffDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,44 +38,67 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            String action = request.getParameter("action");
             String username = request.getParameter("txtusername");
             String password = request.getParameter("txtpassword");
+            HttpSession session = request.getSession();
+            request.setAttribute("username", username);
             if (username != null && !username.trim().isEmpty()
                     && password != null && !password.trim().isEmpty()) {
+                if (action.equalsIgnoreCase("Login Staff")) {
+                    try {
+                        StaffDAO staffDAO = new StaffDAO();
+                        StaffDTO staff = staffDAO.getLoginStaff(username, password);
+                        if (staff != null) {
+                            session.setAttribute("USER", staff);
 
-                StaffDAO staffDAO = new StaffDAO();
-                StaffDTO staff = staffDAO.getLoginStaff(username, password);
-                if (staff != null) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("USER", staff);
+                            String role = staff.getRole();
+                            String url = IConstants.LOGIN_PAGE;
 
-                    String role = staff.getRole();
-                    String url = IConstants.LOGIN_PAGE;
-
-                    switch (role) {
-                        case "Admin":
-                            url = IConstants.ADMIN_PAGE;
-                            break;
-                        case "Receptionist":
-                            url = IConstants.RECEPTIONIST_PAGE;
-                            break;
-                        case "Manager":
-                            url = IConstants.MANAGER_PAGE;
-                            break;
-                        case "Housekeeping":
-                            url = IConstants.HOUSEKEEPING_PAGE;
-                            break;
-                        case "ServiceStaff":
-                            request.getRequestDispatcher("MainController?action=" + IConstants.AC_GET_ROOM_SERVICE).forward(request, response);
-                            break;
-                        default:
-                            url = IConstants.LOGIN_PAGE;
-                            break;
+                            switch (role) {
+                                case "Admin":
+                                    url = IConstants.ADMIN_PAGE;
+                                    break;
+                                case "Receptionist":
+                                    url = IConstants.RECEPTIONIST_PAGE;
+                                    break;
+                                case "Manager":
+                                    url = IConstants.MANAGER_PAGE;
+                                    break;
+                                case "Housekeeping":
+                                    url = IConstants.HOUSEKEEPING_PAGE;
+                                    break;
+                                case "ServiceStaff":
+                                    request.getRequestDispatcher("MainController?action=" + IConstants.AC_GET_ROOM_SERVICE).forward(request, response);
+                                    break;
+                                default:
+                                    url = IConstants.LOGIN_PAGE;
+                                    break;
+                            }
+                            request.getRequestDispatcher(url).forward(request, response);
+                        } else {
+                            request.setAttribute("ERROR", IConstants.ERR_INVALID_LOGIN);
+                            request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    request.getRequestDispatcher(url).forward(request, response);
-                } else {
-                    request.setAttribute("ERROR", IConstants.ERR_INVALID_LOGIN);
-                    request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
+                } else if (action.equalsIgnoreCase("Login Member")) {
+                    try {
+                        GuestDAO guestDAO = new GuestDAO();
+                        GuestDTO guest = guestDAO.getLoginMember(username, password);
+                        if (guest != null) {
+                            session.setAttribute("USER", guest);
+
+                            String url = IConstants.GUEST_PAGE;
+                            request.getRequestDispatcher(url).forward(request, response);
+                        } else {
+                            request.setAttribute("ERROR", IConstants.ERR_INVALID_LOGIN);
+                            request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             } else {
                 request.setAttribute("ERROR", IConstants.ERR_EMPTY_FIELD);
@@ -84,7 +109,7 @@ public class LoginController extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

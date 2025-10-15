@@ -45,10 +45,10 @@ public class MainController extends HttpServlet {
                     url = IConstants.CTL_SIGNUP;
                     break;
                 case IConstants.AC_LOGINSTAFF:
-                    url = IConstants.CTL_LOGINSTAFF;
+                    url = IConstants.CTL_LOGIN;
                     break;
                 case IConstants.AC_LOGINGUEST:
-                    url = IConstants.CTL_LOGINGUEST;
+                    url = IConstants.CTL_LOGIN;
                     break;
                 case IConstants.AC_LOGOUT:
                     url = IConstants.CTL_LOGOUT;
