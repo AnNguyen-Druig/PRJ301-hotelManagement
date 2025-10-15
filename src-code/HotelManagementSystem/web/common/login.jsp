@@ -12,9 +12,15 @@
         <title>Login Page</title>
     </head>
     <body>
+        <%
+            String username = (String) request.getAttribute("username");
+            if(username == null) {
+                username = "";
+            }
+        %>
         <h1>Login Page</h1>
         <form action="MainController" method="post">
-            <p>Username: <input type="text" name="txtusername"></p>
+            <p>Username: <input type="text" name="txtusername" value="<%= username %>"></p>
             <p>Password: <input type="password" name="txtpassword"></p>
             <p><input type="submit" name="action" value="Login Staff"></p>
             <p><input type="submit" name="action" value="Login Member"></p>
