@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="DTO.GuestDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,7 +13,10 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Tôi là Guest</h1>
-         <a href="MainController?action=booking">Booking</a>
+        <%
+            GuestDTO guest = (GuestDTO) session.getAttribute("USER");
+        %>
+        <h1>Welcome <%= guest.getFullName() %> Guest!</h1>
+        <a href="MainController?action=booking">Booking</a>
     </body>
 </html>
