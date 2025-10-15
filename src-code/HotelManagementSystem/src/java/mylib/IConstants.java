@@ -44,8 +44,7 @@ public interface IConstants {
     public final String AC_CHOOSE_SERVICE_PAGE = "ChooseService";
 
     //Controller
-    public final String CTL_LOGINSTAFF = "LoginController";
-    public final String CTL_LOGINGUEST = "LoginGuestController";
+    public final String CTL_LOGIN = "LoginController";
     public final String CTL_SIGNUP = "SignUpController";
     public final String CTL_GETROOM = "GetRoomController";
     public final String CTL_FILTERROOM = "FilterRoomController";
@@ -57,10 +56,10 @@ public interface IConstants {
 
 
     // Messages
-    public final String ERR_EMPTY_FIELD = "Username and Password must not be empty!";
-    public final String ERR_INVALID_LOGIN = "Username or Password incorrect!";
-    public final String ERR_INVALID_USERNAME = "Username already existed! Enter another username!";
-    public final String ERR_INVALID_PASSWORD = "Password not match!";
-    public final String ERR_EMPTY_ROOM = "Het phong";
+    public final String ERR_EMPTY_FIELD = "Tên đăng nhập và mật khẩu không được để trống!";
+    public final String ERR_INVALID_LOGIN = "Tên đăng nhập hoặc mật khẩu không chính xác!";
+    public final String ERR_INVALID_USERNAME = "Tên đăng nhập đã tồn tại. Hãy nhập tên khác!";
+    public final String ERR_INVALID_PASSWORD = "Mật khẩu không khớp!";
+    public final String ERR_EMPTY_ROOM = "Hết phòng";
 
 }
