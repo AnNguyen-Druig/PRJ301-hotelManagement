@@ -59,7 +59,12 @@ public interface IConstants {
     public final String ERR_EMPTY_FIELD = "Tên đăng nhập và mật khẩu không được để trống!";
     public final String ERR_INVALID_LOGIN = "Tên đăng nhập hoặc mật khẩu không chính xác!";
     public final String ERR_INVALID_USERNAME = "Tên đăng nhập đã tồn tại. Hãy nhập tên khác!";
-    public final String ERR_INVALID_PASSWORD = "Mật khẩu không khớp!";
+    public final String ERR_INVALID_PASSWORDNOTMATCH = "Mật khẩu không khớp!";
+    public final String ERR_INVALID_PASSWORDFORM = "Mật khẩu phải có ít nhất 8 kí tự, 1 chữ cái viết hoa, 1 chữ cái viết thường và 1 số!";
+    public final String ERR_INVALID_FULLNAME = "Họ và tên chỉ bao gồm chữ cái!";
+    public final String ERR_INVALID_PHONE = "Số điện thoại phải bắt đầu bằng 0 và có 10 kí tự số!";
+    public final String ERR_INVALID_EMAIL = "Email không hợp lệ!";
+    public final String ERR_INVALID_IDNUMBER = "CCCD/CMND phải có 12 kí tự số!";
     public final String ERR_EMPTY_ROOM = "Hết phòng";
 
 }
