@@ -36,7 +36,7 @@ public class GetRoomService extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
           RoomDAO dao = new RoomDAO();
-            ArrayList<RoomDTO> list = dao.getAllRoomsForManager();
+            ArrayList<RoomDTO> list = dao.getAllRooms();
             if(list != null && !list.isEmpty()){
                 request.setAttribute("ALLROOM", list);
                 request.getRequestDispatcher(IConstants.SERVICE_PAGE).forward(request, response);
