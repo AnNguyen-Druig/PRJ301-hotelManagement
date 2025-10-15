@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="DTO.StaffDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,7 +13,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>I am Admin Quang Cho</h1>
+        <%
+            StaffDTO staff = (StaffDTO) session.getAttribute("USER");
+        %>
+        
+        <h1>Welcome <%= staff.getFullName() %> Staff!</h1>
         <h4><a href="MainController?action=logout">Logout</a><h4>
     </body>
 </html>
