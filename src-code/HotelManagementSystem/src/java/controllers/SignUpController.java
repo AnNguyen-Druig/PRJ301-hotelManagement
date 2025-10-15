@@ -39,7 +39,7 @@ public class SignUpController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         //String url = IConstants.SIGNUP_PAGE;
-        String url = "";
+        
         try {
             String username = request.getParameter("guest_username");
             String password = request.getParameter("guest_password");
@@ -116,7 +116,7 @@ public class SignUpController extends HttpServlet {
 
                 GuestDTO guest = new GuestDTO(fullname, phone, email, address, idNumber, dateOfBirth_value, username, password);
                 guestDAO.signUpGuest(guest);
-                url = IConstants.SIGNUP_SUCCESS_PAGE;
+                String url = IConstants.SIGNUP_SUCCESS_PAGE;
 
                 request.getRequestDispatcher(url).forward(request, response);
             }
