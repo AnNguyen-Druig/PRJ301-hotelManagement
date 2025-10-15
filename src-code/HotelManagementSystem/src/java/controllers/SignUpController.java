@@ -75,7 +75,32 @@ public class SignUpController extends HttpServlet {
                 }
 
                 if (!password.equals(password_again)) {
-                    request.setAttribute("ERROR", IConstants.ERR_INVALID_PASSWORD);
+                    request.setAttribute("ERROR", IConstants.ERR_INVALID_PASSWORDNOTMATCH);
+                    hasError = true;
+                }
+                
+                if(!password.matches("\"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$\"")) {
+                    request.setAttribute("ERROR", IConstants.ERR_INVALID_PASSWORDFORM);
+                    hasError = true;
+                }
+                
+                if(!fullname.matches("^[A-Za-z\\s]+$")) {
+                    request.setAttribute("ERROR", IConstants.ERR_INVALID_FULLNAME);
+                    hasError = true;
+                }
+                
+                if(!phone.matches("^0\\d{9}$")) {
+                    request.setAttribute("ERROR", IConstants.ERR_INVALID_PHONE);
+                    hasError = true;
+                }
+                
+                if(!email.matches("^[^@]+@[^@]+\\.[^@]+$")) {
+                    request.setAttribute("ERROR", IConstants.ERR_INVALID_EMAIL);
+                    hasError = true;
+                }
+                
+                if(!idNumber.matches("^\\d{12}$")) {
+                    request.setAttribute("ERROR", IConstants.ERR_INVALID_IDNUMBER);
                     hasError = true;
                 }
                 
