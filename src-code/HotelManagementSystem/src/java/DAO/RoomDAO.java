@@ -153,6 +153,7 @@ public class RoomDAO {
         return result;
     }
     
+
     public ArrayList<RoomDTO> filterAvailableRoomsByDateRange(Date checkInDate, Date checkOutDate) {
         ArrayList<RoomDTO> result = new ArrayList<>();
         Connection cn = null;
@@ -216,6 +217,7 @@ public class RoomDAO {
         }
     }
 
+
     public RoomDTO getRoomByID(int roomID) {
         Connection cn = null;
         RoomDTO room = null;
@@ -252,7 +254,7 @@ public class RoomDAO {
         }
         return room;
     }
-
+    
     public int updateRoomStatus(int roomID) {
         int result = 0;
         Connection cn = null;

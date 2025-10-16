@@ -75,7 +75,7 @@ public class MainController extends HttpServlet {
                     url = IConstants.CTL_SERVICE_ROOM_CONTROLLER;
                     break;
                 case IConstants.AC_CHOOSE_SERVICE_PAGE:
-                    url = IConstants.CHOOSE_SERVICE_PAGE;
+                    url = IConstants.CTL_GET_SERVICE_CONTROLLER;
                     break;
                 case IConstants.AC_GO_STATUS:
                     url = IConstants.CTL_MANAGE_ROOM_STATUS;

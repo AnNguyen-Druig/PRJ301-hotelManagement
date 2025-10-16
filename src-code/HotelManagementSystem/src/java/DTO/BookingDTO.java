@@ -18,6 +18,7 @@ public class BookingDTO {
     private Date checkOutDate;
     private Date bookingDate;
     private String status;
+    private String guestName;
 
     public BookingDTO() {
     }
@@ -30,6 +31,14 @@ public class BookingDTO {
         this.checkOutDate = checkOutDate;
         this.bookingDate = bookingDate;
         this.status = status;
+    }
+
+    public BookingDTO(int bookingID, int roomID, Date checkInDate, String status, String guestName) {
+        this.bookingID = bookingID;
+        this.roomID = roomID;
+        this.checkInDate = checkInDate;
+        this.status = status;
+        this.guestName = guestName;
     }
     
     public BookingDTO( int guestID, int roomID, Date checkInDate, Date checkOutDate, Date bookingDate, String status) {
@@ -96,6 +105,14 @@ public class BookingDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getGuestName() {
+        return guestName;
+    }
+
+    public void setGuestName(String guestName) {
+        this.guestName = guestName;
     }
     
     

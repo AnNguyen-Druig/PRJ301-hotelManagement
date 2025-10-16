@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="DTO.BookingDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
 <%@page import="DTO.RoomDTO"%>
@@ -23,34 +24,38 @@
         <table style="width:100%">
             <thead>
                 <tr>
+                    <th>BookingID</th>
                     <th>RoomID</th>
-                    <th>RoomType</th>
+                    <th>GuestName</th>
                     <th>RoomStatus</th>
+                    <th>CheckInDate</th>
                     <th>ChooseRoom</th>
                 </tr>
             </thead>
             <tbody>
                 <%
-                    List<RoomDTO> list = (List<RoomDTO>) request.getAttribute("ALLROOM");
+                    List<BookingDTO> list = (List<BookingDTO>) request.getAttribute("ALLROOM");
                     if (list != null && !list.isEmpty()) {
-                        for (RoomDTO room : list) {
+                        for (BookingDTO room : list) {
                 %>
                 <tr>
                     <form action="MainController" method="POST">
-                        <td><%= room.getRoomNumber() %></td>
-                        <td><%= room.getTypeName() %></td>
-                        <td><%= room.getRoomStatus() %></td>
+                        <td><%= room.getBookingID() %></td>
+                        <td><%= room.getRoomID() %></td>
+                        <td><%= room.getGuestName() %></td>
+                        <td><%= room.getStatus() %></td>
+                        <td><%= room.getCheckInDate() %></td>
                         <td><button type="submit" name="action" value="ChooseService">Choose</button></td>
                     </form>
                 </tr>
                 <%
                         }
                     } else {
-                        out.print("<tr><td colspan='4' style='text-align:center;'>Không có thông tin phòng.</td></tr>");
+                        out.print("<tr><td colspan='7' style='text-align:center;'>Không có thông tin phòng.</td></tr>");
                     }
                     String error = (String) request.getAttribute("ERROR");
                     if (error != null) {
-                         out.print("<tr><td colspan='4' style='color:red; text-align:center;'>" + error + "</td></tr>");
+                         out.print("<tr><td colspan='7' style='color:red; text-align:center;'>" + error + "</td></tr>");
                     }
                 %>
             </tbody>
