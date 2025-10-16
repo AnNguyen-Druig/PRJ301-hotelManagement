@@ -15,7 +15,7 @@ GO
 
 DROP DATABASE HotelManagement;
 GO
-
+có
 
 CREATE DATABASE HotelManagement COLLATE Vietnamese_CI_AS;
 GO
