@@ -5,10 +5,8 @@
 
 package controllers;
 
-import DAO.BookingDAO;
-import DAO.RoomDAO;
-import DTO.BookingDTO;
-import DTO.RoomDTO;
+import DAO.ServiceDAO;
+import DTO.ServiceDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -23,8 +21,8 @@ import mylib.IConstants;
  *
  * @author Nguyễn Đại
  */
-@WebServlet(name="GetRoomService", urlPatterns={"/GetRoomService"})
-public class GetRoomService extends HttpServlet {
+@WebServlet(name="GetServiceController", urlPatterns={"/GetServiceController"})
+public class GetServiceController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,14 +35,16 @@ public class GetRoomService extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-          BookingDAO dao = new BookingDAO();
-            ArrayList<BookingDTO> list = dao.getBookingRoom();
+            String bookingId = request.getParameter("bookingId");
+            String roomId    = request.getParameter("roomId");
+            ServiceDAO dao = new ServiceDAO();
+            ArrayList<ServiceDTO> list = dao.getAllService();
             if(list != null && !list.isEmpty()){
-                request.setAttribute("ALLROOM", list);
-                request.getRequestDispatcher(IConstants.SERVICE_PAGE).forward(request, response);
+                request.setAttribute("ALLSERVICE", list);
+                request.getRequestDispatcher(IConstants.CHOOSE_SERVICE_PAGE).forward(request, response);
             }else{
-                request.setAttribute("ERROR", "There no room found please check your database");
-                request.getRequestDispatcher(IConstants.SERVICE_PAGE).forward(request, response);
+                request.setAttribute("ERROR", "There no service found please check your database");
+                request.getRequestDispatcher(IConstants.CHOOSE_SERVICE_PAGE).forward(request, response);
             }
         }catch(Exception e){
             

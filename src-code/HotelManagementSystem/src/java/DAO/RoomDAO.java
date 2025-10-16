@@ -139,18 +139,6 @@ public class RoomDAO {
         return result;
     }
     
-    public boolean updateRoomStatus(int roomId, String newStatus) {
-        String sql = "UPDATE ROOM SET Status = ? WHERE RoomID = ?";
-        try (Connection cn = DBUtills.getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
-            ps.setString(1, newStatus);
-            ps.setInt(2, roomId);
-            return ps.executeUpdate() > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-    
     public RoomDTO getRoomByID(int roomID) {
         Connection cn = null;
         RoomDTO room = null;
@@ -187,7 +175,19 @@ public class RoomDAO {
         }
         return room;
     }
-
+    
+    public boolean updateRoomStatus(int roomId, String newStatus) {
+        String sql = "UPDATE ROOM SET Status = ? WHERE RoomID = ?";
+        try (Connection cn = DBUtills.getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setString(1, newStatus);
+            ps.setInt(2, roomId);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
     public int updateRoomStatus(int roomID) {
         int result = 0;
         Connection cn = null;

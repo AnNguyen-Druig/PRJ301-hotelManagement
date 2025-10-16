@@ -8,7 +8,10 @@ import DTO.BookingDTO;
 import DTO.GuestDTO;
 import DTO.RoomDTO;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import mylib.DBUtills;
 
 /**
@@ -49,6 +52,43 @@ public class BookingDAO {
         return result;
     }
     
-    
-
+    public ArrayList<BookingDTO> getBookingRoom(){
+        Connection cn = null;
+        ArrayList<BookingDTO> result = new ArrayList<>(); 
+        try{
+            cn = DBUtills.getConnection();
+            if(cn != null){
+                String sql = "Select B.BookingID, B.RoomID, G.FullName, B.CheckInDate, B.Status\n"
+                        + "from dbo.BOOKING as B\n"
+                        + "JOIN dbo.GUEST AS G ON B.GuestID = G.GuestID "
+                        + "LEFT JOIN dbo.BOOKING_SERVICE AS BS ON BS.BookingID = B.BookingID "
+                        + "Where B.Status = ?";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setString(1, "CheckIn");
+                ResultSet table = st.executeQuery();
+                if(table != null){
+                    while(table.next()){
+                        int bookingID = table.getInt("BookingID");
+                        int RoomID = table.getInt("RoomID");
+                        String GuestName = table.getString("FullName");
+                        Date CheckInDate = table.getDate("CheckInDate");
+                        String Status = table.getString("Status");
+                        BookingDTO booking = new BookingDTO(bookingID, RoomID, CheckInDate, Status, GuestName);
+                        result.add(booking);
+                    }
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 }

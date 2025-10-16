@@ -42,7 +42,7 @@ public interface IConstants {
     public final String AC_SAVE_BOOKING_ROOM = "savebookingroom";
     public final String AC_GET_ROOM_SERVICE = "getroomservice";
     public final String AC_CHOOSE_SERVICE_PAGE = "ChooseService";
-
+    public final String AC_GO_BACK_SERVICE_PAGE = "gobackservice";
     //Controller
     public final String CTL_LOGIN = "LoginController";
     public final String CTL_SIGNUP = "SignUpController";
@@ -53,6 +53,7 @@ public interface IConstants {
     public final String CTL_MANAGE_ROOM_STATUS = "ManageRoomStatus";
     public final String CTL_SAVE_BOOKING_ROOM = "SaveBookingRoomController";
     public final String CTL_SERVICE_ROOM_CONTROLLER = "GetRoomService";
+    public final String CTL_GET_SERVICE_CONTROLLER = "GetServiceController";
 
 
     // Messages
