@@ -40,6 +40,7 @@ public interface IConstants {
     public final String AC_UPDATE_ROOM_STATUS = "update_room_status";
     public final String AC_PERFORM_UPDATE = "perform_room_update";   
     public final String AC_SAVE_BOOKING_ROOM = "savebookingroom";
+    public final String AC_FILTER_ROOM = "filterroom";
     public final String AC_GET_ROOM_SERVICE = "getroomservice";
     public final String AC_CHOOSE_SERVICE_PAGE = "ChooseService";
 
@@ -60,6 +61,6 @@ public interface IConstants {
     public final String ERR_INVALID_LOGIN = "Tên đăng nhập hoặc mật khẩu không chính xác!";
     public final String ERR_INVALID_USERNAME = "Tên đăng nhập đã tồn tại. Hãy nhập tên khác!";
     public final String ERR_INVALID_PASSWORD = "Mật khẩu không khớp!";
-    public final String ERR_EMPTY_ROOM = "Hết phòng";
+    public final String ERR_EMPTY_ROOM = "Hết phòng"; 
 
 }

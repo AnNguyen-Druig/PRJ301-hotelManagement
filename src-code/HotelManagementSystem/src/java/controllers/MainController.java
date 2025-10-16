@@ -59,6 +59,9 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_BOOKING_ROOM:
                     url = IConstants.CTL_BOOKING_ROOM;
                     break;
+                case IConstants.AC_FILTER_ROOM:
+                    url = IConstants.CTL_FILTERROOM;
+                    break;
                 case IConstants.AC_UPDATE_STATUS:
                     url = IConstants.CTL_MANAGE_ROOM_STATUS;
                     break;

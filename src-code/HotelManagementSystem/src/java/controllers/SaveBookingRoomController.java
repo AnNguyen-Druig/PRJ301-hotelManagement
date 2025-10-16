@@ -78,7 +78,7 @@ public class SaveBookingRoomController extends HttpServlet {
                 roomDAO.updateRoomStatus(roomID); 
                 
               
-                    request.getRequestDispatcher(IConstants.SIGNUP_SUCCESS_PAGE).forward(request, response);
+                request.getRequestDispatcher(IConstants.SIGNUP_SUCCESS_PAGE).forward(request, response);
                 
                 
             }

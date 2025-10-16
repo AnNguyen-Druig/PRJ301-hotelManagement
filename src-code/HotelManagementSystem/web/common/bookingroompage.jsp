@@ -21,15 +21,15 @@
             if (guest == null) {
                 request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
             } else {
-                String typeName = "Tat ca";
+                String typeName = "";
                 if (request.getParameter("roomtype") != null) {
                     typeName = request.getParameter("roomtype");
                 }
         %>
-        <form action="<%= IConstants.CTL_FILTERROOM%>">
+        <form action="MainController">
             <label for="roomtype">Loai Phong</label>
             <select id="roomtype" name="roomtype">
-                <option value="<%= typeName%>"><%= typeName%></option>
+                <option value="<%= typeName %>">---Chon---</option>
                 <option value="Single">Single</option>
                 <option value="Double">Double</option> 
                 <option value="Suite">Suite</option>
@@ -37,7 +37,7 @@
                 <option value="Family">Family</option>
                 <option value="Executive">Executive</option>
             </select>
-            <input type="submit" value="filter">
+            <input type="submit" value="filterroom" name="action">
         </form>
         <%
             ArrayList<RoomDTO> roomList = (ArrayList<RoomDTO>) request.getAttribute("ALLROOM");
