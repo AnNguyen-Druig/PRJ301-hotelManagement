@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@page import="java.sql.Date"%>
 <%@page import="DTO.GuestDTO"%>
 <%@page import="DTO.RoomDTO"%>
 <%@page import="java.time.ZoneId"%>
@@ -22,9 +23,11 @@
         <% 
             RoomDTO room = (RoomDTO) request.getAttribute("ROOM");
             GuestDTO guest = (GuestDTO) request.getAttribute("GUEST");
+            Date checkInDate = (Date) request.getAttribute("CHECKINDATE");
+            Date checkOutDate = (Date) request.getAttribute("CHECKOUTDATE");
             if(room!=null && guest!=null) {       
         %>
-        
+        <h2>KIỂM TRA THÔNG TIN ĐẶT PHÒNG</h2>
         <form action="MainController" method="POST">
             <div>
                 <lable for="fullname">HO VA TEN: </lable>
@@ -73,13 +76,13 @@
             
             <div>
                 <label for="checkInDate">NGAY CHECK-IN:</label>
-                <input type="date" id="checkInDate" name="booking_room_checkInDate" required>
+                <input type="date" id="checkInDate" name="booking_room_checkInDate" value="<%= checkInDate %>">
             </div>
             </br>
  
             <div>
                 <label for="checkOutDate">NGAY CHECK-OUT:</label>
-                <input type="date" id="checkOutDate" name="booking_room_checkOutDate" required>
+                <input type="date" id="checkOutDate" name="booking_room_checkOutDate"  value="<%= checkOutDate %>">
             </div>
             </br>
  

@@ -38,7 +38,7 @@ public class GetRoomController extends HttpServlet {
         try {
             RoomDAO d = new RoomDAO();
             ArrayList<RoomDTO> list = d.getAllRooms();
-            if(list!=null) {
+            if(list!=null && !list.isEmpty()) {
                 request.setAttribute("ALLROOM", list);
                 request.getRequestDispatcher(IConstants.BOOKING_ROOM_PAGE).forward(request, response);
             } else {

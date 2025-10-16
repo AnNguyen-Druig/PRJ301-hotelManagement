@@ -6,6 +6,7 @@ package DAO;
 
 import DTO.RoomDTO;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class RoomDAO {
 
         return result;
     }
-    
+
     public ArrayList<RoomDTO> getAllRoomsForManager() {
         ArrayList<RoomDTO> result = new ArrayList<>();
         Connection cn = null;
@@ -65,8 +66,8 @@ public class RoomDAO {
             cn = DBUtills.getConnection();
             if (cn != null) {
                 String sql = "SELECT R.RoomID, R.RoomNumber, R.RoomTypeID, R.Status, RT.TypeName\n"
-                            + "FROM dbo.ROOM as R\n"
-                            + "INNER JOIN dbo.ROOM_TYPE as RT on RT.RoomTypeID = r.RoomTypeID";
+                        + "FROM dbo.ROOM as R\n"
+                        + "INNER JOIN dbo.ROOM_TYPE as RT on RT.RoomTypeID = r.RoomTypeID";
                 PreparedStatement st = cn.prepareStatement(sql);
                 ResultSet table = st.executeQuery();
                 if (table != null) {
@@ -79,7 +80,7 @@ public class RoomDAO {
                         RoomDTO room = new RoomDTO();
                         room.setRoomID(roomID);
                         room.setRoomNumber(roomNumber);
-                        room.setRoomStatus(status); 
+                        room.setRoomStatus(status);
                         room.setTypeName(typeName);
 
                         result.add(room);
@@ -100,19 +101,32 @@ public class RoomDAO {
         return result;
     }
 
-    public ArrayList<RoomDTO> filterRoomType(String roomType) {
+    public ArrayList<RoomDTO> filterRoomType(String roomType, Date checkInDate, Date checkOutDate) {
         ArrayList<RoomDTO> result = new ArrayList<>();
         Connection cn = null;
         try {
             cn = DBUtills.getConnection();
             if (cn != null) {
-                String sql = "SELECT *\n"
-                        + "FROM dbo.ROOM AS r\n"
-                        + "INNER JOIN dbo.ROOM_TYPE AS rt ON rt.RoomTypeID = r.RoomTypeID\n"
-                        + "WHERE r.Status = ? AND rt.TypeName = ?";
+                //Điều kiện ngày giao nhau: (b.CheckInDate < @checkOutDate) AND (b.CheckOutDate > @checkInDate)
+                // => phải NOT IN trong đám đó
+                String sql = "SELECT r.RoomID, r.RoomNumber, r.RoomTypeID, r.Status, rt.Capacity, rt.PricePerNight\n"
+                        + "FROM ROOM r\n"
+                        + "INNER JOIN ROOM_TYPE rt ON r.RoomTypeID = rt.RoomTypeID\n"
+                        + "WHERE rt.TypeName = ?\n"
+                        + "  AND r.Status = 'Available'\n"
+                        + "  AND r.RoomID NOT IN (\n"
+                        + "        SELECT b.RoomID\n"
+                        + "        FROM BOOKING b\n"
+                        + "        WHERE b.Status IN ('Reserved','CheckIn') -- chỉ loại trừ các booking đang còn hiệu lực\n"
+                        + "          AND (\n"
+                        + "               (b.CheckInDate < ?)\n"
+                        + "               AND (b.CheckOutDate > ?)\n"
+                        + "          )\n"
+                        + "    )";
                 PreparedStatement st = cn.prepareStatement(sql);
-                st.setString(1, "Available");
-                st.setString(2, roomType);
+                st.setString(1, roomType);
+                st.setDate(2, checkOutDate);
+                st.setDate(3, checkInDate);
                 ResultSet table = st.executeQuery();
                 if (table != null) {
                     while (table.next()) {
@@ -139,9 +153,60 @@ public class RoomDAO {
         return result;
     }
     
+    public ArrayList<RoomDTO> filterAvailableRoomsByDateRange(Date checkInDate, Date checkOutDate) {
+        ArrayList<RoomDTO> result = new ArrayList<>();
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                //Điều kiện ngày giao nhau: (b.CheckInDate < @checkOutDate) AND (b.CheckOutDate > @checkInDate)
+                // => phải NOT IN trong đám đó
+                String sql = "SELECT r.RoomID, r.RoomNumber, r.RoomTypeID, r.Status, rt.TypeName,rt.Capacity, rt.PricePerNight\n"
+                        + "FROM ROOM r\n"
+                        + "INNER JOIN ROOM_TYPE rt ON r.RoomTypeID = rt.RoomTypeID\n"
+                        + "WHERE r.Status = 'Available'\n"
+                        + "  AND r.RoomID NOT IN (\n"
+                        + "        SELECT b.RoomID\n"
+                        + "        FROM BOOKING b\n"
+                        + "        WHERE b.Status IN ('Reserved','CheckIn') -- chỉ loại trừ các booking đang còn hiệu lực\n"
+                        + "          AND (\n"
+                        + "               (b.CheckInDate < ?)\n"
+                        + "               AND (b.CheckOutDate > ?)\n"
+                        + "          )\n"
+                        + "    )";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setDate(1, checkOutDate);
+                st.setDate(2, checkInDate);
+                ResultSet table = st.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        int roomID = table.getInt("RoomID");
+                        String roomNumber = table.getString("RoomNumber");
+                        int roomTypeID = table.getInt("RoomTypeID");
+                        String roomType = table.getString("TypeName");
+                        String roomStatus = table.getString("Status");
+                        int capacity = table.getInt("Capacity");
+                        double pricePerNight = table.getDouble("PricePerNight");
+                        RoomDTO room = new RoomDTO(roomID, roomNumber, roomTypeID, roomStatus, roomType, capacity, pricePerNight);
+                        result.add(room);
+                    }
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+            }
+        }
+        return result;
+    }
+
     public boolean updateRoomStatus(int roomId, String newStatus) {
         String sql = "UPDATE ROOM SET Status = ? WHERE RoomID = ?";
-        try (Connection cn = DBUtills.getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
+        try ( Connection cn = DBUtills.getConnection();  PreparedStatement ps = cn.prepareStatement(sql)) {
             ps.setString(1, newStatus);
             ps.setInt(2, roomId);
             return ps.executeUpdate() > 0;
@@ -150,7 +215,7 @@ public class RoomDAO {
             return false;
         }
     }
-    
+
     public RoomDTO getRoomByID(int roomID) {
         Connection cn = null;
         RoomDTO room = null;

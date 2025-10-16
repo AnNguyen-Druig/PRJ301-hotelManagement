@@ -66,7 +66,7 @@ public class LoginController extends HttpServlet {
                                     url = IConstants.MANAGER_PAGE;
                                     break;
                                 case "Housekeeping":
-                                    url = IConstants.HOUSEKEEPING_PAGE;
+                                    request.getRequestDispatcher("MainController?action=" + IConstants.AC_GO_STATUS).forward(request, response);
                                     break;
                                 case "ServiceStaff":
                                     request.getRequestDispatcher("MainController?action=" + IConstants.AC_GET_ROOM_SERVICE).forward(request, response);

@@ -22,10 +22,39 @@
     </head>
     <body>
         <%
-
             String errorMsg = (String) request.getAttribute("ERROR");
             if (errorMsg == null) {
                 errorMsg = "";
+            }
+
+            String errUsername = (String) request.getAttribute("ERROR_USERNAME");
+            if (errUsername == null) {
+                errUsername = "";
+            }
+
+            String errPassword = (String) request.getAttribute("ERROR_PASSWORD");
+            if (errPassword == null) {
+                errPassword = "";
+            }
+
+            String errFullname = (String) request.getAttribute("ERROR_FULLNAME");
+            if (errFullname == null) {
+                errFullname = "";
+            }
+
+            String errPhone = (String) request.getAttribute("ERROR_PHONE");
+            if (errPhone == null) {
+                errPhone = "";
+            }
+
+            String errEmail = (String) request.getAttribute("ERROR_EMAIL");
+            if (errEmail == null) {
+                errEmail = "";
+            }
+
+            String errIdNumber = (String) request.getAttribute("ERROR_IDNUMBER");
+            if (errIdNumber == null) {
+                errIdNumber = "";
             }
 
             String username = (String) request.getAttribute("username");
@@ -76,40 +105,52 @@
             <form action="MainController" method="post">
                 <h3>Tài Khoản</h3>
                 <div class="mb-3">
-                    <label for="guest_username" class="form-label">Username <span class="red">*</span></label>
+                    <label for="guest_username" class="form-label">Tên đăng nhập <span class="red">*</span>
+                        <span class="red"><%= errUsername%></span>
+                    </label>
                     <input type="text" class="form-control" name="guest_username" required="" value="<%=username%>">
                 </div>
                 <div class="mb-3">
-                    <label for="guest_password" class="form-label">Password <span class="red">*</span></label>
+                    <label for="guest_password" class="form-label">Mật khẩu <span class="red">*</span>
+                        <span class="red"><%= errPassword%></span>
+                    </label>
                     <input type="password" class="form-control" name="guest_password" id="guest_password" required="" onkeyup="kiemTraMatKhau()">
                 </div>
                 <div class="mb-3">
-                    <label for="guest_password_again" class="form-label">Password Again <span class="red">*</span><span class="red" id="msg"></span></label>
+                    <label for="guest_password_again" class="form-label">Nhập lại mật khẩu <span class="red">*</span><span class="red" id="msg"></span></label>
                     <input type="password" class="form-control" name="guest_password_again" id="guest_password_again" required="" onkeyup="kiemTraMatKhau()">
                 </div>
                 <h3>Thông Tin Khách Hàng</h3>
                 <div class="mb-3">
-                    <label for="guest_fullname" class="form-label">Full name <span class="red">*</span></label>
+                    <label for="guest_fullname" class="form-label">Họ và tên <span class="red">*</span>
+                        <span class="red"><%= errFullname%></span>
+                    </label>
                     <input type="text" class="form-control" name="guest_fullname" required="" value="<%=fullname%>">
                 </div>
                 <div class="mb-3">
-                    <label for="guest_phone" class="form-label">Phone <span class="red">*</span></label>
+                    <label for="guest_phone" class="form-label">Số điện thoại <span class="red">*</span>
+                        <span class="red"><%= errPhone%></span>
+                    </label>
                     <input type="tel" class="form-control" name="guest_phone" required="" value="<%=phone%>">
                 </div>
                 <div class="mb-3">
-                    <label for="guest_email" class="form-label">Email <span class="red">*</span></label>
+                    <label for="guest_email" class="form-label">Email <span class="red">*</span>
+                        <span class="red"><%= errEmail%></span>
+                    </label>
                     <input type="email" class="form-control" name="guest_email" required="" value="<%=email%>">
                 </div>
                 <div class="mb-3">
-                    <label for="guest_dateofbirth" class="form-label">Date Of Birth <span class="red">*</span></label>
+                    <label for="guest_dateofbirth" class="form-label">Ngày sinh <span class="red">*</span></label>
                     <input type="date" class="form-control" name="guest_dateofbirth" required="" value="<%=dateOfBirth%>">
                 </div>
                 <div class="mb-3">
-                    <label for="guest_idnumber" class="form-label">ID Number <span class="red">*</span></label>
-                    <input type="number" class="form-control" name="guest_idnumber" min="10" max="12" required="" value="<%=idNumber%>">
+                    <label for="guest_idnumber" class="form-label">CCCD/CMND <span class="red">*</span>
+                        <span class="red"><%= errIdNumber%></span>
+                    </label>
+                    <input type="number" class="form-control" name="guest_idnumber" required="" value="<%=idNumber%>">
                 </div>
                 <div class="mb-3">
-                    <label for="guest_address" class="form-label">Address</label>
+                    <label for="guest_address" class="form-label">Địa chỉ</label>
                     <input type="text" class="form-control" name="guest_address" value="<%=address%>">
                 </div>
                 <div class="mb-3">
@@ -123,6 +164,7 @@
 
                 <input class="btn btn-primary form-control" type="submit" value="Signup" name="action" id="submit" style="visibility: hidden">
             </form>
+            <p><%= errorMsg%></p>
         </div>
     </body>
 
@@ -132,7 +174,7 @@
             password = document.getElementById("guest_password").value;
             password_again = document.getElementById("guest_password_again").value;
             if (password !== password_again) {
-                document.getElementById("msg").innerHTML = "Mật khẩu và mật khẩu nhập lại không khớp!";
+                document.getElementById("msg").innerHTML = "Mật khẩu không khớp!";
                 return false;
             } else {
                 document.getElementById("msg").innerHTML = "";
@@ -148,6 +190,5 @@
                 document.getElementById("submit").style.visibility = "hidden";
             }
         }
-
     </script>
 </html>

@@ -72,13 +72,17 @@ public class SaveBookingRoomController extends HttpServlet {
                 
                 BookingDTO bookingRoom = new BookingDTO(guestID, roomID, checkInDate_value, checkOutDate_value, bookingDate_value, bookingStatus);
                 BookingDAO bookingRoomDAO = new BookingDAO();
-                bookingRoomDAO.saveBookingRoom(bookingRoom);
+                int saveBookingRoom = bookingRoomDAO.saveBookingRoom(bookingRoom);
                 
                 RoomDAO roomDAO = new RoomDAO();
-                roomDAO.updateRoomStatus(roomID); 
+                int updateRoomStatus = roomDAO.updateRoomStatus(roomID); 
                 
-              
-                request.getRequestDispatcher(IConstants.SIGNUP_SUCCESS_PAGE).forward(request, response);
+                if(saveBookingRoom!=0 && updateRoomStatus!=0) {
+                    request.getRequestDispatcher(IConstants.SIGNUP_SUCCESS_PAGE).forward(request, response);
+                } else {
+                    
+                }
+                
                 
                 
             }

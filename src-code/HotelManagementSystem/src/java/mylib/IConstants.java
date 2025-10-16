@@ -23,7 +23,7 @@ public interface IConstants {
     public final String SERVICE_PAGE = "/role/service.jsp";
     public final String GUEST_PAGE = "/role/guest.jsp";
     public final String BOOKING_INFORMATION_PAGE = "/common/bookinginformationpage.jsp";
-    public final String MANAGE_ROOM_STATUS = "/common/manageroomstatus.jsp";
+    public final String MANAGE_ROOM_STATUS = "/role/housekeeping.jsp";
     public final String BOOKING_ROOM_REGISTER_PAGE = "/common/bookingroomregisterpage.jsp";
     public final String CHOOSE_SERVICE_PAGE = "/common/ChooseServicePage.jsp";
     
@@ -36,7 +36,7 @@ public interface IConstants {
     public final String AC_BOOKING = "booking";
     public final String AC_BOOKING_ROOM = "bookingroom";
     public final String AC_UPDATE_STATUS = "update_status";
-    public final String AC_GO_BACK_STATUS = "goback";
+    public final String AC_GO_STATUS = "gotohousekeeping";
     public final String AC_UPDATE_ROOM_STATUS = "update_room_status";
     public final String AC_PERFORM_UPDATE = "perform_room_update";   
     public final String AC_SAVE_BOOKING_ROOM = "savebookingroom";
@@ -60,7 +60,17 @@ public interface IConstants {
     public final String ERR_EMPTY_FIELD = "Tên đăng nhập và mật khẩu không được để trống!";
     public final String ERR_INVALID_LOGIN = "Tên đăng nhập hoặc mật khẩu không chính xác!";
     public final String ERR_INVALID_USERNAME = "Tên đăng nhập đã tồn tại. Hãy nhập tên khác!";
-    public final String ERR_INVALID_PASSWORD = "Mật khẩu không khớp!";
-    public final String ERR_EMPTY_ROOM = "Hết phòng"; 
 
+    public final String ERR_INVALID_PASSWORD = "Mật khẩu không khớp!";
+    public final String ERR_EMPTY_ROOM = "Hết phòng rồi"; 
+
+    public final String ERR_INVALID_PASSWORDNOTMATCH = "Mật khẩu không khớp!";
+    public final String ERR_INVALID_PASSWORDFORM = "Mật khẩu phải có ít nhất 8 kí tự, 1 chữ cái viết hoa, 1 chữ cái viết thường và 1 số!";
+    public final String ERR_INVALID_FULLNAME = "Họ và tên chỉ bao gồm chữ cái!";
+    public final String ERR_INVALID_PHONE = "Số điện thoại phải bắt đầu bằng 0 và có 10 kí tự số!";
+    public final String ERR_INVALID_EMAIL = "Email không hợp lệ!";
+    public final String ERR_INVALID_IDNUMBER = "CCCD/CMND phải có 12 kí tự số!";
+    public final String ERR_CHECKINDATE_ISBEFORE_TODAY = "Ngày checkin phải sau ngày hôm nay";
+    public final String ERR_CHECKOUTDATE_ISBEFORE_CHECKINDATE = "Ngày checkout phải sau ngày checkin";
+    public final String ERR_REQUIRE_SELECT_DATERANGE = "Bạn cần phải chọn ngày CheckIn và CheckOut";
 }
