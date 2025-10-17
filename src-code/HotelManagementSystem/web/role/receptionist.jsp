@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="DTO.StaffDTO"%>
 <%@page import="DTO.BookingDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,12 +15,15 @@
     </head>
     <body>
         <%
-            
+            StaffDTO staff = (StaffDTO) session.getAttribute("USER");
             
         %>
         
-        <h1>Welcome Receptionist!</h1>
+        <h1>Welcome <%=staff.getFullName() %> Receptionist!</h1>
         <h4><a href="MainController?action=logout">Logout</a><h4>
+        <a href="MainController?action=booking">Tạo Booking</a>
+        <a href="MainController?action=Signup">Đăng ký thành viên cho người dùng</a>
+        <h3>Booking List</h3>
                 <table>
                     <tr>
                         <th>Booking ID</th>
