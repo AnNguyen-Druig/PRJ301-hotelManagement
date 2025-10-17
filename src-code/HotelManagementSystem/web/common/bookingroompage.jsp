@@ -35,7 +35,7 @@
                 }
         %>
         
-        <form action="MainController" method="POST">
+        <form action="MainController" method="POST">    
             <label for="roomtype">Loai Phong</label>
             <select id="roomtype" name="roomtype" required="">
                 <option value="<%= typeName %>">---Chọn---</option>
