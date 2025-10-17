@@ -41,4 +41,30 @@ public class ServiceDAO {
         }
         return result;
     }
+    
+    public ServiceDTO getService(int id){
+        ServiceDTO result = null;
+        Connection cn = null;
+        try{
+            cn = DBUtills.getConnection();
+            if(cn != null){
+                String sql = "Select * From dbo.SERVICE Where ServiceID = ?";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setInt(1, id);
+                ResultSet table = st.executeQuery();
+                if(table != null){
+                    while(table.next()){
+                        int ServiceID = table.getInt("ServiceID");
+                        String ServiceName = table.getString("ServiceName");
+                        String ServiceType = table.getString("ServiceType");
+                        double Price = table.getDouble("Price");
+                        result = new ServiceDTO(ServiceID, ServiceName, ServiceType, Price);
+                    }
+                }
+            }
+        }catch(Exception e){
+            
+        }
+        return result;
+    }
 }

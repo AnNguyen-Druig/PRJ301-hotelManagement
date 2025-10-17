@@ -4,11 +4,13 @@
  */
 package DTO;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Nguyễn Đại
  */
-public class ServiceDTO {
+public class ServiceDTO implements Serializable{
     private int serviceId;
     private String serviceName;
     private String serviceType;

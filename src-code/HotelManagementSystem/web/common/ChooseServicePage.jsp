@@ -22,12 +22,8 @@
   </style>
 </head>
 <body>
-
-
-
 <div class="header">
-    <jsp:useBean id="ALLROOM" scope="session" class="DTO.RoomDTO"/>
-    <h2>Chọn dịch vụ cho Phòng ${ALLROOM}</h2>
+    <h2>Chọn dịch vụ cho Booking ${sessionScope.BOOKING_ID}</h2>
 </div>
 
 <div class="wrap">
@@ -46,6 +42,8 @@
         if (list != null && !list.isEmpty()) {
             for (ServiceDTO s : list) {
       %>
+      
+      
         <tr>
           <td><%= s.getServiceId() %></td>
           <td><%= s.getServiceName() %></td>
@@ -54,7 +52,7 @@
           <td>
             <form action="MainController" method="post" style="display:inline">
               <!-- Action controller để ghi DB -->
-              <button type="submit">Add</button>
+              <a href="AddServiceController?ServiceID=<%=s.getServiceId()%>">add</a>
             </form>
           </td>
         </tr>
@@ -70,21 +68,49 @@
 
   <!-- Cột phải: dịch vụ đã thêm -->
   <div class="col">
+    
     <h3>Dịch vụ đã thêm</h3>
     <table>
       <thead>
-        <tr><th>Tên</th><th>SL</th><th>Đơn giá</th><th>Thành tiền</th></tr>
+        <tr><th>ID</th><th>Name</th><th>Type</th><th>Quantity</th><th>Price</th><th>Chỉnh sửa</th></tr>
       </thead>
       <tbody>
 
-        <tr><td colspan="4" style="text-align:center">None</td></tr>
-
-      </tbody>
-      <tfoot>
-        <tr>
-          <td class="total" colspan="3">Tổng:</td>
-          <td></td>
+        <%
+        double GrandTotal = 0;
+        HashMap<ServiceDTO, Integer> cart = (HashMap) session.getAttribute("CART");
+        if(cart == null){
+            %>
+            <tr><td colspan="6" style="text-align:center">None</td></tr>
+          <%
+        }else{
+        double total = 0;
+        for (ServiceDTO s : cart.keySet()) {
+                total += cart.get(s) * s.getPrice();               
+        %>
+        <tr><form action="EditServiceController">
+                <input type="hidden" name="txtid" value="<%=s.getServiceId() %>">
+                <td><%= s.getServiceId() %></td>
+                <td><%= s.getServiceName() %></td>
+                <td><%= s.getServiceType() %></td>
+                <td><input type="number" name="txtquantity" min="1" value="<%=cart.get(s)%>"></td>
+                <td><%= s.getPrice() %></td>
+            
+                <td style="text-align:center"><input type="submit" value="update" name="action">
+                    <input type="submit" value="remove" name="action"></td>
+            </form>
         </tr>
+            <%
+              }
+              GrandTotal += total;
+          }  
+        %>
+      </tbody>  
+      <tfoot>
+          <tr>
+                <td class="total" colspan="5">Tổng: </td>
+                <td style="text-align:center"><%= GrandTotal%>$</td>
+            </tr>
       </tfoot>
     </table>
   </div>

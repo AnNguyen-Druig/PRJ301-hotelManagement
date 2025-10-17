@@ -52,7 +52,7 @@ public class BookingDAO {
         return result;
     }
     
-    public ArrayList<BookingDTO> getBookingRoom(){
+    public ArrayList<BookingDTO> getAllBookingRoom(){
         Connection cn = null;
         ArrayList<BookingDTO> result = new ArrayList<>(); 
         try{
@@ -75,6 +75,41 @@ public class BookingDAO {
                         String Status = table.getString("Status");
                         BookingDTO booking = new BookingDTO(bookingID, RoomID, CheckInDate, Status, GuestName);
                         result.add(booking);
+                    }
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    
+    public BookingDTO getBookingRoom(int BookingID){
+        Connection cn = null;
+        BookingDTO result = null; 
+        try{
+            cn = DBUtills.getConnection();
+            if(cn != null){
+                String sql = "select B.BookingID, B.RoomID\n"
+                        + "From dbo.BOOKING as B\n"
+                        + "Where B.BookingID = ?";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setInt(1, BookingID);
+                ResultSet table = st.executeQuery();
+                if(table != null){
+                    while(table.next()){
+                        int bookingID = table.getInt("BookingID");
+                        int RoomID = table.getInt("RoomID");
+                        result = new BookingDTO(bookingID, RoomID);
+                        
                     }
                 }
             }

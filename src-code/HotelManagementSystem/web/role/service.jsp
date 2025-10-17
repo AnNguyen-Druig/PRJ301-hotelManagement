@@ -17,7 +17,7 @@
         <style> table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; } </style>
     </head>
     <body>
-        <jsp:useBean id="USER" scope="session" class="DTO.StaffDTO"/>    
+        <jsp:useBean id="USER" scope="session" class="DTO.StaffDTO"/>
         <h1>Welcome back, ${USER.fullName}</h1>
         <h4><a href="MainController?action=logout">Logout</a><h4>
         
@@ -45,8 +45,9 @@
                         <td><%= room.getGuestName() %></td>
                         <td><%= room.getStatus() %></td>
                         <td><%= room.getCheckInDate() %></td>
-                        <td><button type="submit" name="action" value="ChooseService">Choose</button></td>
-                    </form>
+                        <td><input type="hidden" name="bookingId" value="<%=room.getBookingID()%>"/>
+                            <button type="submit" name="action" value="ChooseService">Choose</button></td>
+                        </form>
                 </tr>
                 <%
                         }

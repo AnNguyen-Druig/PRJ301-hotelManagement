@@ -5,13 +5,17 @@
 
 package controllers;
 
+import DAO.ServiceDAO;
+import DTO.ServiceDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,7 +35,33 @@ public class AddServiceController extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-          
+          String id = request.getParameter("ServiceID");
+            HttpSession session = request.getSession();
+            HashMap<ServiceDTO, Integer> cart = (HashMap)session.getAttribute("CART");
+            ServiceDAO dao = new ServiceDAO();
+            ServiceDTO service = dao.getService(Integer.parseInt(id));
+            if(cart == null){
+                cart = new HashMap<>();
+                cart.put(service, 1);
+            }else{
+                ServiceDTO find = null;
+                for (ServiceDTO s : cart.keySet()) {
+                    if(s.getServiceId() == service.getServiceId()){
+                        find = s;
+                        break;
+                    }
+                }
+                
+                if(find != null){
+                    int quantity = cart.get(find);
+                    quantity++;
+                    cart.put(find, quantity);
+                }else{
+                    cart.put(service, 1);
+                }
+            }
+            session.setAttribute("CART", cart);
+            request.getRequestDispatcher("GetServiceController").forward(request, response);
         }catch(Exception e){
             
         }

@@ -5,14 +5,10 @@
 
 package controllers;
 
-import DAO.BookingDAO;
-import DAO.RoomDAO;
-import DAO.ServiceDAO;
-import DTO.BookingDTO;
-import DTO.RoomDTO;
+import DTO.ServiceDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,8 +21,8 @@ import mylib.IConstants;
  *
  * @author Nguyễn Đại
  */
-@WebServlet(name="GetRoomService", urlPatterns={"/GetRoomService"})
-public class GetRoomService extends HttpServlet {
+@WebServlet(name="EditServiceController", urlPatterns={"/EditServiceController"})
+public class EditServiceController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,21 +34,33 @@ public class GetRoomService extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {  
-            BookingDAO dao = new BookingDAO();
-            ArrayList<BookingDTO> list = dao.getAllBookingRoom();
-            if(list != null && !list.isEmpty()){
-                request.setAttribute("ALLROOM", list);
-                request.getRequestDispatcher(IConstants.SERVICE_PAGE).forward(request, response);
-            }else{
-                request.setAttribute("ERROR", "There no room found please check your database");
-                request.getRequestDispatcher(IConstants.SERVICE_PAGE).forward(request, response);
-            }
+        try {
+          String action = request.getParameter("action");
+          String id = request.getParameter("txtid");
+          String quantity = request.getParameter("txtquantity");
+          HttpSession session = request.getSession();
+          HashMap<ServiceDTO, Integer> cart=(HashMap<ServiceDTO, Integer>) session.getAttribute("CART");
+          ServiceDTO find = null;
+                for (ServiceDTO s : cart.keySet()) {
+                    if(s.getServiceId() == Integer.parseInt(id.trim())){
+                        find = s;
+                        break;
+                    }
+                }    
+                if (find != null) {
+                    if (action.equalsIgnoreCase("update")) {
+                        cart.put(find, Integer.parseInt(quantity.trim()));
+                    } else {
+                        cart.remove(find);
+                    }
+                    session.setAttribute("CART", cart);
+                    request.getRequestDispatcher("GetServiceController").forward(request, response);
+                }
+            
         }catch(Exception e){
             
-        }
-    } 
-
+        } 
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -88,5 +96,5 @@ public class GetRoomService extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
+

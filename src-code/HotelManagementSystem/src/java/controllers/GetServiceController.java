@@ -36,7 +36,12 @@ public class GetServiceController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             String bookingId = request.getParameter("bookingId");
-            String roomId    = request.getParameter("roomId");
+        if (bookingId == null || bookingId.isEmpty()) {
+            request.setAttribute("ERROR", "Missing bookingId");
+            }
+
+            // Lưu vào session để dùng lại
+            request.getSession().setAttribute("BOOKING_ID", bookingId);
             ServiceDAO dao = new ServiceDAO();
             ArrayList<ServiceDTO> list = dao.getAllService();
             if(list != null && !list.isEmpty()){

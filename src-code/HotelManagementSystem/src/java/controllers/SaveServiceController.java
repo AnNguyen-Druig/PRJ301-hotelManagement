@@ -5,28 +5,20 @@
 
 package controllers;
 
-import DAO.BookingDAO;
-import DAO.RoomDAO;
-import DAO.ServiceDAO;
-import DTO.BookingDTO;
-import DTO.RoomDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import mylib.IConstants;
 
 /**
  *
  * @author Nguyễn Đại
  */
-@WebServlet(name="GetRoomService", urlPatterns={"/GetRoomService"})
-public class GetRoomService extends HttpServlet {
+@WebServlet(name="SaveServiceController", urlPatterns={"/SaveServiceController"})
+public class SaveServiceController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,16 +30,8 @@ public class GetRoomService extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {  
-            BookingDAO dao = new BookingDAO();
-            ArrayList<BookingDTO> list = dao.getAllBookingRoom();
-            if(list != null && !list.isEmpty()){
-                request.setAttribute("ALLROOM", list);
-                request.getRequestDispatcher(IConstants.SERVICE_PAGE).forward(request, response);
-            }else{
-                request.setAttribute("ERROR", "There no room found please check your database");
-                request.getRequestDispatcher(IConstants.SERVICE_PAGE).forward(request, response);
-            }
+        try {
+          
         }catch(Exception e){
             
         }

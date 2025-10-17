@@ -23,6 +23,12 @@ public class BookingDTO {
     public BookingDTO() {
     }
 
+    public BookingDTO(int bookingID, int roomID) {
+        this.bookingID = bookingID;
+        this.roomID = roomID;
+    }
+    
+
     public BookingDTO(int bookingID, int guestID, int roomID, Date checkInDate, Date checkOutDate, Date bookingDate, String status) {
         this.bookingID = bookingID;
         this.guestID = guestID;
