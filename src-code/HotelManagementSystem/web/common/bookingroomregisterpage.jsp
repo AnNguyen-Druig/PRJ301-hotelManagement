@@ -25,7 +25,7 @@
             GuestDTO guest = (GuestDTO) request.getAttribute("GUEST");
             Date checkInDate = (Date) request.getAttribute("CHECKINDATE");
             Date checkOutDate = (Date) request.getAttribute("CHECKOUTDATE");
-            if(room!=null && guest!=null) {       
+            if(room!=null && guest!=null && checkInDate!=null && checkOutDate != null) {       
         %>
         <h2>KIỂM TRA THÔNG TIN ĐẶT PHÒNG</h2>
         <form action="MainController" method="POST">

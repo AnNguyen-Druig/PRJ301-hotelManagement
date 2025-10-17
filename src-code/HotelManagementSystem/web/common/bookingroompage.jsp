@@ -56,7 +56,7 @@
                         out.print(errorCheckInDate +": "+ LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
                     } %>
             </span></br>
-            <input type="date" id="checkInDate" name="booking_room_checkInDate" required value="<%= checkInDate %>"></br>  
+            <input type="date" id="checkInDate" name="booking_room_checkInDate" required="" value="<%= checkInDate %>"></br>  
                 
             <label for="checkOutDate">NGAY CHECK-OUT:</label>
             <span> 
@@ -66,7 +66,7 @@
                         out.print(errorCheckOutDate +": "+ (checkInDate));
                     } %>
             </span> </br> 
-            <input type="date" id="checkOutDate" name="booking_room_checkOutDate" required  value="<%= checkOutDate %>"></br>
+            <input type="date" id="checkOutDate" name="booking_room_checkOutDate" required=""  value="<%= checkOutDate %>"></br>
             
             <input type="submit" value="filterroom" name="action">
         </form>
@@ -76,6 +76,7 @@
             
 <!--         TH1: khi vừa bấm booking ở trang guest.jsp thì sẽ show ra hết các phòng status = "Available" (ko cần roomType, CheckInDate, CheckOutDate);
              TH2: show ra tất cả các phòng thoả status = "Available" và roomType và checkInDate checkOutDtae-->
+<!--         TH3: show ra tất cả các phòng thoả từ ngày checkin đến checkout-->
 
         <%
             //Hiển thị thông tin tìm kiếm

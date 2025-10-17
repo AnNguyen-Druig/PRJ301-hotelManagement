@@ -171,7 +171,7 @@ public class RoomDAO {
                         + "        FROM BOOKING b\n"
                         + "        WHERE b.Status IN ('Reserved','CheckIn') -- chỉ loại trừ các booking đang còn hiệu lực\n"
                         + "          AND (\n"
-                        + "               (b.CheckInDate < ?)\n"
+                        + "               (b.CheckInDate < ?)\n"        
                         + "               AND (b.CheckOutDate > ?)\n"
                         + "          )\n"
                         + "    )";
