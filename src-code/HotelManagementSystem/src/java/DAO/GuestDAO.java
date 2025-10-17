@@ -53,7 +53,6 @@ public class GuestDAO {
 //        }
 //        return success;
 //    }
-
     public int signUpGuest(GuestDTO guest) {
         int result = 0;
         Connection cn = null;
@@ -125,7 +124,6 @@ public class GuestDAO {
         return result;
     }
 
-
     //Hàm dùng để kiểm tra username có tồn tại hay chưa
     public boolean checkUsernameExisted(String username) {
         boolean result = false;
@@ -167,8 +165,8 @@ public class GuestDAO {
                 PreparedStatement st = cn.prepareStatement(sql);
                 st.setInt(1, guestID);
                 ResultSet table = st.executeQuery();
-                if(table != null) {
-                    while(table.next()) { 
+                if (table != null) {
+                    while (table.next()) {
                         String username = table.getString("Username");
                         String password = table.getString("PasswordHash");
                         String fullName = table.getString("FullName");
@@ -194,8 +192,47 @@ public class GuestDAO {
         }
         return guest;
     }
-    
-    
+
+    public GuestDTO getGuestByIDNumber(String idnumber) {
+        GuestDTO guest = null;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "SELECT [GuestID], [Username],[PasswordHash],[FullName],[Phone],[Email],[Address], [DateOfBirth]"
+                        + " FROM [dbo].[GUEST] "
+                        + "WHERE [IDNumber] = ?";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setString(1, idnumber);
+                ResultSet table = st.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        int guestID = table.getInt("GuestID");
+                        String username = table.getString("Username");
+                        String password = table.getString("PasswordHash");
+                        String fullName = table.getString("FullName");
+                        String address = table.getString("Address");
+                        String phone = table.getString("Phone");
+                        String email = table.getString("Email");
+                        Date dateOfBirth = table.getDate("DateOfBirth");
+                        guest = new GuestDTO(guestID, fullName, phone, email, address, idnumber, dateOfBirth, username, password);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return guest;
+    }
+
     public static void main(String[] args) {
         try {
             Connection cn = null;
@@ -206,5 +243,3 @@ public class GuestDAO {
         }
     }
 }
-
-

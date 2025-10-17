@@ -16,12 +16,20 @@
     <body>
         <%
             StaffDTO staff = (StaffDTO) session.getAttribute("USER");
-            
+            String errorMsg = (String) request.getAttribute("ERROR");
+            if(errorMsg == null) {
+                errorMsg = "";
+            }
         %>
         
         <h1>Welcome <%=staff.getFullName() %> Receptionist!</h1>
         <h4><a href="MainController?action=logout">Logout</a><h4>
         <a href="MainController?action=booking">Tạo Booking</a>
+        <form action="MainController">
+            <input type="text" name="guest_idnumber" placeholder="Nhập số CCCD">
+            <input type="submit" name="action" value="Make new Booking">
+            <span><%=errorMsg%></span>
+        </form>
         <a href="MainController?action=Signup">Đăng ký thành viên cho người dùng</a>
         <h3>Booking List</h3>
                 <table>

@@ -47,6 +47,19 @@ public class GuestDTO {
         this.password = password;
     }
 
+    public GuestDTO(int guestID, String fullName, String phone, String email, String address, Date dateOfBirth, String username, String password) {
+        this.guestID = guestID;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.dateOfBirth = dateOfBirth;
+        this.username = username;
+        this.password = password;
+    }
+    
+    
+
     public int getGuestID() {
         return guestID;
     }
