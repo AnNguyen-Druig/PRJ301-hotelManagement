@@ -44,6 +44,8 @@ public interface IConstants {
     public final String AC_GET_ROOM_SERVICE = "getroomservice";
     public final String AC_CHOOSE_SERVICE_PAGE = "ChooseService";
     public final String AC_GO_BACK_SERVICE_PAGE = "gobackservice";
+    public final String AC_MAKENEWBOOKING = "Make new Booking";
+    
     //Controller
     public final String CTL_LOGIN = "LoginController";
     public final String CTL_SIGNUP = "SignUpController";
@@ -55,6 +57,7 @@ public interface IConstants {
     public final String CTL_SAVE_BOOKING_ROOM = "SaveBookingRoomController";
     public final String CTL_SERVICE_ROOM_CONTROLLER = "GetRoomService";
     public final String CTL_GET_SERVICE_CONTROLLER = "GetServiceController";
+    public final String CTL_BOOKINGBY_GUESTIDNUMBER = "BookingGuestIDNumberController";
 
 
     // Messages
@@ -74,4 +77,5 @@ public interface IConstants {
     public final String ERR_CHECKINDATE_ISBEFORE_TODAY = "Ngày checkin phải sau ngày hôm nay";
     public final String ERR_CHECKOUTDATE_ISBEFORE_CHECKINDATE = "Ngày checkout phải sau ngày checkin";
     public final String ERR_REQUIRE_SELECT_DATERANGE = "Bạn cần phải chọn ngày CheckIn và CheckOut";
+    public final String ERR_INVALID_EMPTYACCOUNT = "Không tìm thấy tài khoản!";
 }
