@@ -11,6 +11,7 @@ import java.sql.Date;
  * @author Admin
  */
 public class BookingDTO {
+
     private int bookingID;
     private int guestID;
     private int roomID;
@@ -19,6 +20,8 @@ public class BookingDTO {
     private Date bookingDate;
     private String status;
     private String guestName;
+    private String roomNumber;
+    private String roomType;
 
     public BookingDTO() {
     }
@@ -27,7 +30,6 @@ public class BookingDTO {
         this.bookingID = bookingID;
         this.roomID = roomID;
     }
-    
 
     public BookingDTO(int bookingID, int guestID, int roomID, Date checkInDate, Date checkOutDate, Date bookingDate, String status) {
         this.bookingID = bookingID;
@@ -46,15 +48,28 @@ public class BookingDTO {
         this.status = status;
         this.guestName = guestName;
     }
-    
-    public BookingDTO( int guestID, int roomID, Date checkInDate, Date checkOutDate, Date bookingDate, String status) {
-        
+
+    public BookingDTO(int guestID, int roomID, Date checkInDate, Date checkOutDate, Date bookingDate, String status) {
+
         this.guestID = guestID;
         this.roomID = roomID;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.bookingDate = bookingDate;
         this.status = status;
+    }
+
+    public BookingDTO(int bookingID, int guestID, int roomID, Date checkInDate, Date checkOutDate, Date bookingDate, String status, String guestName, String roomNumber, String roomType) {
+        this.bookingID = bookingID;
+        this.guestID = guestID;
+        this.roomID = roomID;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.bookingDate = bookingDate;
+        this.status = status;
+        this.guestName = guestName;
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
     }
 
     public int getBookingID() {
@@ -119,6 +134,22 @@ public class BookingDTO {
 
     public void setGuestName(String guestName) {
         this.guestName = guestName;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
     
     

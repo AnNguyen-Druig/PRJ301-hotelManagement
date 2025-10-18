@@ -51,13 +51,13 @@ public class BookingDAO {
 
         return result;
     }
-    
-    public ArrayList<BookingDTO> getAllBookingRoom(){
+
+    public ArrayList<BookingDTO> getAllBookingRoom() {
         Connection cn = null;
-        ArrayList<BookingDTO> result = new ArrayList<>(); 
-        try{
+        ArrayList<BookingDTO> result = new ArrayList<>();
+        try {
             cn = DBUtills.getConnection();
-            if(cn != null){
+            if (cn != null) {
                 String sql = "Select B.BookingID, B.RoomID, G.FullName, B.CheckInDate, B.Status\n"
                         + "from dbo.BOOKING as B\n"
                         + "JOIN dbo.GUEST AS G ON B.GuestID = G.GuestID "
@@ -66,8 +66,8 @@ public class BookingDAO {
                 PreparedStatement st = cn.prepareStatement(sql);
                 st.setString(1, "CheckIn");
                 ResultSet table = st.executeQuery();
-                if(table != null){
-                    while(table.next()){
+                if (table != null) {
+                    while (table.next()) {
                         int bookingID = table.getInt("BookingID");
                         int RoomID = table.getInt("RoomID");
                         String GuestName = table.getString("FullName");
@@ -78,7 +78,7 @@ public class BookingDAO {
                     }
                 }
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
@@ -91,29 +91,112 @@ public class BookingDAO {
         }
         return result;
     }
-    
-    public BookingDTO getBookingRoom(int BookingID){
+
+    public ArrayList<BookingDTO> getAllBookingRoomGuest() {
         Connection cn = null;
-        BookingDTO result = null; 
-        try{
+        ArrayList<BookingDTO> result = new ArrayList<>();
+        try {
             cn = DBUtills.getConnection();
-            if(cn != null){
+            if (cn != null) {
+                String sql = "SELECT b.BookingID, g.GuestID, g.FullName, r.RoomID, r.RoomNumber, rt.TypeName, b.CheckInDate, b.CheckOutDate, b.BookingDate, b.Status FROM BOOKING b JOIN GUEST g ON b.GuestID = g.GuestID \n"
+                        + "JOIN ROOM r ON b.RoomID = r.RoomID JOIN ROOM_TYPE rt ON r.RoomTypeID = rt.RoomTypeID";
+                PreparedStatement st = cn.prepareStatement(sql);
+                ResultSet table = st.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        int bookingID = table.getInt("BookingID");
+                        int guestID = table.getInt("GuestID");
+                        String guestName = table.getString("FullName");
+                        int roomID = table.getInt("RoomID");
+                        String roomNumber = table.getString("RoomNumber");
+                        String roomType = table.getString("TypeName");
+                        Date checkInDate = table.getDate("CheckInDate");
+                        Date checkOutDate = table.getDate("CheckOutDate");
+                        Date bookingDate = table.getDate("BookingDate");
+                        String Status = table.getString("Status");
+                        BookingDTO booking = new BookingDTO(bookingID, guestID, roomID, checkInDate, checkOutDate, bookingDate, Status, guestName, roomNumber, roomType);
+                        result.add(booking);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public BookingDTO getBookingRoom(int BookingID) {
+        Connection cn = null;
+        BookingDTO result = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
                 String sql = "select B.BookingID, B.RoomID\n"
                         + "From dbo.BOOKING as B\n"
                         + "Where B.BookingID = ?";
                 PreparedStatement st = cn.prepareStatement(sql);
                 st.setInt(1, BookingID);
                 ResultSet table = st.executeQuery();
-                if(table != null){
-                    while(table.next()){
+                if (table != null) {
+                    while (table.next()) {
                         int bookingID = table.getInt("BookingID");
                         int RoomID = table.getInt("RoomID");
                         result = new BookingDTO(bookingID, RoomID);
-                        
+
                     }
                 }
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public BookingDTO getBookingByBookingIDInReception(int bookingID) {
+        Connection cn = null;
+        BookingDTO result = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "SELECT b.BookingID, g.GuestID, g.FullName, r.RoomID, r.RoomNumber, rt.TypeName, b.CheckInDate, "
+                        + "b.CheckOutDate, b.BookingDate, b.Status FROM BOOKING b JOIN GUEST g ON b.GuestID = g.GuestID \n"
+                        + "JOIN ROOM r ON b.RoomID = r.RoomID JOIN ROOM_TYPE rt ON r.RoomTypeID = rt.RoomTypeID\n"
+                        + "WHERE b.BookingID = ?";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setInt(1, bookingID);
+                ResultSet table = st.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        int guestID = table.getInt("GuestID");
+                        String guestName = table.getString("FullName");
+                        int roomID = table.getInt("RoomID");
+                        String roomNumber = table.getString("RoomNumber");
+                        String roomType = table.getString("TypeName");
+                        Date checkInDate = table.getDate("CheckInDate");
+                        Date checkOutDate = table.getDate("CheckOutDate");
+                        Date bookingDate = table.getDate("BookingDate");
+                        String status = table.getString("Status");
+                        result = new BookingDTO(bookingID, guestID, roomID, checkInDate, checkOutDate, bookingDate, status, guestName, roomNumber, roomType);
+                    }
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {

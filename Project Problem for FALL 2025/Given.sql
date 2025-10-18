@@ -8,14 +8,8 @@
 USE master;
 GO
 
-ALTER DATABASE HotelManagement 
-SET SINGLE_USER 
-WITH ROLLBACK IMMEDIATE;
+DROP DATABASE IF EXISTS HotelManagement;
 GO
-
-DROP DATABASE HotelManagement;
-GO
-có
 
 CREATE DATABASE HotelManagement COLLATE Vietnamese_CI_AS;
 GO
@@ -34,7 +28,7 @@ CREATE TABLE GUEST (
     Phone NVARCHAR(20) UNIQUE,
     Email NVARCHAR(100) UNIQUE,
     Address NVARCHAR(200),
-    IDNumber NVARCHAR(50),
+    IDNumber NVARCHAR(12) UNIQUE,
     DateOfBirth DATE
 );
 

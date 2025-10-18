@@ -60,7 +60,7 @@ public class LoginController extends HttpServlet {
                                     url = IConstants.ADMIN_PAGE;
                                     break;
                                 case "Receptionist":
-                                    url = IConstants.RECEPTIONIST_PAGE;
+                                    url = IConstants.CTL_SHOW_BOOKING_IN_RECEPTION;
                                     break;
                                 case "Manager":
                                     url = IConstants.MANAGER_PAGE;

@@ -26,6 +26,8 @@ public interface IConstants {
     public final String MANAGE_ROOM_STATUS = "/role/housekeeping.jsp";
     public final String BOOKING_ROOM_REGISTER_PAGE = "/common/bookingroomregisterpage.jsp";
     public final String CHOOSE_SERVICE_PAGE = "/common/ChooseServicePage.jsp";
+    public final String BOOKING_ROOM_DETAIL_PAGE = "/common/bookingroomdetail.jsp";
+    public final String AVAIL_ROOM_LIST_PAGE = "/common/availableroomlist.jsp";
     
     //Action
     public final String AC_DEFAULT = "default";
@@ -45,6 +47,10 @@ public interface IConstants {
     public final String AC_CHOOSE_SERVICE_PAGE = "ChooseService";
     public final String AC_GO_BACK_SERVICE_PAGE = "gobackservice";
     public final String AC_MAKENEWBOOKING = "Make new Booking";
+    public final String AC_UPDATE_BOOKING = "UpdateBooking";
+    public final String AC_CANCEL_BOOKING = "CancelBooking";
+    public final String AC_TURNBACK_RECEPTION = "TurnBackReceptionPage";
+    public final String AC_SHOW_AVAILABLE_ROOMLIST = "ShowAvailableRoomList";
     
     //Controller
     public final String CTL_LOGIN = "LoginController";
@@ -58,6 +64,9 @@ public interface IConstants {
     public final String CTL_SERVICE_ROOM_CONTROLLER = "GetRoomService";
     public final String CTL_GET_SERVICE_CONTROLLER = "GetServiceController";
     public final String CTL_BOOKINGBY_GUESTIDNUMBER = "BookingGuestIDNumberController";
+    public final String CTL_SHOW_BOOKING_IN_RECEPTION = "ShowBookingInReception";
+    public final String CTL_UPDATE_BOOKING_IN_RECEPTION = "UpdateBookingInReceptionController";
+    public final String CTL_SHOW_AVAIL_ROOMLIST = "ShowAvailRoomListController";
 
 
     // Messages
@@ -78,4 +87,5 @@ public interface IConstants {
     public final String ERR_CHECKOUTDATE_ISBEFORE_CHECKINDATE = "Ngày checkout phải sau ngày checkin";
     public final String ERR_REQUIRE_SELECT_DATERANGE = "Bạn cần phải chọn ngày CheckIn và CheckOut";
     public final String ERR_INVALID_EMPTYACCOUNT = "Không tìm thấy tài khoản!";
+    public final String ERR_EMPTYBOOKING = "Không có dữ liệu Booking!";
 }

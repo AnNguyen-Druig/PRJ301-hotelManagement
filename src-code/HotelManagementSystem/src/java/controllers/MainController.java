@@ -83,6 +83,15 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_MAKENEWBOOKING:
                     url = IConstants.CTL_BOOKINGBY_GUESTIDNUMBER;
                     break;
+                case IConstants.AC_UPDATE_BOOKING:
+                    url = IConstants.CTL_UPDATE_BOOKING_IN_RECEPTION;
+                    break;
+                case IConstants.AC_TURNBACK_RECEPTION:
+                    url = IConstants.CTL_SHOW_BOOKING_IN_RECEPTION;
+                    break;
+                case IConstants.AC_SHOW_AVAILABLE_ROOMLIST:
+                    url = IConstants.CTL_SHOW_AVAIL_ROOMLIST;
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
