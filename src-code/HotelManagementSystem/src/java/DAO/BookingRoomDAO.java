@@ -18,7 +18,7 @@ import mylib.DBUtills;
  *
  * @author Admin
  */
-public class BookingDAO {
+public class BookingRoomDAO {
 
     public int saveBookingRoom(BookingDTO booking) {
         int result = 0;
@@ -193,6 +193,52 @@ public class BookingDAO {
                         Date bookingDate = table.getDate("BookingDate");
                         String status = table.getString("Status");
                         result = new BookingDTO(bookingID, guestID, roomID, checkInDate, checkOutDate, bookingDate, status, guestName, roomNumber, roomType);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<BookingDTO> getAllBookingByGuestID(int guestID) {
+        Connection cn = null;
+        ArrayList<BookingDTO> result = new ArrayList<>();
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "SELECT b.BookingID, g.GuestID, g.FullName, r.RoomID, r.RoomNumber, rt.TypeName, b.CheckInDate,\n"
+                        + "       b.CheckOutDate, b.BookingDate, b.Status FROM BOOKING b \n"
+                        + "INNER JOIN GUEST g ON b.GuestID = g.GuestID\n"
+                        + "INNER JOIN ROOM r ON b.RoomID = r.RoomID \n"
+                        + "INNER JOIN ROOM_TYPE rt ON r.RoomTypeID = rt.RoomTypeID\n"
+                        + "WHERE g.GuestID = ?";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setInt(1, guestID);
+                ResultSet table = st.executeQuery();
+                if(table!=null) {
+                    while(table.next()) {
+                        int bookingID = table.getInt("BookingID");
+                        String guestName = table.getString("FullName");
+                        int roomID = table.getInt("RoomID");
+                        String roomNumber = table.getString("RoomNumber");
+                        String roomType = table.getString("TypeName");
+                        Date checkInDate = table.getDate("CheckInDate");
+                        Date checkOutDate = table.getDate("CheckOutDate");
+                        Date bookingDate = table.getDate("BookingDate");
+                        String status = table.getString("Status");
+                        BookingDTO bookingDTO = new BookingDTO(bookingID, guestID, roomID, checkInDate, checkOutDate, bookingDate, status, guestName, roomNumber, roomType);
+                        result.add(bookingDTO);
+                        
                     }
                 }
             }

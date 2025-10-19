@@ -9,8 +9,11 @@ import DAO.BookingRoomDAO;
 import DTO.BookingDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
+
 import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,10 +21,10 @@ import mylib.IConstants;
 
 /**
  *
- * @author Admin
+ * @author ASUS
  */
-@WebServlet(name="UpdateBookingInReceptionController", urlPatterns={"/UpdateBookingInReceptionController"})
-public class UpdateBookingInReceptionController extends HttpServlet {
+@WebServlet(name="ViewBookingController", urlPatterns={"/ViewBookingController"})
+public class ViewBookingController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,12 +37,26 @@ public class UpdateBookingInReceptionController extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            int bookingID = Integer.parseInt(request.getParameter("bookingID"));
-            BookingRoomDAO bookingDAO = new BookingRoomDAO();
-            BookingDTO booking = bookingDAO.getBookingByBookingIDInReception(bookingID);
-            
-            request.setAttribute("BOOKING_DETAIL", booking);
-            request.getRequestDispatcher(IConstants.BOOKING_ROOM_DETAIL_PAGE).forward(request, response);
+            String guestID = request.getParameter("guestID");
+            BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
+            ArrayList<BookingDTO> listAllBooking =  bookingRoomDAO.getAllBookingByGuestID(Integer.parseInt(guestID.trim()));
+            ArrayList<BookingDTO> listReservedBooking = new ArrayList<>();
+            ArrayList<BookingDTO> listCheckInBooking = new ArrayList<>();
+            if(listAllBooking!=null && !listAllBooking.isEmpty()) {
+                for(BookingDTO b : listAllBooking) {
+                    if(b.getStatus().equals("Reserved")) {
+                        listReservedBooking.add(b);
+                    } else if(b.getStatus().equals("CheckIn")) {
+                        listCheckInBooking.add(b);
+                    }
+                }
+                request.setAttribute("RESERVED_BOOKING", listReservedBooking);
+                request.setAttribute("CHECKIN_BOOKING", listCheckInBooking);
+                request.getRequestDispatcher(IConstants.BOOKING_ROOM_VIEW_PAGE).forward(request, response);
+            } else {
+                request.setAttribute("ERROR", IConstants.ERR_EMPTYBOOKING);
+                request.getRequestDispatcher(IConstants.BOOKING_ROOM_VIEW_PAGE).forward(request, response);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

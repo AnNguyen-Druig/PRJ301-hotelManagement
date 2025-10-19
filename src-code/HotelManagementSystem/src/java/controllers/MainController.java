@@ -92,6 +92,18 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_SHOW_AVAILABLE_ROOMLIST:
                     url = IConstants.CTL_SHOW_AVAIL_ROOMLIST;
                     break;
+                case IConstants.AC_VIEW_BOOKING:
+                    url = IConstants.CTL_VIEW_BOOKING;
+                    break;
+                case IConstants.AC_SAVE_BOOKING_SERVICE:
+                    url = IConstants.CTL_EDIT_SERVICE;
+                    break;
+                case IConstants.AC_UPDATE_BOOKING_SERVICE:
+                    url = IConstants.CTL_EDIT_SERVICE;
+                    break;
+                case IConstants.AC_DELETE_BOOKING_SERVICE:
+                    url = IConstants.CTL_EDIT_SERVICE;
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();

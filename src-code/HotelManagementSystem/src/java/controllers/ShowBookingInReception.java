@@ -5,7 +5,7 @@
 
 package controllers;
 
-import DAO.BookingDAO;
+import DAO.BookingRoomDAO;
 import DTO.BookingDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,7 +35,7 @@ public class ShowBookingInReception extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            BookingDAO bookingDAO = new BookingDAO();
+            BookingRoomDAO bookingDAO = new BookingRoomDAO();
             ArrayList<BookingDTO> list = bookingDAO.getAllBookingRoomGuest();
             if(list != null && !list.isEmpty()) {
                 request.setAttribute("ALLBOOKING", list);

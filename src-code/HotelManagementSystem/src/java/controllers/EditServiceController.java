@@ -48,7 +48,10 @@ public class EditServiceController extends HttpServlet {
                     }
                 }    
                 if (find != null) {
-                    if (action.equalsIgnoreCase("update")) {
+                    if(action.equalsIgnoreCase(IConstants.AC_SAVE_BOOKING_SERVICE)) {
+                        
+                    }
+                    else if (action.equalsIgnoreCase(IConstants.AC_UPDATE_BOOKING_SERVICE)) {
                         cart.put(find, Integer.parseInt(quantity.trim()));
                     } else {
                         cart.remove(find);

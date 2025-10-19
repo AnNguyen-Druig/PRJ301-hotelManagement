@@ -1,3 +1,4 @@
+        <%@page import="mylib.IConstants"%>
 <%@page import="java.util.*"%>
 <%@page import="DTO.BookingDTO"%>
 <%@page import="DTO.ServiceDTO"%>
@@ -22,8 +23,12 @@
   </style>
 </head>
 <body>
+    <% 
+    String bookingID = request.getParameter("bookingId");
+    %>
 <div class="header">
-    <h2>Chọn dịch vụ cho Booking ${sessionScope.BOOKING_ID}</h2>
+<!--    <h2>Chọn dịch vụ cho Booking ${sessionScope.BOOKING_ID}</h2>-->
+    <h2>Chọn dịch vụ cho Booking <%= bookingID %></h2>
 </div>
 
 <div class="wrap">
@@ -88,7 +93,7 @@
         for (ServiceDTO s : cart.keySet()) {
                 total += cart.get(s) * s.getPrice();               
         %>
-        <tr><form action="EditServiceController">
+        <tr><form action="MainController">
                 <input type="hidden" name="txtid" value="<%=s.getServiceId() %>">
                 <td><%= s.getServiceId() %></td>
                 <td><%= s.getServiceName() %></td>
@@ -96,13 +101,18 @@
                 <td><input type="number" name="txtquantity" min="1" value="<%=cart.get(s)%>"></td>
                 <td><%= s.getPrice() %></td>
             
-                <td style="text-align:center"><input type="submit" value="update" name="action">
-                    <input type="submit" value="remove" name="action"></td>
+                <td style="text-align:center">
+                    <input type="hidden" name="txtquantity" value="<%= s.getServiceId() %>">
+                    <input type="hidden" name="txtquantity" value="<%=cart.get(s)%>">
+                    <button type="submit" name="action" value="<%= IConstants.AC_SAVE_BOOKING_SERVICE %>">Đặt ngay</button>
+                    <button type="submit" name="action" value="<%= IConstants.AC_UPDATE_BOOKING_SERVICE %>">Cập nhật số lượng</button>
+                    <button type="submit" name="action" value="<%= IConstants.AC_DELETE_BOOKING_SERVICE %>">Xoá</button>
+                </td>
             </form>
         </tr>
             <%
               }
-              GrandTotal += total;
+              GrandTotal = total;
           }  
         %>
       </tbody>  

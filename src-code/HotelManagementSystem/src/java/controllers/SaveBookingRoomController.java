@@ -4,7 +4,7 @@
  */
 package controllers;
 
-import DAO.BookingDAO;
+import DAO.BookingRoomDAO;
 import DAO.RoomDAO;
 import DTO.BookingDTO;
 import java.io.IOException;
@@ -71,7 +71,7 @@ public class SaveBookingRoomController extends HttpServlet {
                 
                 
                 BookingDTO bookingRoom = new BookingDTO(guestID, roomID, checkInDate_value, checkOutDate_value, bookingDate_value, bookingStatus);
-                BookingDAO bookingRoomDAO = new BookingDAO();
+                BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
                 int saveBookingRoom = bookingRoomDAO.saveBookingRoom(bookingRoom);
                 
                 RoomDAO roomDAO = new RoomDAO();
