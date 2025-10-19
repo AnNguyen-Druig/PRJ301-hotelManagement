@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import mylib.IConstants;
 
 /**
@@ -35,13 +36,21 @@ public class GetServiceController extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            // Lấy booking ID từ request parameter hoặc session
             String bookingId = request.getParameter("bookingId");
-        if (bookingId == null || bookingId.isEmpty()) {
-            request.setAttribute("ERROR", "Missing bookingId");
+            HttpSession session = request.getSession();
+            
+            // Nếu không có trong request, lấy từ session
+            if (bookingId == null || bookingId.isEmpty()) {
+                bookingId = (String) session.getAttribute("BOOKING_ID");
             }
-
-            // Lưu vào session để dùng lại
-            request.getSession().setAttribute("BOOKING_ID", bookingId);
+            
+            if (bookingId == null || bookingId.isEmpty()) {
+                request.setAttribute("ERROR", "Missing bookingId");
+            } else {
+                // Lưu vào session để dùng lại
+                session.setAttribute("BOOKING_ID", bookingId);
+            }
             ServiceDAO dao = new ServiceDAO();
             ArrayList<ServiceDTO> list = dao.getAllService();
             if(list != null && !list.isEmpty()){

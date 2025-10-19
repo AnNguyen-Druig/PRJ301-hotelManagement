@@ -39,7 +39,9 @@ public class EditServiceController extends HttpServlet {
           String id = request.getParameter("txtid");
           String quantity = request.getParameter("txtquantity");
           HttpSession session = request.getSession();
-          HashMap<ServiceDTO, Integer> cart=(HashMap<ServiceDTO, Integer>) session.getAttribute("CART");
+          String bookingId = (String) session.getAttribute("BOOKING_ID");
+          String cartKey = "CART_" + bookingId;
+          HashMap<ServiceDTO, Integer> cart=(HashMap<ServiceDTO, Integer>) session.getAttribute(cartKey);
           ServiceDTO find = null;
                 for (ServiceDTO s : cart.keySet()) {
                     if(s.getServiceId() == Integer.parseInt(id.trim())){
@@ -53,7 +55,11 @@ public class EditServiceController extends HttpServlet {
                     } else {
                         cart.remove(find);
                     }
-                    session.setAttribute("CART", cart);
+                    session.setAttribute(cartKey, cart);
+                    // Giữ lại booking ID khi forward
+                    if (bookingId != null) {
+                        request.setAttribute("bookingId", bookingId);
+                    }
                     request.getRequestDispatcher("GetServiceController").forward(request, response);
                 }
             

@@ -78,7 +78,9 @@
 
         <%
         double GrandTotal = 0;
-        HashMap<ServiceDTO, Integer> cart = (HashMap) session.getAttribute("CART");
+        String bookingId = (String) session.getAttribute("BOOKING_ID");
+        String cartKey = "CART_" + bookingId;
+        HashMap<ServiceDTO, Integer> cart = (HashMap) session.getAttribute(cartKey);
         if(cart == null){
             %>
             <tr><td colspan="6" style="text-align:center">None</td></tr>

@@ -37,7 +37,9 @@ public class AddServiceController extends HttpServlet {
         try {
           String id = request.getParameter("ServiceID");
             HttpSession session = request.getSession();
-            HashMap<ServiceDTO, Integer> cart = (HashMap)session.getAttribute("CART");
+            String bookingId = (String) session.getAttribute("BOOKING_ID");
+            String cartKey = "CART_" + bookingId;
+            HashMap<ServiceDTO, Integer> cart = (HashMap)session.getAttribute(cartKey);
             ServiceDAO dao = new ServiceDAO();
             ServiceDTO service = dao.getService(Integer.parseInt(id));
             if(cart == null){
@@ -60,7 +62,11 @@ public class AddServiceController extends HttpServlet {
                     cart.put(service, 1);
                 }
             }
-            session.setAttribute("CART", cart);
+            session.setAttribute(cartKey, cart);
+            // Giữ lại booking ID khi forward
+            if (bookingId != null) {
+                request.setAttribute("bookingId", bookingId);
+            }
             request.getRequestDispatcher("GetServiceController").forward(request, response);
         }catch(Exception e){
             
