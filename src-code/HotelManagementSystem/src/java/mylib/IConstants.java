@@ -29,6 +29,7 @@ public interface IConstants {
     public final String BOOKING_ROOM_DETAIL_PAGE = "/common/bookingroomdetail.jsp";
     public final String AVAIL_ROOM_LIST_PAGE = "/common/availableroomlist.jsp";
     public final String BOOKING_ROOM_VIEW_PAGE = "/common/bookingroomview.jsp";
+    public final String CHECKOUT_PAGE = "/common/checkoutpage.jsp";
     
     //Action
     public final String AC_DEFAULT = "default";
@@ -52,12 +53,17 @@ public interface IConstants {
     public final String AC_CANCEL_BOOKING = "CancelBooking";
     public final String AC_TURNBACK_RECEPTION = "TurnBackReceptionPage";
     public final String AC_SHOW_AVAILABLE_ROOMLIST = "ShowAvailableRoomList";
+
     public final String AC_VIEW_BOOKING = "viewbooking";
     public final String AC_CHECKOUT_BOOKING_ROOM = "checkoutbookingroom";
     public final String AC_SAVE_BOOKING_SERVICE = "savebookingservice";
     public final String AC_UPDATE_BOOKING_SERVICE = "updatebookingservice";
     public final String AC_DELETE_BOOKING_SERVICE = "deletebookingservice";
     public final String AC_ADD_SERVICE = "addservice";
+
+    public final String AC_SAVE_BOOKING_UPDATE = "Save Changes";
+    public final String AC_SAVE_PAYMENT_AND_INVOICE = "savepaymentandinvoice";
+
     
     //Controller
     public final String CTL_LOGIN = "LoginController";
@@ -74,9 +80,15 @@ public interface IConstants {
     public final String CTL_SHOW_BOOKING_IN_RECEPTION = "ShowBookingInReception";
     public final String CTL_UPDATE_BOOKING_IN_RECEPTION = "UpdateBookingInReceptionController";
     public final String CTL_SHOW_AVAIL_ROOMLIST = "ShowAvailRoomListController";
+
     public final String CTL_VIEW_BOOKING = "ViewBookingController";
     public final String CTL_EDIT_SERVICE = "EditServiceController";
     public final String CTL_ADD_SERVICE = "AddServiceController";
+
+    public final String CTL_SAVE_BOOKING_UPDATE = "SaveUpdateBookingController";
+    public final String CTL_GET_BOOKING_ROOM = "GetBookingRoomController";
+    public final String CTL_SAVE_PAYMENT_AND_INVOICE = "SavePaymentAndInvoiceController";
+
 
 
     // ERROR

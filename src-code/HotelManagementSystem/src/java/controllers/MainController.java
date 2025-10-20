@@ -107,6 +107,15 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_ADD_SERVICE:
                     url = IConstants.CTL_ADD_SERVICE;
                     break;
+                case IConstants.AC_SAVE_BOOKING_UPDATE:
+                    url = IConstants.CTL_SAVE_BOOKING_UPDATE;
+                    break;
+                case IConstants.AC_CHECKOUT_BOOKING_ROOM:
+                    url = IConstants.CTL_GET_BOOKING_ROOM;
+                    break;
+                case IConstants.AC_SAVE_PAYMENT_AND_INVOICE:
+                    url = IConstants.CTL_SAVE_PAYMENT_AND_INVOICE;
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -186,8 +186,13 @@ VALUES
 (N'104', 2, N'Occupied'),
 (N'202', 3, N'Dirty'),
 (N'203', 4, N'Available'),
+(N'205', 4, N'Available'),
+(N'206', 4, N'Available'),
 (N'204', 5, N'Maintenance'),
+(N'207', 5, N'Available'),
+(N'208', 5, N'Available')
 (N'301', 6, N'Available');
+(N'302', 6, N'Available')
 
 -- SERVICE
 INSERT INTO SERVICE (ServiceName, ServiceType, Price)

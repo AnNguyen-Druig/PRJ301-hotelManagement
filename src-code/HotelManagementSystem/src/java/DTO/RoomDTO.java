@@ -9,6 +9,7 @@ package DTO;
  * @author ASUS
  */
 public class RoomDTO {
+
     private int roomID;
     private String roomNumber;
     private int roomTypeID;
@@ -16,7 +17,7 @@ public class RoomDTO {
     private String typeName;
     private int capacity;
     private double pricePerNight;
-    
+
     public RoomDTO() {
     }
 
@@ -29,8 +30,8 @@ public class RoomDTO {
         this.capacity = capacity;
         this.pricePerNight = pricePerNight;
     }
-    
-    public RoomDTO( String roomNumber, int roomTypeID, String roomStatus, String typeName, int capacity, double pricePerNight) {
+
+    public RoomDTO(String roomNumber, int roomTypeID, String roomStatus, String typeName, int capacity, double pricePerNight) {
         this.roomNumber = roomNumber;
         this.roomTypeID = roomTypeID;
         this.roomStatus = roomStatus;
@@ -39,6 +40,11 @@ public class RoomDTO {
         this.pricePerNight = pricePerNight;
     }
 
+    public RoomDTO(int roomTypeID, String typeName) {
+        this.roomTypeID = roomTypeID;
+        this.typeName = typeName;
+    }
+    
     public int getRoomID() {
         return roomID;
     }
@@ -95,7 +101,4 @@ public class RoomDTO {
         this.pricePerNight = pricePerNight;
     }
 
-    
-    
-    
 }
