@@ -53,9 +53,10 @@
                     <p class="note">Chỉ các booking có trạng thái "Reserved" mới có thể đổi phòng.</p>
                 </c:if>
 
-
+                <br/>
                 <label for="checkInDate">Check-in Date:</label>
                 <input type="date" id="checkInDate" name="checkInDate" value="${booking.checkInDate}"> 
+                <br/>
                 <label for="checkOutDate">Check-out Date:</label>
                 <input type="date" id="checkOutDate" name="checkOutDate" value="${booking.checkOutDate}"> 
                 <p>Booking Date: ${booking.bookingDate}</p>
