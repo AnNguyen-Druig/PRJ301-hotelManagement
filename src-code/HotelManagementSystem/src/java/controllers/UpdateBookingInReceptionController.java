@@ -27,17 +27,14 @@ public class UpdateBookingInReceptionController extends HttpServlet {
 
         try {
             // 1. Lấy bookingID
-            int bookingID = Integer.parseInt(request.getParameter("bookingID"));
-
-            
-
+            String bookingID_str = request.getParameter("bookingID");
+            int bookingID = Integer.parseInt(bookingID_str);
 
             // 2. Khởi tạo DAO
             BookingRoomDAO bookingDAO = new BookingRoomDAO();
             RoomDAO roomDAO = new RoomDAO();
 
             // 3. Lấy dữ liệu
-
             BookingDTO booking = bookingDAO.getBookingByBookingIDInReception(bookingID);
             List<RoomDTO> allRoomTypes = roomDAO.getAllRoomType();
 
