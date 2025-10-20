@@ -61,7 +61,7 @@ public class BookingRoomDAO {
                 String sql = "Select B.BookingID, B.RoomID, G.FullName, B.CheckInDate, B.Status\n"
                         + "from dbo.BOOKING as B\n"
                         + "JOIN dbo.GUEST AS G ON B.GuestID = G.GuestID "
-                        + "LEFT JOIN dbo.BOOKING_SERVICE AS BS ON BS.BookingID = B.BookingID "
+//                        + "LEFT JOIN dbo.BOOKING_SERVICE AS BS ON BS.BookingID = B.BookingID "
                         + "Where B.Status = ?";
                 PreparedStatement st = cn.prepareStatement(sql);
                 st.setString(1, "CheckIn");

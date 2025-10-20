@@ -21,17 +21,13 @@ public class BookingServiceDAO {
         try {
             cn = DBUtills.getConnection();
             if(cn != null){
-                cn.setAutoCommit(false);
-                String sql = "Insert dbo.BOOKING_SERVICE values (?,?,?,?)";
+                String sql = "Insert dbo.BOOKING_SERVICE(BookingID, ServiceID, Quantity, Status) values (?,?,?,?)";
                 PreparedStatement st = cn.prepareStatement(sql);
-                Date serviceDate = new Date(System.currentTimeMillis());
                 st.setInt(1, BookingID );
                 st.setInt(2, ServiceID);
-                st.setDate(3, serviceDate);
-                st.setInt(4, quantity);
-                
-                cn.commit();
-                cn.setAutoCommit(true);
+                st.setInt(3, quantity);
+                st.setString(4,"Pending");
+                result = st.executeUpdate();
             }
             
         }catch(Exception e){

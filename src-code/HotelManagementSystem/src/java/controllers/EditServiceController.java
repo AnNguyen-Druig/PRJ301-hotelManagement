@@ -5,6 +5,7 @@
 
 package controllers;
 
+import DAO.BookingServiceDAO;
 import DTO.ServiceDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,27 +37,41 @@ public class EditServiceController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
           String action = request.getParameter("action");
-          String id = request.getParameter("txtid");
-          String quantity = request.getParameter("txtquantity");
+          int serviceId = Integer.parseInt(request.getParameter("serviceid").trim());
+          int quantity = Integer.parseInt(request.getParameter("quantity").trim());
+          int bookingId = Integer.parseInt(request.getParameter("bookingId").trim());
           HttpSession session = request.getSession();
-          HashMap<ServiceDTO, Integer> cart=(HashMap<ServiceDTO, Integer>) session.getAttribute("CART");
+//          String bookingId = (String) session.getAttribute("BOOKING_ID");
+          String cartKey = "CART_" + bookingId;
+          HashMap<ServiceDTO, Integer> cart=(HashMap<ServiceDTO, Integer>) session.getAttribute(cartKey);
           ServiceDTO find = null;
                 for (ServiceDTO s : cart.keySet()) {
-                    if(s.getServiceId() == Integer.parseInt(id.trim())){
+                    if(s.getServiceId() == serviceId){
                         find = s;
                         break;
                     }
                 }    
                 if (find != null) {
                     if(action.equalsIgnoreCase(IConstants.AC_SAVE_BOOKING_SERVICE)) {
-                        
+                        BookingServiceDAO bookingServiceDAO = new BookingServiceDAO();
+                        int result = bookingServiceDAO.saveBookingService(bookingId,serviceId, quantity);
+                        if(result != 0) {
+                            cart.remove(find);
+                            request.setAttribute("SAVE_BOOKING_SERVICE", IConstants.SUCC_SAVE_BOOKING_SERVICE);
+                        } else {
+                            request.setAttribute("SAVE_BOOKING_SERVICE", IConstants.ERR_SAVE_BOOKING_SERVICE);
+                        }
                     }
                     else if (action.equalsIgnoreCase(IConstants.AC_UPDATE_BOOKING_SERVICE)) {
-                        cart.put(find, Integer.parseInt(quantity.trim()));
+                        cart.put(find,quantity);
                     } else {
                         cart.remove(find);
                     }
-                    session.setAttribute("CART", cart);
+                    session.setAttribute(cartKey, cart);
+                    // Giữ lại booking ID khi forward
+//                    if (bookingId != null) {
+//                        request.setAttribute("bookingId", bookingId);
+//                    }
                     request.getRequestDispatcher("GetServiceController").forward(request, response);
                 }
             

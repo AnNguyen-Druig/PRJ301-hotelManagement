@@ -57,6 +57,7 @@ public interface IConstants {
     public final String AC_SAVE_BOOKING_SERVICE = "savebookingservice";
     public final String AC_UPDATE_BOOKING_SERVICE = "updatebookingservice";
     public final String AC_DELETE_BOOKING_SERVICE = "deletebookingservice";
+    public final String AC_ADD_SERVICE = "addservice";
     
     //Controller
     public final String CTL_LOGIN = "LoginController";
@@ -75,9 +76,10 @@ public interface IConstants {
     public final String CTL_SHOW_AVAIL_ROOMLIST = "ShowAvailRoomListController";
     public final String CTL_VIEW_BOOKING = "ViewBookingController";
     public final String CTL_EDIT_SERVICE = "EditServiceController";
+    public final String CTL_ADD_SERVICE = "AddServiceController";
 
 
-    // Messages
+    // ERROR
     public final String ERR_EMPTY_FIELD = "Tên đăng nhập và mật khẩu không được để trống!";
     public final String ERR_INVALID_LOGIN = "Tên đăng nhập hoặc mật khẩu không chính xác!";
     public final String ERR_INVALID_USERNAME = "Tên đăng nhập đã tồn tại. Hãy nhập tên khác!";
@@ -96,4 +98,8 @@ public interface IConstants {
     public final String ERR_REQUIRE_SELECT_DATERANGE = "Bạn cần phải chọn Loai Phong va ngày CheckIn, CheckOut";
     public final String ERR_INVALID_EMPTYACCOUNT = "Không tìm thấy tài khoản!";
     public final String ERR_EMPTYBOOKING = "Không có dữ liệu Booking!";
+    public final String ERR_SAVE_BOOKING_SERVICE = "Đặt dịch vụ KHÔNG THÀNH CÔNG";  
+    
+    //SUCESSFULL
+    public final String SUCC_SAVE_BOOKING_SERVICE =  "Bạn đã đặt dịch vụ thành công.";
 }

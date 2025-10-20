@@ -23,14 +23,12 @@
   </style>
 </head>
 <body>
-    <% 
-    String bookingID = request.getParameter("bookingId");
+  
+    <%
+        String bookingID = request.getParameter("bookingId");
     %>
-<div class="header">
-<!--    <h2>Chọn dịch vụ cho Booking ${sessionScope.BOOKING_ID}</h2>-->
-    <h2>Chọn dịch vụ cho Booking <%= bookingID %></h2>
-</div>
 
+<h2>Đây là bookingID lấy từ request <%= bookingID %></h2>
 <div class="wrap">
   <!-- Cột trái: tất cả dịch vụ -->
   <div class="col">
@@ -55,10 +53,15 @@
           <td><%= s.getServiceType() %></td>
           <td><%= s.getPrice() %></td>
           <td>
-            <form action="MainController" method="post" style="display:inline">
-              <!-- Action controller để ghi DB -->
+<!--            <form action="MainController" method="post" style="display:inline">
+               Action controller để ghi DB 
               <a href="AddServiceController?ServiceID=<%=s.getServiceId()%>">add</a>
-            </form>
+            </form>-->
+         <form action="MainController">
+             <input type="hidden" name="bookingId" value="<%= bookingID %>">
+             <input type="hidden" name="ServiceID" value="<%=s.getServiceId()%>">
+            <button type="submit" name="action" value="<%= IConstants.AC_ADD_SERVICE %>">add</button>
+        </form>
           </td>
         </tr>
       <%
@@ -75,6 +78,12 @@
   <div class="col">
     
     <h3>Dịch vụ đã thêm</h3>
+    <%
+    String message = (String) request.getAttribute("SAVE_BOOKING_SERVICE");
+    if(message!=null && !message.isEmpty()) {
+        out.print(message);
+    }
+    %>
     <table>
       <thead>
         <tr><th>ID</th><th>Name</th><th>Type</th><th>Quantity</th><th>Price</th><th>Chỉnh sửa</th></tr>
@@ -83,7 +92,9 @@
 
         <%
         double GrandTotal = 0;
-        HashMap<ServiceDTO, Integer> cart = (HashMap) session.getAttribute("CART");
+        String bookingId = (String) session.getAttribute("BOOKING_ID");
+        String cartKey = "CART_" + bookingId;
+        HashMap<ServiceDTO, Integer> cart = (HashMap) session.getAttribute(cartKey);
         if(cart == null){
             %>
             <tr><td colspan="6" style="text-align:center">None</td></tr>
@@ -93,8 +104,7 @@
         for (ServiceDTO s : cart.keySet()) {
                 total += cart.get(s) * s.getPrice();               
         %>
-        <tr><form action="MainController">
-                <input type="hidden" name="txtid" value="<%=s.getServiceId() %>">
+        <tr><form action="MainController"> 
                 <td><%= s.getServiceId() %></td>
                 <td><%= s.getServiceName() %></td>
                 <td><%= s.getServiceType() %></td>
@@ -102,8 +112,9 @@
                 <td><%= s.getPrice() %></td>
             
                 <td style="text-align:center">
-                    <input type="hidden" name="txtquantity" value="<%= s.getServiceId() %>">
-                    <input type="hidden" name="txtquantity" value="<%=cart.get(s)%>">
+                    <input type="hidden" name="serviceid" value="<%= s.getServiceId() %>">
+                    <input type="hidden" name="quantity" value="<%=cart.get(s)%>">
+                    <input type="hidden" name="bookingId" value="<%= bookingID %>">
                     <button type="submit" name="action" value="<%= IConstants.AC_SAVE_BOOKING_SERVICE %>">Đặt ngay</button>
                     <button type="submit" name="action" value="<%= IConstants.AC_UPDATE_BOOKING_SERVICE %>">Cập nhật số lượng</button>
                     <button type="submit" name="action" value="<%= IConstants.AC_DELETE_BOOKING_SERVICE %>">Xoá</button>

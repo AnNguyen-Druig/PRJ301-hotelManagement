@@ -100,6 +100,7 @@
                 <td><%= b.getStatus()%></td>
                 <td>
                     <form action="MainController">
+                        <input type="hidden" name="bookingId" value="<%= b.getBookingID() %>">
                         <button type="submit" name="action" value="<%= IConstants.AC_CHOOSE_SERVICE_PAGE %>">Đặt dịch vụ</button>
                         <button type="submit" name="action" value="<%= IConstants.AC_CHECKOUT_BOOKING_ROOM %>">CheckOut Phòng</button>
                     </form>
