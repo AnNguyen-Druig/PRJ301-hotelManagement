@@ -51,6 +51,7 @@ public interface IConstants {
     public final String AC_CANCEL_BOOKING = "CancelBooking";
     public final String AC_TURNBACK_RECEPTION = "TurnBackReceptionPage";
     public final String AC_SHOW_AVAILABLE_ROOMLIST = "ShowAvailableRoomList";
+    public final String AC_SAVE_BOOKING_UPDATE = "Save Changes";
     
     //Controller
     public final String CTL_LOGIN = "LoginController";
@@ -67,6 +68,7 @@ public interface IConstants {
     public final String CTL_SHOW_BOOKING_IN_RECEPTION = "ShowBookingInReception";
     public final String CTL_UPDATE_BOOKING_IN_RECEPTION = "UpdateBookingInReceptionController";
     public final String CTL_SHOW_AVAIL_ROOMLIST = "ShowAvailRoomListController";
+    public final String CTL_SAVE_BOOKING_UPDATE = "SaveUpdateBookingController";
 
 
     // Messages

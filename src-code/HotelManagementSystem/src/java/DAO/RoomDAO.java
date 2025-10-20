@@ -46,6 +46,7 @@ public class RoomDAO {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             try {
                 if (cn != null) {
@@ -100,6 +101,76 @@ public class RoomDAO {
         }
         return result;
     }
+    
+    public ArrayList<RoomDTO> getAllRoomType() {
+        ArrayList<RoomDTO> list = new ArrayList<>();
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if(cn != null) {
+                String sql = "SELECT RoomTypeID, TypeName FROM ROOM_TYPE";
+                PreparedStatement ps = cn.prepareStatement(sql);
+                ResultSet table = ps.executeQuery();
+                if(table != null) {
+                    while(table.next()) {
+                        int roomTypeID = table.getInt("RoomTypeID");
+                        String typeName = table.getString("TypeName");
+                        
+                        RoomDTO roomType = new RoomDTO(roomTypeID, typeName);
+                        list.add(roomType);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+    
+    public ArrayList<RoomDTO> getAvailableRoomsByTypeId(int roomTypeID) {
+        ArrayList<RoomDTO> list = new ArrayList<>();
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if(cn != null) {
+                String sql = "SELECT RoomID, RoomNumber FROM ROOM WHERE RoomTypeID = ? AND Status = 'Available'";
+                PreparedStatement ps = cn.prepareStatement(sql);
+                ps.setInt(1, roomTypeID);
+                ResultSet table = ps.executeQuery();
+                if(table != null) {
+                    while(table.next()) {
+                        int roomID = table.getInt("RoomID");
+                        String roomNumber = table.getString("RoomNumber");
+                        
+                        RoomDTO room = new RoomDTO();
+                        room.setRoomID(roomID);
+                        room.setRoomNumber(roomNumber);
+                        
+                        list.add(room);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
 
     public ArrayList<RoomDTO> filterRoomType(String roomType, Date checkInDate, Date checkOutDate) {
         ArrayList<RoomDTO> result = new ArrayList<>();
@@ -142,12 +213,14 @@ public class RoomDAO {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             try {
                 if (cn != null) {
                     cn.close();
                 }
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return result;
@@ -194,12 +267,14 @@ public class RoomDAO {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             try {
                 if (cn != null) {
                     cn.close();
                 }
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return result;
@@ -250,6 +325,7 @@ public class RoomDAO {
                     cn.close();
                 }
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return room;
