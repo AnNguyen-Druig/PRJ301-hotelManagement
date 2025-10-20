@@ -22,8 +22,37 @@ public class BookingDTO {
     private String guestName;
     private String roomNumber;
     private String roomType;
+    private int roomTypeID;
 
     public BookingDTO() {
+    }
+
+    //Constructor-full
+    public BookingDTO(int bookingID, int guestID, int roomID, Date checkInDate, Date checkOutDate, Date bookingDate, String status, String guestName, String roomNumber, String roomType, int roomTypeID) {
+        this.bookingID = bookingID;
+        this.guestID = guestID;
+        this.roomID = roomID;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.bookingDate = bookingDate;
+        this.status = status;
+        this.guestName = guestName;
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
+        this.roomTypeID = roomTypeID;
+    }
+
+    public BookingDTO(int bookingID, int guestID, int roomID, Date checkInDate, Date checkOutDate, Date bookingDate, String status, String guestName, String roomNumber, String roomType) {
+        this.bookingID = bookingID;
+        this.guestID = guestID;
+        this.roomID = roomID;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.bookingDate = bookingDate;
+        this.status = status;
+        this.guestName = guestName;
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
     }
 
     public BookingDTO(int bookingID, int roomID) {
@@ -57,19 +86,6 @@ public class BookingDTO {
         this.checkOutDate = checkOutDate;
         this.bookingDate = bookingDate;
         this.status = status;
-    }
-
-    public BookingDTO(int bookingID, int guestID, int roomID, Date checkInDate, Date checkOutDate, Date bookingDate, String status, String guestName, String roomNumber, String roomType) {
-        this.bookingID = bookingID;
-        this.guestID = guestID;
-        this.roomID = roomID;
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
-        this.bookingDate = bookingDate;
-        this.status = status;
-        this.guestName = guestName;
-        this.roomNumber = roomNumber;
-        this.roomType = roomType;
     }
 
     public int getBookingID() {
@@ -151,6 +167,13 @@ public class BookingDTO {
     public void setRoomType(String roomType) {
         this.roomType = roomType;
     }
-    
-    
+
+    public int getRoomTypeID() {
+        return roomTypeID;
+    }
+
+    public void setRoomTypeID(int roomTypeID) {
+        this.roomTypeID = roomTypeID;
+    }
+
 }
