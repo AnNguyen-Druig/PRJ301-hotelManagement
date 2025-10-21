@@ -16,18 +16,17 @@ public interface IConstants {
     public final String SIGNUP_PAGE = "/common/signup.jsp";
     public final String SIGNUP_SUCCESS_PAGE = "/common/signup_success.jsp";
     public final String BOOKING_ROOM_PAGE = "/common/bookingroompage.jsp";
-    public final String ADMIN_PAGE = "/role/admin.jsp";
-    public final String RECEPTIONIST_PAGE = "/role/receptionist.jsp";
-    public final String MANAGER_PAGE = "/role/manager.jsp";
-    public final String HOUSEKEEPING_PAGE = "/role/housekeeping.jsp";
-    public final String SERVICE_PAGE = "/role/service.jsp";
-    public final String GUEST_PAGE = "/role/guest.jsp";
+    public final String ADMIN_PAGE = "/role/admin/admin.jsp";
+    public final String RECEPTIONIST_PAGE = "/role/receptionist/receptionist.jsp";
+    public final String MANAGER_PAGE = "/role/manager/manager.jsp";
+    public final String HOUSEKEEPING_PAGE = "/role/housekeeping/housekeeping.jsp";
+    public final String SERVICE_PAGE = "/role/service/service.jsp";
+    public final String GUEST_PAGE = "/role/guest/guest.jsp";
     public final String BOOKING_INFORMATION_PAGE = "/common/bookinginformationpage.jsp";
     public final String MANAGE_ROOM_STATUS = "/role/housekeeping.jsp";
     public final String BOOKING_ROOM_REGISTER_PAGE = "/common/bookingroomregisterpage.jsp";
     public final String CHOOSE_SERVICE_PAGE = "/common/ChooseServicePage.jsp";
-    public final String BOOKING_ROOM_DETAIL_PAGE = "/common/bookingroomdetail.jsp";
-    public final String AVAIL_ROOM_LIST_PAGE = "/common/availableroomlist.jsp";
+    public final String BOOKING_ROOM_DETAIL_PAGE = "/role/receptionist/bookingroomdetail.jsp";
     public final String BOOKING_ROOM_VIEW_PAGE = "/common/bookingroomview.jsp";
     public final String CHECKOUT_PAGE = "/common/checkoutpage.jsp";
     
@@ -52,8 +51,6 @@ public interface IConstants {
     public final String AC_UPDATE_BOOKING = "UpdateBooking";
     public final String AC_CANCEL_BOOKING = "CancelBooking";
     public final String AC_TURNBACK_RECEPTION = "TurnBackReceptionPage";
-    public final String AC_SHOW_AVAILABLE_ROOMLIST = "ShowAvailableRoomList";
-
     public final String AC_VIEW_BOOKING = "viewbooking";
     public final String AC_CHECKOUT_BOOKING_ROOM = "checkoutbookingroom";
     public final String AC_SAVE_BOOKING_SERVICE = "savebookingservice";
@@ -79,7 +76,6 @@ public interface IConstants {
     public final String CTL_BOOKINGBY_GUESTIDNUMBER = "BookingGuestIDNumberController";
     public final String CTL_SHOW_BOOKING_IN_RECEPTION = "ShowBookingInReception";
     public final String CTL_UPDATE_BOOKING_IN_RECEPTION = "UpdateBookingInReceptionController";
-    public final String CTL_SHOW_AVAIL_ROOMLIST = "ShowAvailRoomListController";
 
     public final String CTL_VIEW_BOOKING = "ViewBookingController";
     public final String CTL_EDIT_SERVICE = "EditServiceController";

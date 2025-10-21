@@ -89,9 +89,6 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_TURNBACK_RECEPTION:
                     url = IConstants.CTL_SHOW_BOOKING_IN_RECEPTION;
                     break;
-                case IConstants.AC_SHOW_AVAILABLE_ROOMLIST:
-                    url = IConstants.CTL_SHOW_AVAIL_ROOMLIST;
-                    break;
                 case IConstants.AC_VIEW_BOOKING:
                     url = IConstants.CTL_VIEW_BOOKING;
                     break;
