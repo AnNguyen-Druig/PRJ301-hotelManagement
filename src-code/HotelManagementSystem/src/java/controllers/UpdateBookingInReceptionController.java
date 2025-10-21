@@ -1,8 +1,6 @@
 package controllers;
 
-
 import DAO.BookingRoomDAO;
-
 
 import DAO.RoomDAO; // Đảm bảo bạn đã import RoomDAO
 
@@ -38,14 +36,17 @@ public class UpdateBookingInReceptionController extends HttpServlet {
             BookingDTO booking = bookingDAO.getBookingByBookingIDInReception(bookingID);
             List<RoomDTO> allRoomTypes = roomDAO.getAllRoomType();
 
+            int roomTypeIdToLoad; // Biến để lưu ID loại phòng cần tải danh sách phòng trống
             // 4. Xử lý tải lại danh sách phòng
             String selectedRoomTypeIdStr = request.getParameter("roomTypeID");
             if (selectedRoomTypeIdStr != null && !selectedRoomTypeIdStr.isEmpty()) {
-                int selectedRoomTypeId = Integer.parseInt(selectedRoomTypeIdStr);
-                List<RoomDTO> availableRooms = roomDAO.getAvailableRoomsByTypeId(selectedRoomTypeId);
-                request.setAttribute("AVAILABLE_ROOMS_LIST", availableRooms);
-                request.setAttribute("SELECTED_ROOM_TYPE_ID", selectedRoomTypeId);
+                roomTypeIdToLoad = Integer.parseInt(selectedRoomTypeIdStr);
+                request.setAttribute("SELECTED_ROOM_TYPE_ID", roomTypeIdToLoad);
+            } else {
+                roomTypeIdToLoad = booking.getRoomTypeID();
             }
+            List<RoomDTO> availableRooms = roomDAO.getAvailableRoomsByTypeId(roomTypeIdToLoad);
+            request.setAttribute("AVAILABLE_ROOMS_LIST", availableRooms);
 
             // 5. Gửi dữ liệu sang JSP
             request.setAttribute("BOOKING_DETAIL", booking);
