@@ -15,7 +15,7 @@
 
         <c:if test="${not empty booking}">
             <!-- Dùng để kiểm tra nếu Status thì nút chọn loại phòng mới cho chọn <> disable-->
-            <c:set var="change" value="${booking.status eq 'Reserved' }"/>
+            <c:set var="change" value="${booking.status eq 'Reserved'}"/>
 
             <h1>Thông Tin Đặt Phòng - ID: ${booking.bookingID}</h1>
 
@@ -55,10 +55,10 @@
 
                 <br/>
                 <label for="checkInDate">Check-in Date:</label>
-                <input type="date" id="checkInDate" name="checkInDate" value="${booking.checkInDate}"> 
+                <input type="date" id="checkInDate" name="checkInDate" value="${booking.checkInDate}" ${!change ? 'readonly':''}> 
                 <br/>
                 <label for="checkOutDate">Check-out Date:</label>
-                <input type="date" id="checkOutDate" name="checkOutDate" value="${booking.checkOutDate}"> 
+                <input type="date" id="checkOutDate" name="checkOutDate" value="${booking.checkOutDate}" ${!change ? 'readonly':''}"> 
                 <p>Booking Date: ${booking.bookingDate}</p>
 
                 <label for="statusSelect">Status:</label>
