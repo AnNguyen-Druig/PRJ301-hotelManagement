@@ -41,7 +41,7 @@
                 <select name="roomid" id="roomNumberSelect" ${!change ? 'disabled' : ''} required>
                     <%-- Nếu chưa chọn loại phòng nào (trang vừa tải), hoặc không có phòng trống --%>
                     <c:if test="${empty requestScope.AVAILABLE_ROOMS_LIST}">
-                        <option value="${booking.roomID}">${booking.roomNumber} (Phòng hiện tại)</option>
+                        <option value="${booking.roomID}">${booking.roomNumber}</option>
                     </c:if>
 
                     <%-- Nếu có danh sách phòng trống được gửi về, thì hiển thị ra --%>
