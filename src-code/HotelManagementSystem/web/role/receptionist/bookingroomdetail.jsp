@@ -61,14 +61,14 @@
                 <input type="date" id="checkOutDate" name="checkOutDate" value="${booking.checkOutDate}" ${!change ? 'readonly':''}"> 
                 <p>Booking Date: ${booking.bookingDate}</p>
 
-                <label for="statusSelect">Status:</label>
-                <select id="statusSelect" name="status">
+                <label for="statusSelect">Status: ${booking.status}</label>
+<!--                <select id="statusSelect" name="status">
                     <option value="Reserved" ${"Reserved" eq booking.status ? "selected" : ""}>Reserved</option>
                     <option value="CheckIn" ${"CheckIn" eq booking.status ? "selected" : ""}>CheckIn</option>
                     <option value="CheckOut" ${"CheckOut" eq booking.status ? "selected" : ""}>CheckOut</option>
                     <option value="Canceled" ${"Canceled" eq booking.status ? "selected" : ""}>Canceled</option>
                     <option value="Complete" ${"Complete" eq booking.status ? "selected" : ""}>Complete</option>
-                </select>
+                </select>-->
 
 
                 <input type="submit" name="action" value="Save Changes" formaction="MainController"/>
