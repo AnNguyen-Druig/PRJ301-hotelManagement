@@ -125,6 +125,12 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_CHANGE_STATUS_COMPLETE:
                     url = IConstants.CTL_CHANGE_STATUS_BOOKING;
                     break;
+                case IConstants.AC_VIEW_REPORT_PAGE:
+                    url = IConstants.REPORT_MAIN_PAGE;
+                    break;
+                case IConstants.AC_REPORT_1_PAGE:
+                    url = IConstants.REPORT_1_PAGE;
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();

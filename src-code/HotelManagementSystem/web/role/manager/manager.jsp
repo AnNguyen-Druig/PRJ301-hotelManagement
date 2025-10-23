@@ -14,6 +14,10 @@
         <title>Manager Page</title>
     </head>
     <body>
+        <jsp:useBean id="USER" scope="session" class="DTO.StaffDTO" />
+        <h1>Welcome back, Manager ${USER.fullName}</h1>
         
+        <h2>Choose your action:</h2>
+        <p><a href="MainController?action=reportpage">View Report Statistic</a></p>
     </body>
 </html>

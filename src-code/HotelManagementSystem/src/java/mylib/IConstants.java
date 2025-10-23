@@ -23,12 +23,14 @@ public interface IConstants {
     public final String SERVICE_PAGE = "/role/service/service.jsp";
     public final String GUEST_PAGE = "/role/guest/guest.jsp";
     public final String BOOKING_INFORMATION_PAGE = "/common/bookinginformationpage.jsp";
-    public final String MANAGE_ROOM_STATUS = "/role/housekeeping.jsp";
+    public final String MANAGE_ROOM_STATUS = "/role/housekeeping/housekeeping.jsp";
     public final String BOOKING_ROOM_REGISTER_PAGE = "/common/bookingroomregisterpage.jsp";
-    public final String CHOOSE_SERVICE_PAGE = "/common/ChooseServicePage.jsp";
+    public final String CHOOSE_SERVICE_PAGE = "/common/ServicePage/ChooseServicePage.jsp";
     public final String BOOKING_ROOM_DETAIL_PAGE = "/role/receptionist/bookingroomdetail.jsp";
     public final String BOOKING_ROOM_VIEW_PAGE = "/common/bookingroomview.jsp";
     public final String CHECKOUT_PAGE = "/common/checkoutpage.jsp";
+    public final String REPORT_MAIN_PAGE = "common/ReportJSP/reportmainpage.jsp";
+    public final String REPORT_1_PAGE = "/common/ReportJSP/Report1Page.jsp";
     
     //Action
     public final String AC_DEFAULT = "default";
@@ -57,13 +59,17 @@ public interface IConstants {
     public final String AC_UPDATE_BOOKING_SERVICE = "updatebookingservice";
     public final String AC_DELETE_BOOKING_SERVICE = "deletebookingservice";
     public final String AC_ADD_SERVICE = "addservice";
-
+    public final String AC_VIEW_REPORT_PAGE = "reportpage";
     public final String AC_SAVE_BOOKING_UPDATE = "Save Changes";
     public final String AC_SAVE_PAYMENT_AND_INVOICE = "savepaymentandinvoice";
+
     public final String AC_CHANGE_STATUS_CHECKIN = "Check In";
     public final String AC_CHANGE_STATUS_CANCEL = "Cancel Booking";
     public final String AC_CHANGE_STATUS_CHECKOUT = "Check Out";
     public final String AC_CHANGE_STATUS_COMPLETE = "Approve Checkout";
+
+    public final String AC_REPORT_1_PAGE = "report1page";
+
 
     
     //Controller
