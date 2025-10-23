@@ -282,4 +282,31 @@ public class BookingRoomDAO {
         }
         return result;
     }
+    
+    public boolean updateStatusBooking(int bookingID, String newStauts) {
+        boolean result = false;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            String sql = "UPDATE BOOKING SET Status = ? WHERE BookingID = ?";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setString(1, newStauts);
+            ps.setInt(2, bookingID);
+            int rowsAffected = ps.executeUpdate();
+            if(rowsAffected > 0) {
+                result = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 }

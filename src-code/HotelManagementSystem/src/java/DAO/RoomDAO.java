@@ -281,15 +281,32 @@ public class RoomDAO {
     }
 
     public boolean updateRoomStatus(int roomId, String newStatus) {
-        String sql = "UPDATE ROOM SET Status = ? WHERE RoomID = ?";
-        try ( Connection cn = DBUtills.getConnection();  PreparedStatement ps = cn.prepareStatement(sql)) {
-            ps.setString(1, newStatus);
-            ps.setInt(2, roomId);
-            return ps.executeUpdate() > 0;
+        boolean result = false;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if(cn != null) {
+                String sql = "UPDATE ROOM SET Status = ? WHERE RoomID = ?";
+                PreparedStatement ps = cn.prepareStatement(sql);
+                ps.setString(1, newStatus);
+                ps.setInt(2, roomId);
+                int rowsAffected = ps.executeUpdate();
+                if(rowsAffected > 0) {
+                    result = true;
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+        } finally {
+            try {
+                if(cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        return result;
     }
 
 

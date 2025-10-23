@@ -94,6 +94,14 @@ public class BookingDTO {
         this.checkOutDate = checkOutDate;
     }
 
+    public BookingDTO(int bookingID, int roomID, Date checkInDate, Date checkOutDate, String status) {
+        this.bookingID = bookingID;
+        this.roomID = roomID;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.status = status;
+    }
+
     public int getBookingID() {
         return bookingID;
     }

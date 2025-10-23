@@ -7,6 +7,7 @@ import DAO.RoomDAO; // Đảm bảo bạn đã import RoomDAO
 import DTO.BookingDTO;
 import DTO.RoomDTO;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,19 +48,44 @@ public class UpdateBookingInReceptionController extends HttpServlet {
             BookingDTO booking = bookingDAO.getBookingByBookingIDInReception(bookingID);
             List<RoomDTO> allRoomTypes = roomDAO.getAllRoomType();
 
-            int roomTypeIdToLoad; // Biến để lưu ID loại phòng cần tải danh sách phòng trống
+            int roomTypeIdToLoad = 0; // Biến để lưu ID loại phòng cần tải danh sách phòng trống
+            int selectedRoomTypeID = 0;
             // 4. Xử lý tải lại danh sách phòng
             String selectedRoomTypeIdStr = request.getParameter("roomTypeID");
             if (selectedRoomTypeIdStr != null && !selectedRoomTypeIdStr.isEmpty()) {
-                roomTypeIdToLoad = Integer.parseInt(selectedRoomTypeIdStr);
-                request.setAttribute("SELECTED_ROOM_TYPE_ID", roomTypeIdToLoad);
+                selectedRoomTypeID = Integer.parseInt("selectedRoomTypeIdStr");
+                if(selectedRoomTypeID != 0) {
+                    roomTypeIdToLoad = selectedRoomTypeID;
+                    request.setAttribute("SELECTED_ROOM_TYPE_ID", roomTypeIdToLoad);
+                }
             } else {
                 roomTypeIdToLoad = booking.getRoomTypeID();
             }
+            
+            // 5. Lấy danh sách Room có status là 'Available'
             List<RoomDTO> availableRooms = roomDAO.getAvailableRoomsByTypeId(roomTypeIdToLoad);
-            request.setAttribute("AVAILABLE_ROOMS_LIST", availableRooms);
+            
+            // 6. Tạo lại danh sách Room để hiển thị room đã bị Booking chuyển status từ 'Available' thành 'Occupied'
+            ArrayList<RoomDTO> listContainRoomBooking = new ArrayList<>();
+            RoomDTO room = new RoomDTO();
+            room.setRoomID(booking.getRoomID());
+            room.setRoomNumber(booking.getRoomNumber());
+            listContainRoomBooking.add(room);   //Thêm room đã bị Booking chuyển status thành 'Occupied'
+            
+            // 7. Thêm các room có status là 'Available' khác(nếu có và KHÁC phòng hiện tại của booking) 
+            //  từ danh sách 'availableRooms' vào danh sách cuối cùng 'listContainRoomBooking'.
+            //  để tiếp tục thực hiện nhiệm vụ cho status 'Reserved'
+            if(availableRooms != null && !availableRooms.isEmpty()) {
+                for (RoomDTO availableRoom : availableRooms) {
+                    //Chỉ thêm khi nó khác với phòng hiện tại (phòng đã đc Booking chuyển status thành 'Occupied')
+                    if(availableRoom.getRoomID() != booking.getRoomID()) {
+                        listContainRoomBooking.add(availableRoom);
+                    }
+                }
+            }
 
-            // 5. Gửi dữ liệu sang JSP
+            // 8. Gửi dữ liệu sang JSP
+            request.setAttribute("AVAILABLE_ROOMS_LIST", listContainRoomBooking);
             request.setAttribute("BOOKING_DETAIL", booking);
             request.setAttribute("ROOM_TYPES_LIST", allRoomTypes);
 

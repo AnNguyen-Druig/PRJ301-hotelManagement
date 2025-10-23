@@ -114,16 +114,16 @@ public class MainController extends HttpServlet {
                     url = IConstants.CTL_SAVE_PAYMENT_AND_INVOICE;
                     break;
                 case IConstants.AC_CHANGE_STATUS_CHECKIN:
-                    url = IConstants.CTL_CHANGE_STATUS_BOOKING;
+                    url = IConstants.CTL_CHANGE_STATUS_BOOKING_CHECKIN;
                     break;
                 case IConstants.AC_CHANGE_STATUS_CANCEL:
-                    url = IConstants.CTL_CHANGE_STATUS_BOOKING;
+                    url = IConstants.CTL_CHANGE_STATUS_BOOKING_CANCEL;
                     break;
                 case IConstants.AC_CHANGE_STATUS_CHECKOUT:
-                    url = IConstants.CTL_CHANGE_STATUS_BOOKING;
+                    url = IConstants.CTL_CHANGE_STATUS_BOOKING_CHECKOUT;
                     break;
                 case IConstants.AC_CHANGE_STATUS_COMPLETE:
-                    url = IConstants.CTL_CHANGE_STATUS_BOOKING;
+                    url = IConstants.CTL_CHANGE_STATUS_BOOKING_COMPLETE;
                     break;
                 case IConstants.AC_VIEW_REPORT_PAGE:
                     url = IConstants.REPORT_MAIN_PAGE;

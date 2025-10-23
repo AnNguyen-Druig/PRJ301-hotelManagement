@@ -92,7 +92,10 @@ public interface IConstants {
     public final String CTL_SAVE_BOOKING_UPDATE = "SaveUpdateBookingController";
     public final String CTL_GET_BOOKING_ROOM = "GetBookingRoomController";
     public final String CTL_SAVE_PAYMENT_AND_INVOICE = "SavePaymentAndInvoiceController";
-    public final String CTL_CHANGE_STATUS_BOOKING = "ChangeStatusBookingController";
+    public final String CTL_CHANGE_STATUS_BOOKING_CHECKIN = "ChangeStatusBookingCheckInController";
+    public final String CTL_CHANGE_STATUS_BOOKING_CHECKOUT = "ChangeStatusBookingCheckOutController";
+    public final String CTL_CHANGE_STATUS_BOOKING_CANCEL = "ChangeStatusBookingCancelController";
+    public final String CTL_CHANGE_STATUS_BOOKING_COMPLETE = "ChangeStatusBookingCompleteController";
 
     // ERROR
     public final String ERR_EMPTY_FIELD = "Tên đăng nhập và mật khẩu không được để trống!";
