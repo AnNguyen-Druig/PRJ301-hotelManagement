@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
 package controllers;
@@ -21,8 +21,8 @@ import mylib.IConstants;
  *
  * @author Nguyễn Đại
  */
-@WebServlet(name="GetReportController", urlPatterns={"/GetReportController"})
-public class GetReportController extends HttpServlet {
+@WebServlet(name="GetReport2Controller", urlPatterns={"/GetReport2Controller"})
+public class GetReport2Controller extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,19 +37,19 @@ public class GetReportController extends HttpServlet {
         try {
             ArrayList<ReportDTO> list = null;
             ReportDAO dao = new ReportDAO();
-            list = dao.report1();
+            list = dao.report2();
             if(list != null && !list.isEmpty()){
-                request.setAttribute("REPORT_1_LIST", list);
-                request.getRequestDispatcher("MainController?action=report1page").forward(request, response);
+                request.setAttribute("REPORT_2_LIST", list);
+                request.getRequestDispatcher("MainController?action=report2page").forward(request, response);
             }else{
-                request.setAttribute("Error", "Can't load report please check database");
-                request.getRequestDispatcher("MainController?action=report1page").forward(request, response);
+                request.setAttribute("Error", "Can't load report 2 please check database");
+                request.getRequestDispatcher("MainController?action=report2page").forward(request, response);
             }
           
         }catch(Exception e){
             e.printStackTrace();
-            request.setAttribute("Error", "Error loading report: " + e.getMessage());
-            request.getRequestDispatcher("MainController?action=report1page").forward(request, response);
+            request.setAttribute("Error", "Error loading report 2: " + e.getMessage());
+            request.getRequestDispatcher("MainController?action=report2page").forward(request, response);
         }
     } 
 

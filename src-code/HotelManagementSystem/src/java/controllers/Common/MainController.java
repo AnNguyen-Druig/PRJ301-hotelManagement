@@ -131,6 +131,9 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_REPORT_1_PAGE:
                     url = IConstants.REPORT_1_PAGE;
                     break;
+                case IConstants.AC_REPORT_2_PAGE:
+                    url = IConstants.REPORT_2_PAGE;
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
