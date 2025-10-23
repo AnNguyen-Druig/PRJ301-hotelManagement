@@ -1,83 +1,129 @@
-<%-- 
-    File   : bookingdetail.jsp
+<%--
+    File   : bookingdetail.jsp (Scriptlet Version with Action Buttons)
 --%>
+<%@page import="DTO.RoomDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="DTO.BookingDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Booking Detail</title>
+        <style>.note {
+                color: #888;
+                font-size: 0.9em;
+            }</style>
     </head>
     <body>
-        <c:set var="booking" value="${requestScope.BOOKING_DETAIL}"/>
+        <%
+            // Lấy dữ liệu từ request scope
+            BookingDTO booking = (BookingDTO) request.getAttribute("BOOKING_DETAIL");
+            List<RoomDTO> roomTypes = (List<RoomDTO>) request.getAttribute("ROOM_TYPES_LIST");
+            List<RoomDTO> availableRooms = (List<RoomDTO>) request.getAttribute("AVAILABLE_ROOMS_LIST");
+            Integer selectedRoomTypeId = (Integer) request.getAttribute("SELECTED_ROOM_TYPE_ID");
 
-        <c:if test="${not empty booking}">
-            <!-- Dùng để kiểm tra nếu Status thì nút chọn loại phòng mới cho chọn <> disable-->
-            <c:set var="change" value="${booking.status eq 'Reserved'}"/>
+            if (booking != null) {
+                boolean isChangeable = "Reserved".equals(booking.getStatus());
+                String currentStatus = booking.getStatus(); // Lấy trạng thái hiện tại
+%>
 
-            <h1>Thông Tin Đặt Phòng - ID: ${booking.bookingID}</h1>
+        <h1>Thông Tin Đặt Phòng - ID: <%= booking.getBookingID()%></h1>
 
-            <form action="UpdateBookingInReceptionController" method="POST" id="bookingDetailForm">
-                <input type="hidden" name="bookingID" value="${booking.bookingID}" />
+        <%-- Form này vẫn submit về UpdateBookingInReceptionController khi chọn loại phòng --%>
+        <form action="UpdateBookingInReceptionController" method="POST" id="bookingDetailForm">
+            <input type="hidden" name="bookingID" value="<%= booking.getBookingID()%>" />
 
-                <p>Mã khách hàng: ${booking.guestID}</p>
-                <p>Tên khách hàng: ${booking.guestName}</p>
+            <p>Mã khách hàng: <%= booking.getGuestID()%></p>
+            <p>Tên khách hàng: <%= booking.getGuestName()%></p>
+            <hr/>
 
-                <label for="roomTypeSelect">Loại phòng:</label>
-                <select name="roomTypeID" id="roomTypeSelect" onchange="document.getElementById('bookingDetailForm').submit();" ${!change ? 'disabled':''}>
-                    <option value="">Chọn loại phòng</option>
-                    <c:forEach var="type" items="${requestScope.ROOM_TYPES_LIST}">
-                        <%-- Giữ lại giá trị đã chọn sau khi trang tải lại --%>
-                        <option value="${type.roomTypeID}" 
-                                ${type.roomTypeID == requestScope.SELECTED_ROOM_TYPE_ID || (empty requestScope.SELECTED_ROOM_TYPE_ID && type.roomTypeID == booking.roomTypeID) ? 'selected' : ''}>
-                            ${type.typeName}
-                        </option>
-                    </c:forEach>
-                </select>
+            <%-- Phần chọn Loại phòng và Số phòng (giữ nguyên) --%>
+            <label for="roomTypeSelect">Loại phòng:</label>
+            <select name="roomTypeID" id="roomTypeSelect" onchange="document.getElementById('bookingDetailForm').submit();" <%= !isChangeable ? "disabled" : ""%>>
+                <option value="">Chọn loại phòng</option>
+                <% if (roomTypes != null) {
+                        for (RoomDTO type : roomTypes) {
+                            String selectedAttr = "";
+                            if (selectedRoomTypeId != null) {
+                                if (type.getRoomTypeID() == selectedRoomTypeId) {
+                                    selectedAttr = "selected";
+                                }
+                            } else {
+                                if (type.getRoomTypeID() == booking.getRoomTypeID()) {
+                                    selectedAttr = "selected";
+                                }
+                            }%>
+                <option value="<%= type.getRoomTypeID()%>" <%= selectedAttr%>><%= type.getTypeName()%></option>
+                <% }
+                    }%>
+            </select>
+            <br/><br/>
 
-                <label for="roomNumberSelect">Số phòng trống:</label>
-                <select name="roomid" id="roomNumberSelect" ${!change ? 'disabled' : ''} required>
-                    <%-- Nếu chưa chọn loại phòng nào (trang vừa tải), hoặc không có phòng trống --%>
-                    <c:if test="${empty requestScope.AVAILABLE_ROOMS_LIST}">
-                        <option value="${booking.roomID}">${booking.roomNumber}</option>
-                    </c:if>
+            <label for="roomNumberSelect">Số phòng trống:</label>
+            <select name="roomID" id="roomNumberSelect" <%= !isChangeable ? "disabled" : ""%> required>
+                <% if (availableRooms != null && !availableRooms.isEmpty()) {
+                        for (RoomDTO room : availableRooms) {
+                            String selectedAttr = "";
+                            if (room.getRoomID() == booking.getRoomID()) {
+                                selectedAttr = "selected";
+                            }%>
+                <option value="<%= room.getRoomID()%>" <%= selectedAttr%>><%= room.getRoomNumber()%></option>
+                <% }
+                } else {%>
+                <option value="<%= booking.getRoomID()%>" selected><%= booking.getRoomNumber()%> (Phòng hiện tại)</option>
+                <% } %>
+            </select>
+            <% if (!isChangeable) { %>
+            <p class="note">Chỉ các booking có trạng thái "Reserved" mới có thể đổi phòng.</p>
+            <% }%>
+            <hr/>
 
-                    <%-- Nếu có danh sách phòng trống được gửi về, thì hiển thị ra --%>
-                    <c:forEach var="room" items="${requestScope.AVAILABLE_ROOMS_LIST}">
-                        <option value="${room.roomID}">${room.roomNumber}</option>
-                    </c:forEach>
-                </select>
-                <c:if test="${!change}">
-                    <p class="note">Chỉ các booking có trạng thái "Reserved" mới có thể đổi phòng.</p>
-                </c:if>
+            <%-- Phần ngày Check-in/Check-out (giữ nguyên) --%>
+            <label for="checkInDate">Check-in Date:</label>
+            <input type="date" id="checkInDate" name="checkInDate" value="<%= booking.getCheckInDate()%>" <%= !isChangeable ? "readonly" : ""%>>
+            <br/><br/>
+            <label for="checkOutDate">Check-out Date:</label>
+            <input type="date" id="checkOutDate" name="checkOutDate" value="<%= booking.getCheckOutDate()%>" <%= !isChangeable ? "readonly" : ""%>>
+            <br/><br/>
+            <p>Booking Date: <%= booking.getBookingDate()%></p>
 
-                <br/>
-                <label for="checkInDate">Check-in Date:</label>
-                <input type="date" id="checkInDate" name="checkInDate" value="${booking.checkInDate}" ${!change ? 'readonly':''}> 
-                <br/>
-                <label for="checkOutDate">Check-out Date:</label>
-                <input type="date" id="checkOutDate" name="checkOutDate" value="${booking.checkOutDate}" ${!change ? 'readonly':''}"> 
-                <p>Booking Date: ${booking.bookingDate}</p>
+            <hr/>
+            <p><b>Trạng thái hiện tại:</b> <%= currentStatus%></p>
+            <input type="hidden" name="status" value="<%= currentStatus %>" />
 
-                <label for="statusSelect">Status: ${booking.status}</label>
-<!--                <select id="statusSelect" name="status">
-                    <option value="Reserved" ${"Reserved" eq booking.status ? "selected" : ""}>Reserved</option>
-                    <option value="CheckIn" ${"CheckIn" eq booking.status ? "selected" : ""}>CheckIn</option>
-                    <option value="CheckOut" ${"CheckOut" eq booking.status ? "selected" : ""}>CheckOut</option>
-                    <option value="Canceled" ${"Canceled" eq booking.status ? "selected" : ""}>Canceled</option>
-                    <option value="Complete" ${"Complete" eq booking.status ? "selected" : ""}>Complete</option>
-                </select>-->
+            <%-- Chỉ hiển thị nút hành động phù hợp --%>
+            <% if ("Reserved".equals(currentStatus)) { %>
+            <input type="submit" name="action" value="Check In" formaction="MainController"/>
+            <input type="submit" name="action" value="Cancel Booking" formaction="MainController">
+            <% } else if ("CheckIn".equals(currentStatus)) { %>
+            <input type="submit" name="action" value="Check Out" formaction="MainController"/>
+            <% } else if ("CheckOut".equals(currentStatus)) { %>
+            <input type="submit" name="action" value="Approve Checkout" formaction="MainController"/>
+            <% } %>
+            <%-- Các trạng thái khác (Canceled, Complete) không có nút hành động --%>
 
+            <hr/>
+            <%
+                String sucMsg = (String) request.getAttribute("SUCCESS");
+                String errMsg = (String) request.getAttribute("ERROR");
+            %>
+            <% if (sucMsg != null) {%>
+            <h3 style="color: green;"><%= sucMsg%></h3> <%-- Dùng h3 hoặc p --%>
+            <% } %>
+            <% if (errMsg != null) {%>
+            <h3 style="color: red;">Lỗi: <%= errMsg%></h3> <%-- Dùng h3 hoặc p --%>
+            <% } %>
+            <%-- Nút Lưu thay đổi (cho phòng, ngày) chỉ hiển thị khi status là Reserved --%>
+            <% if (isChangeable) { %>
+            <input type="submit" name="action" value="Save Changes" formaction="MainController"/>
+            <% }%>
 
-                <input type="submit" name="action" value="Save Changes" formaction="MainController"/>
-                <a href="MainController?action=TurnBackReceptionPage">Cancel</a>
-            </form>
+            <a href="MainController?action=TurnBackReceptionPage">Quay lại</a>
+        </form>
+        <% } else { %>
+        <h1>Không có danh sách Booking!</h1>
+        <% }%>
 
-        </c:if>
-        <c:if test="${empty booking}">
-            <h1>Không có danh sách Booking!</h1>
-        </c:if>
     </body>
 </html>

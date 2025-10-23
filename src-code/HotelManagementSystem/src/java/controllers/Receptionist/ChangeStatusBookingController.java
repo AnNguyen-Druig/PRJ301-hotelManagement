@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controllers;
+package controllers.Receptionist;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,15 +11,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import mylib.IConstants;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name = "LogoutController", urlPatterns = {"/LogoutController"})
-public class LogoutController extends HttpServlet {
+@WebServlet(name = "ChangeStatusBookingController", urlPatterns = {"/ChangeStatusBookingController"})
+public class ChangeStatusBookingController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,13 +32,26 @@ public class LogoutController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            HttpSession session = request.getSession();
-            session.invalidate();
-            request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            String action = request.getParameter("action");
+            if (action != null && !action.trim().isEmpty()) {
+                String bookingID = request.getParameter("bookingID");
+                String roomID = request.getParameter("roomID");
+                String checkInDate = request.getParameter("checkInDate");
+                String checkOutDate = request.getParameter("checkOutDate");
+                String status = request.getParameter("status");
+                if (bookingID != null && !bookingID.trim().isEmpty()
+                        && roomID != null && !roomID.trim().isEmpty()
+                        && checkInDate != null && !checkInDate.trim().isEmpty()
+                        && checkOutDate != null && !checkOutDate.trim().isEmpty()
+                        && status != null && !status.trim().isEmpty()) {
+                    if (action.equals("Check In")) {
 
+                    }
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

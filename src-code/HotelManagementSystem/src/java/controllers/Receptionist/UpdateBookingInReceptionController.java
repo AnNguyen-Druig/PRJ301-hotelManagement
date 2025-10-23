@@ -1,4 +1,4 @@
-package controllers;
+package controllers.Receptionist;
 
 import DAO.BookingRoomDAO;
 
@@ -24,6 +24,17 @@ public class UpdateBookingInReceptionController extends HttpServlet {
         String url = IConstants.BOOKING_ROOM_DETAIL_PAGE; // Mặc định là trang chi tiết
 
         try {
+            // Lấy message từ SaveUpdateBookingController (nếu có)
+            String successMsgFromSave = (String) request.getAttribute("SUCCESS");
+            String errorMsgFromSave = (String) request.getAttribute("ERROR");
+            // Đặt lại vào request để JSP có thể đọc được
+            if (successMsgFromSave != null) {
+                request.setAttribute("SUCCESS", successMsgFromSave); // Giữ nguyên tên attribute
+            }
+            if (errorMsgFromSave != null) {
+                request.setAttribute("ERROR", errorMsgFromSave); // Giữ nguyên tên attribute
+            }
+
             // 1. Lấy bookingID
             String bookingID_str = request.getParameter("bookingID");
             int bookingID = Integer.parseInt(bookingID_str);

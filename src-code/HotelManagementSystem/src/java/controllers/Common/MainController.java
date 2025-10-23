@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controllers;
+package controllers.Common;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -112,6 +112,18 @@ public class MainController extends HttpServlet {
                     break;
                 case IConstants.AC_SAVE_PAYMENT_AND_INVOICE:
                     url = IConstants.CTL_SAVE_PAYMENT_AND_INVOICE;
+                    break;
+                case IConstants.AC_CHANGE_STATUS_CHECKIN:
+                    url = IConstants.CTL_CHANGE_STATUS_BOOKING;
+                    break;
+                case IConstants.AC_CHANGE_STATUS_CANCEL:
+                    url = IConstants.CTL_CHANGE_STATUS_BOOKING;
+                    break;
+                case IConstants.AC_CHANGE_STATUS_CHECKOUT:
+                    url = IConstants.CTL_CHANGE_STATUS_BOOKING;
+                    break;
+                case IConstants.AC_CHANGE_STATUS_COMPLETE:
+                    url = IConstants.CTL_CHANGE_STATUS_BOOKING;
                     break;
             }
         } catch (Exception e) {

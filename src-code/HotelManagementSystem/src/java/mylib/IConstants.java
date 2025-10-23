@@ -60,6 +60,10 @@ public interface IConstants {
 
     public final String AC_SAVE_BOOKING_UPDATE = "Save Changes";
     public final String AC_SAVE_PAYMENT_AND_INVOICE = "savepaymentandinvoice";
+    public final String AC_CHANGE_STATUS_CHECKIN = "Check In";
+    public final String AC_CHANGE_STATUS_CANCEL = "Cancel Booking";
+    public final String AC_CHANGE_STATUS_CHECKOUT = "Check Out";
+    public final String AC_CHANGE_STATUS_COMPLETE = "Approve Checkout";
 
     
     //Controller
@@ -84,6 +88,7 @@ public interface IConstants {
     public final String CTL_SAVE_BOOKING_UPDATE = "SaveUpdateBookingController";
     public final String CTL_GET_BOOKING_ROOM = "GetBookingRoomController";
     public final String CTL_SAVE_PAYMENT_AND_INVOICE = "SavePaymentAndInvoiceController";
+    public final String CTL_CHANGE_STATUS_BOOKING = "ChangeStatusBookingController";
 
 
 
@@ -107,7 +112,9 @@ public interface IConstants {
     public final String ERR_INVALID_EMPTYACCOUNT = "Không tìm thấy tài khoản!";
     public final String ERR_EMPTYBOOKING = "Không có dữ liệu Booking!";
     public final String ERR_SAVE_BOOKING_SERVICE = "Đặt dịch vụ KHÔNG THÀNH CÔNG";  
+    public final String ERR_SAVE_UPDATE_BOOKING = "Cập nhật thông tin KHÔNG THÀNH CÔNG";
     
     //SUCESSFULL
     public final String SUCC_SAVE_BOOKING_SERVICE =  "Bạn đã đặt dịch vụ thành công.";
+    public final String SUCC_SAVE_UPDATE_BOOKING = "Bạn đã cập nhật thông tin thành công.";
 }

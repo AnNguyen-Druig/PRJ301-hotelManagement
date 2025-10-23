@@ -256,4 +256,30 @@ public class BookingRoomDAO {
         }
         return result;
     }
+    
+    public int saveUpdateBooking(BookingDTO booking) {
+        int result = 0;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            String sql = "UPDATE BOOKING SET RoomID = ?, CheckInDate = ?, CheckOutDate = ? WHERE BookingID = ?";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, booking.getRoomID());
+            ps.setDate(2, booking.getCheckInDate());
+            ps.setDate(3, booking.getCheckOutDate());
+            ps.setInt(4, booking.getBookingID());
+            result = ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 }
