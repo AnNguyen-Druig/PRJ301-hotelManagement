@@ -59,42 +59,43 @@ public class ReportDAO {
         return result;
     }
     
-    public ReportDTO report2(){
-        ReportDTO result = null;
+    public ArrayList<ReportDTO> report2(){
+        ArrayList<ReportDTO> result = new ArrayList<>();
         Connection cn = null;
         try {
             cn = DBUtills.getConnection();
             if (cn != null) {
-                String sql = "SELECT BS.ServiceDate, G.FullName, B.RoomID, S.ServiceName, BS.Quantity, BS.Status\n"
+                String sql = "SELECT G.FullName, B.RoomID, S.ServiceName, BS.Quantity, ST.FullName as AssignedStaff, BS.RequestTime\n"
                             + "FROM DBO.BOOKING_SERVICE AS BS\n"
                             + "JOIN BOOKING AS B ON B.BookingID = BS.BookingID\n"
                             + "JOIN GUEST AS G ON G.GuestID = B.GuestID\n"
-                            + "JOIN SERVICE AS S ON S.ServiceID = BS.ServiceID";
+                            + "JOIN SERVICE AS S ON S.ServiceID = BS.ServiceID\n"
+                            + "LEFT JOIN STAFF AS ST ON ST.StaffID = BS.AssignedStaffID";
                 PreparedStatement st = cn.prepareStatement(sql);
                 ResultSet table = st.executeQuery();
                 if(table != null){
                     while(table.next()){
-                        Date serviceDate = table.getDate("ServiceDate");
                         String guestName = table.getString("FullName");
-                        int roomId = table.getInt("RoomID");
+                        int roomNumber = table.getInt("RoomID");
                         String serviceName = table.getString("ServiceName");
                         int quantity = table.getInt("Quantity");
-                        String status = table.getString("Status");
-                        result = new ReportDTO(serviceDate, guestName, roomId, serviceName, quantity, status);
+                        String assignedStaff = table.getString("AssignedStaff");
+                        int requestTime = table.getInt("RequestTime");
+                        
+                        ReportDTO report = new ReportDTO(guestName, roomNumber, serviceName, quantity, assignedStaff, requestTime);
+                        result.add(report);
                     }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-
             try {
                 if (cn != null) {
                     cn.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-
             }
         }
         return result;

@@ -31,6 +31,7 @@ public interface IConstants {
     public final String CHECKOUT_PAGE = "/common/checkoutpage.jsp";
     public final String REPORT_MAIN_PAGE = "common/ReportJSP/reportmainpage.jsp";
     public final String REPORT_1_PAGE = "/common/ReportJSP/Report1Page.jsp";
+    public final String REPORT_2_PAGE = "/common/ReportJSP/Report2Page.jsp";
     
     //Action
     public final String AC_DEFAULT = "default";
@@ -63,8 +64,11 @@ public interface IConstants {
     public final String AC_SAVE_BOOKING_UPDATE = "Save Changes";
     public final String AC_SAVE_PAYMENT_AND_INVOICE = "savepaymentandinvoice";
     public final String AC_REPORT_1_PAGE = "report1page";
-
-    
+    public final String AC_REPORT_2_PAGE = "report2page";
+    public final String AC_CHANGE_STATUS_CHECKIN = "Check In";    
+    public final String AC_CHANGE_STATUS_CANCEL = "Cancel Booking";
+    public final String AC_CHANGE_STATUS_CHECKOUT = "Check Out";
+    public final String AC_CHANGE_STATUS_COMPLETE = "Approve Checkout";
     //Controller
     public final String CTL_LOGIN = "LoginController";
     public final String CTL_SIGNUP = "SignUpController";
@@ -83,6 +87,11 @@ public interface IConstants {
     public final String CTL_VIEW_BOOKING = "ViewBookingController";
     public final String CTL_EDIT_SERVICE = "EditServiceController";
     public final String CTL_ADD_SERVICE = "AddServiceController";
+    
+    public final String CTL_SAVE_BOOKING_UPDATE = "SaveUpdateBookingController";
+    public final String CTL_GET_BOOKING_ROOM = "GetBookingRoomController";
+    public final String CTL_SAVE_PAYMENT_AND_INVOICE = "SavePaymentAndInvoiceController";
+    public final String CTL_CHANGE_STATUS_BOOKING = "ChangeStatusBookingController";
 
     public final String CTL_SAVE_BOOKING_UPDATE = "SaveUpdateBookingController";
     public final String CTL_GET_BOOKING_ROOM = "GetBookingRoomController";

@@ -14,6 +14,7 @@
     <body>
         <jsp:useBean id="USER" scope="session" class="DTO.StaffDTO" />
         <h1>Hello, ${USER.fullName} welcome to report page</h1>
-        <p><a href="GetReportController">Report 1</a></p>
+        <p><a href="GetReportController">Report 1 - Service History</a></p>
+        <p><a href="GetReport2Controller">Report 2 - Completed Services</a></p>
     </body>
 </html>
