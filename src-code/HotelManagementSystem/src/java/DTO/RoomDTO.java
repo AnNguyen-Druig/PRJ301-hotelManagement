@@ -17,6 +17,7 @@ public class RoomDTO {
     private String typeName;
     private int capacity;
     private double pricePerNight;
+    private String assignedStaff;
 
     public RoomDTO() {
     }
