@@ -65,14 +65,14 @@
                 <% if (availableRooms != null && !availableRooms.isEmpty()) {
                         for (RoomDTO room : availableRooms) {
                             String selectedAttr = "";
+                            String roomNumberDefault = room.getRoomNumber();
                             if (room.getRoomID() == booking.getRoomID()) {
                                 selectedAttr = "selected";
+                                roomNumberDefault += "(Phòng hiện tại)";
                             }%>
-                <option value="<%= room.getRoomID()%>" <%= selectedAttr%>><%= room.getRoomNumber()%></option>
+                <option value="<%= room.getRoomID()%>" <%= selectedAttr%>> <%= roomNumberDefault%></option>
                 <% }
-                } else {%>
-                <option value="<%= booking.getRoomID()%>" selected><%= booking.getRoomNumber()%> (Phòng hiện tại)</option>
-                <% } %>
+                } %>
             </select>
             <% if (!isChangeable) { %>
             <p class="note">Chỉ các booking có trạng thái "Reserved" mới có thể đổi phòng.</p>
