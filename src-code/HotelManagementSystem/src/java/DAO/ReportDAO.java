@@ -70,7 +70,7 @@ public class ReportDAO {
                             + "JOIN BOOKING AS B ON B.BookingID = BS.BookingID\n"
                             + "JOIN GUEST AS G ON G.GuestID = B.GuestID\n"
                             + "JOIN SERVICE AS S ON S.ServiceID = BS.ServiceID\n"
-                            + "LEFT JOIN STAFF AS ST ON ST.StaffID = BS.AssignedStaffID";
+                            + "LEFT JOIN STAFF AS ST ON ST.StaffID = BS.AssignedStaff";
                 PreparedStatement st = cn.prepareStatement(sql);
                 ResultSet table = st.executeQuery();
                 if(table != null){
