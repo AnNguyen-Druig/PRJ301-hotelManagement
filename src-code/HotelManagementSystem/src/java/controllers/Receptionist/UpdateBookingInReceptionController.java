@@ -53,7 +53,7 @@ public class UpdateBookingInReceptionController extends HttpServlet {
             // 4. Xử lý tải lại danh sách phòng
             String selectedRoomTypeIdStr = request.getParameter("roomTypeID");
             if (selectedRoomTypeIdStr != null && !selectedRoomTypeIdStr.isEmpty()) {
-                selectedRoomTypeID = Integer.parseInt("selectedRoomTypeIdStr");
+                selectedRoomTypeID = Integer.parseInt(selectedRoomTypeIdStr);
                 if(selectedRoomTypeID != 0) {
                     roomTypeIdToLoad = selectedRoomTypeID;
                     request.setAttribute("SELECTED_ROOM_TYPE_ID", roomTypeIdToLoad);
