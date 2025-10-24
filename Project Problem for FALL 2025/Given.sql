@@ -73,7 +73,7 @@ CREATE TABLE SERVICE (
     ServiceID INT IDENTITY(1,1) PRIMARY KEY,
     ServiceName NVARCHAR(100) NOT NULL,
     ServiceType NVARCHAR(50),
-    Price DECIMAL(10,2) NOT NULL CHECK (Price >= 0)
+    Price DECIMAL(10,2) NOT NULL CHECK (Price >= 0),
 );
 
 -- ======================================================
@@ -105,7 +105,8 @@ CREATE TABLE BOOKING_SERVICE (
     AssignedStaff INT NULL,
     FOREIGN KEY (BookingID) REFERENCES BOOKING(BookingID),
     FOREIGN KEY (ServiceID) REFERENCES SERVICE(ServiceID),
-    FOREIGN KEY (AssignedStaff) REFERENCES STAFF(StaffID)
+    FOREIGN KEY (AssignedStaff) REFERENCES STAFF(StaffID),
+	RequestTime INT NOT NULL CHECK (RequestTime >= 0)
 );
 
 -- ======================================================
@@ -236,4 +237,30 @@ VALUES
 (N'Vũ Thị Lựu', N'Housekeeping', N'VuLuu', N'666', N'06444455556', N'vuthiaa@hotel.com'),
 (N'Đặng Văn Bảo', N'ServiceStaff', N'DangBao', N'777', N'07555566667', N'dangvanbb@hotel.com'),
 (N'Bùi Thị Cung', N'Manager', N'BuiCung', N'888', N'09666677778', N'buithicc@hotel.com');
+Go
 
+CREATE OR ALTER TRIGGER dbo.trg_BOOKING_SERVICE_AutoAssignStaff
+ON dbo.BOOKING_SERVICE
+AFTER INSERT
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  ;WITH Picked AS (
+    SELECT i.Booking_Service_ID,
+           s.StaffID
+    FROM inserted i
+    OUTER APPLY (
+        SELECT TOP (1) StaffID
+        FROM dbo.STAFF
+        WHERE Role = 'ServiceStaff'
+        ORDER BY NEWID()               -- ngẫu nhiên
+    ) s
+  )
+  UPDATE bs
+    SET AssignedStaff = p.StaffID
+  FROM dbo.BOOKING_SERVICE bs
+  JOIN Picked p ON p.Booking_Service_ID = bs.Booking_Service_ID
+  WHERE bs.AssignedStaff IS NULL;      -- chỉ auto-assign nếu chưa có
+END
+GO

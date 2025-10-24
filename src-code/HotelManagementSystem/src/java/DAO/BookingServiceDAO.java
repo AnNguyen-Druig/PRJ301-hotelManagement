@@ -25,12 +25,13 @@ public class BookingServiceDAO {
         try {
             cn = DBUtills.getConnection();
             if (cn != null) {
-                String sql = "Insert dbo.BOOKING_SERVICE(BookingID, ServiceID, Quantity, Status) values (?,?,?,?)";
+                String sql = "Insert dbo.BOOKING_SERVICE(BookingID, ServiceID, Quantity, Status, RequestTime) values (?,?,?,?,?)";
                 PreparedStatement st = cn.prepareStatement(sql);
                 st.setInt(1, BookingID);
                 st.setInt(2, ServiceID);
                 st.setInt(3, quantity);
                 st.setString(4, "Pending");
+                st.setInt(5, 15);
                 result = st.executeUpdate();
             }
 
