@@ -84,11 +84,9 @@ public interface IConstants {
     public final String CTL_BOOKINGBY_GUESTIDNUMBER = "BookingGuestIDNumberController";
     public final String CTL_SHOW_BOOKING_IN_RECEPTION = "ShowBookingInReception";
     public final String CTL_UPDATE_BOOKING_IN_RECEPTION = "UpdateBookingInReceptionController";
-
     public final String CTL_VIEW_BOOKING = "ViewBookingController";
     public final String CTL_EDIT_SERVICE = "EditServiceController";
     public final String CTL_ADD_SERVICE = "AddServiceController";
-    
     public final String CTL_SAVE_BOOKING_UPDATE = "SaveUpdateBookingController";
     public final String CTL_GET_BOOKING_ROOM = "GetBookingRoomController";
     public final String CTL_SAVE_PAYMENT_AND_INVOICE = "SavePaymentAndInvoiceController";
@@ -113,6 +111,7 @@ public interface IConstants {
     public final String ERR_CHECKOUTDATE_ISBEFORE_CHECKINDATE = "Ngày checkout phải sau ngày checkin";
     public final String ERR_REQUIRE_SELECT_DATERANGE = "Bạn cần phải chọn Loai Phong va ngày CheckIn, CheckOut";
     public final String ERR_INVALID_EMPTYACCOUNT = "Không tìm thấy tài khoản!";
+    public final String ERR_EMPTY_GUEST_IDNUMBER = "Vui lòng nhập số CCCD.";
     public final String ERR_EMPTYBOOKING = "Không có dữ liệu Booking!";
     public final String ERR_SAVE_BOOKING_SERVICE = "Đặt dịch vụ KHÔNG THÀNH CÔNG";  
     public final String ERR_SAVE_UPDATE_BOOKING = "Cập nhật thông tin KHÔNG THÀNH CÔNG";
