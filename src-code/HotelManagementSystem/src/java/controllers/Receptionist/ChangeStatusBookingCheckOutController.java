@@ -39,8 +39,8 @@ public class ChangeStatusBookingCheckOutController extends HttpServlet {
             String status = request.getParameter("status");
 
             //Check khác null và ko rỗng
-            if (bookingID != null && !bookingID.isEmpty()
-                    && status != null && !status.isEmpty()) {
+            if (bookingID != null && !bookingID.trim().isEmpty()
+                    && status != null && !status.trim().isEmpty()) {
 
                 //Convert sang đúng kiểu dữ liệu trong DB
                 int bookingID_value = Integer.parseInt(bookingID);
