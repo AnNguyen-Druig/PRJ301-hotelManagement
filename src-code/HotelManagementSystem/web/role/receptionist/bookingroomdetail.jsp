@@ -33,6 +33,7 @@
         <%-- Form này vẫn submit về UpdateBookingInReceptionController khi chọn loại phòng --%>
         <form action="UpdateBookingInReceptionController" method="POST" id="bookingDetailForm">
             <input type="hidden" name="bookingID" value="<%= booking.getBookingID()%>" />
+            <input type="hidden" name="roomID" value="<%= booking.getRoomID() %>" /> 
 
             <p>Mã khách hàng: <%= booking.getGuestID()%></p>
             <p>Tên khách hàng: <%= booking.getGuestName()%></p>
