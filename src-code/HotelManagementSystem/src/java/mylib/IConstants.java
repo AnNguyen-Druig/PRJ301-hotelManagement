@@ -29,7 +29,6 @@ public interface IConstants {
     public final String BOOKING_ROOM_DETAIL_PAGE = "/role/receptionist/bookingroomdetail.jsp";
     public final String BOOKING_ROOM_VIEW_PAGE = "/common/bookingroomview.jsp";
     public final String CHECKOUT_PAGE = "/common/checkoutpage.jsp";
-<<<<<<< HEAD
     public final String REPORT_MAIN_PAGE = "common/ReportJSP/reportmainpage.jsp";
     public final String REPORT_1_PAGE = "/common/ReportJSP/Report1Page.jsp";
     public final String REPORT_2_PAGE = "/common/ReportJSP/Report2Page.jsp";
@@ -38,10 +37,8 @@ public interface IConstants {
     public final String VIEW_MOSTUSED_SERVICES_PAGE = "mostusedservicepage.jsp";
     public final String VIEW_ROOM_OCCUPANCY_PAGE = "roomoccupancypage.jsp";
     public final String VIEW_CANCEL_STATISTICS_PAGE = "cancelstatisticspage.jsp";
-    
-=======
-    public final String REPORT_MAIN_PAGE = "role/manager/reportmainpage.jsp";
->>>>>>> 02c759386a63fb0176835146d8b39913f17db7a5
+//    public final String REPORT_MAIN_PAGE = "role/manager/reportmainpage.jsp";
+
     
     //Action
     public final String AC_DEFAULT = "default";
@@ -77,7 +74,6 @@ public interface IConstants {
     public final String AC_CHANGE_STATUS_CANCEL = "Cancel Booking";
     public final String AC_CHANGE_STATUS_CHECKOUT = "Check Out";
     public final String AC_CHANGE_STATUS_COMPLETE = "Approve Checkout";
-<<<<<<< HEAD
     public final String AC_REPORT_1_PAGE = "report1page";
     public final String AC_REPORT_2_PAGE = "report2page";
     public final String AC_VIEW_REVENUE_REPORT = "ViewRevenueReport";
@@ -85,9 +81,7 @@ public interface IConstants {
     public final String AC_VIEW_MOSTUSED_SERVICES_REPORT = "ViewMostUsedServicesReport";
     public final String AC_VIEW_ROOM_OCCUPANCY_RATE_REPORT = "ViewRoomOccupancyRateReport";
     public final String AC_VIEW_CANCEL_STATISTICS_REPORT = "ViewCancellationStatsReport";
-=======
     public final String AC_MANAGER_GO_BACK = "gobackmanager";
->>>>>>> 02c759386a63fb0176835146d8b39913f17db7a5
 
     
     //Controller
