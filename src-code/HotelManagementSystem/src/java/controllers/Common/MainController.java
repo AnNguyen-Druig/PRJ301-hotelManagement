@@ -128,11 +128,8 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_VIEW_REPORT_PAGE:
                     url = IConstants.REPORT_MAIN_PAGE;
                     break;
-                case IConstants.AC_REPORT_1_PAGE:
-                    url = IConstants.REPORT_1_PAGE;
-                    break;
-                case IConstants.AC_REPORT_2_PAGE:
-                    url = IConstants.REPORT_2_PAGE;
+                case IConstants.AC_MANAGER_GO_BACK:
+                    url = IConstants.MANAGER_PAGE;
                     break;
                 case IConstants.AC_VIEW_REVENUE_REPORT:
                     url = IConstants.CTL_VIEW_REVENUE_REPORT;

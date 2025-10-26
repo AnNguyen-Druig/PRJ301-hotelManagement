@@ -1,9 +1,9 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controllers;
+package controllers.Report;
 
 import DAO.ReportDAO;
 import DTO.ReportDTO;
@@ -15,14 +15,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import mylib.IConstants;
 
 /**
  *
  * @author Nguyễn Đại
  */
-@WebServlet(name="GetReport2Controller", urlPatterns={"/GetReport2Controller"})
-public class GetReport2Controller extends HttpServlet {
+@WebServlet(name="GetReport4Controller", urlPatterns={"/GetReport4Controller"})
+public class GetReport4Controller extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,21 +34,11 @@ public class GetReport2Controller extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            ArrayList<ReportDTO> list = null;
             ReportDAO dao = new ReportDAO();
-            list = dao.report2();
-            if(list != null && !list.isEmpty()){
-                request.setAttribute("REPORT_2_LIST", list);
-                request.getRequestDispatcher("MainController?action=report2page").forward(request, response);
-            }else{
-                request.setAttribute("Error", "Can't load report 2 please check database");
-                request.getRequestDispatcher("MainController?action=report2page").forward(request, response);
-            }
+            //ArrayList<ReportDTO> list = dao.report4(serviceDate);
           
         }catch(Exception e){
-            e.printStackTrace();
-            request.setAttribute("Error", "Error loading report 2: " + e.getMessage());
-            request.getRequestDispatcher("MainController?action=report2page").forward(request, response);
+            
         }
     } 
 

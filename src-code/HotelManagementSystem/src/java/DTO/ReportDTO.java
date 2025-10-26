@@ -21,7 +21,7 @@ public class ReportDTO {
     private String staffName;
     private int totalComplete;
     private double totalRevenue;
-    private String period;
+    private Date period;
     private int requestTime;
 
     public ReportDTO() {
@@ -54,7 +54,7 @@ public class ReportDTO {
         this.totalComplete = totalComplete;
     }
 
-    public ReportDTO(String serviceName, int quantity, double totalRevenue, String period) {
+    public ReportDTO(String serviceName, int quantity, double totalRevenue, Date period) {
         this.serviceName = serviceName;
         this.quantity = quantity;
         this.totalRevenue = totalRevenue;
@@ -141,11 +141,11 @@ public class ReportDTO {
         this.totalRevenue = totalRevenue;
     }
 
-    public String getPeriod() {
+    public Date getPeriod() {
         return period;
     }
 
-    public void setPeriod(String period) {
+    public void setPeriod(Date period) {
         this.period = period;
     }
 
