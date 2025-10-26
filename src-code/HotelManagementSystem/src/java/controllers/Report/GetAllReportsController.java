@@ -1,14 +1,13 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package controllers;
+package controllers.Report;
 
 import DAO.ReportDAO;
 import DTO.ReportDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,8 +20,8 @@ import mylib.IConstants;
  *
  * @author Nguyễn Đại
  */
-@WebServlet(name="GetReportController", urlPatterns={"/GetReportController"})
-public class GetReportController extends HttpServlet {
+@WebServlet(name="GetAllReportsController", urlPatterns={"/GetAllReportsController"})
+public class GetAllReportsController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,21 +34,30 @@ public class GetReportController extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            ArrayList<ReportDTO> list = null;
             ReportDAO dao = new ReportDAO();
-            list = dao.report1();
-            if(list != null && !list.isEmpty()){
-                request.setAttribute("REPORT_1_LIST", list);
-                request.getRequestDispatcher("MainController?action=report1page").forward(request, response);
-            }else{
-                request.setAttribute("Error", "Can't load report please check database");
-                request.getRequestDispatcher("MainController?action=report1page").forward(request, response);
-            }
+            
+            // Load Report 1 data
+            ArrayList<ReportDTO> report1List = dao.report1();
+            request.setAttribute("REPORT_1_LIST", report1List);
+            
+            // Load Report 2 data
+            ArrayList<ReportDTO> report2List = dao.report2();
+            request.setAttribute("REPORT_2_LIST", report2List);
+            
+            //Load Report 3 data
+            ArrayList<ReportDTO> report3List = dao.report3();
+            request.setAttribute("REPORT_3_LIST", report3List);
+            
+            // Set show all reports
+            request.setAttribute("SHOW_REPORT", "all");
+            
+            // Forward to the main report page
+            request.getRequestDispatcher(IConstants.REPORT_MAIN_PAGE).forward(request, response);
           
         }catch(Exception e){
             e.printStackTrace();
-            request.setAttribute("Error", "Error loading report: " + e.getMessage());
-            request.getRequestDispatcher("MainController?action=report1page").forward(request, response);
+            request.setAttribute("Error", "Error loading reports: " + e.getMessage());
+            request.getRequestDispatcher(IConstants.REPORT_MAIN_PAGE).forward(request, response);
         }
     } 
 

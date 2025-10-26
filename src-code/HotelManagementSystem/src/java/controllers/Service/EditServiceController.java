@@ -3,9 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controllers;
+package controllers.Service;
 
-import DAO.ServiceDAO;
+import DAO.BookingServiceDAO;
 import DTO.ServiceDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,13 +16,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import mylib.IConstants;
 
 /**
  *
  * @author Nguyễn Đại
  */
-@WebServlet(name="AddServiceController", urlPatterns={"/AddServiceController"})
-public class AddServiceController extends HttpServlet {
+@WebServlet(name="EditServiceController", urlPatterns={"/EditServiceController"})
+public class EditServiceController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,45 +36,49 @@ public class AddServiceController extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String id = request.getParameter("ServiceID");
-            String bookingId = request.getParameter("bookingId");
-            String cartKey = "CART_" + bookingId;
-            
-            HttpSession session = request.getSession();
-            HashMap<ServiceDTO, Integer> cart = (HashMap)session.getAttribute(cartKey);
-            ServiceDAO dao = new ServiceDAO();
-            ServiceDTO service = dao.getService(Integer.parseInt(id));
-            if(cart == null){
-                cart = new HashMap<>();
-                cart.put(service, 1);
-            }else{
-                ServiceDTO find = null;
+          String action = request.getParameter("action");
+          int serviceId = Integer.parseInt(request.getParameter("serviceid").trim());
+          int quantity = Integer.parseInt(request.getParameter("quantity").trim());
+          int bookingId = Integer.parseInt(request.getParameter("bookingId").trim());
+          HttpSession session = request.getSession();
+//          String bookingId = (String) session.getAttribute("BOOKING_ID");
+          String cartKey = "CART_" + bookingId;
+          HashMap<ServiceDTO, Integer> cart=(HashMap<ServiceDTO, Integer>) session.getAttribute(cartKey);
+          ServiceDTO find = null;
                 for (ServiceDTO s : cart.keySet()) {
-                    if(s.getServiceId() == service.getServiceId()){
+                    if(s.getServiceId() == serviceId){
                         find = s;
                         break;
                     }
+                }    
+                if (find != null) {
+                    if(action.equalsIgnoreCase(IConstants.AC_SAVE_BOOKING_SERVICE)) {
+                        BookingServiceDAO bookingServiceDAO = new BookingServiceDAO();
+                        int result = bookingServiceDAO.saveBookingService(bookingId,serviceId, quantity);
+                        if(result != 0) {
+                            cart.remove(find);
+                            request.setAttribute("SAVE_BOOKING_SERVICE", IConstants.SUCC_SAVE_BOOKING_SERVICE);
+                        } else {
+                            request.setAttribute("SAVE_BOOKING_SERVICE", IConstants.ERR_SAVE_BOOKING_SERVICE);
+                        }
+                    }
+                    else if (action.equalsIgnoreCase(IConstants.AC_UPDATE_BOOKING_SERVICE)) {
+                        cart.put(find,quantity);
+                    } else {
+                        cart.remove(find);
+                    }
+                    session.setAttribute(cartKey, cart);
+                    // Giữ lại booking ID khi forward
+//                    if (bookingId != null) {
+//                        request.setAttribute("bookingId", bookingId);
+//                    }
+                    request.getRequestDispatcher("GetServiceController").forward(request, response);
                 }
-                
-                if(find != null){
-                    int quantity = cart.get(find);
-                    quantity++;
-                    cart.put(find, quantity);
-                }else{
-                    cart.put(service, 1);
-                }
-            }
-            session.setAttribute(cartKey, cart);
-            // Giữ lại booking ID khi forward
-//            if (bookingId != null) {
-//                request.setAttribute("bookingId", bookingId);
-//            }
-            request.getRequestDispatcher("GetServiceController").forward(request, response);
+            
         }catch(Exception e){
             
-        }
-    } 
-
+        } 
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -109,5 +114,5 @@ public class AddServiceController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
+

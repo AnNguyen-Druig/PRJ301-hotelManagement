@@ -19,5 +19,6 @@
         
         <h2>Choose your action:</h2>
         <p><a href="MainController?action=reportpage">View Report Statistic</a></p>
+        <p><a href="LogoutController?action=logout">Logout</a></p>
     </body>
 </html>

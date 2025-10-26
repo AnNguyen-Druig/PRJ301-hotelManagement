@@ -25,13 +25,11 @@ public interface IConstants {
     public final String BOOKING_INFORMATION_PAGE = "/common/bookinginformationpage.jsp";
     public final String MANAGE_ROOM_STATUS = "/role/housekeeping/housekeeping.jsp";
     public final String BOOKING_ROOM_REGISTER_PAGE = "/common/bookingroomregisterpage.jsp";
-    public final String CHOOSE_SERVICE_PAGE = "/common/ServicePage/ChooseServicePage.jsp";
+    public final String CHOOSE_SERVICE_PAGE = "/role/Service/ChooseServicePage.jsp";
     public final String BOOKING_ROOM_DETAIL_PAGE = "/role/receptionist/bookingroomdetail.jsp";
     public final String BOOKING_ROOM_VIEW_PAGE = "/common/bookingroomview.jsp";
     public final String CHECKOUT_PAGE = "/common/checkoutpage.jsp";
-    public final String REPORT_MAIN_PAGE = "common/ReportJSP/reportmainpage.jsp";
-    public final String REPORT_1_PAGE = "/common/ReportJSP/Report1Page.jsp";
-    public final String REPORT_2_PAGE = "/common/ReportJSP/Report2Page.jsp";
+    public final String REPORT_MAIN_PAGE = "role/manager/reportmainpage.jsp";
     
     //Action
     public final String AC_DEFAULT = "default";
@@ -67,8 +65,7 @@ public interface IConstants {
     public final String AC_CHANGE_STATUS_CANCEL = "Cancel Booking";
     public final String AC_CHANGE_STATUS_CHECKOUT = "Check Out";
     public final String AC_CHANGE_STATUS_COMPLETE = "Approve Checkout";
-    public final String AC_REPORT_1_PAGE = "report1page";
-    public final String AC_REPORT_2_PAGE = "report2page";
+    public final String AC_MANAGER_GO_BACK = "gobackmanager";
 
     //Controller
     public final String CTL_LOGIN = "LoginController";
