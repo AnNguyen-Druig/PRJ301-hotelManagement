@@ -29,7 +29,8 @@ public interface IConstants {
     public final String BOOKING_ROOM_DETAIL_PAGE = "/role/receptionist/bookingroomdetail.jsp";
     public final String BOOKING_ROOM_VIEW_PAGE = "/common/bookingroomview.jsp";
     public final String CHECKOUT_PAGE = "/common/checkoutpage.jsp";
-    public final String REPORT_MAIN_PAGE = "role/manager/reportmainpage.jsp";
+    public final String REPORT_MAIN_PAGE = "/role/manager/reportmainpage.jsp";
+    public final String VIEW_SERVICE_PAGE = "/role/service/ViewServicePage.jsp";
     
     //Action
     public final String AC_DEFAULT = "default";
@@ -66,6 +67,9 @@ public interface IConstants {
     public final String AC_CHANGE_STATUS_CHECKOUT = "Check Out";
     public final String AC_CHANGE_STATUS_COMPLETE = "Approve Checkout";
     public final String AC_MANAGER_GO_BACK = "gobackmanager";
+    public final String AC_VIEW_SERVICE_PAGE_CONTROL = "ViewServiceCtrl";
+    public final String AC_VIEW_SERVICE_PAGE = "ViewService";
+    public final String AC_UPDATE_SERVICE_STATUS = "update_service_status";
 
     //Controller
     public final String CTL_LOGIN = "LoginController";
@@ -91,6 +95,8 @@ public interface IConstants {
     public final String CTL_CHANGE_STATUS_BOOKING_CHECKOUT = "ChangeStatusBookingCheckOutController";
     public final String CTL_CHANGE_STATUS_BOOKING_CANCEL = "ChangeStatusBookingCancelController";
     public final String CTL_CHANGE_STATUS_BOOKING_COMPLETE = "ChangeStatusBookingCompleteController";
+    public final String CTL_GET_BOOKING_SERVICE = "GetBookingServiceController";
+    public final String CTL_UPDATE_BOOKING_SERVICE_CONTROLLER = "UpdateBookingServiceController";
 
     // ERROR
     public final String ERR_EMPTY_FIELD = "Tên đăng nhập và mật khẩu không được để trống!";

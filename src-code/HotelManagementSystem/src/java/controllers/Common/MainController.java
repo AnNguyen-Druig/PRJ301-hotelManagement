@@ -131,6 +131,14 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_MANAGER_GO_BACK:
                     url = IConstants.MANAGER_PAGE;
                     break;
+                case IConstants.AC_VIEW_SERVICE_PAGE_CONTROL:
+                    url = IConstants.CTL_GET_BOOKING_SERVICE;
+                    break;
+                case IConstants.AC_VIEW_SERVICE_PAGE:
+                    url = IConstants.VIEW_SERVICE_PAGE;
+                    break;
+                case IConstants.AC_UPDATE_SERVICE_STATUS:
+                    url = IConstants.CTL_UPDATE_BOOKING_SERVICE_CONTROLLER;
             }
         } catch (Exception e) {
             e.printStackTrace();

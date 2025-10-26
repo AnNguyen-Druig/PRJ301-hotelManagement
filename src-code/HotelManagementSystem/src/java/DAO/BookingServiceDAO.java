@@ -76,7 +76,45 @@ public class BookingServiceDAO {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    
+    public boolean updateStatus(int bookingServiceId, String newStatus){
+        boolean result = false;
+        Connection cn = null;
+        try{
+            cn = DBUtills.getConnection();
+            String sql = "UPDATE dbo.BOOKING_SERVICE SET Status = ? WHERE Booking_Service_ID = ?";
+            PreparedStatement st = cn.prepareStatement(sql);
+            st.setString(1, newStatus);
+            st.setInt(2, bookingServiceId);         
+            int affect = st.executeUpdate();
+            if(affect > 0){
+                result = true;
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return result;
     }
 }
+

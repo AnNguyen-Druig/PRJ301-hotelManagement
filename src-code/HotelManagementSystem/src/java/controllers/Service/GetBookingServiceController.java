@@ -6,9 +6,12 @@
 package controllers.Service;
 
 import DAO.BookingServiceDAO;
+import DAO.ServiceDAO;
+import DTO.BookingServiceDTO;
 import DTO.ServiceDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,8 +25,8 @@ import mylib.IConstants;
  *
  * @author Nguyễn Đại
  */
-@WebServlet(name="EditServiceController", urlPatterns={"/EditServiceController"})
-public class EditServiceController extends HttpServlet {
+@WebServlet(name="GetBookingServiceController", urlPatterns={"/GetBookingServiceController"})
+public class GetBookingServiceController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,45 +39,37 @@ public class EditServiceController extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-          String action = request.getParameter("action");
-          int serviceId = Integer.parseInt(request.getParameter("serviceid").trim());
-          int quantity = Integer.parseInt(request.getParameter("quantity").trim());
-          int bookingId = Integer.parseInt(request.getParameter("bookingId").trim());
-          HttpSession session = request.getSession();
-//          String bookingId = (String) session.getAttribute("BOOKING_ID");
-          String cartKey = "CART_" + bookingId;
-          HashMap<ServiceDTO, Integer> cart=(HashMap<ServiceDTO, Integer>) session.getAttribute(cartKey);
-          ServiceDTO find = null;
-                for (ServiceDTO s : cart.keySet()) {
-                    if(s.getServiceId() == serviceId){
-                        find = s;
-                        break;
-                    }
-                }    
-                if (find != null) {
-                    if(action.equalsIgnoreCase(IConstants.AC_SAVE_BOOKING_SERVICE)) {
-                        BookingServiceDAO bookingServiceDAO = new BookingServiceDAO();
-                        int result = bookingServiceDAO.saveBookingService(bookingId,serviceId, quantity);
-                        if(result != 0) {
-                            cart.remove(find);
-                            request.setAttribute("SAVE_BOOKING_SERVICE", IConstants.SUCC_SAVE_BOOKING_SERVICE);
-                        } else {
-                            request.setAttribute("SAVE_BOOKING_SERVICE", IConstants.ERR_SAVE_BOOKING_SERVICE);
-                        }
-                    }
-                    else if (action.equalsIgnoreCase(IConstants.AC_UPDATE_BOOKING_SERVICE)) {
-                        cart.put(find,quantity);
-                    } else {
-                        cart.remove(find);
-                    }
-                    session.setAttribute(cartKey, cart);
-                    request.getRequestDispatcher("GetServiceController").forward(request, response);
+          String bookingIdStr = request.getParameter("bookingId");
+          if (bookingIdStr == null || bookingIdStr.trim().isEmpty()) {
+            request.setAttribute("ERROR", "Thiếu bookingId");
+            request.getRequestDispatcher("ViewServicePage.jsp").forward(request, response);
+            return;
+          }
+          int bookingId = Integer.parseInt(bookingIdStr);
+          BookingServiceDAO bsDao = new BookingServiceDAO();
+          ArrayList<BookingServiceDTO> list = bsDao.getBookingServiceByBookingID(bookingId);
+          
+            HashMap<Integer, ServiceDTO> serviceMap = new HashMap<>();
+            ServiceDAO sDao = new ServiceDAO();
+            if (list != null) {
+              for (BookingServiceDTO bs : list) {
+                int sid = bs.getServiceID();
+                if (!serviceMap.containsKey(sid)) {
+                  ServiceDTO s = sDao.getService(sid); // hàm đã có trong ServiceDAO
+                  if (s != null) serviceMap.put(sid, s);
                 }
-            
+              }
+            }
+      
+          request.setAttribute("BOOKING_ID", bookingId);
+          request.setAttribute("BOOKING_SERVICES", list);
+          request.setAttribute("SERVICE_MAP", serviceMap);
+          request.getRequestDispatcher("MainController?action=ViewService").forward(request, response);
         }catch(Exception e){
-            
-        } 
-    }
+            e.printStackTrace();
+        }
+    } 
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -110,5 +105,5 @@ public class EditServiceController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-}
 
+}

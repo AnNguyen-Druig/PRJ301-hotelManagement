@@ -46,7 +46,8 @@
                         <td><%= room.getStatus() %></td>
                         <td><%= room.getCheckInDate() %></td>
                         <td><input type="hidden" name="bookingId" value="<%=room.getBookingID()%>"/>
-                            <button type="submit" name="action" value="ChooseService">Choose</button></td>
+                            <button type="submit" name="action" value="ChooseService">Choose</button>
+                            <button type="submit" name="action" value="ViewServiceCtrl">View</button></td>
                         </form>
                 </tr>
                 <%

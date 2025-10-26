@@ -37,10 +37,6 @@ public class GetServiceController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-//            String bookingId = request.getParameter("bookingId");
-//            if (bookingId == null || bookingId.isEmpty()) {
-//                request.setAttribute("ERROR", "Missing bookingId");
-//            }
 
             // Lấy booking ID từ request parameter hoặc session
             String bookingId = request.getParameter("bookingId");
