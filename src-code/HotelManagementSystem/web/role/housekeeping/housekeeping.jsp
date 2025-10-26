@@ -83,7 +83,7 @@
                                 <button type="submit" name="action" value="perform_room_update">Update</button>
                             </form>
                         </td>
-
+                        
                         
                     <%
                             } // end for
@@ -91,6 +91,9 @@
                             out.print("<tr><td colspan='5' style='text-align:center;'>Không có thông tin phòng.</td></tr>");
                         }
                     %>
+                    <div style="text-align: center; margin-top: 30px;">
+                            <button class="back-btn" onclick="window.location.href='MainController?action=pendingpage'">Go to cleaning page</button>
+                        </div>
                 </tbody>
             </table>
 

@@ -38,6 +38,7 @@ public interface IConstants {
     public final String VIEW_MOSTUSED_SERVICES_PAGE = "mostusedservicepage.jsp";
     public final String VIEW_ROOM_OCCUPANCY_PAGE = "roomoccupancypage.jsp";
     public final String VIEW_CANCEL_STATISTICS_PAGE = "cancelstatisticspage.jsp";
+    public final String HOUSEKEEPING_CLEANING_PAGE = "/role/housekeeping/CleaningRoomPage.jsp";
 
     
     //Action
@@ -85,6 +86,9 @@ public interface IConstants {
     public final String AC_VIEW_SERVICE_PAGE_CONTROL = "ViewServiceCtrl";
     public final String AC_VIEW_SERVICE_PAGE = "ViewService";
     public final String AC_UPDATE_SERVICE_STATUS = "update_service_status";
+    public final String AC_CLEANING_PAGE = "cleanpage";
+    public final String AC_PENDING_PAGE = "pendingpage";
+    public final String AC_ACCEPT_ROOM = "update_task_status";
 
     
     //Controller
@@ -118,6 +122,8 @@ public interface IConstants {
     public final String CTL_VIEW_MOSTUSED_SERVICES_REPORT = "ViewMostUsedServicesController";
     public final String CTL_VIEW_ROOM_OCCUPANCY_RATE_REPORT = "ViewRoomOccupancyRateController";
     public final String CTL_VIEW_CANCEL_STATISTICS_REPORT = "ViewCancellationStatsController";
+    public final String CTL_GET_ALL_ROOM_TASK = "GetAllRoomTaskController";
+    public final String CTL_UPDATE_TASK_STATUS = "AcceptRoomController";
 
     // ERROR
     public final String ERR_EMPTY_FIELD = "Tên đăng nhập và mật khẩu không được để trống!";
