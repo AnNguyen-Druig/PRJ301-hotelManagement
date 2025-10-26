@@ -14,10 +14,38 @@
         <title>Manager Page</title>
     </head>
     <body>
-        <jsp:useBean id="USER" scope="session" class="DTO.StaffDTO" />
-        <h1>Welcome back, Manager ${USER.fullName}</h1>
-        
+        <%
+            // Lấy thông tin Manager từ session
+            StaffDTO manager = (StaffDTO) session.getAttribute("USER");
+        %>
+        <h1>Welcome back, Manager <%= manager.getFullName() %></h1>
+        <p><a href="MainController?action=logout">Logout</a></p>
         <h2>Choose your action:</h2>
         <p><a href="MainController?action=reportpage">View Report Statistic</a></p>
+        
+        <h2>Manager Dashboard - Báo cáo & Thống kê</h2>
+
+        <div class="report-list">
+            <h3>Truy cập Báo cáo</h3>
+            <ul>
+                <li>
+                    <%--Trong trang này sẽ lọc theo ngày/tháng/năm, tùy chọn--%>
+                    <a href="MainController?action=ViewRevenueReport">📊 Báo cáo Doanh thu (Theo Ngày/Tháng/Năm)</a>
+                </li>
+                <li>
+                    <a href="MainController?action=ViewTopGuestsReport">👥 Top 10 Khách hàng thường xuyên đặt phòng</a>
+                </li>
+                <li>
+                    <a href="MainController?action=ViewMostUsedServicesReport">🛎️ Dịch vụ Được sử dụng Nhiều nhất</a>
+                </li>
+                <li>
+                    <%-- Trang này sẽ có bộ lọc chọn Tháng/Năm --%>
+                    <a href="MainController?action=ViewRoomOccupancyRateReport">🏨 Tỷ lệ Lấp đầy Phòng (Theo Tháng)</a>   
+                </li>
+                <li>
+                    <a href="MainController?action=ViewCancellationStatsReport">❌ Thống kê Hủy phòng</a>
+                </li>
+            </ul>
+        </div>
     </body>
 </html>

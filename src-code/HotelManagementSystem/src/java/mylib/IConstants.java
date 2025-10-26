@@ -32,6 +32,12 @@ public interface IConstants {
     public final String REPORT_MAIN_PAGE = "common/ReportJSP/reportmainpage.jsp";
     public final String REPORT_1_PAGE = "/common/ReportJSP/Report1Page.jsp";
     public final String REPORT_2_PAGE = "/common/ReportJSP/Report2Page.jsp";
+    public final String VIEW_REVENUE_REPORT_PAGE = "revenuereportpage.jsp";
+    public final String VIEW_TOP_GUEST_PAGE = "top10guestpage.jsp";
+    public final String VIEW_MOSTUSED_SERVICES_PAGE = "mostusedservicepage.jsp";
+    public final String VIEW_ROOM_OCCUPANCY_PAGE = "roomoccupancypage.jsp";
+    public final String VIEW_CANCEL_STATISTICS_PAGE = "cancelstatisticspage.jsp";
+    
     
     //Action
     public final String AC_DEFAULT = "default";
@@ -69,7 +75,13 @@ public interface IConstants {
     public final String AC_CHANGE_STATUS_COMPLETE = "Approve Checkout";
     public final String AC_REPORT_1_PAGE = "report1page";
     public final String AC_REPORT_2_PAGE = "report2page";
+    public final String AC_VIEW_REVENUE_REPORT = "ViewRevenueReport";
+    public final String AC_VIEW_TOP_GUEST_REPORT = "ViewTopGuestsReport";
+    public final String AC_VIEW_MOSTUSED_SERVICES_REPORT = "ViewMostUsedServicesReport";
+    public final String AC_VIEW_ROOM_OCCUPANCY_RATE_REPORT = "ViewRoomOccupancyRateReport";
+    public final String AC_VIEW_CANCEL_STATISTICS_REPORT = "ViewCancellationStatsReport";
 
+    
     //Controller
     public final String CTL_LOGIN = "LoginController";
     public final String CTL_SIGNUP = "SignUpController";
@@ -94,6 +106,12 @@ public interface IConstants {
     public final String CTL_CHANGE_STATUS_BOOKING_CHECKOUT = "ChangeStatusBookingCheckOutController";
     public final String CTL_CHANGE_STATUS_BOOKING_CANCEL = "ChangeStatusBookingCancelController";
     public final String CTL_CHANGE_STATUS_BOOKING_COMPLETE = "ChangeStatusBookingCompleteController";
+    public final String CTL_VIEW_REVENUE_REPORT = "ViewRevenueController";
+    public final String CTL_VIEW_TOP_GUEST_REPORT = "ViewTopGuestsController";
+    public final String CTL_VIEW_MOSTUSED_SERVICES_REPORT = "ViewMostUsedServicesController";
+    public final String CTL_VIEW_ROOM_OCCUPANCY_RATE_REPORT = "ViewRoomOccupancyRateController";
+    public final String CTL_VIEW_CANCEL_STATISTICS_REPORT = "ViewCancellationStatsController";
+
 
     // ERROR
     public final String ERR_EMPTY_FIELD = "Tên đăng nhập và mật khẩu không được để trống!";
@@ -115,6 +133,7 @@ public interface IConstants {
     public final String ERR_EMPTYBOOKING = "Không có dữ liệu Booking!";
     public final String ERR_SAVE_BOOKING_SERVICE = "Đặt dịch vụ KHÔNG THÀNH CÔNG";  
     public final String ERR_SAVE_UPDATE_BOOKING = "Cập nhật thông tin KHÔNG THÀNH CÔNG";
+    
     
     //SUCESSFULL
     public final String SUCC_SAVE_BOOKING_SERVICE =  "Bạn đã đặt dịch vụ thành công.";

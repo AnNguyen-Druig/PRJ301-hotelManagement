@@ -134,6 +134,21 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_REPORT_2_PAGE:
                     url = IConstants.REPORT_2_PAGE;
                     break;
+                case IConstants.AC_VIEW_REVENUE_REPORT:
+                    url = IConstants.CTL_VIEW_REVENUE_REPORT;
+                    break;
+                case IConstants.AC_VIEW_TOP_GUEST_REPORT:
+                    url = IConstants.CTL_VIEW_TOP_GUEST_REPORT;
+                    break;
+                case IConstants.AC_VIEW_MOSTUSED_SERVICES_REPORT:
+                    url = IConstants.CTL_VIEW_MOSTUSED_SERVICES_REPORT;
+                    break;
+                case IConstants.AC_VIEW_ROOM_OCCUPANCY_RATE_REPORT:
+                    url = IConstants.CTL_VIEW_ROOM_OCCUPANCY_RATE_REPORT;
+                    break;
+                case IConstants.AC_VIEW_CANCEL_STATISTICS_REPORT:
+                    url = IConstants.CTL_VIEW_CANCEL_STATISTICS_REPORT;
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
