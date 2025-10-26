@@ -139,6 +139,21 @@ public class MainController extends HttpServlet {
                     break;
                 case IConstants.AC_UPDATE_SERVICE_STATUS:
                     url = IConstants.CTL_UPDATE_BOOKING_SERVICE_CONTROLLER;
+                case IConstants.AC_VIEW_REVENUE_REPORT:
+                    url = IConstants.CTL_VIEW_REVENUE_REPORT;
+                    break;
+                case IConstants.AC_VIEW_TOP_GUEST_REPORT:
+                    url = IConstants.CTL_VIEW_TOP_GUEST_REPORT;
+                    break;
+                case IConstants.AC_VIEW_MOSTUSED_SERVICES_REPORT:
+                    url = IConstants.CTL_VIEW_MOSTUSED_SERVICES_REPORT;
+                    break;
+                case IConstants.AC_VIEW_ROOM_OCCUPANCY_RATE_REPORT:
+                    url = IConstants.CTL_VIEW_ROOM_OCCUPANCY_RATE_REPORT;
+                    break;
+                case IConstants.AC_VIEW_CANCEL_STATISTICS_REPORT:
+                    url = IConstants.CTL_VIEW_CANCEL_STATISTICS_REPORT;
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
