@@ -25,7 +25,7 @@ public interface IConstants {
     public final String BOOKING_INFORMATION_PAGE = "/common/bookinginformationpage.jsp";
     public final String MANAGE_ROOM_STATUS = "/role/housekeeping/housekeeping.jsp";
     public final String BOOKING_ROOM_REGISTER_PAGE = "/common/bookingroomregisterpage.jsp";
-    public final String CHOOSE_SERVICE_PAGE = "/role/Service/ChooseServicePage.jsp";
+    public final String CHOOSE_SERVICE_PAGE = "/role/service/ChooseServicePage.jsp";
     public final String BOOKING_ROOM_DETAIL_PAGE = "/role/receptionist/bookingroomdetail.jsp";
     public final String BOOKING_ROOM_VIEW_PAGE = "/common/bookingroomview.jsp";
     public final String CHECKOUT_PAGE = "/common/checkoutpage.jsp";
