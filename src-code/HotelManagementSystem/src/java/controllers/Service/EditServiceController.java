@@ -38,7 +38,7 @@ public class EditServiceController extends HttpServlet {
         try {
           String action = request.getParameter("action");
           int serviceId = Integer.parseInt(request.getParameter("serviceid").trim());
-          int quantity = Integer.parseInt(request.getParameter("quantity").trim());
+          int quantity = Integer.parseInt(request.getParameter("txtquantity").trim());
           int bookingId = Integer.parseInt(request.getParameter("bookingId").trim());
           HttpSession session = request.getSession();
 //          String bookingId = (String) session.getAttribute("BOOKING_ID");

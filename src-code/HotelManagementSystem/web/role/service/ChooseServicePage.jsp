@@ -108,12 +108,11 @@
                 <td><%= s.getServiceId() %></td>
                 <td><%= s.getServiceName() %></td>
                 <td><%= s.getServiceType() %></td>
-                <td><input type="number" name="txtquantity" min="1" value="<%=cart.get(s)%>"></td>
+                <td><input type="number" name="txtquantity" min="1" value="<%= cart.get(s) %>"></td>
                 <td><%= s.getPrice() %></td>
             
                 <td style="text-align:center">
                     <input type="hidden" name="serviceid" value="<%= s.getServiceId() %>">
-                    <input type="hidden" name="quantity" value="<%=cart.get(s)%>">
                     <input type="hidden" name="bookingId" value="<%= bookingID %>">
                     <button type="submit" name="action" value="<%= IConstants.AC_SAVE_BOOKING_SERVICE %>">Đặt ngay</button>
                     <button type="submit" name="action" value="<%= IConstants.AC_UPDATE_BOOKING_SERVICE %>">Cập nhật số lượng</button>

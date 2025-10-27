@@ -23,7 +23,7 @@
         %>
         <h1>Welcome <%= guest.getFullName() %> Guest!</h1>
         <a href="MainController?action=booking">Booking</a>
-        <form action="MainController">
+        <form action="MainController" method="POST">
             <input type="hidden" value="<%= guest.getGuestID() %>" name="guestID"/>
             <button type="submit" value="<%=  IConstants.AC_VIEW_BOOKING %>" name="action">View My Booking</button>
         </form>
