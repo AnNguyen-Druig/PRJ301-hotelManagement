@@ -164,6 +164,9 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_ACCEPT_ROOM:
                     url = IConstants.CTL_UPDATE_TASK_STATUS;
                     break;
+                case IConstants.AC_BACK_TO_HOUSEKEEPING:
+                    url = IConstants.CTL_GET_ALL_ROOM;
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();

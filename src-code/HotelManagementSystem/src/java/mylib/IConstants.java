@@ -89,6 +89,7 @@ public interface IConstants {
     public final String AC_CLEANING_PAGE = "cleanpage";
     public final String AC_PENDING_PAGE = "pendingpage";
     public final String AC_ACCEPT_ROOM = "update_task_status";
+    public final String AC_BACK_TO_HOUSEKEEPING = "backtohousekeeping";
 
     
     //Controller
@@ -124,6 +125,7 @@ public interface IConstants {
     public final String CTL_VIEW_CANCEL_STATISTICS_REPORT = "ViewCancellationStatsController";
     public final String CTL_GET_ALL_ROOM_TASK = "GetAllRoomTaskController";
     public final String CTL_UPDATE_TASK_STATUS = "AcceptRoomController";
+    public final String CTL_GET_ALL_ROOM = "GetAllRoomToBack";
 
     // ERROR
     public final String ERR_EMPTY_FIELD = "Tên đăng nhập và mật khẩu không được để trống!";

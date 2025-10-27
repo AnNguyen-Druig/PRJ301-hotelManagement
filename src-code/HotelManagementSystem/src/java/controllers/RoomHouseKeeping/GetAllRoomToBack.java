@@ -5,8 +5,8 @@
 
 package controllers.RoomHouseKeeping;
 
-import DAO.HouseKeepingTaskDAO;
-import DTO.HouseKeepingTaskDTO;
+import DAO.RoomDAO;
+import DTO.RoomDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -21,8 +21,8 @@ import mylib.IConstants;
  *
  * @author Nguyễn Đại
  */
-@WebServlet(name="GetAllRoomPending", urlPatterns={"/GetAllRoomPending"})
-public class GetAllRoomPending extends HttpServlet {
+@WebServlet(name="GetAllRoomToBack", urlPatterns={"/GetAllRoomToBack"})
+public class GetAllRoomToBack extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,17 +35,17 @@ public class GetAllRoomPending extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            HouseKeepingTaskDAO dao = new HouseKeepingTaskDAO();
-            ArrayList<HouseKeepingTaskDTO> list = dao.getAllRoomPending();
-             request.setAttribute("PENDING", list);
-            ArrayList<HouseKeepingTaskDTO> list2 = dao.getAllRoomProgress();
-             request.setAttribute("PROGRESS", list2);
-
-                request.getRequestDispatcher("MainController?action=cleanpage").forward(request, response);
-                
+            RoomDAO dao = new RoomDAO();
+            ArrayList<RoomDTO> list = dao.getAllRoomsForManager();
+            if(list != null && !list.isEmpty()){
+                request.setAttribute("ROOM_LIST", list);
+                request.getRequestDispatcher(IConstants.MANAGE_ROOM_STATUS).forward(request, response);
+            }else{
+                request.setAttribute("ERROR", "No room found in database");
+                request.getRequestDispatcher(IConstants.MANAGE_ROOM_STATUS).forward(request, response);
+            }
         }catch(Exception e){
-            request.setAttribute("Error", "Can't load report please check database");
-            request.getRequestDispatcher("MainController?action=cleanpage").forward(request, response);
+            
         }
     } 
 
