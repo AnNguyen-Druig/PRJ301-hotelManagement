@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controllers;
+package controllers.Guest;
 
+import controllers.*;
 import DAO.BookingRoomDAO;
 import DAO.RoomDAO;
 import DTO.BookingDTO;
@@ -51,7 +52,6 @@ public class SaveBookingRoomController extends HttpServlet {
             String bookingDate = request.getParameter("booking_room_bookingDate");
             int roomID = Integer.parseInt(request.getParameter("roomID"));
             int guestID = Integer.parseInt(request.getParameter("guestID"));
-            String bookingStatus = request.getParameter("bookingStatus");
             
             if (fullname != null && !fullname.trim().isEmpty()
                     && phone != null && !phone.trim().isEmpty()
@@ -70,21 +70,17 @@ public class SaveBookingRoomController extends HttpServlet {
                 Date bookingDate_value = Date.valueOf(bookingDate);
                 
                 
-                BookingDTO bookingRoom = new BookingDTO(guestID, roomID, checkInDate_value, checkOutDate_value, bookingDate_value, bookingStatus);
+                BookingDTO bookingRoom = new BookingDTO(guestID, roomID, checkInDate_value, checkOutDate_value, bookingDate_value, "Reserved");
                 BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
                 int saveBookingRoom = bookingRoomDAO.saveBookingRoom(bookingRoom);
                 
-                RoomDAO roomDAO = new RoomDAO();
-                int updateRoomStatus = roomDAO.updateRoomStatus(roomID); 
-                
-                if(saveBookingRoom!=0 && updateRoomStatus!=0) {
-                    request.getRequestDispatcher(IConstants.SIGNUP_SUCCESS_PAGE).forward(request, response);
+                if(saveBookingRoom!=0) {
+                    request.setAttribute("SUCCESS", IConstants.SUCC_SAVE_BOOKING_ROOM);
+                    request.getRequestDispatcher(IConstants.GUEST_PAGE).forward(request, response);
                 } else {
-                    
-                }
-                
-                
-                
+                    request.setAttribute("ERROR", IConstants.ERR_SAVE_BOOKING_ROOM);
+                    request.getRequestDispatcher(IConstants.BOOKING_ROOM_REGISTER_PAGE).forward(request, response);
+                }            
             }
         } catch (Exception e) {
              e.printStackTrace();

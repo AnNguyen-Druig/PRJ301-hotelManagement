@@ -15,19 +15,18 @@ public interface IConstants {
     public final String LOGIN_PAGE = "/common/login.jsp";
     public final String SIGNUP_PAGE = "/common/signup.jsp";
     public final String SIGNUP_SUCCESS_PAGE = "/common/signup_success.jsp";
-    public final String BOOKING_ROOM_PAGE = "/common/bookingroompage.jsp";
+    public final String BOOKING_ROOM_PAGE = "/role/guest/bookingroompage.jsp";
     public final String ADMIN_PAGE = "/role/admin/admin.jsp";
     public final String RECEPTIONIST_PAGE = "/role/receptionist/receptionist.jsp";
     public final String MANAGER_PAGE = "/role/manager/manager.jsp";
     public final String HOUSEKEEPING_PAGE = "/role/housekeeping/housekeeping.jsp";
     public final String SERVICE_PAGE = "/role/service/service.jsp";
     public final String GUEST_PAGE = "/role/guest/guest.jsp";
-    public final String BOOKING_INFORMATION_PAGE = "/common/bookinginformationpage.jsp";
     public final String MANAGE_ROOM_STATUS = "/role/housekeeping/housekeeping.jsp";
-    public final String BOOKING_ROOM_REGISTER_PAGE = "/common/bookingroomregisterpage.jsp";
+    public final String BOOKING_ROOM_REGISTER_PAGE = "/role/guest/bookingroomregisterpage.jsp";
     public final String CHOOSE_SERVICE_PAGE = "/role/service/ChooseServicePage.jsp";
     public final String BOOKING_ROOM_DETAIL_PAGE = "/role/receptionist/bookingroomdetail.jsp";
-    public final String BOOKING_ROOM_VIEW_PAGE = "/common/bookingroomview.jsp";
+    public final String BOOKING_ROOM_VIEW_PAGE = "/role/guest/bookingroomview.jsp";
     public final String CHECKOUT_PAGE = "/common/checkoutpage.jsp";
     public final String REPORT_MAIN_PAGE = "/role/manager/reportmainpage.jsp";
     public final String VIEW_SERVICE_PAGE = "/role/service/ViewServicePage.jsp";
@@ -39,6 +38,7 @@ public interface IConstants {
     public final String VIEW_ROOM_OCCUPANCY_PAGE = "roomoccupancypage.jsp";
     public final String VIEW_CANCEL_STATISTICS_PAGE = "cancelstatisticspage.jsp";
     public final String HOUSEKEEPING_CLEANING_PAGE = "/role/housekeeping/CleaningRoomPage.jsp";
+    public final String INVOICE_PAGE = "/role/guest/invoicepage.jsp";
 
     
     //Action
@@ -145,9 +145,12 @@ public interface IConstants {
     public final String ERR_EMPTYBOOKING = "Không có dữ liệu Booking!";
     public final String ERR_SAVE_BOOKING_SERVICE = "Đặt dịch vụ KHÔNG THÀNH CÔNG";  
     public final String ERR_SAVE_UPDATE_BOOKING = "Cập nhật thông tin KHÔNG THÀNH CÔNG";
+    public final String ERR_SAVE_BOOKING_ROOM = "Có lỗi xảy ra trong quá trình đặt phòng. Xin liên hệ nhân viên hỗ trợ để nhận được sự giúp đỡ.";
+    public final String ERR_SAVE_PAYMENT_AND_INVOICE = "Có lỗi xảy ra trong quá trình xuất hoá đơn. Xin liên hệ nhân viên hỗ trợ để nhận được sự giúp đỡ.";
     
     
     //SUCESSFULL
+    public final String SUCC_SAVE_BOOKING_ROOM = "Bạn đã đặt phòng thành công";
     public final String SUCC_SAVE_BOOKING_SERVICE =  "Bạn đã đặt dịch vụ thành công.";
     public final String SUCC_SAVE_UPDATE_BOOKING = "Bạn đã cập nhật thông tin thành công.";
 }

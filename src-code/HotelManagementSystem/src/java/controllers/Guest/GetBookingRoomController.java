@@ -3,10 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controllers;
+package controllers.Guest;
 
 import DAO.BookingRoomDAO;
+import DAO.BookingServiceDAO;
 import DTO.BookingDTO;
+import DTO.BookingServiceDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -23,8 +25,8 @@ import mylib.IConstants;
  *
  * @author ASUS
  */
-@WebServlet(name="ViewBookingController", urlPatterns={"/ViewBookingController"})
-public class ViewBookingController extends HttpServlet {
+@WebServlet(name="GetBookingRoomController", urlPatterns={"/GetBookingRoomController"})
+public class GetBookingRoomController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,30 +38,19 @@ public class ViewBookingController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            String guestID = request.getParameter("guestID");
-            BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
-            ArrayList<BookingDTO> listAllBooking =  bookingRoomDAO.getAllBookingByGuestID(Integer.parseInt(guestID.trim()));
-            ArrayList<BookingDTO> listReservedBooking = new ArrayList<>();
-            ArrayList<BookingDTO> listCheckInBooking = new ArrayList<>();
-            if(listAllBooking!=null && !listAllBooking.isEmpty()) {
-                for(BookingDTO b : listAllBooking) {
-                    if(b.getStatus().equals("Reserved")) {
-                        listReservedBooking.add(b);
-                    } else if(b.getStatus().equals("CheckIn")) {
-                        listCheckInBooking.add(b);
-                    }
-                }
-                request.setAttribute("RESERVED_BOOKING", listReservedBooking);
-                request.setAttribute("CHECKIN_BOOKING", listCheckInBooking);
-                request.getRequestDispatcher(IConstants.BOOKING_ROOM_VIEW_PAGE).forward(request, response);
-            } else {
-                request.setAttribute("ERROR", IConstants.ERR_EMPTYBOOKING);
-                request.getRequestDispatcher(IConstants.BOOKING_ROOM_VIEW_PAGE).forward(request, response);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        int bookingID = Integer.parseInt(request.getParameter("bookingId").trim());
+        
+        //lấy đối tượng BookingRoom
+        BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
+        BookingDTO bookingRoom = bookingRoomDAO.getBookingByBookingIDInReception(bookingID);
+        request.setAttribute("BOOKING_ROOM", bookingRoom);
+        
+        //lấy list BookingService mà BookingRoom đã đặt
+        BookingServiceDAO bookingServiceDAO = new BookingServiceDAO();
+        ArrayList<BookingServiceDTO> listBookingService = bookingServiceDAO.getBookingServiceByBookingID(bookingID);
+        request.setAttribute("LIST_BOOKING_SERVICE", listBookingService);
+        
+        request.getRequestDispatcher(IConstants.CHECKOUT_PAGE).forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

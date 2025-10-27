@@ -4,6 +4,8 @@
     Author     : ASUS
 --%>
 
+<%@page import="DAO.TaxDAO"%>
+<%@page import="mylib.IConstants"%>
 <%@page import="DTO.ServiceDTO"%>
 <%@page import="DAO.ServiceDAO"%>
 <%@page import="DTO.BookingServiceDTO"%>
@@ -108,8 +110,14 @@
 
         <%
             double total = totalRoom + totalService;
+            
+            //lấy VAT
+            TaxDAO taxDAO = new TaxDAO();
+            double VAT = taxDAO.getTaxValueByTaxName("VAT");
+            double totalAfterVAT = (total * VAT) + total;
         %>
-        <h3>TỔNG TIỀN CẦN THANH TOÁN <%= total%></h3>
+        <h3>TỔNG TIỀN CẦN THANH TOÁN (CHƯA TÍNH VAT) <%= total %></h3>
+        <h3>TỔNG TIỀN CẦN THANH TOÁN (ĐÃ TÍNH VAT) <%= totalAfterVAT %></h3>
         <h3>Chọn phương thức thanh toán:</h3>
 
         <form action="MainController" method="post">
@@ -135,8 +143,8 @@
 
             <br>
             <input type="hidden" name="bookingID" value="<%= bookingRoom.getBookingID() %>">
-            <input type="hidden" name="total" value="<%= total %>">
-            <button type="submit" name="action" value="savepaymentandinvoice">Xác nhận thanh toán</button>
+            <input type="hidden" name="total" value="<%= totalAfterVAT %>">
+            <button type="submit" name="action" value="<%= IConstants.AC_SAVE_PAYMENT_AND_INVOICE %>">Xác nhận thanh toán</button>
         </form>
     </body>
 </html>

@@ -16,6 +16,10 @@
     <body>
         <%
             GuestDTO guest = (GuestDTO) session.getAttribute("USER");
+            String succSaveBooking = (String) request.getAttribute("SUCCESS");
+            if(succSaveBooking!=null && !succSaveBooking.trim().isEmpty()){
+                out.print(succSaveBooking);
+            }
         %>
         <h1>Welcome <%= guest.getFullName() %> Guest!</h1>
         <a href="MainController?action=booking">Booking</a>

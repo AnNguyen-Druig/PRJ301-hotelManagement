@@ -31,58 +31,55 @@
         <form action="MainController" method="POST">
             <div>
                 <lable for="fullname">HO VA TEN: </lable>
-                <input type="text" name="guest_fullname" id="fullname" value="<%= guest.getFullName() %>">
+                <input type="text" name="guest_fullname" id="fullname" readonly="" value="<%= guest.getFullName() %>">
             </div>
             </br>
             
             <div>
                 <lable for="phone">SO DIEN THOAI: </lable>
-                <input type="number" name="guest_phone" id="phone" value="<%= guest.getPhone() %>">
+                <input type="number" name="guest_phone" id="phone" readonly="" value="<%= guest.getPhone() %>">
             </div>
             </br>
  
             <div>
                 <lable for="email">EMAIL: </lable>
-                <input type="email" name="guest_email" id="email" value="<%= guest.getEmail() %>">
+                <input type="email" name="guest_email" id="email" readonly="" value="<%= guest.getEmail() %>">
             </div>
             </br>
  
             <div>
                 <lable for="IDNumber">SO CAN CUOC CONG DAN: </lable>
-                <input type="number" name="guest_IDNumber" id="IDNumber" value="<%= guest.getIDNumber() %>">
+                <input type="number" name="guest_IDNumber" id="IDNumber" readonly="" value="<%= guest.getIDNumber() %>">
             </div>
             </br>
  
             <div>
                 <lable for="typeName">LOAI PHONG: </lable>
-                <input type="text" name="room_typeName" id="typeName" value="<%= room.getTypeName() %>">
+                <input type="text" name="room_typeName" id="typeName" readonly="" value="<%= room.getTypeName() %>">
             </div> 
             </br>
  
             <div>
                 <lable for="capacity">SUC CHUA: </lable>
-                <input type="number" name="room_capacity" id="capacity" value="<%= room.getCapacity() %>">
+                <input type="number" name="room_capacity" id="capacity" readonly="" value="<%= room.getCapacity() %>">
             </div> 
             </br>
  
             <div>
                 <lable for="pricePerNight">GIA PHONG/MOT DEM: </lable>
-                <input type="number" name="room_pricePerNight" id="pricePerNight" value="<%= room.getPricePerNight() %>">
+                <input type="number" name="room_pricePerNight" id="pricePerNight" readonly="" value="<%= room.getPricePerNight() %>">
             </div>
             </br>
             
-<!--            tao ham de check checkInDate va checkOutDate de xac dinh status cua BOOKING_ROOM-->
-            <% String bookingStatus = "Reserved"; %>
-            
             <div>
                 <label for="checkInDate">NGAY CHECK-IN:</label>
-                <input type="date" id="checkInDate" name="booking_room_checkInDate" value="<%= checkInDate %>">
+                <input type="date" id="checkInDate" name="booking_room_checkInDate" readonly="" value="<%= checkInDate %>">
             </div>
             </br>
  
             <div>
                 <label for="checkOutDate">NGAY CHECK-OUT:</label>
-                <input type="date" id="checkOutDate" name="booking_room_checkOutDate"  value="<%= checkOutDate %>">
+                <input type="date" id="checkOutDate" name="booking_room_checkOutDate"  readonly="" value="<%= checkOutDate %>">
             </div>
             </br>
  
@@ -95,9 +92,13 @@
             </br> 
             <input type="hidden" name="roomID" value="<%= room.getRoomID() %>">
             <input type="hidden" name="guestID" value="<%= guest.getGuestID() %>">
-            <input type="hidden" name="bookingStatus" value="<%= bookingStatus %>">
             <button type="submit" name="action" value="savebookingroom">Booking</button>
         </form>
-         <% } %>
+         <% }
+            String error = (String) request.getAttribute("ERROR");
+            if(error!=null && !error.isEmpty()) {
+                out.print(error);
+            }
+         %>
     </body>
 </html>

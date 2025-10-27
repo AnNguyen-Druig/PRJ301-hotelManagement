@@ -3,14 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controllers.checkoutguest;
+package controllers.Guest;
 
-import DAO.BookingRoomDAO;
-import DAO.BookingServiceDAO;
-import DTO.BookingDTO;
-import DTO.BookingServiceDTO;
+import controllers.*;
+import DAO.RoomDAO;
+import DTO.RoomDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 
@@ -25,8 +23,8 @@ import mylib.IConstants;
  *
  * @author ASUS
  */
-@WebServlet(name="GetBookingRoomController", urlPatterns={"/GetBookingRoomController"})
-public class GetBookingRoomController extends HttpServlet {
+@WebServlet(name="GetRoomController", urlPatterns={"/GetRoomController"})
+public class GetRoomController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,19 +36,18 @@ public class GetBookingRoomController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int bookingID = Integer.parseInt(request.getParameter("bookingId").trim());
-        
-        //lấy đối tượng BookingRoom
-        BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
-        BookingDTO bookingRoom = bookingRoomDAO.getBookingByBookingIDInReception(bookingID);
-        request.setAttribute("BOOKING_ROOM", bookingRoom);
-        
-        //lấy list BookingService mà BookingRoom đã đặt
-        BookingServiceDAO bookingServiceDAO = new BookingServiceDAO();
-        ArrayList<BookingServiceDTO> listBookingService = bookingServiceDAO.getBookingServiceByBookingID(bookingID);
-        request.setAttribute("LIST_BOOKING_SERVICE", listBookingService);
-        
-        request.getRequestDispatcher(IConstants.CHECKOUT_PAGE).forward(request, response);
+        try {
+            RoomDAO d = new RoomDAO();
+            ArrayList<RoomDTO> list = d.getAllRooms();
+            if(list!=null && !list.isEmpty()) {
+                request.setAttribute("ALLROOM", list);
+                request.getRequestDispatcher(IConstants.BOOKING_ROOM_PAGE).forward(request, response);
+            } else {
+                request.setAttribute("ERROR", IConstants.ERR_EMPTY_ROOM);
+                request.getRequestDispatcher(IConstants.BOOKING_ROOM_PAGE).forward(request, response);
+            }
+        } catch (Exception e) {
+        }
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

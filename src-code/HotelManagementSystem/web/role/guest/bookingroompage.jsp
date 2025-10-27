@@ -69,7 +69,7 @@
             </span> </br> 
             <input type="date" id="checkOutDate" name="booking_room_checkOutDate" required=""  value="<%= checkOutDate %>"></br>
             
-            <input type="submit" value="filterroom" name="action">
+            <input type="submit" value="<%= IConstants.AC_FILTER_ROOM %>" name="action">
         </form>
             
             
@@ -104,7 +104,7 @@
         <!-- Nếu bấm gửi qua mà checkInDate và checkOutDate đều = null thì sẽ gửi error về thông báo cần phải chọn checkIn và checkOut-->
             <input type="hidden" name="booking_room_checkInDate" value=" <%= checkInDate %>">
             <input type="hidden" name="booking_room_checkOutDate" value=" <%= checkOutDate %>">
-            <button type="submit" value="bookingroom" name="action">Dat Phong</button>
+            <button type="submit" value="<%= IConstants.AC_BOOKING_ROOM %>" name="action">Dat Phong</button>
         </form>
 
         <%

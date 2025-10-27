@@ -64,13 +64,15 @@
                 String error = (String) request.getAttribute("ERROR");
                 if (error != null && !error.isEmpty()) {
                     out.print(error);
+                } else {
+                    out.print("Không có thông tin phòng giữ chỗ");
                 }
             }
         %>
         <h2>Các Đơn Đặt Phòng Đang Ở</h2>
         <%
             ArrayList<BookingDTO> listCheckInBooking = (ArrayList<BookingDTO>) request.getAttribute("CHECKIN_BOOKING");
-            if (listReservedBooking != null && !listReservedBooking.isEmpty()) {
+            if (listCheckInBooking != null && !listCheckInBooking.isEmpty()) {
         %>
         <table>
             <tr>
@@ -115,6 +117,8 @@
                     String error = (String) request.getAttribute("ERROR");
                     if (error != null && !error.isEmpty()) {
                         out.print(error);
+                    } else {
+                        out.print("Không có thông tin phòng đã checkin");
                     }
                 }
             }

@@ -3,8 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controllers.checkoutguest;
+package controllers.Guest;
 
+import DAO.BookingRoomDAO;
 import DAO.InvoiceDAO;
 import DAO.PaymentDAO;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mylib.IConstants;
 
 /**
  *
@@ -45,10 +47,15 @@ public class SavePaymentAndInvoiceController extends HttpServlet {
         PaymentDAO paymentDAO = new PaymentDAO();
         int savePayment = paymentDAO.savePaymentStatusPending(bookingID, total, paymentMethod);
         
+        BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
+        boolean updateBookingRoomStatus = bookingRoomDAO.updateStatusBooking(bookingID, "CheckOut");
         
         
-        if(saveInvoice!=0 && savePayment!=0) {
-            request.getRequestDispatcher("/common/invoicepage.jsp").forward(request, response);
+        if(saveInvoice!=0 && savePayment!=0 && updateBookingRoomStatus==true) {
+            request.getRequestDispatcher(IConstants.INVOICE_PAGE).forward(request, response);
+        } else {
+            request.setAttribute("ERROR", IConstants.ERR_SAVE_PAYMENT_AND_INVOICE);
+            request.getRequestDispatcher(IConstants.CHECKOUT_PAGE).forward(request, response);
         }
     } 
 
