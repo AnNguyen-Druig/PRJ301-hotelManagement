@@ -29,15 +29,25 @@ public interface IConstants {
     public final String BOOKING_ROOM_DETAIL_PAGE = "/role/receptionist/bookingroomdetail.jsp";
     public final String BOOKING_ROOM_VIEW_PAGE = "/common/bookingroomview.jsp";
     public final String CHECKOUT_PAGE = "/common/checkoutpage.jsp";
-    public final String REPORT_MAIN_PAGE = "common/ReportJSP/reportmainpage.jsp";
+    public final String REPORT_MAIN_PAGE = "/role/manager/reportmainpage.jsp";
+    public final String VIEW_SERVICE_PAGE = "/role/service/ViewServicePage.jsp";
     public final String REPORT_1_PAGE = "/common/ReportJSP/Report1Page.jsp";
     public final String REPORT_2_PAGE = "/common/ReportJSP/Report2Page.jsp";
+<<<<<<< HEAD
     public final String VIEW_REVENUE_REPORT_PAGE = "/role/manager/revenuereportpage.jsp";
     public final String VIEW_TOP_GUEST_PAGE = "/role/manager/top10guestpage.jsp";
     public final String VIEW_MOSTUSED_SERVICES_PAGE = "/role/manager/mostusedservicepage.jsp";
     public final String VIEW_ROOM_OCCUPANCY_PAGE = "/role/manager/roomoccupancypage.jsp";
     public final String VIEW_CANCEL_STATISTICS_PAGE = "/role/manager/cancelstatisticspage.jsp";
 //    public final String REPORT_MAIN_PAGE = "role/manager/reportmainpage.jsp";
+=======
+    public final String VIEW_REVENUE_REPORT_PAGE = "revenuereportpage.jsp";
+    public final String VIEW_TOP_GUEST_PAGE = "top10guestpage.jsp";
+    public final String VIEW_MOSTUSED_SERVICES_PAGE = "mostusedservicepage.jsp";
+    public final String VIEW_ROOM_OCCUPANCY_PAGE = "roomoccupancypage.jsp";
+    public final String VIEW_CANCEL_STATISTICS_PAGE = "cancelstatisticspage.jsp";
+    public final String HOUSEKEEPING_CLEANING_PAGE = "/role/housekeeping/CleaningRoomPage.jsp";
+>>>>>>> c860f3fcc8da9b1d9c0963fb912386c8b70d57d1
 
     
     //Action
@@ -82,6 +92,13 @@ public interface IConstants {
     public final String AC_VIEW_ROOM_OCCUPANCY_RATE_REPORT = "ViewRoomOccupancyRateReport";
     public final String AC_VIEW_CANCEL_STATISTICS_REPORT = "ViewCancellationStatsReport";
     public final String AC_MANAGER_GO_BACK = "gobackmanager";
+    public final String AC_VIEW_SERVICE_PAGE_CONTROL = "ViewServiceCtrl";
+    public final String AC_VIEW_SERVICE_PAGE = "ViewService";
+    public final String AC_UPDATE_SERVICE_STATUS = "update_service_status";
+    public final String AC_CLEANING_PAGE = "cleanpage";
+    public final String AC_PENDING_PAGE = "pendingpage";
+    public final String AC_ACCEPT_ROOM = "update_task_status";
+    public final String AC_BACK_TO_HOUSEKEEPING = "backtohousekeeping";
 
     
     //Controller
@@ -108,12 +125,16 @@ public interface IConstants {
     public final String CTL_CHANGE_STATUS_BOOKING_CHECKOUT = "ChangeStatusBookingCheckOutController";
     public final String CTL_CHANGE_STATUS_BOOKING_CANCEL = "ChangeStatusBookingCancelController";
     public final String CTL_CHANGE_STATUS_BOOKING_COMPLETE = "ChangeStatusBookingCompleteController";
+    public final String CTL_GET_BOOKING_SERVICE = "GetBookingServiceController";
+    public final String CTL_UPDATE_BOOKING_SERVICE_CONTROLLER = "UpdateBookingServiceController";
     public final String CTL_VIEW_REVENUE_REPORT = "ViewRevenueController";
     public final String CTL_VIEW_TOP_GUEST_REPORT = "ViewTopGuestsController";
     public final String CTL_VIEW_MOSTUSED_SERVICES_REPORT = "ViewMostUsedServicesController";
     public final String CTL_VIEW_ROOM_OCCUPANCY_RATE_REPORT = "ViewRoomOccupancyRateController";
     public final String CTL_VIEW_CANCEL_STATISTICS_REPORT = "ViewCancellationStatsController";
-
+    public final String CTL_GET_ALL_ROOM_TASK = "GetAllRoomTaskController";
+    public final String CTL_UPDATE_TASK_STATUS = "AcceptRoomController";
+    public final String CTL_GET_ALL_ROOM = "GetAllRoomToBack";
 
     // ERROR
     public final String ERR_EMPTY_FIELD = "Tên đăng nhập và mật khẩu không được để trống!";

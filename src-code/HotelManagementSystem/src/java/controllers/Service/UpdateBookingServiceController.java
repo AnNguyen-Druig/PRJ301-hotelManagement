@@ -6,24 +6,29 @@
 package controllers.Service;
 
 import DAO.BookingServiceDAO;
+import DAO.ServiceDAO;
+import DTO.BookingDTO;
+import DTO.BookingServiceDTO;
+import DTO.RoomDTO;
 import DTO.ServiceDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import mylib.IConstants;
 
 /**
  *
  * @author Nguyễn Đại
  */
-@WebServlet(name="EditServiceController", urlPatterns={"/EditServiceController"})
-public class EditServiceController extends HttpServlet {
+@WebServlet(name="UpdateBookingServiceController", urlPatterns={"/UpdateBookingServiceController"})
+public class UpdateBookingServiceController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,46 +40,23 @@ public class EditServiceController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String url = IConstants.CTL_GET_BOOKING_SERVICE;
         try {
-          String action = request.getParameter("action");
-          int serviceId = Integer.parseInt(request.getParameter("serviceid").trim());
-          int quantity = Integer.parseInt(request.getParameter("quantity").trim());
-          int bookingId = Integer.parseInt(request.getParameter("bookingId").trim());
-          HttpSession session = request.getSession();
-//          String bookingId = (String) session.getAttribute("BOOKING_ID");
-          String cartKey = "CART_" + bookingId;
-          HashMap<ServiceDTO, Integer> cart=(HashMap<ServiceDTO, Integer>) session.getAttribute(cartKey);
-          ServiceDTO find = null;
-                for (ServiceDTO s : cart.keySet()) {
-                    if(s.getServiceId() == serviceId){
-                        find = s;
-                        break;
-                    }
-                }    
-                if (find != null) {
-                    if(action.equalsIgnoreCase(IConstants.AC_SAVE_BOOKING_SERVICE)) {
-                        BookingServiceDAO bookingServiceDAO = new BookingServiceDAO();
-                        int result = bookingServiceDAO.saveBookingService(bookingId,serviceId, quantity);
-                        if(result != 0) {
-                            cart.remove(find);
-                            request.setAttribute("SAVE_BOOKING_SERVICE", IConstants.SUCC_SAVE_BOOKING_SERVICE);
-                        } else {
-                            request.setAttribute("SAVE_BOOKING_SERVICE", IConstants.ERR_SAVE_BOOKING_SERVICE);
-                        }
-                    }
-                    else if (action.equalsIgnoreCase(IConstants.AC_UPDATE_BOOKING_SERVICE)) {
-                        cart.put(find,quantity);
-                    } else {
-                        cart.remove(find);
-                    }
-                    session.setAttribute(cartKey, cart);
-                    request.getRequestDispatcher("GetServiceController").forward(request, response);
-                }
-            
-        }catch(Exception e){
-            
-        } 
-    }
+            BookingServiceDAO dao = new BookingServiceDAO();
+            int bookingServiceId = Integer.parseInt(request.getParameter("bookingServiceId"));
+            String newStatus     = request.getParameter("newStatus");
+            int bookingId  = Integer.parseInt(request.getParameter("bookingId")); 
+            if(newStatus != null && !newStatus.equalsIgnoreCase("Completed") || !newStatus.equalsIgnoreCase("Canceled")){               
+                dao.updateStatus(bookingServiceId, newStatus);
+            }
+            request.setAttribute("bookingId", bookingId);
+        }catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
+        }
+    } 
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -110,5 +92,5 @@ public class EditServiceController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-}
 
+}

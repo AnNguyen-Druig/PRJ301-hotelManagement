@@ -131,6 +131,15 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_MANAGER_GO_BACK:
                     url = IConstants.MANAGER_PAGE;
                     break;
+                case IConstants.AC_VIEW_SERVICE_PAGE_CONTROL:
+                    url = IConstants.CTL_GET_BOOKING_SERVICE;
+                    break;
+                case IConstants.AC_VIEW_SERVICE_PAGE:
+                    url = IConstants.VIEW_SERVICE_PAGE;
+                    break;
+                case IConstants.AC_UPDATE_SERVICE_STATUS:
+                    url = IConstants.CTL_UPDATE_BOOKING_SERVICE_CONTROLLER;
+                    break;
                 case IConstants.AC_VIEW_REVENUE_REPORT:
                     url = IConstants.CTL_VIEW_REVENUE_REPORT;
                     break;
@@ -145,6 +154,18 @@ public class MainController extends HttpServlet {
                     break;
                 case IConstants.AC_VIEW_CANCEL_STATISTICS_REPORT:
                     url = IConstants.CTL_VIEW_CANCEL_STATISTICS_REPORT;
+                    break;
+                case IConstants.AC_PENDING_PAGE:
+                    url = IConstants.CTL_GET_ALL_ROOM_TASK;
+                    break;
+                case IConstants.AC_CLEANING_PAGE:
+                    url = IConstants.HOUSEKEEPING_CLEANING_PAGE;
+                    break;
+                case IConstants.AC_ACCEPT_ROOM:
+                    url = IConstants.CTL_UPDATE_TASK_STATUS;
+                    break;
+                case IConstants.AC_BACK_TO_HOUSEKEEPING:
+                    url = IConstants.CTL_GET_ALL_ROOM;
                     break;
             }
         } catch (Exception e) {

@@ -3,12 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controllers.Service;
+package controllers.RoomHouseKeeping;
 
-import DAO.BookingServiceDAO;
+import DAO.HouseKeepingTaskDAO;
+import DAO.RoomDAO;
+import DTO.HouseKeepingTaskDTO;
 import DTO.ServiceDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,8 +25,8 @@ import mylib.IConstants;
  *
  * @author Nguyễn Đại
  */
-@WebServlet(name="EditServiceController", urlPatterns={"/EditServiceController"})
-public class EditServiceController extends HttpServlet {
+@WebServlet(name="AcceptRoomController", urlPatterns={"/AcceptRoomController"})
+public class AcceptRoomController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,45 +39,42 @@ public class EditServiceController extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-          String action = request.getParameter("action");
-          int serviceId = Integer.parseInt(request.getParameter("serviceid").trim());
-          int quantity = Integer.parseInt(request.getParameter("quantity").trim());
-          int bookingId = Integer.parseInt(request.getParameter("bookingId").trim());
-          HttpSession session = request.getSession();
-//          String bookingId = (String) session.getAttribute("BOOKING_ID");
-          String cartKey = "CART_" + bookingId;
-          HashMap<ServiceDTO, Integer> cart=(HashMap<ServiceDTO, Integer>) session.getAttribute(cartKey);
-          ServiceDTO find = null;
-                for (ServiceDTO s : cart.keySet()) {
-                    if(s.getServiceId() == serviceId){
-                        find = s;
-                        break;
-                    }
-                }    
-                if (find != null) {
-                    if(action.equalsIgnoreCase(IConstants.AC_SAVE_BOOKING_SERVICE)) {
-                        BookingServiceDAO bookingServiceDAO = new BookingServiceDAO();
-                        int result = bookingServiceDAO.saveBookingService(bookingId,serviceId, quantity);
-                        if(result != 0) {
-                            cart.remove(find);
-                            request.setAttribute("SAVE_BOOKING_SERVICE", IConstants.SUCC_SAVE_BOOKING_SERVICE);
-                        } else {
-                            request.setAttribute("SAVE_BOOKING_SERVICE", IConstants.ERR_SAVE_BOOKING_SERVICE);
-                        }
-                    }
-                    else if (action.equalsIgnoreCase(IConstants.AC_UPDATE_BOOKING_SERVICE)) {
-                        cart.put(find,quantity);
-                    } else {
-                        cart.remove(find);
-                    }
-                    session.setAttribute(cartKey, cart);
-                    request.getRequestDispatcher("GetServiceController").forward(request, response);
+            HouseKeepingTaskDAO dao = new HouseKeepingTaskDAO();
+            int taskId = Integer.parseInt(request.getParameter("TaskID"));
+            String newStatus = request.getParameter("newStatus");
+            
+            if(newStatus != null){
+                boolean updateResult = dao.updateTaskStatus(taskId, newStatus);
+                if(updateResult) {
+                    request.setAttribute("SUCCESS", "Task status updated successfully!");
+                } else {
+                    request.setAttribute("ERROR", "Failed to update task status!");
                 }
+            }
             
-        }catch(Exception e){
+            if(newStatus.equalsIgnoreCase("Completed")){
+                RoomDAO dao2 = new RoomDAO();
+                int roomId = Integer.parseInt(request.getParameter("RoomID"));
+                dao2.updateRoomStatus(roomId, "Available");
+            }
             
-        } 
-    }
+            // Load PENDING tasks
+            ArrayList<HouseKeepingTaskDTO> pendingList = dao.getAllRoomPending();
+            request.setAttribute("PENDING", pendingList);
+            
+            // Load PROGRESS tasks  
+            ArrayList<HouseKeepingTaskDTO> progressList = dao.getAllRoomProgress();
+            request.setAttribute("PROGRESS", progressList);
+            
+            request.getRequestDispatcher("MainController?action=cleanpage").forward(request, response);
+            
+        }catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("ERROR", "An error occurred while processing the request!");
+            request.getRequestDispatcher("MainController?action=cleanpage").forward(request, response);
+        }
+    } 
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -110,5 +110,5 @@ public class EditServiceController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-}
 
+}
