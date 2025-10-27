@@ -32,11 +32,11 @@ public interface IConstants {
     public final String REPORT_MAIN_PAGE = "common/ReportJSP/reportmainpage.jsp";
     public final String REPORT_1_PAGE = "/common/ReportJSP/Report1Page.jsp";
     public final String REPORT_2_PAGE = "/common/ReportJSP/Report2Page.jsp";
-    public final String VIEW_REVENUE_REPORT_PAGE = "revenuereportpage.jsp";
-    public final String VIEW_TOP_GUEST_PAGE = "top10guestpage.jsp";
-    public final String VIEW_MOSTUSED_SERVICES_PAGE = "mostusedservicepage.jsp";
-    public final String VIEW_ROOM_OCCUPANCY_PAGE = "roomoccupancypage.jsp";
-    public final String VIEW_CANCEL_STATISTICS_PAGE = "cancelstatisticspage.jsp";
+    public final String VIEW_REVENUE_REPORT_PAGE = "/role/manager/revenuereportpage.jsp";
+    public final String VIEW_TOP_GUEST_PAGE = "/role/manager/top10guestpage.jsp";
+    public final String VIEW_MOSTUSED_SERVICES_PAGE = "/role/manager/mostusedservicepage.jsp";
+    public final String VIEW_ROOM_OCCUPANCY_PAGE = "/role/manager/roomoccupancypage.jsp";
+    public final String VIEW_CANCEL_STATISTICS_PAGE = "/role/manager/cancelstatisticspage.jsp";
 //    public final String REPORT_MAIN_PAGE = "role/manager/reportmainpage.jsp";
 
     
@@ -135,6 +135,8 @@ public interface IConstants {
     public final String ERR_EMPTYBOOKING = "Không có dữ liệu Booking!";
     public final String ERR_SAVE_BOOKING_SERVICE = "Đặt dịch vụ KHÔNG THÀNH CÔNG";  
     public final String ERR_SAVE_UPDATE_BOOKING = "Cập nhật thông tin KHÔNG THÀNH CÔNG";
+    public final String ERR_GUESTLIST_EMPTY = "Không tải được danh sách Khách hàng!";
+    public final String ERR_INVALID_ROOM_MONTH = "Chọn lại tháng nằm trong khoảng từ tháng 1 đến tháng 12!";
     
     
     //SUCESSFULL

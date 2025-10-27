@@ -41,6 +41,14 @@ public class RoomDTO {
         this.pricePerNight = pricePerNight;
     }
 
+    public RoomDTO(int roomID, String roomNumber, String typeName, int capacity, double pricePerNight) {
+        this.roomID = roomID;
+        this.roomNumber = roomNumber;
+        this.typeName = typeName;
+        this.capacity = capacity;
+        this.pricePerNight = pricePerNight;
+    }
+
     public RoomDTO(int roomTypeID, String typeName) {
         this.roomTypeID = roomTypeID;
         this.typeName = typeName;
