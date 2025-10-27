@@ -6,6 +6,7 @@
 package controllers.RoomHouseKeeping;
 
 import DAO.HouseKeepingTaskDAO;
+import DAO.RoomDAO;
 import DTO.HouseKeepingTaskDTO;
 import DTO.ServiceDTO;
 import java.io.IOException;
@@ -49,6 +50,12 @@ public class AcceptRoomController extends HttpServlet {
                 } else {
                     request.setAttribute("ERROR", "Failed to update task status!");
                 }
+            }
+            
+            if(newStatus.equalsIgnoreCase("Completed")){
+                RoomDAO dao2 = new RoomDAO();
+                int roomId = Integer.parseInt(request.getParameter("RoomID"));
+                dao2.updateRoomStatus(roomId, "Available");
             }
             
             // Load PENDING tasks

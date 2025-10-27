@@ -20,7 +20,13 @@
         %>
         <h1>Welcome back, Manager <%= manager.getFullName() %></h1>
         <p><a href="MainController?action=logout">Logout</a></p>
+<<<<<<< HEAD
+        <h2>Choose your action:</h2>
+        <p><a href="MainController?action=reportpage">View Report Statistic</a></p>
+
+=======
         
+>>>>>>> c860f3fcc8da9b1d9c0963fb912386c8b70d57d1
         <h2>Manager Dashboard - Báo cáo & Thống kê</h2>
 
         <div class="report-list">
@@ -48,6 +54,12 @@
                 </li>
             </ul>
         </div>
+<<<<<<< HEAD
+
         <p><a href="LogoutController?action=logout">Logout</a></p>
+
+=======
+        <p><a href="LogoutController?action=logout">Logout</a></p>
+>>>>>>> c860f3fcc8da9b1d9c0963fb912386c8b70d57d1
     </body>
 </html>

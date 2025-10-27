@@ -32,13 +32,19 @@ public interface IConstants {
     public final String VIEW_SERVICE_PAGE = "/role/service/ViewServicePage.jsp";
     public final String REPORT_1_PAGE = "/common/ReportJSP/Report1Page.jsp";
     public final String REPORT_2_PAGE = "/common/ReportJSP/Report2Page.jsp";
-    public final String VIEW_REVENUE_REPORT_PAGE = "revenuereportpage.jsp";
-    public final String VIEW_TOP_GUEST_PAGE = "top10guestpage.jsp";
-    public final String VIEW_MOSTUSED_SERVICES_PAGE = "mostusedservicepage.jsp";
-    public final String VIEW_ROOM_OCCUPANCY_PAGE = "roomoccupancypage.jsp";
-    public final String VIEW_CANCEL_STATISTICS_PAGE = "cancelstatisticspage.jsp";
+
+    public final String VIEW_REVENUE_REPORT_PAGE = "/role/manager/revenuereportpage.jsp";
+    public final String VIEW_TOP_GUEST_PAGE = "/role/manager/top10guestpage.jsp";
+    public final String VIEW_MOSTUSED_SERVICES_PAGE = "/role/manager/mostusedservicepage.jsp";
+    public final String VIEW_ROOM_OCCUPANCY_PAGE = "/role/manager/roomoccupancypage.jsp";
+    public final String VIEW_CANCEL_STATISTICS_PAGE = "/role/manager/cancelstatisticspage.jsp";
+//    public final String REPORT_MAIN_PAGE = "role/manager/reportmainpage.jsp";
+
     public final String HOUSEKEEPING_CLEANING_PAGE = "/role/housekeeping/CleaningRoomPage.jsp";
+
     public final String INVOICE_PAGE = "/role/guest/invoicepage.jsp";
+
+
 
     
     //Action
@@ -89,6 +95,7 @@ public interface IConstants {
     public final String AC_CLEANING_PAGE = "cleanpage";
     public final String AC_PENDING_PAGE = "pendingpage";
     public final String AC_ACCEPT_ROOM = "update_task_status";
+    public final String AC_BACK_TO_HOUSEKEEPING = "backtohousekeeping";
 
     
     //Controller
@@ -124,6 +131,7 @@ public interface IConstants {
     public final String CTL_VIEW_CANCEL_STATISTICS_REPORT = "ViewCancellationStatsController";
     public final String CTL_GET_ALL_ROOM_TASK = "GetAllRoomTaskController";
     public final String CTL_UPDATE_TASK_STATUS = "AcceptRoomController";
+    public final String CTL_GET_ALL_ROOM = "GetAllRoomToBack";
 
     // ERROR
     public final String ERR_EMPTY_FIELD = "Tên đăng nhập và mật khẩu không được để trống!";
@@ -145,8 +153,13 @@ public interface IConstants {
     public final String ERR_EMPTYBOOKING = "Không có dữ liệu Booking!";
     public final String ERR_SAVE_BOOKING_SERVICE = "Đặt dịch vụ KHÔNG THÀNH CÔNG";  
     public final String ERR_SAVE_UPDATE_BOOKING = "Cập nhật thông tin KHÔNG THÀNH CÔNG";
+
     public final String ERR_SAVE_BOOKING_ROOM = "Có lỗi xảy ra trong quá trình đặt phòng. Xin liên hệ nhân viên hỗ trợ để nhận được sự giúp đỡ.";
     public final String ERR_SAVE_PAYMENT_AND_INVOICE = "Có lỗi xảy ra trong quá trình xuất hoá đơn. Xin liên hệ nhân viên hỗ trợ để nhận được sự giúp đỡ.";
+
+    public final String ERR_GUESTLIST_EMPTY = "Không tải được danh sách Khách hàng!";
+    public final String ERR_INVALID_ROOM_MONTH = "Chọn lại tháng nằm trong khoảng từ tháng 1 đến tháng 12!";
+
     
     
     //SUCESSFULL

@@ -57,6 +57,13 @@ public class GuestDTO {
         this.username = username;
         this.password = password;
     }
+
+    public GuestDTO(int guestID, String fullName, String phone, String email) {
+        this.guestID = guestID;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.email = email;
+    }
     
     
 

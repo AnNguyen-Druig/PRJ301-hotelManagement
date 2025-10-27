@@ -51,18 +51,16 @@
             <h3>Pending Table</h3>
           <thead>
             <tr>
-                <th>TaskID</th><th>RoomID</th><th>AssignedStaff</th><th>TaskDate</th><th>cleaningType</th><th>status</th><th></th>
+                <th>TaskID</th><th>RoomID</th><th>AssignedStaff</th><th>TaskDate</th><th>cleaningType</th><th>status</th><th>Action</th>
             </tr>
           </thead>
           <tbody>
-          <% 
-                StaffDTO staff = (StaffDTO) session.getAttribute("USER");
-                if (staff != null) {
-            %>
           <%
-            List<HouseKeepingTaskDTO> list = (List<HouseKeepingTaskDTO>) request.getAttribute("PENDING");
-            if (list != null && !list.isEmpty()) {
-                for (HouseKeepingTaskDTO s : list) {
+            StaffDTO staff = (StaffDTO) session.getAttribute("USER");
+            if (staff != null) {
+                List<HouseKeepingTaskDTO> list = (List<HouseKeepingTaskDTO>) request.getAttribute("PENDING");
+                if (list != null && !list.isEmpty()) {
+                    for (HouseKeepingTaskDTO s : list) {
           %>
           
 
@@ -82,10 +80,15 @@
               </td>
             </tr>
           <%
-              }
-            } else {
+                    }
+                } else {
           %>
             <tr><td colspan="7" style="text-align:center">No data</td></tr>
+          <% 
+                }
+            } else {
+          %>
+            <tr><td colspan="7" style="text-align:center">Please login to view tasks</td></tr>
           <% } %>
           </tbody>
         </table>
@@ -97,14 +100,15 @@
         <h3>Progress Table</h3>
         <table>
           <thead>
-            <th>TaskID</th><th>RoomID</th><th>AssignedStaff</th><th>TaskDate</th><th>cleaningType</th><th>status</th><th></th>
+            <th>TaskID</th><th>RoomID</th><th>AssignedStaff</th><th>TaskDate</th><th>cleaningType</th><th>status</th><th>Action</th>
           </thead>
           <tbody>
 
             <%
-            List<HouseKeepingTaskDTO> list2 = (List<HouseKeepingTaskDTO>) request.getAttribute("PROGRESS");
-            if (list2 != null && !list2.isEmpty()) {
-                for (HouseKeepingTaskDTO s2 : list2) {
+            if (staff != null) {
+                List<HouseKeepingTaskDTO> list2 = (List<HouseKeepingTaskDTO>) request.getAttribute("PROGRESS");
+                if (list2 != null && !list2.isEmpty()) {
+                    for (HouseKeepingTaskDTO s2 : list2) {
             %>
             <tr>
               <td><%= s2.getTaskID() %></td>
@@ -117,6 +121,7 @@
                   <form action="MainController" method="POST" style="justify-content: center; display: flex; gap: 8px; align-items: center;">
                         <input type="hidden" name="action" value="update_task_status">
                         <input type="hidden" name="TaskID" value="<%= s2.getTaskID() %>">
+                        <input type="hidden" name="RoomID" value="<%= s2.getRoomID() %>">
                         <button type="submit" name="newStatus" value="Completed">Completed</button>
                         <button type="submit" name="newStatus" value="Canceled">Canceled</button>
                   </form>
@@ -136,6 +141,6 @@
       </div>
     </div>
 
-    <a class="back" href="MainController?action=getroomservice">⬅ Back to room</a>
+        <a class="back" href="MainController?action=backtohousekeeping">⬅ Back to room</a>
     </body>
 </html>

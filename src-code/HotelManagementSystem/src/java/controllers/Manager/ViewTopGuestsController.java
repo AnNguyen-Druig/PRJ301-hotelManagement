@@ -5,8 +5,11 @@
 
 package controllers.Manager;
 
+import DAO.TopFrequentGuestDAO;
+import DTO.TopFrequentGuestDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,9 +34,15 @@ public class ViewTopGuestsController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = "";
+        String url = IConstants.VIEW_TOP_GUEST_PAGE;
         try {
-            url = IConstants.VIEW_TOP_GUEST_PAGE;
+            TopFrequentGuestDAO guestDAO = new TopFrequentGuestDAO();
+            ArrayList<TopFrequentGuestDTO> list = guestDAO.getTop10FrequentGuest();
+            if(list != null && !list.isEmpty()) {
+                request.setAttribute("ALL_GUEST_LIST", list);
+            } else {
+                request.setAttribute("ERROR", IConstants.ERR_GUESTLIST_EMPTY);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
