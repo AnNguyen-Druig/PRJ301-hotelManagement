@@ -27,7 +27,7 @@ public class HouseKeepingTaskDAO {
                 String sql = "Select *\n"
                             + "From housekeeping_task as h\n"
                             + "join STAFF as S on S.StaffID = h.AssignedStaff\n"
-                            + "Where h.Status = 'Pending'";
+                            + "Where h.Status = 'Pending' OR h.Status = 'Occupied'";
                 PreparedStatement ps = cn.prepareStatement(sql);
                 ResultSet table = ps.executeQuery();
                 if(table != null) {
@@ -95,15 +95,16 @@ public class HouseKeepingTaskDAO {
         return result;
     }
     
-    public boolean updateTaskStatus(int taskId, String newStatus){
+    public boolean updateTaskStatus(int taskId, int staffId, String newStatus){
         boolean result = false;
         Connection cn = null;
         try{
             cn = DBUtills.getConnection();
-            String sql = "UPDATE dbo.HOUSEKEEPING_TASK SET Status = ? WHERE TaskID = ?";
+            String sql = "UPDATE dbo.HOUSEKEEPING_TASK SET Status = ?, AssignedStaff = ? WHERE TaskID = ?";
             PreparedStatement st = cn.prepareStatement(sql);
             st.setString(1, newStatus);
-            st.setInt(2, taskId);         
+            st.setInt(2, staffId);
+            st.setInt(3, taskId);         
             int affect = st.executeUpdate();
             if(affect > 0){
                 result = true;

@@ -42,9 +42,10 @@ public class AcceptRoomController extends HttpServlet {
             HouseKeepingTaskDAO dao = new HouseKeepingTaskDAO();
             int taskId = Integer.parseInt(request.getParameter("TaskID"));
             String newStatus = request.getParameter("newStatus");
+            int staffId = Integer.parseInt(request.getParameter("StaffID"));
             
             if(newStatus != null){
-                boolean updateResult = dao.updateTaskStatus(taskId, newStatus);
+                boolean updateResult = dao.updateTaskStatus(taskId, staffId, newStatus);
                 if(updateResult) {
                     request.setAttribute("SUCCESS", "Task status updated successfully!");
                 } else {

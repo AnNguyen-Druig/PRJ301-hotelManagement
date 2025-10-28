@@ -58,6 +58,7 @@
           <%
             StaffDTO staff = (StaffDTO) session.getAttribute("USER");
             if (staff != null) {
+                
                 List<HouseKeepingTaskDTO> list = (List<HouseKeepingTaskDTO>) request.getAttribute("PENDING");
                 if (list != null && !list.isEmpty()) {
                     for (HouseKeepingTaskDTO s : list) {
@@ -75,6 +76,7 @@
                   <form action="MainController" method="POST" style="justify-content: center; display: flex; gap: 8px; align-items: center;">
                         <input type="hidden" name="action" value="update_task_status">
                         <input type="hidden" name="TaskID" value="<%= s.getTaskID() %>">
+                        <input type="hidden" name="StaffID" value="<%= staff.getStaffID() %>">
                         <button type="submit" name="newStatus" value="InProgress">Accept</button>
                   </form>
               </td>
@@ -122,8 +124,9 @@
                         <input type="hidden" name="action" value="update_task_status">
                         <input type="hidden" name="TaskID" value="<%= s2.getTaskID() %>">
                         <input type="hidden" name="RoomID" value="<%= s2.getRoomID() %>">
+                        <input type="hidden" name="StaffID" value="<%= staff.getStaffID() %>">
                         <button type="submit" name="newStatus" value="Completed">Completed</button>
-                        <button type="submit" name="newStatus" value="Canceled">Canceled</button>
+                        <button type="submit" name="newStatus" value="Pending">Canceled</button>
                   </form>
               </td>
             </tr>
