@@ -76,7 +76,7 @@ public class ViewRoomOccupancyRateController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher(IConstants.VIEW_ROOM_OCCUPANCY_PAGE).forward(request, response);
+        processRequest(request, response);
     }
 
     /**
