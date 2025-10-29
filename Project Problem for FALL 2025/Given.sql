@@ -179,6 +179,14 @@ CREATE TABLE dbo.HOUSEKEEPING_TASK(
           DEFAULT 'Pending'
   );
 
+CREATE TABLE TAX_CONFIG (
+    TaxID INT IDENTITY(1,1) PRIMARY KEY,
+    TaxName NVARCHAR(50) UNIQUE NOT NULL, -- Ví dụ: 'VAT', 'Service Tax'
+    TaxValue DECIMAL(5,4) NOT NULL CHECK (TaxValue >= 0), -- Ví dụ: 0.08 (cho 8%)
+    Description NVARCHAR(255),
+    LastUpdated DATETIME DEFAULT GETDATE()
+);
+
 -- ======================================================
 -- OLD SEED DATA (from previous GivenDB.sql)
 -- ======================================================
@@ -253,6 +261,10 @@ VALUES
 (N'Vũ Thị Lựu', N'Housekeeping', N'VuLuu', N'666', N'06444455556', N'vuthiaa@hotel.com'),
 (N'Đặng Văn Bảo', N'ServiceStaff', N'DangBao', N'777', N'07555566667', N'dangvanbb@hotel.com'),
 (N'Bùi Thị Cung', N'Manager', N'BuiCung', N'888', N'09666677778', N'buithicc@hotel.com');
+
+--TAX 
+INSERT INTO TAX_CONFIG (TaxName, TaxValue, Description)
+VALUES (N'VAT', 0.1, N'Thuế suất Giá trị gia tăng (VAT) hiện hành');
 Go
 
 CREATE OR ALTER TRIGGER dbo.trg_BOOKING_SERVICE_AutoAssignStaff
