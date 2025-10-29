@@ -24,6 +24,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>Hạng</th>
                     <th>Guest ID</th>
                     <th>Guest Name</th>
                     <th>Phone</th>
@@ -32,8 +33,12 @@
                 </tr>
             </thead>
             <tbody>
-                <% for (TopFrequentGuestDTO guest : list) {%>
+                <% 
+                    int rank = 1;
+                    for (TopFrequentGuestDTO guest : list) {
+                %>
                 <tr>
+                    <td><%= rank++%></td>
                     <td><%= guest.getGuestID()%></td>
                     <td><%= guest.getFullName() %></td>
                     <td><%= guest.getPhone() %></td>
