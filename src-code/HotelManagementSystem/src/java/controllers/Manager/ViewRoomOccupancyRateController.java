@@ -39,23 +39,24 @@ public class ViewRoomOccupancyRateController extends HttpServlet {
         try {
             String checkInMonth = request.getParameter("month");
             String checkInYear = request.getParameter("year");
-            if (checkInMonth != null && !checkInMonth.trim().isEmpty()
-                    && checkInYear != null && !checkInYear.trim().isEmpty()) {
 
-                int checkInMonth_value = Integer.parseInt(checkInMonth);
-                int checkInYear_value = Integer.parseInt(checkInYear);
+            int checkInMonth_value = Integer.parseInt(checkInMonth);
+            int checkInYear_value = Integer.parseInt(checkInYear);
 
-                if (checkInMonth_value < 1 || checkInMonth_value > 12) {
-                    request.setAttribute("ERROR", IConstants.ERR_INVALID_ROOM_MONTH);
+            if (checkInMonth_value < 1 || checkInMonth_value > 12) {
+                request.setAttribute("ERROR", IConstants.ERR_INVALID_ROOM_MONTH);
+            } else {
+                RoomOccupancyDAO roomDAO = new RoomOccupancyDAO();
+                ArrayList<RoomOccupancyDTO> list = roomDAO.getRoomOccupancyRatePerMonth(checkInMonth_value, checkInYear_value);
+                if (list != null && !list.isEmpty()) {
+                    request.setAttribute("ROOM_OCCUPANCY_LIST", list);
                 } else {
-                    RoomOccupancyDAO roomDAO = new RoomOccupancyDAO();
-                    ArrayList<RoomOccupancyDTO> list = roomDAO.getRoomOccupancyRatePerMonth(checkInMonth_value, checkInYear_value);
-                    if (list != null && !list.isEmpty()) {
-                        request.setAttribute("ROOM_OCCUPANCY_LIST", list);
-                    }
+                    request.setAttribute("ERROR", IConstants.ERR_EMPTY_ROOM_OCCUPANCY_LIST);
                 }
-
             }
+            request.setAttribute("SELECTED_MONTH", checkInMonth_value);
+            request.setAttribute("SELECTED_YEAR", checkInYear_value);
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -75,7 +76,7 @@ public class ViewRoomOccupancyRateController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher(IConstants.VIEW_ROOM_OCCUPANCY_PAGE).forward(request, response);
     }
 
     /**

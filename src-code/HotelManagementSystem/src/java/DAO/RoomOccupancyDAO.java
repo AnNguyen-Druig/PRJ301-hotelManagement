@@ -43,9 +43,10 @@ public class RoomOccupancyDAO {
                         String roomNumber = table.getString("RoomNumber");
                         int capacity = table.getInt("Capacity");
                         double price = table.getDouble("PricePerNight");
-                        int checkInMonth = table.getInt(month);
-                        int checkInYear = table.getInt(year);
-                        RoomOccupancyDTO room = new RoomOccupancyDTO(roomID, roomNumber, typeName, capacity, price, checkInMonth, checkInYear, roomID);
+                        int checkInMonth = table.getInt("Tháng");
+                        int checkInYear = table.getInt("Năm");
+                        int roomCount = table.getInt("RoomCount");
+                        RoomOccupancyDTO room = new RoomOccupancyDTO(roomID, roomNumber, typeName, capacity, price, checkInMonth, checkInYear, roomCount);
                         list.add(room);
                     }
                 }

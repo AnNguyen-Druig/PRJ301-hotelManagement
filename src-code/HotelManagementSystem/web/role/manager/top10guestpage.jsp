@@ -50,5 +50,6 @@
         <%
             }
         %>
+        <a href="MainController?action=gobackmanager">Quay lại Dashboard</a>
     </body>
 </html>

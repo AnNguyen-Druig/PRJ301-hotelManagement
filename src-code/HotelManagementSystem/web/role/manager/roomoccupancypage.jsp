@@ -88,15 +88,12 @@
 
             // Lấy dữ liệu báo cáo và thông báo
             List<RoomOccupancyDTO> roomList = (List<RoomOccupancyDTO>) request.getAttribute("ROOM_OCCUPANCY_LIST");
-            String reportError = (String) request.getAttribute("REPORT_ERROR");
-            String reportInfo = (String) request.getAttribute("REPORT_INFO");
+            String errMsg = (String) request.getAttribute("ERROR");
         %>
 
         <%-- Form Filter --%>
         <div class="filter-form">
-            <form action="MainController" method="GET">
-                <input type="hidden" name="action" value="ViewOccupancyRateReport"> <%-- Giữ nguyên action --%>
-
+            <form action="MainController" method="POST">
                 <label for="monthSelect">Chọn Tháng:</label>
                 <select name="month" id="monthSelect" required>
                     <%-- Lặp qua 12 tháng --%>
@@ -114,16 +111,13 @@
                 <label for="yearInput">Chọn Năm:</label>
                 <input type="number" name="year" id="yearInput" value="<%= selectedYear%>" min="2000" max="<%= currentYear%>" required>
 
-                <input type="submit" value="Xem Báo cáo">
+                <input type="submit" name="action" value="ViewRoomOccupancyRateReport">
             </form>
         </div>
 
         <%-- Hiển thị lỗi hoặc thông tin (nếu có) --%>
-        <% if (reportError != null) {%>
-        <p class="error-message">Lỗi: <%= reportError%></p>
-        <% } %>
-        <% if (reportInfo != null) {%>
-        <p class="info-message"><%= reportInfo%></p>
+        <% if (errMsg != null) {%>
+        <p class="error-message">Lỗi: <%= errMsg%></p>
         <% } %>
 
         <%-- Hiển thị bảng kết quả nếu có dữ liệu --%>
@@ -158,13 +152,13 @@
                 <% } // Kết thúc vòng lặp %>
             </tbody>
         </table>
-        <% } else if (reportError == null && reportInfo == null) { // Chỉ hiển thị nếu không có lỗi/info và không có data %>
+        <% } else if (errMsg == null) { // Chỉ hiển thị nếu không có lỗi/info và không có data %>
         <p>Vui lòng chọn tháng/năm để xem báo cáo.</p> <%-- Hoặc thông báo khác --%>
         <% } %>
 
 
         <%-- Nút quay lại trang Manager Dashboard --%>
-        <a href="MainController?action=goBackToManagerDashboard" class="back-link">Quay lại Dashboard</a>
+        <a href="MainController?action=gobackmanager" class="back-link">Quay lại Dashboard</a>
 
     </body>
 </html>
