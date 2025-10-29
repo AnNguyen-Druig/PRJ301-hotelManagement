@@ -1,6 +1,7 @@
-<%--
-    File   : roomOccupancyReport.jsp (Scriptlet Version)
-    Author : [Tên của bạn]
+<%-- 
+    Document   : roomoccupancypage
+    Created on : Oct 27, 2025, 1:22:25 PM
+    Author     : Admin
 --%>
 <%@page import="DTO.RoomOccupancyDTO"%>
 <%@page import="java.util.List"%>
