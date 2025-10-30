@@ -10,6 +10,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
 import mylib.DBUtills;
 
 /**
@@ -101,21 +105,21 @@ public class RoomDAO {
         }
         return result;
     }
-    
+
     public ArrayList<RoomDTO> getAllRoomType() {
         ArrayList<RoomDTO> list = new ArrayList<>();
         Connection cn = null;
         try {
             cn = DBUtills.getConnection();
-            if(cn != null) {
+            if (cn != null) {
                 String sql = "SELECT RoomTypeID, TypeName FROM ROOM_TYPE";
                 PreparedStatement ps = cn.prepareStatement(sql);
                 ResultSet table = ps.executeQuery();
-                if(table != null) {
-                    while(table.next()) {
+                if (table != null) {
+                    while (table.next()) {
                         int roomTypeID = table.getInt("RoomTypeID");
                         String typeName = table.getString("TypeName");
-                        
+
                         RoomDTO roomType = new RoomDTO(roomTypeID, typeName);
                         list.add(roomType);
                     }
@@ -125,7 +129,7 @@ public class RoomDAO {
             e.printStackTrace();
         } finally {
             try {
-                if(cn != null) {
+                if (cn != null) {
                     cn.close();
                 }
             } catch (Exception e) {
@@ -134,26 +138,26 @@ public class RoomDAO {
         }
         return list;
     }
-    
+
     public ArrayList<RoomDTO> getAvailableRoomsByTypeId(int roomTypeID) {
         ArrayList<RoomDTO> list = new ArrayList<>();
         Connection cn = null;
         try {
             cn = DBUtills.getConnection();
-            if(cn != null) {
+            if (cn != null) {
                 String sql = "SELECT RoomID, RoomNumber FROM ROOM WHERE RoomTypeID = ? AND Status = 'Available'";
                 PreparedStatement ps = cn.prepareStatement(sql);
                 ps.setInt(1, roomTypeID);
                 ResultSet table = ps.executeQuery();
-                if(table != null) {
-                    while(table.next()) {
+                if (table != null) {
+                    while (table.next()) {
                         int roomID = table.getInt("RoomID");
                         String roomNumber = table.getString("RoomNumber");
-                        
+
                         RoomDTO room = new RoomDTO();
                         room.setRoomID(roomID);
                         room.setRoomNumber(roomNumber);
-                        
+
                         list.add(room);
                     }
                 }
@@ -162,7 +166,7 @@ public class RoomDAO {
             e.printStackTrace();
         } finally {
             try {
-                if(cn != null) {
+                if (cn != null) {
                     cn.close();
                 }
             } catch (Exception e) {
@@ -225,7 +229,6 @@ public class RoomDAO {
         }
         return result;
     }
-    
 
     public ArrayList<RoomDTO> filterAvailableRoomsByDateRange(Date checkInDate, Date checkOutDate) {
         ArrayList<RoomDTO> result = new ArrayList<>();
@@ -244,7 +247,7 @@ public class RoomDAO {
                         + "        FROM BOOKING b\n"
                         + "        WHERE b.Status IN ('Reserved','CheckIn') -- chỉ loại trừ các booking đang còn hiệu lực\n"
                         + "          AND (\n"
-                        + "               (b.CheckInDate < ?)\n"        
+                        + "               (b.CheckInDate < ?)\n"
                         + "               AND (b.CheckOutDate > ?)\n"
                         + "          )\n"
                         + "    )";
@@ -285,13 +288,13 @@ public class RoomDAO {
         Connection cn = null;
         try {
             cn = DBUtills.getConnection();
-            if(cn != null) {
+            if (cn != null) {
                 String sql = "UPDATE ROOM SET Status = ? WHERE RoomID = ?";
                 PreparedStatement ps = cn.prepareStatement(sql);
                 ps.setString(1, newStatus);
                 ps.setInt(2, roomId);
                 int rowsAffected = ps.executeUpdate();
-                if(rowsAffected > 0) {
+                if (rowsAffected > 0) {
                     result = true;
                 }
             }
@@ -299,7 +302,7 @@ public class RoomDAO {
             e.printStackTrace();
         } finally {
             try {
-                if(cn != null) {
+                if (cn != null) {
                     cn.close();
                 }
             } catch (Exception e) {
@@ -308,7 +311,6 @@ public class RoomDAO {
         }
         return result;
     }
-
 
     public RoomDTO getRoomByID(int roomID) {
         Connection cn = null;
@@ -347,7 +349,7 @@ public class RoomDAO {
         }
         return room;
     }
-    
+
     public int updateRoomStatus(int roomID) {
         int result = 0;
         Connection cn = null;
@@ -374,5 +376,101 @@ public class RoomDAO {
         return result;
     }
 
-}
+    public int countTotalRoom() {
+        int result = 0;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            String sql = "SELECT COUNT(RoomID) as [Tổng số phòng] FROM ROOM";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ResultSet table = ps.executeQuery();
+            if (table != null && table.next()) {
+                int totalBooking = table.getInt("Tổng số phòng");
+                result = totalBooking;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 
+    public Map<String, Integer> countTotalRoomByRoomType() {
+        Map<String, Integer> list = new LinkedHashMap<>();
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            String sql = "SELECT rt.TypeName, COUNT(r.RoomID) as [Tổng số phòng] FROM ROOM r JOIN ROOM_TYPE rt ON r.RoomTypeID = rt.RoomTypeID "
+                    + "GROUP BY rt.TypeName ORDER BY [Tổng số phòng] DESC";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ResultSet table = ps.executeQuery();
+            if (table != null) {
+                while (table.next()) {
+                    String typeName = table.getString("TypeName");
+                    int totalRoom = table.getInt("Tổng số phòng");
+                    list.put(typeName, totalRoom);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return list;
+    }
+
+    public Map<String, Object> getMonthlyOccupancyPercentage(int month, int year) {
+        Map<String, Object> statsMap = new HashMap<>();
+        String sql = "WITH MonthlyBookedRooms AS ("
+                + " SELECT COUNT(DISTINCT RoomID) AS UniqueRoomsBooked "
+                + " FROM BOOKING "
+                + " WHERE MONTH(CheckInDate) = ? AND YEAR(CheckInDate) = ? "
+                + " AND Status IN ('Reserved', 'CheckIn', 'Complete')"
+                + "), "
+                + "TotalHotelRooms AS ("
+                + " SELECT COUNT(RoomID) AS TotalRooms FROM ROOM"
+                + ") "
+                + "SELECT "
+                + " ISNULL(m.UniqueRoomsBooked, 0) AS UniqueRoomsBooked, "
+                + " t.TotalRooms, "
+                + " CASE "
+                + "     WHEN t.TotalRooms = 0 THEN 0.0 "
+                + "     ELSE (CAST(ISNULL(m.UniqueRoomsBooked, 0) AS DECIMAL(10, 2)) * 100.0 / t.TotalRooms) "
+                + " END AS OccupancyPercentage "
+                + "FROM TotalHotelRooms t, MonthlyBookedRooms m";
+
+        // Dùng try-with-resources để tự động đóng tài nguyên
+        try ( Connection cn = DBUtills.getConnection();  PreparedStatement ps = cn.prepareStatement(sql)) {
+
+            ps.setInt(1, month);
+            ps.setInt(2, year);
+
+            try ( ResultSet rs = ps.executeQuery()) {
+                // Câu truy vấn này luôn trả về 1 hàng
+                if (rs.next()) {
+                    // Lấy kết quả từ SQL và đặt vào Map
+                    statsMap.put("UniqueRoomsBooked", rs.getInt("UniqueRoomsBooked"));
+                    statsMap.put("TotalRooms", rs.getInt("TotalRooms"));
+                    statsMap.put("OccupancyPercentage", rs.getDouble("OccupancyPercentage"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Luôn in lỗi ra
+        }
+        return statsMap; // Trả về Map (có thể rỗng nếu có lỗi)
+    }
+}

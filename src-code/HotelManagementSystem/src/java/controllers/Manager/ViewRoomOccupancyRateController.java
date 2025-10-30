@@ -4,11 +4,13 @@
  */
 package controllers.Manager;
 
+import DAO.RoomDAO;
 import DAO.RoomOccupancyDAO;
 import DTO.RoomOccupancyDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,6 +39,18 @@ public class ViewRoomOccupancyRateController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = IConstants.VIEW_ROOM_OCCUPANCY_PAGE;
         try {
+            // 1. Khởi tạo DAO cần thiết
+            RoomOccupancyDAO roomOccDAO = new RoomOccupancyDAO();
+            RoomDAO roomDAO = new RoomDAO();
+            
+            // 2. Thực hiện việc 1) Tính tổng số phòng hiện có
+            int totalRoom = roomDAO.countTotalRoom();
+            
+            // 3. Thực hiện việc 2) Số lượng phòng theo từng Room Type
+            Map<String, Integer> roomTypeList = roomDAO.countTotalRoomByRoomType();
+            
+            // 4. Thực hiện việc 3) Top 10 phòng được đặt nhiều nhất trong tháng/năm
+            //                   4) Tỷ lệ phòng được đặt trong tháng/năm
             String checkInMonth = request.getParameter("month");
             String checkInYear = request.getParameter("year");
 
@@ -46,14 +60,16 @@ public class ViewRoomOccupancyRateController extends HttpServlet {
             if (checkInMonth_value < 1 || checkInMonth_value > 12) {
                 request.setAttribute("ERROR", IConstants.ERR_INVALID_ROOM_MONTH);
             } else {
-                RoomOccupancyDAO roomDAO = new RoomOccupancyDAO();
-                ArrayList<RoomOccupancyDTO> list = roomDAO.getRoomOccupancyRatePerMonth(checkInMonth_value, checkInYear_value);
+                ArrayList<RoomOccupancyDTO> list = roomOccDAO.getRoomOccupancyRatePerMonth(checkInMonth_value, checkInYear_value);
                 if (list != null && !list.isEmpty()) {
                     request.setAttribute("ROOM_OCCUPANCY_LIST", list);
                 } else {
                     request.setAttribute("ERROR", IConstants.ERR_EMPTY_ROOM_OCCUPANCY_LIST);
                 }
             }
+            
+            request.setAttribute("TOTAL_ROOMS", totalRoom);
+            request.setAttribute("ROOM_COUNT_BY_TYPE", roomTypeList);
             request.setAttribute("SELECTED_MONTH", checkInMonth_value);
             request.setAttribute("SELECTED_YEAR", checkInYear_value);
 

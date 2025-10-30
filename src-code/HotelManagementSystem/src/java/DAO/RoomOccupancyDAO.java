@@ -30,6 +30,7 @@ public class RoomOccupancyDAO {
                         + "JOIN ROOM_TYPE rt ON r.RoomTypeID = rt.RoomTypeID\n"
                         + "JOIN BOOKING b ON r.RoomID = b.RoomID\n"
                         + "WHERE MONTH(b.CheckInDate) = ? AND YEAR(b.CheckInDate) = ?\n"
+                        + "AND b.Status IN ('Reserved', 'CheckIn', 'CheckOut', 'Complete')\n"
                         + "GROUP BY r.RoomID, rt.TypeName, r.RoomNumber, rt.Capacity, rt.PricePerNight, MONTH(b.CheckInDate), YEAR(b.CheckInDate)\n"
                         + "ORDER BY RoomCount DESC";
                 PreparedStatement ps = cn.prepareStatement(sql);
