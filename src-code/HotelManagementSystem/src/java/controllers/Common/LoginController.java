@@ -49,7 +49,7 @@ public class LoginController extends HttpServlet {
                     try {
                         StaffDAO staffDAO = new StaffDAO();
                         StaffDTO staff = staffDAO.getLoginStaff(username, password);
-                        if (staff != null) {
+                        if (staff != null  && staff.getStatus().equals("Active")) {
                             session.setAttribute("USER", staff);
 
                             String role = staff.getRole();
@@ -57,7 +57,7 @@ public class LoginController extends HttpServlet {
 
                             switch (role) {
                                 case "Admin":
-                                    url = IConstants.ADMIN_PAGE;
+                                    url = IConstants.CTL_GET_ALL_STAFF;
                                     break;
                                 case "Receptionist":
                                     url = IConstants.CTL_SHOW_BOOKING_IN_RECEPTION;

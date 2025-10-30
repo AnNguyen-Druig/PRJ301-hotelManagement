@@ -167,6 +167,12 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_BACK_TO_HOUSEKEEPING:
                     url = IConstants.CTL_GET_ALL_ROOM;
                     break;
+                case IConstants.AC_CANCEL_BOOKING_ROOM:
+                    url = IConstants.CTL_CANCEL_BOOKING_ROOM;
+                    break;
+                case IConstants.AC_FILTER_STAFF: 
+                    url = IConstants.CTL_FILTER_STAFF;
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();

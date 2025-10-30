@@ -43,6 +43,7 @@ public interface IConstants {
     public final String HOUSEKEEPING_CLEANING_PAGE = "/role/housekeeping/CleaningRoomPage.jsp";
 
     public final String INVOICE_PAGE = "/role/guest/invoicepage.jsp";
+    public final String SIGN_UP_STAFF_PAGE = "/role/admin/signupstaff.jsp";
 
 
 
@@ -96,6 +97,9 @@ public interface IConstants {
     public final String AC_PENDING_PAGE = "pendingpage";
     public final String AC_ACCEPT_ROOM = "update_task_status";
     public final String AC_BACK_TO_HOUSEKEEPING = "backtohousekeeping";
+    public final String AC_CANCEL_BOOKING_ROOM = "cancelbookingroom";
+    public final String AC_FILTER_STAFF = "filterstaff";
+    public final String AC_SIGN_UP_STAFF = "signupstaff";
     
     
     //Controller
@@ -132,6 +136,10 @@ public interface IConstants {
     public final String CTL_GET_ALL_ROOM_TASK = "GetAllRoomTaskController";
     public final String CTL_UPDATE_TASK_STATUS = "AcceptRoomController";
     public final String CTL_GET_ALL_ROOM = "GetAllRoomToBack";
+    public final String CTL_CANCEL_BOOKING_ROOM = "CancelBookingRoomController";
+    public final String CTL_GET_ALL_STAFF = "GetAllStaffController";
+    public final String CTL_FILTER_STAFF = "FilterStaffController";
+    public final String CTL_SIGN_UP_STAFF = "SignUpStaffController";
 
     // ERROR
     public final String ERR_EMPTY_FIELD = "Tên đăng nhập và mật khẩu không được để trống!";
@@ -160,11 +168,14 @@ public interface IConstants {
     public final String ERR_GUESTLIST_EMPTY = "Không tải được danh sách Khách hàng!";
     public final String ERR_INVALID_ROOM_MONTH = "Chọn lại tháng nằm trong khoảng từ tháng 1 đến tháng 12!";
     public final String ERR_EMPTY_ROOM_OCCUPANCY_LIST = "Không có dữ liệu Room Occupancy!";
-
+    public final String ERR_EMPTY_CANCEL_BOOKING_LIST = "Không có dữ liệu Booking Cancel!";
+    public final String ERR_CANCEL_BOOKING_ROOM = "Bạn huỷ không thành công vì có lỗi xảy ra trong quá trình xử lý";
+    public final String ERR_CANCELDATE_BEFORE_CHECKINDATE = "Bạn huỷ không thành công vì phải hủy trước ngày Check-in: " ;
     
     
     //SUCESSFULL
     public final String SUCC_SAVE_BOOKING_ROOM = "Bạn đã đặt phòng thành công";
     public final String SUCC_SAVE_BOOKING_SERVICE =  "Bạn đã đặt dịch vụ thành công.";
     public final String SUCC_SAVE_UPDATE_BOOKING = "Bạn đã cập nhật thông tin thành công.";
+    public final String SUCC_CANCEL_BOOKING_ROOM = "Bạn đã huỷ thành công, mã đặt phòng đã huỷ có ID là: ";
 }

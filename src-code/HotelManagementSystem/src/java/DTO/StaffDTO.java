@@ -16,6 +16,7 @@ public class StaffDTO {
     private String password;
     private String phone;
     private String email;
+    private String status;
 
     public StaffDTO() {
         this.staffID = 0;
@@ -25,9 +26,10 @@ public class StaffDTO {
         this.password = "";
         this.phone = "";
         this.email = "";
+        this.status = "";
     }
 
-    public StaffDTO(int staffID, String fullName, String role, String userName, String password, String phone, String email) {
+    public StaffDTO(int staffID, String fullName, String role, String userName, String password, String phone, String email, String status) {
         this.staffID = staffID;
         this.fullName = fullName;
         this.role = role;
@@ -35,6 +37,7 @@ public class StaffDTO {
         this.password = password;
         this.phone = phone;
         this.email = email;
+        this.status = status;
     }
 
     public int getStaffID() {
@@ -92,6 +95,16 @@ public class StaffDTO {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    
     
     
 }

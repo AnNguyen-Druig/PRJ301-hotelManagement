@@ -24,7 +24,14 @@
             } else {
         %>
         <h2>Các Đơn Đặt Phòng Đã Giữ Chỗ</h2>
-        <%
+        <%  //Nhận thông tin HUY DAT PHONG
+            String message = (String) request.getAttribute("MESSAGE");
+            String bookingId = request.getParameter("bookingId");
+            if(message!=null && !message.isEmpty()){
+                out.println(message);
+            }
+            //Kết thúc thông tin Huy Dat Phong
+            
             ArrayList<BookingDTO> listReservedBooking = (ArrayList<BookingDTO>) request.getAttribute("RESERVED_BOOKING");
             if (listReservedBooking != null && !listReservedBooking.isEmpty()) {
         %>
@@ -54,8 +61,14 @@
                 <td><%= b.getCheckOutDate()%></td>
                 <td><%= b.getBookingDate()%></td>
                 <td><%= b.getStatus()%></td>
+                <td>
+                    <form action="MainController" method="POST">
+                        <input type="hidden" name="bookingId" value="<%= b.getBookingID() %>">
+                        <button type="submit" name="action" value="<%= IConstants.AC_CANCEL_BOOKING_ROOM %>">Huỷ đặt phòng</button> 
+                    </form>
+                </td>
             </tr> 
-            <%
+            <% 
                 }
             %>
         </table>

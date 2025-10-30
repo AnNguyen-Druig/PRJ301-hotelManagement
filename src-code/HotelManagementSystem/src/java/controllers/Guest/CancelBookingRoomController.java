@@ -2,16 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controllers.Guest;
 
-import controllers.*;
 import DAO.BookingRoomDAO;
 import DTO.BookingDTO;
-import DTO.GuestDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.sql.Date;
 import javax.servlet.ServletException;
 
 import javax.servlet.annotation.WebServlet;
@@ -19,57 +16,53 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import mylib.IConstants;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name="ViewBookingController", urlPatterns={"/ViewBookingController"})
-public class ViewBookingController extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+@WebServlet(name = "CancelBookingRoomController", urlPatterns = {"/CancelBookingRoomController"})
+public class CancelBookingRoomController extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            HttpSession session = request.getSession();
-            GuestDTO guest = (GuestDTO) session.getAttribute("USER");
-            int guestID = guest.getGuestID();
-            BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
-            ArrayList<BookingDTO> listAllBooking =  bookingRoomDAO.getAllBookingByGuestID(guestID);
-            ArrayList<BookingDTO> listReservedBooking = new ArrayList<>();
-            ArrayList<BookingDTO> listCheckInBooking = new ArrayList<>();
-            if(listAllBooking!=null && !listAllBooking.isEmpty()) {
-                for(BookingDTO b : listAllBooking) {
-                    if(b.getStatus().equals("Reserved")) {
-                        listReservedBooking.add(b);
-                    } else if(b.getStatus().equals("CheckIn")) {
-                        listCheckInBooking.add(b);
-                    }
-                }
-                request.setAttribute("RESERVED_BOOKING", listReservedBooking);
-                request.setAttribute("CHECKIN_BOOKING", listCheckInBooking);
-                request.getRequestDispatcher(IConstants.BOOKING_ROOM_VIEW_PAGE).forward(request, response);
+        String bookingID = request.getParameter("bookingId");
+        BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
+        BookingDTO bookingRoom = bookingRoomDAO.getBookingByBookingIDInReception(Integer.parseInt(bookingID.trim()));
+
+        //Check ngày ngày HUỶ phải trước ngày CheckIn
+        Date today = new Date(System.currentTimeMillis());
+        if (today.before(bookingRoom.getCheckInDate())) {
+            boolean cancel = bookingRoomDAO.updateStatusBooking(Integer.parseInt(bookingID.trim()), "Canceled");
+            if (cancel == true) {
+                request.setAttribute("MESSAGE", IConstants.SUCC_CANCEL_BOOKING_ROOM + bookingID);
+                request.getRequestDispatcher(IConstants.CTL_VIEW_BOOKING).forward(request, response);
             } else {
-                request.setAttribute("ERROR", IConstants.ERR_EMPTYBOOKING);
-                request.getRequestDispatcher(IConstants.BOOKING_ROOM_VIEW_PAGE).forward(request, response);
+                request.setAttribute("MESSAGE", IConstants.ERR_CANCEL_BOOKING_ROOM);
+                request.getRequestDispatcher(IConstants.CTL_VIEW_BOOKING).forward(request, response);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            request.setAttribute("MESSAGE", IConstants.ERR_CANCELDATE_BEFORE_CHECKINDATE + bookingRoom.getCheckInDate());
+            request.getRequestDispatcher(IConstants.CTL_VIEW_BOOKING).forward(request, response);
         }
-    } 
+
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -77,12 +70,13 @@ public class ViewBookingController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -90,12 +84,13 @@ public class ViewBookingController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

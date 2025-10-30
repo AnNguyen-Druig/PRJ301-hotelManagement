@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@page import="DAO.TaxDAO"%>
 <%@page import="DTO.RoomDTO"%>
 <%@page import="DTO.GuestDTO"%>
 <%@page import="mylib.IConstants"%>
@@ -25,6 +26,13 @@
                 InvoiceDTO invoice = (InvoiceDTO) request.getAttribute("INVOICE");
                 PaymentDTO payment = (PaymentDTO) request.getAttribute("PAYMENT");
                 RoomDTO room = (RoomDTO) request.getAttribute("ROOM");
+                
+                //Lấy VAT 
+                TaxDAO taxDAO = new TaxDAO();
+                double vat = taxDAO.getTaxValueByTaxName("VAT");
+                
+                //tiền chưa thuế (vì trong invoice và payment lưu là tiền sau thuế
+                double priceBeforeVAT = invoice.getTotalAmount()/(1+vat);
 
                 if (invoice != null && payment != null) {
         %>
@@ -61,14 +69,14 @@
                 <tr><td style="color:#555;">Ngày xuất hóa đơn:</td><td><%= invoice.getIssueDate()%></td></tr>
 
                 <tr><td style="color:#555;">Tổng tiền (chưa thuế):</td>
-                    <td><%= String.format("%,.0f VND", invoice.getTotalAmount()).replace(',', '.')%></td></tr>
+                    <td><%= String.format("%,.0f VND", priceBeforeVAT).replace(',', '.')%></td></tr>
 
                 <tr><td style="color:#555;">VAT (10%):</td>
-                    <td><%= String.format("%,.0f VND", invoice.getTotalAmount() * 0.1).replace(',', '.')%></td></tr>
+                    <td><%= String.format("%,.0f VND", priceBeforeVAT * vat).replace(',', '.')%></td></tr>
 
                 <tr style="border-top:2px solid #333;font-weight:bold;">
                     <td style="color:#000;">TỔNG CỘNG:</td>
-                    <td style="color:#000;"><%= String.format("%,.0f VND", invoice.getTotalAmount() * 1.1).replace(',', '.')%></td>
+                    <td style="color:#000;"><%= String.format("%,.0f VND", invoice.getTotalAmount()).replace(',', '.')%></td>
                 </tr>
             </table>
 
@@ -88,7 +96,7 @@
             </table>
 
             <p style="text-align:center;margin-top:40px;color:#555;font-size:14px;">
-                Cảm ơn quý khách <b><%= guest.getFullName()%></b> đã sử dụng dịch vụ của chúng tôi 💖
+                Cảm ơn quý khách <b><%= guest.getFullName()%></b> đã sử dụng dịch vụ của chúng tôi 
             </p>
 
             <div style="text-align:center;margin-top:20px;">

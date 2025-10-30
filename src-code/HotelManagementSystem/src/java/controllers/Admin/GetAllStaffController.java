@@ -3,15 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controllers.Guest;
+package controllers.Admin;
 
-import controllers.*;
-import DAO.BookingRoomDAO;
-import DTO.BookingDTO;
-import DTO.GuestDTO;
+import DAO.StaffDAO;
+import DTO.StaffDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 
 import javax.servlet.annotation.WebServlet;
@@ -19,15 +17,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import mylib.IConstants;
+
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name="ViewBookingController", urlPatterns={"/ViewBookingController"})
-public class ViewBookingController extends HttpServlet {
+@WebServlet(name="GetAllStaffController", urlPatterns={"/GetAllStaffController"})
+public class GetAllStaffController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,31 +38,15 @@ public class ViewBookingController extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            HttpSession session = request.getSession();
-            GuestDTO guest = (GuestDTO) session.getAttribute("USER");
-            int guestID = guest.getGuestID();
-            BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
-            ArrayList<BookingDTO> listAllBooking =  bookingRoomDAO.getAllBookingByGuestID(guestID);
-            ArrayList<BookingDTO> listReservedBooking = new ArrayList<>();
-            ArrayList<BookingDTO> listCheckInBooking = new ArrayList<>();
-            if(listAllBooking!=null && !listAllBooking.isEmpty()) {
-                for(BookingDTO b : listAllBooking) {
-                    if(b.getStatus().equals("Reserved")) {
-                        listReservedBooking.add(b);
-                    } else if(b.getStatus().equals("CheckIn")) {
-                        listCheckInBooking.add(b);
-                    }
-                }
-                request.setAttribute("RESERVED_BOOKING", listReservedBooking);
-                request.setAttribute("CHECKIN_BOOKING", listCheckInBooking);
-                request.getRequestDispatcher(IConstants.BOOKING_ROOM_VIEW_PAGE).forward(request, response);
-            } else {
-                request.setAttribute("ERROR", IConstants.ERR_EMPTYBOOKING);
-                request.getRequestDispatcher(IConstants.BOOKING_ROOM_VIEW_PAGE).forward(request, response);
-            }
+            StaffDAO dao = new StaffDAO();
+            List<StaffDTO> staffList = dao.getAllStaff();
+            
+            request.setAttribute("STAFF_LIST", staffList);
+            request.getRequestDispatcher(IConstants.ADMIN_PAGE).forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
         }
+            
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

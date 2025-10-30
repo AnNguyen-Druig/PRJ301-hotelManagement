@@ -63,7 +63,8 @@ CREATE TABLE STAFF (
     Username NVARCHAR(50) UNIQUE NOT NULL,
     PasswordHash NVARCHAR(255) NOT NULL,
     Phone NVARCHAR(20),
-    Email NVARCHAR(100)
+    Email NVARCHAR(100),
+	Status NVARCHAR(20) NOT NULL DEFAULT N'Active' CHECK (Status IN (N'Active', N'Inactive'))
 );
 
 -- ======================================================
@@ -249,19 +250,24 @@ VALUES
 (N'Swimming Pool', N'Spa', 250000);    -- 250.000 VNĐ
 
 -- STAFF
-INSERT INTO STAFF (FullName, Role, Username, PasswordHash, Phone, Email)
+INSERT INTO STAFF (FullName, Role, Username, PasswordHash, Phone, Email, Status)
 VALUES 
-(N'Nguyễn Trần Đạt Ân', N'Admin', N'AnNguyen', N'123', N'0123456789', N'nguyentrandatan@gmail.com'),
-(N'Trịnh Nhật Quang', N'Admin', N'QuangTrinh', N'456', N'0987654321', N'trinhnhatquang@gmail.com'),
-(N'Nguyễn Bá Đại', N'Admin', N'NguyenDai', N'789', N'0123459876', N'nguyenbadai@gmail.com'),
-(N'Nguyễn Văn Vỹ', N'Receptionist', N'VanVy', N'111', N'0999900001', N'nguyenvanv@hotel.com'),
-(N'Trần Thị Anh', N'Manager', N'AnhTran', N'222', N'0200011112', N'tranthiw@hotel.com'),
-(N'Lê Văn Bảo', N'Housekeeping', N'BaoLe', N'333', N'0311122223', N'levanx@hotel.com'),
-(N'Phạm Thị Yến', N'ServiceStaff', N'PhamYen', N'444', N'0422233334', N'phamthiy@hotel.com'),
-(N'Hoàng Văn An', N'Receptionist', N'AnHoang', N'555', N'04333344445', N'hoangvanz@hotel.com'),
-(N'Vũ Thị Lựu', N'Housekeeping', N'VuLuu', N'666', N'06444455556', N'vuthiaa@hotel.com'),
-(N'Đặng Văn Bảo', N'ServiceStaff', N'DangBao', N'777', N'07555566667', N'dangvanbb@hotel.com'),
-(N'Bùi Thị Cung', N'Manager', N'BuiCung', N'888', N'09666677778', N'buithicc@hotel.com');
+(N'Nguyễn Trần Đạt Ân', N'Admin', N'AnNguyen', N'123', N'0123456789', N'nguyentrandatan@gmail.com', N'Active'),
+(N'Trịnh Nhật Quang', N'Admin', N'QuangTrinh', N'456', N'0987654321', N'trinhnhatquang@gmail.com', N'Active'),
+(N'Nguyễn Bá Đại', N'Admin', N'NguyenDai', N'789', N'0123459876', N'nguyenbadai@gmail.com', N'Active'),
+(N'Nguyễn Văn Vỹ', N'Receptionist', N'VanVy', N'111', N'0999900001', N'nguyenvanv@hotel.com', N'Active'),
+(N'Trần Thị Anh', N'Manager', N'AnhTran', N'222', N'0200011112', N'tranthiw@hotel.com', N'Active'),
+(N'Lê Văn Bảo', N'Housekeeping', N'BaoLe', N'333', N'0311122223', N'levanx@hotel.com', N'Active'),
+(N'Phạm Thị Yến', N'ServiceStaff', N'PhamYen', N'444', N'0422233334', N'phamthiy@hotel.com', N'Active'),
+(N'Hoàng Văn An', N'Receptionist', N'AnHoang', N'555', N'04333344445', N'hoangvanz@hotel.com', N'Active'),
+(N'Vũ Thị Lựu', N'Housekeeping', N'VuLuu', N'666', N'06444455556', N'vuthiaa@hotel.com', N'Active'),
+(N'Đặng Văn Bảo', N'ServiceStaff', N'DangBao', N'777', N'07555566667', N'dangvanbb@hotel.com', N'Active'),
+(N'Bùi Thị Cung', N'Manager', N'BuiCung', N'888', N'09666677778', N'buithicc@hotel.com', N'Active'),
+(N'Trần Văn Long', N'Receptionist', N'LongTran', N'1001', N'0905111222', N'longtran@hotel.com', N'Inactive'),
+(N'Lê Thị Hoa', N'Housekeeping', N'HoaLe', N'1002', N'0905333444', N'hoale@hotel.com', N'Inactive'),
+(N'Phan Thanh Tâm', N'ServiceStaff', N'TamPhan', N'1003', N'0905555666', N'tamphan@hotel.com', N'Inactive'),
+(N'Đỗ Hùng Dũng', N'Receptionist', N'DungDo', N'1004', N'0905777888', N'dungdo@hotel.com', N'Inactive'),
+(N'Mai Thị Lan', N'Manager', N'LanMai', N'1005', N'0905999000', N'lanmai@hotel.com', N'Inactive');
 
 --TAX 
 INSERT INTO TAX_CONFIG (TaxName, TaxValue, Description)
