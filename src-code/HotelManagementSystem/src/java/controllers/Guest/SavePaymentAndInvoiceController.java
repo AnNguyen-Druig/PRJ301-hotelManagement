@@ -6,8 +6,14 @@
 package controllers.Guest;
 
 import DAO.BookingRoomDAO;
+import DAO.GuestDAO;
 import DAO.InvoiceDAO;
 import DAO.PaymentDAO;
+import DAO.RoomDAO;
+import DTO.BookingDTO;
+import DTO.InvoiceDTO;
+import DTO.PaymentDTO;
+import DTO.RoomDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -40,16 +46,26 @@ public class SavePaymentAndInvoiceController extends HttpServlet {
         double total = Double.parseDouble(request.getParameter("total").trim());
         String paymentMethod = request.getParameter("paymentMethod");
         
+        BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
+        boolean updateBookingRoomStatus = bookingRoomDAO.updateStatusBooking(bookingID, "CheckOut");
+        BookingDTO bookingRoom = bookingRoomDAO.getBookingByBookingIDInReception(bookingID);
         
+        //Lay Room
+        RoomDAO roomDAO = new RoomDAO();
+        RoomDTO room = roomDAO.getRoomByID(bookingRoom.getRoomID());
+        request.setAttribute("ROOM", room);
+        
+        //Ko lay Guest vi guest o session
+             
         InvoiceDAO invoiceDAO = new InvoiceDAO();
         int saveInvoice = invoiceDAO.saveInvoiceStatusPaid(bookingID, total);
+        InvoiceDTO invoice = invoiceDAO.getInvoiceByBookingID(bookingID);
+        request.setAttribute("INVOICE", invoice);
         
         PaymentDAO paymentDAO = new PaymentDAO();
         int savePayment = paymentDAO.savePaymentStatusPending(bookingID, total, paymentMethod);
-        
-        BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
-        boolean updateBookingRoomStatus = bookingRoomDAO.updateStatusBooking(bookingID, "CheckOut");
-        
+        PaymentDTO payment = paymentDAO.getPaymentByBookingID(bookingID);
+        request.setAttribute("PAYMENT", payment);
         
         if(saveInvoice!=0 && savePayment!=0 && updateBookingRoomStatus==true) {
             request.getRequestDispatcher(IConstants.INVOICE_PAGE).forward(request, response);

@@ -97,7 +97,7 @@
         <p>RoomID: <%= r.getRoomID()%></p>
         <p>TypeName: <%= r.getTypeName()%></p>
         <p>Capacity: <%= r.getCapacity()%></p>
-        <p>PricePerNight: <%= r.getPricePerNight()%></p>
+        <p>PricePerNight: <%= String.format("%,.0f VND", r.getPricePerNight()).replace(',', '.')%></p>
         <form action="MainController" method="POST">
             <input type="hidden" name="roomID" value="<%= r.getRoomID()%>">
             <input type="hidden" name="guestID" value="<%= guest.getGuestID()%>">

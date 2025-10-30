@@ -38,6 +38,8 @@
             // 2. Tính số ngày (số đêm)
             long numberOfNights = ChronoUnit.DAYS.between(checkInLocalDate, checkOutLocalDate);
         %>
+        <!-- khi thanh toán thất bại sẽ thông báo lỗi ở đây --> 
+        ${requestScope.ERROR};
         <table>
             <tr>
                 <th>Số phòng</th>
@@ -55,13 +57,13 @@
                 <td><%= bookingRoom.getCheckInDate()%></td>
                 <td><%= bookingRoom.getCheckOutDate()%></td>
                 <td><%= numberOfNights%></td>
-                <td><%= roomPrice%></td>
+                <td><%= String.format("%,.0f VND", roomPrice).replace(',', '.') %></td>
             </tr>
         </table>
         <%
             double totalRoom = roomPrice * numberOfNights;
         %>
-        <h4>Tổng tiền phòng là: <%= totalRoom%></h4>
+        <h4>Tổng tiền phòng là: <%= String.format("%,.0f VND", totalRoom).replace(',', '.') %></h4>
 
 
         <!-- ==================Phần BOOKING_SERVICE========================-->
@@ -86,7 +88,7 @@
                 <th>Giá tiền/1 phần</th>
                 <th>Tiền cần thanh toán</th>
             </tr>
-            <%                        for (BookingServiceDTO bs : listBookingService) {
+            <%   for (BookingServiceDTO bs : listBookingService) {
                     ServiceDAO serviceDAO = new ServiceDAO();
                     ServiceDTO service = serviceDAO.getService(bs.getServiceID());
                     double servicePrice = service.getPrice();
@@ -98,15 +100,15 @@
                 <td><%= service.getServiceType()%></td>
                 <td><%= bs.getServiceDate()%></td>
                 <td><%= bs.getQuantity()%></td>
-                <td><%= servicePrice%></td>
-                <td><%= pricePerService%></td>
+                <td><%= String.format("%,.0f VND", servicePrice).replace(',', '.') %></td>
+                <td><%= String.format("%,.0f VND", pricePerService).replace(',', '.') %></td>
             </tr>
             <%}%>
         </table>
         <%
             }
         %>
-        <h4>Tổng tiền dịch vụ là: <%= totalService%></h4>
+        <h4>Tổng tiền dịch vụ là: <%= String.format("%,.0f VND", totalService).replace(',', '.') %></h4>
 
         <%
             double total = totalRoom + totalService;
@@ -116,8 +118,8 @@
             double VAT = taxDAO.getTaxValueByTaxName("VAT");
             double totalAfterVAT = (total * VAT) + total;
         %>
-        <h3>TỔNG TIỀN CẦN THANH TOÁN (CHƯA TÍNH VAT) <%= total %></h3>
-        <h3>TỔNG TIỀN CẦN THANH TOÁN (ĐÃ TÍNH VAT) <%= totalAfterVAT %></h3>
+        <h3>TỔNG TIỀN CẦN THANH TOÁN (CHƯA TÍNH VAT) <%= String.format("%,.0f VND", total).replace(',', '.') %></h3>
+        <h3>TỔNG TIỀN CẦN THANH TOÁN (ĐÃ TÍNH VAT) <%= String.format("%,.0f VND", totalAfterVAT).replace(',', '.') %></h3>
         <h3>Chọn phương thức thanh toán:</h3>
 
         <form action="MainController" method="post">

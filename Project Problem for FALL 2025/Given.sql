@@ -194,12 +194,13 @@ CREATE TABLE TAX_CONFIG (
 -- ROOM_TYPE
 INSERT INTO ROOM_TYPE (TypeName, Capacity, PricePerNight)
 VALUES 
-(N'Single', 1, 50.00),
-(N'Double', 2, 80.00),
-(N'Suite', 4, 150.00),
-(N'Deluxe', 3, 120.00),
-(N'Family', 5, 200.00),
-(N'Executive', 2, 100.00);
+(N'Single', 1, 500000),      -- 500.000 VNĐ
+(N'Double', 2, 800000),      -- 800.000 VNĐ
+(N'Suite', 4, 1500000),      -- 1.500.000 VNĐ
+(N'Deluxe', 3, 1200000),     -- 1.200.000 VNĐ
+(N'Family', 5, 2000000),     -- 2.000.000 VNĐ
+(N'Executive', 2, 1000000);  -- 1.000.000 VNĐ
+
 
 -- ROOM
 INSERT INTO ROOM (RoomNumber, RoomTypeID, Status)
@@ -238,14 +239,14 @@ VALUES
 -- SERVICE
 INSERT INTO SERVICE (ServiceName, ServiceType, Price)
 VALUES
-(N'Breakfast', N'Food', 10.00),
-(N'Laundry', N'Laundry', 5.00),
-(N'Spa Massage', N'Spa', 30.00),
-(N'Lunch Buffet', N'Food', 15.00),
-(N'Dry Cleaning', N'Laundry', 8.00),
-(N'Gym Access', N'Spa', 20.00),
-(N'Room Service Delivery', N'Food', 5.00),
-(N'Swimming Pool', N'Spa', 25.00);
+(N'Breakfast', N'Food', 100000),       -- 100.000 VNĐ
+(N'Laundry', N'Laundry', 50000),       -- 50.000 VNĐ
+(N'Spa Massage', N'Spa', 300000),      -- 300.000 VNĐ
+(N'Lunch Buffet', N'Food', 150000),    -- 150.000 VNĐ
+(N'Dry Cleaning', N'Laundry', 80000),  -- 80.000 VNĐ
+(N'Gym Access', N'Spa', 200000),       -- 200.000 VNĐ
+(N'Room Service Delivery', N'Food', 50000), -- 50.000 VNĐ
+(N'Swimming Pool', N'Spa', 250000);    -- 250.000 VNĐ
 
 -- STAFF
 INSERT INTO STAFF (FullName, Role, Username, PasswordHash, Phone, Email)

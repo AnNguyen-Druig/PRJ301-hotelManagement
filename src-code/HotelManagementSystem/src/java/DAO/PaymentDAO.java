@@ -4,8 +4,11 @@
  */
 package DAO;
 
+import DTO.PaymentDTO;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import mylib.DBUtills;
 
 /**
@@ -40,6 +43,35 @@ public class PaymentDAO {
                 e.printStackTrace();
 
             }
+        }
+        return result;
+    }
+
+    public PaymentDTO getPaymentByBookingID(int bookingID) {
+        PaymentDTO result = null;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "SELECT *\n"
+                        + "FROM dbo.PAYMENT\n"
+                        + "WHERE BookingID = ?";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setInt(1, bookingID);
+                ResultSet table = st.executeQuery();
+                if(table!=null) {
+                    while(table.next()) {
+                        int paymentID = table.getInt("PaymentID");
+                        Date paymentDate = table.getDate("PaymentDate");
+                        double amount = table.getDouble("Amount");
+                        String paymentMethod = table.getString("PaymentMethod");
+                        String status = table.getString("Status");
+                        result = new PaymentDTO(paymentID, bookingID, paymentDate, amount, paymentMethod, status);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return result;
     }

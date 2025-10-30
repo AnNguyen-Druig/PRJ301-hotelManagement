@@ -67,7 +67,7 @@
  
             <div>
                 <lable for="pricePerNight">GIA PHONG/MOT DEM: </lable>
-                <input type="number" name="room_pricePerNight" id="pricePerNight" readonly="" value="<%= room.getPricePerNight() %>">
+                <input type="text" name="room_pricePerNight" id="pricePerNight" readonly="" value="<%= String.format("%,.0f VND", room.getPricePerNight()).replace(',', '.') %>">
             </div>
             </br>
             
