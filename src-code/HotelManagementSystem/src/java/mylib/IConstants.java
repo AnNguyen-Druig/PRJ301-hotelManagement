@@ -168,6 +168,7 @@ public interface IConstants {
     public final String ERR_GUESTLIST_EMPTY = "Không tải được danh sách Khách hàng!";
     public final String ERR_INVALID_ROOM_MONTH = "Chọn lại tháng nằm trong khoảng từ tháng 1 đến tháng 12!";
     public final String ERR_EMPTY_ROOM_OCCUPANCY_LIST = "Không có dữ liệu Room Occupancy!";
+    public final String ERR_EMPTY_ROOM_OCCUPANCY_RATE_LIST = "Không có dữ liệu Room Occupancy Rate!";
     public final String ERR_EMPTY_CANCEL_BOOKING_LIST = "Không có dữ liệu Booking Cancel!";
     public final String ERR_CANCEL_BOOKING_ROOM = "Bạn huỷ không thành công vì có lỗi xảy ra trong quá trình xử lý";
     public final String ERR_CANCELDATE_BEFORE_CHECKINDATE = "Bạn huỷ không thành công vì phải hủy trước ngày Check-in: " ;

@@ -211,9 +211,9 @@
                 <%-- Sửa lại tiêu đề cho đúng yêu cầu của bạn --%>
                 <h3>4. Tỷ lệ phòng được đặt (Tháng <%= selectedMonth%>/<%= selectedYear%>)</h3>
                 <% if (occupancyStats != null && !occupancyStats.isEmpty()) {
-                        Integer uniqueRoomsBooked = (Integer) occupancyStats.get("UniqueRoomsBooked");
-                        Integer totalRoomsForCalc = (Integer) occupancyStats.get("TotalRooms");
-                        Double occupancyPercentage = (Double) occupancyStats.get("OccupancyPercentage");
+                        Integer uniqueRoomsBooked = (Integer) occupancyStats.get("Số phòng đang được đặt");
+                        Integer totalRoomsForCalc = (Integer) occupancyStats.get("Tổng số phòng");
+                        Double occupancyPercentage = (Double) occupancyStats.get("Tỷ lệ phòng được đặt");
 
                         // Tính số phòng trống
                         int availableRooms = totalRoomsForCalc - uniqueRoomsBooked;
@@ -227,7 +227,7 @@
                     <span class="statistic-value"><%= availableRooms%></span>
                 </div>
                 <div class="statistic">
-                    <span class="statistic-label">Tổng số phòng (dùng tính toán):</span>
+                    <span class="statistic-label">Tổng số phòng:</span>
                     <span class="statistic-value"><%= totalRoomsForCalc%></span>
                 </div>
                 <div class="statistic">

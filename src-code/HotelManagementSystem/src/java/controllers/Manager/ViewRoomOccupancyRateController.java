@@ -10,6 +10,7 @@ import DTO.RoomOccupancyDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,18 +54,38 @@ public class ViewRoomOccupancyRateController extends HttpServlet {
             //                   4) Tỷ lệ phòng được đặt trong tháng/năm
             String checkInMonth = request.getParameter("month");
             String checkInYear = request.getParameter("year");
+            int checkInMonth_value;
+            int checkInYear_value;
 
-            int checkInMonth_value = Integer.parseInt(checkInMonth);
-            int checkInYear_value = Integer.parseInt(checkInYear);
-
+            // 5. Kiểm tra checkInMonth và checkInYear có bị null không
+            if(checkInMonth == null || checkInMonth.trim().isEmpty()
+                    || checkInYear == null || checkInYear.trim().isEmpty()) {
+                
+                //Nếu null thì lấy tháng/năm mặc định theo giờ hệ thống
+                Calendar now = Calendar.getInstance();
+                checkInMonth_value = now.get(Calendar.MONTH) + 1; //+ 1: vì MONTH nó tính tháng 1 là 0 --> bắt đầu là 0 nên phải + 1
+                checkInYear_value = now.get(Calendar.YEAR);
+            } else {
+                checkInMonth_value = Integer.parseInt(checkInMonth);
+                checkInYear_value = Integer.parseInt(checkInYear);
+            }
+            
+            // 6. Kiểm tra xem tháng có hợp lệ hay ko: có nằm trong khoảng từ th1-th12 ko
             if (checkInMonth_value < 1 || checkInMonth_value > 12) {
                 request.setAttribute("ERROR", IConstants.ERR_INVALID_ROOM_MONTH);
             } else {
-                ArrayList<RoomOccupancyDTO> list = roomOccDAO.getRoomOccupancyRatePerMonth(checkInMonth_value, checkInYear_value);
-                if (list != null && !list.isEmpty()) {
-                    request.setAttribute("ROOM_OCCUPANCY_LIST", list);
+                ArrayList<RoomOccupancyDTO> highestRoomList = roomOccDAO.getRoomOccupancyRatePerMonth(checkInMonth_value, checkInYear_value);
+                if (highestRoomList != null && !highestRoomList.isEmpty()) {
+                    request.setAttribute("ROOM_OCCUPANCY_LIST", highestRoomList);
                 } else {
                     request.setAttribute("ERROR", IConstants.ERR_EMPTY_ROOM_OCCUPANCY_LIST);
+                }
+                
+                Map<String, Object> roomOccRateList = roomDAO.getMonthlyOccupancyPercentage(checkInMonth_value, checkInYear_value);
+                if(roomOccRateList != null && !roomOccRateList.isEmpty()) {
+                    request.setAttribute("OCCUPANCY_STATS", roomOccRateList);
+                } else {
+                    request.setAttribute("ERROR", IConstants.ERR_EMPTY_ROOM_OCCUPANCY_RATE_LIST);
                 }
             }
             

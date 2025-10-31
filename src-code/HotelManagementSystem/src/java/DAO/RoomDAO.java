@@ -434,23 +434,23 @@ public class RoomDAO {
     }
 
     public Map<String, Object> getMonthlyOccupancyPercentage(int month, int year) {
-        Map<String, Object> statsMap = new HashMap<>();
+        Map<String, Object> list = new HashMap<>();
         String sql = "WITH MonthlyBookedRooms AS ("
-                + " SELECT COUNT(DISTINCT RoomID) AS UniqueRoomsBooked "
+                + " SELECT COUNT(DISTINCT RoomID) AS [Số phòng đang được đặt] "
                 + " FROM BOOKING "
                 + " WHERE MONTH(CheckInDate) = ? AND YEAR(CheckInDate) = ? "
                 + " AND Status IN ('Reserved', 'CheckIn', 'Complete')"
                 + "), "
                 + "TotalHotelRooms AS ("
-                + " SELECT COUNT(RoomID) AS TotalRooms FROM ROOM"
+                + " SELECT COUNT(RoomID) AS [Tổng số phòng] FROM ROOM"
                 + ") "
                 + "SELECT "
-                + " ISNULL(m.UniqueRoomsBooked, 0) AS UniqueRoomsBooked, "
-                + " t.TotalRooms, "
+                + " ISNULL(m.[Số phòng đang được đặt], 0) AS [Số phòng đang được đặt], "
+                + " t.[Tổng số phòng], "
                 + " CASE "
-                + "     WHEN t.TotalRooms = 0 THEN 0.0 "
-                + "     ELSE (CAST(ISNULL(m.UniqueRoomsBooked, 0) AS DECIMAL(10, 2)) * 100.0 / t.TotalRooms) "
-                + " END AS OccupancyPercentage "
+                + "     WHEN t.[Tổng số phòng] = 0 THEN 0.0 "
+                + "     ELSE (CAST(ISNULL(m.[Số phòng đang được đặt], 0) AS DECIMAL(10, 2)) * 100.0 / t.[Tổng số phòng]) "
+                + " END AS [Tỷ lệ phòng được đặt] "
                 + "FROM TotalHotelRooms t, MonthlyBookedRooms m";
 
         // Dùng try-with-resources để tự động đóng tài nguyên
@@ -463,14 +463,14 @@ public class RoomDAO {
                 // Câu truy vấn này luôn trả về 1 hàng
                 if (rs.next()) {
                     // Lấy kết quả từ SQL và đặt vào Map
-                    statsMap.put("UniqueRoomsBooked", rs.getInt("UniqueRoomsBooked"));
-                    statsMap.put("TotalRooms", rs.getInt("TotalRooms"));
-                    statsMap.put("OccupancyPercentage", rs.getDouble("OccupancyPercentage"));
+                    list.put("Số phòng đang được đặt", rs.getInt("Số phòng đang được đặt"));
+                    list.put("Tổng số phòng", rs.getInt("Tổng số phòng"));
+                    list.put("Tỷ lệ phòng được đặt", rs.getDouble("Tỷ lệ phòng được đặt"));
                 }
             }
         } catch (Exception e) {
             e.printStackTrace(); // Luôn in lỗi ra
         }
-        return statsMap; // Trả về Map (có thể rỗng nếu có lỗi)
+        return list; // Trả về Map (có thể rỗng nếu có lỗi)
     }
 }
