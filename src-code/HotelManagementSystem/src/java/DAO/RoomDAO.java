@@ -439,7 +439,7 @@ public class RoomDAO {
                 + " SELECT COUNT(DISTINCT RoomID) AS [Số phòng đang được đặt] "
                 + " FROM BOOKING "
                 + " WHERE MONTH(CheckInDate) = ? AND YEAR(CheckInDate) = ? "
-                + " AND Status IN ('Reserved', 'CheckIn', 'Complete')"
+                + " AND Status IN ('Reserved', 'CheckIn', 'Complete', 'CheckOut')"
                 + "), "
                 + "TotalHotelRooms AS ("
                 + " SELECT COUNT(RoomID) AS [Tổng số phòng] FROM ROOM"
