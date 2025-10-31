@@ -37,7 +37,7 @@
     <body>
         <%
             // Kiểm tra session (giữ nguyên)
-            StaffDTO staff = (StaffDTO) session.getAttribute("USER");
+            StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");
             if (staff != null) {
         %>
         <h1>Welcome <%= staff.getFullName()%> Staff!</h1>

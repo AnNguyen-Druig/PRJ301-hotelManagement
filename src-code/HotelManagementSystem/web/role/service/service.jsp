@@ -17,8 +17,8 @@
         <style> table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; } </style>
     </head>
     <body>
-        <jsp:useBean id="USER" scope="session" class="DTO.StaffDTO"/>
-        <h1>Welcome back, ${USER.fullName}</h1>
+        <jsp:useBean id="STAFF" scope="session" class="DTO.StaffDTO"/>
+        <h1>Welcome back, ${STAFF.fullName}</h1>
         <h4><a href="MainController?action=logout">Logout</a><h4>
         
         <table style="width:100%">

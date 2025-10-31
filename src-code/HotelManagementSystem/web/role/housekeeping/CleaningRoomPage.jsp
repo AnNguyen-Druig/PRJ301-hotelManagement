@@ -56,7 +56,7 @@
           </thead>
           <tbody>
           <%
-            StaffDTO staff = (StaffDTO) session.getAttribute("USER");
+            StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");
             if (staff != null) {
                 
                 List<HouseKeepingTaskDTO> list = (List<HouseKeepingTaskDTO>) request.getAttribute("PENDING");

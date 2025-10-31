@@ -22,8 +22,8 @@
         </style>
     </head>
     <body>
-        <jsp:useBean id="USER" scope="session" class="DTO.StaffDTO" />
-        <h1>Hello ${USER.fullName}</h1>
+        <jsp:useBean id="STAFF" scope="session" class="DTO.StaffDTO" />
+        <h1>Hello ${STAFF.fullName}</h1>
         
         <h2>Booking Services for Booking ${BOOKING_ID}</h2>
         <%

@@ -32,7 +32,7 @@
     <body>
         <div class="container">
             <% 
-                StaffDTO staff = (StaffDTO) session.getAttribute("USER");
+                StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");
                 if (staff != null) {
             %>
             <h1>Welcome back, <%= staff.getFullName() %>!</h1>
