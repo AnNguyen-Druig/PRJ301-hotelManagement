@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@page import="DTO.StaffDTO"%>
 <%@page import="DAO.TaxDAO"%>
 <%@page import="DTO.RoomDTO"%>
 <%@page import="DTO.GuestDTO"%>

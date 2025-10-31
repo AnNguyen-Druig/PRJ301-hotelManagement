@@ -1,6 +1,7 @@
 <%--
     File   : bookingdetail.jsp (Scriptlet Version with Action Buttons)
 --%>
+<%@page import="mylib.IConstants"%>
 <%@page import="DTO.RoomDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="DTO.BookingDTO"%>
@@ -26,14 +27,14 @@
             if (booking != null) {
                 boolean isChangeable = "Reserved".equals(booking.getStatus());
                 String currentStatus = booking.getStatus(); // Lấy trạng thái hiện tại
-%>
+        %>
 
         <h1>Thông Tin Đặt Phòng - ID: <%= booking.getBookingID()%></h1>
 
         <%-- Form này vẫn submit về UpdateBookingInReceptionController khi chọn loại phòng --%>
         <form action="UpdateBookingInReceptionController" method="POST" id="bookingDetailForm">
             <input type="hidden" name="bookingID" value="<%= booking.getBookingID()%>" />
-            <input type="hidden" name="roomID" value="<%= booking.getRoomID() %>" <%= isChangeable ? "disabled" : "" %> />
+            <input type="hidden" name="roomID" value="<%= booking.getRoomID()%>" <%= isChangeable ? "disabled" : ""%> />
 
             <p>Mã khách hàng: <%= booking.getGuestID()%></p>
             <p>Tên khách hàng: <%= booking.getGuestName()%></p>
@@ -73,7 +74,7 @@
                             }%>
                 <option value="<%= room.getRoomID()%>" <%= selectedAttr%>> <%= roomNumberDefault%></option>
                 <% }
-                } %>
+                    } %>
             </select>
             <% if (!isChangeable) { %>
             <p class="note">Chỉ các booking có trạng thái "Reserved" mới có thể đổi phòng.</p>
@@ -91,14 +92,14 @@
 
             <hr/>
             <p><b>Trạng thái hiện tại:</b> <%= currentStatus%></p>
-            <input type="hidden" name="status" value="<%= currentStatus %>" />
+            <input type="hidden" name="status" value="<%= currentStatus%>" />
 
             <%-- Chỉ hiển thị nút hành động phù hợp --%>
             <% if ("Reserved".equals(currentStatus)) { %>
             <input type="submit" name="action" value="Check In" formaction="MainController"/>
             <input type="submit" name="action" value="Cancel Booking" formaction="MainController">
-            <% } else if ("CheckIn".equals(currentStatus)) { %>
-            <input type="submit" name="action" value="Check Out" formaction="MainController"/>
+            <% } else if ("CheckIn".equals(currentStatus)) {%>
+            <a href="MainController?action=checkoutbookingroom&bookingId=<%= booking.getBookingID() %>">CheckOut và tạo hóa đơn</a>
             <% } else if ("CheckOut".equals(currentStatus)) { %>
             <input type="submit" name="action" value="Approve Checkout" formaction="MainController"/>
             <% } %>

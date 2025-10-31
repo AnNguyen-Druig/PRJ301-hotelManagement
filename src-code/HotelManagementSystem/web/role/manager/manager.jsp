@@ -17,6 +17,9 @@
         <%
             // Lấy thông tin Manager từ session
             StaffDTO manager = (StaffDTO) session.getAttribute("USER");
+            if(manager == null) {
+                request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
+            } else {
         %>
         <h1>Welcome back, Manager <%= manager.getFullName() %></h1>
         <p><a href="MainController?action=logout">Logout</a></p>
@@ -49,5 +52,6 @@
         </div>
 
         <p><a href="LogoutController?action=logout">Logout</a></p>
+        <%}%>
     </body>
 </html>

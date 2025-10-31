@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="mylib.IConstants"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="DTO.StaffDTO"%>
 <%@page import="DTO.BookingDTO"%>
@@ -23,6 +24,9 @@
         <%
             // Lấy thông tin Staff và các message
             StaffDTO staff = (StaffDTO) session.getAttribute("USER");
+            if(staff == null) {
+                request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
+            } else {
             String makeBookingErr = (String) request.getAttribute("ERROR"); // Lỗi chung
             if(makeBookingErr == null) {
                 makeBookingErr = "";
@@ -124,6 +128,6 @@
              <%-- Hiển thị lỗi nếu có, hoặc thông báo không có booking --%>
             <p style="color:red;"><%= !bookingListError.isEmpty() ? bookingListError : "Không có booking nào phù hợp với trạng thái đã chọn." %></p>
         <% } %>
-
+        <% } %>
     </body>
 </html>
