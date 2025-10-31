@@ -95,9 +95,9 @@
             <button type="submit" name="action" value="savebookingroom">Booking</button>
         </form>
          <% }
-            String error = (String) request.getAttribute("ERROR");
-            if(error!=null && !error.isEmpty()) {
-                out.print(error);
+            String msg = (String) request.getAttribute("MSG");
+            if(msg!=null && !msg.isEmpty()) {
+                out.print(msg);
             }
          %>
     </body>

@@ -21,6 +21,7 @@
     <body>
         <%
             GuestDTO guest = (GuestDTO) session.getAttribute("USER");
+            StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");
             if (guest == null) {
                 request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
             } else {
@@ -107,6 +108,17 @@
                     🖨️ In hóa đơn
                 </button>
             </div>
+            <%
+                if(staff != null) {
+            %>    
+            <a href="MainController?action=TurnBackReceptionPage">Quay lại Reception Page</a>
+            <%    
+                } else {
+            %>
+            <a href="MainController?action=gobackGuestPage">Quay lại Guest Page</a>
+            <%    
+            }
+            %>
         </div>
         <%
                 } else {

@@ -50,7 +50,7 @@ public class LoginController extends HttpServlet {
                         StaffDAO staffDAO = new StaffDAO();
                         StaffDTO staff = staffDAO.getLoginStaff(username, password);
                         if (staff != null  && staff.getStatus().equals("Active")) {
-                            session.setAttribute("USER", staff);
+                            session.setAttribute("STAFF", staff);
 
                             String role = staff.getRole();
                             String url = IConstants.LOGIN_PAGE;

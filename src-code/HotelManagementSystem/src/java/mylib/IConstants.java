@@ -100,6 +100,7 @@ public interface IConstants {
     public final String AC_CANCEL_BOOKING_ROOM = "cancelbookingroom";
     public final String AC_FILTER_STAFF = "filterstaff";
     public final String AC_SIGN_UP_STAFF = "signupstaff";
+    public final String AC_GO_BACK_GUEST_PAGE = "gobackGuestPage";
     
     
     //Controller

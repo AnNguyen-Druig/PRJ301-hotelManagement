@@ -23,7 +23,7 @@
     <body>
         <%
             // Lấy thông tin Staff và các message
-            StaffDTO staff = (StaffDTO) session.getAttribute("USER");
+            StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");
             if(staff == null) {
                 request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
             } else {

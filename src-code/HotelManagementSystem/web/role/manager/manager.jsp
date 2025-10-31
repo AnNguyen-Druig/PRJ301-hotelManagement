@@ -16,7 +16,7 @@
     <body>
         <%
             // Lấy thông tin Manager từ session
-            StaffDTO manager = (StaffDTO) session.getAttribute("USER");
+            StaffDTO manager = (StaffDTO) session.getAttribute("STAFF");
             if(manager == null) {
                 request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
             } else {
