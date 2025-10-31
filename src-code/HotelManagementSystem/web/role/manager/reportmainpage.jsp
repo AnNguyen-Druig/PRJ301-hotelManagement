@@ -128,10 +128,11 @@
             </div>
             
             <div class="button-container">
-                <button class="report-btn" onclick="loadReport1()">Report 1 - Service History</button>
-                <button class="report-btn" onclick="loadReport2()">Report 2 - Services requested</button>
-                <button class="report-btn" onclick="loadReport3()">Report 3 - Completed Services</button>
-                <button class="report-btn" onclick="loadAllReports()">Load All Reports</button>
+                <button class="report-btn" type="button" onclick="window.location.href='ReportMainController?action=report1'">Report 1</button>
+                <button class="report-btn" type="button" onclick="window.location.href='ReportMainController?action=report2'">Report 2</button>
+                <button class="report-btn" type="button" onclick="window.location.href='ReportMainController?action=report3'">Report 3</button>
+                <button class="report-btn" type="button" onclick="loadReport4()">Report 4</button>
+                <button class="report-btn" type="button" onclick="showAllReports()">Load All</button>
             </div>
             
             <%
@@ -144,34 +145,22 @@
             %>
             
             <%
-                // Determine which report to show
+                // Determine which report to show (simplified)
                 String showReport = (String) request.getAttribute("SHOW_REPORT");
                 boolean hasReport1 = request.getAttribute("REPORT_1_LIST") != null;
                 boolean hasReport2 = request.getAttribute("REPORT_2_LIST") != null;
                 boolean hasReport3 = request.getAttribute("REPORT_3_LIST") != null;
-                boolean showReport1 = false;
-                boolean showReport2 = false;
-                boolean showReport3 = false;
-                
-                if (showReport != null) {
-                    if ("report1".equals(showReport)) showReport1 = true;
-                    else if ("report2".equals(showReport)) showReport2 = true;
-                    else if ("report3".equals(showReport)) showReport3 = true;
-                    else if ("all".equals(showReport)) {
-                        showReport1 = hasReport1;
-                        showReport2 = hasReport2;
-                        showReport3 = hasReport3;
-                    }
-                } else {
-                    // Default behavior: show the first available report
-                    if (hasReport1) showReport1 = true;
-                    else if (hasReport2) showReport2 = true;
-                    else if (hasReport3) showReport3 = true;
+                boolean hasReport4 = request.getAttribute("REPORT_4_LIST") != null;
+                if (showReport == null) {
+                    if (hasReport1) showReport = "report1";
+                    else if (hasReport2) showReport = "report2";
+                    else if (hasReport3) showReport = "report3";
+                    else if (hasReport4) showReport = "report4";
                 }
             %>
             
             <!-- Report 1 Content -->
-            <div id="report1" class="report-content <% if (showReport1) { %>active<% } %>" <% if ("all".equals(showReport)) { %>style="display: block;"<% } %>>
+            <div id="report1" class="report-content <%= ("report1".equals(showReport) || "all".equals(showReport)) ? "active" : "" %>" <% if ("all".equals(showReport)) { %>style="display: block;"<% } %>>
                 <h3>Service History Report</h3>
                 <table>
                     <thead>
@@ -209,7 +198,7 @@
             </div>
             
             <!-- Report 2 Content -->
-            <div id="report2" class="report-content <% if (showReport2) { %>active<% } %>" <% if ("all".equals(showReport)) { %>style="display: block;"<% } %>>
+            <div id="report2" class="report-content <%= ("report2".equals(showReport) || "all".equals(showReport)) ? "active" : "" %>" <% if ("all".equals(showReport)) { %>style="display: block;"<% } %>>
                 <h3>Services Requested Report</h3>
                 <table>
                     <thead>
@@ -247,7 +236,7 @@
             </div>
                     
             <!-- Report 3 Content -->
-            <div id="report3" class="report-content <% if (showReport3) { %>active<% } %>" <% if ("all".equals(showReport)) { %>style="display: block;"<% } %>>
+            <div id="report3" class="report-content <%= ("report3".equals(showReport) || "all".equals(showReport)) ? "active" : "" %>" <% if ("all".equals(showReport)) { %>style="display: block;"<% } %>>
                 <h3>Completed Services Report</h3>
                 <table>
                     <thead>
@@ -280,6 +269,53 @@
                 </table>
             </div>
             
+            <!-- Report 4 Filter/Form -->
+            <div id="report4-form" class="report-content <%= ("report4".equals(showReport) || hasReport4) ? "active" : "" %>">
+                <h3>Revenue by Date</h3>
+                <form id="report4FilterForm" action="ReportMainController" method="POST"
+                      style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                    <input type="hidden" name="action" value="report4" />
+                    <label for="serviceDate">Choose date:</label>
+                    <input type="date" id="serviceDate" name="serviceDate"
+                           value="<%= request.getAttribute("REPORT_4_DATE") != null ? request.getAttribute("REPORT_4_DATE") : "" %>"
+                           required />
+                    <button class="report-btn" type="submit">Load Report 4</button>
+                </form>
+            </div>
+
+            <!-- Report 4 Content -->
+            <div id="report4" class="report-content <%= ("report4".equals(showReport)) ? "active" : "" %>">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Quantity</th>
+                            <th>Total Revenue</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                        List<ReportDTO> report4List = (List<ReportDTO>) request.getAttribute("REPORT_4_LIST");
+                        if (report4List != null && !report4List.isEmpty()) {
+                            for (ReportDTO s : report4List) {
+                    %>
+                        <tr>
+                            <td><%= s.getServiceName() %></td>
+                            <td><%= s.getQuantity() %></td>
+                            <td><%= String.format("%.2f", s.getTotalRevenue()) %></td>
+                            <td><%= s.getPeriod() %></td>
+                        </tr>
+                    <%
+                            }
+                        } else {
+                    %>
+                        <tr><td colspan="4" class="no-data">No data available</td></tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+            
             <div style="text-align: center; margin-top: 30px;">
                 <button class="back-btn" onclick="window.location.href='MainController?action=<%=IConstants.AC_VIEW_REPORT_PAGE%>'">Reset Reports</button>
                 <button class="back-btn" onclick="window.location.href='MainController?action=gobackmanager'">Go Back</button>
@@ -287,24 +323,25 @@
         </div>
         
         <script>
-            function loadReport1() {
-                // Redirect to load Report 1 data
-                window.location.href = 'GetReportController';
+            const SECTION_IDS = ['report1','report2','report3','report4','report4-form'];
+    
+            function showOnly(id) {
+                SECTION_IDS.forEach(sec => {
+                  const el = document.getElementById(sec);
+                  if (el) el.classList.remove('active');
+                });
+                const target = document.getElementById(id);
+                if (target) target.classList.add('active');
+              }
+            
+            function loadReport4() {
+                showOnly('report4-form');
+                const input = document.getElementById('serviceDate');
+                if (input) input.focus();
             }
             
-            function loadReport2() {
-                // Redirect to load Report 2 data
-                window.location.href = 'GetReport2Controller';
-            }
-            
-            function loadReport3() {
-                // Redirect to load Report 2 data
-                window.location.href = 'GetReport3Controller';
-            }
-            
-            function loadAllReports() {
-                // Redirect to load all reports
-                window.location.href = 'GetAllReportsController';
+            function showAllReports() {
+                window.location.href = 'ReportMainController?action=manaReport';
             }
         </script>
     </body>

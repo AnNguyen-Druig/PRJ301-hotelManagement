@@ -149,6 +149,7 @@ public class ReportDAO {
         ArrayList<ReportDTO> result = new ArrayList<>();
         Connection cn = null;
         try{
+            cn = DBUtills.getConnection();
             if(cn != null){
                 String sql = "SELECT s.ServiceName, SUM(bs.Quantity) AS Quantity, SUM(bs.Quantity * s.Price) AS TotalRevenue, CAST(bs.ServiceDate AS date) AS Period\n"
                         + "FROM BOOKING_SERVICE bs\n"

@@ -26,7 +26,7 @@
             <h3>Truy cập Báo cáo</h3>
             <ul>
                 <li>
-                    <a href="MainController?action=reportpage">Báo cáo thống kê chi tiết</a>
+                    <a href="MainController?action=reportpage">Báo cáo các dịch vụ sử dụng chi tiết</a>
                 </li>
                 <li>
                     <%--Trong trang này sẽ lọc theo ngày/tháng/năm, tùy chọn--%>
