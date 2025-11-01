@@ -11,6 +11,7 @@ import DAO.InvoiceDAO;
 import DAO.PaymentDAO;
 import DAO.RoomDAO;
 import DTO.BookingDTO;
+import DTO.GuestDTO;
 import DTO.InvoiceDTO;
 import DTO.PaymentDTO;
 import DTO.RoomDTO;
@@ -54,6 +55,10 @@ public class SavePaymentAndInvoiceController extends HttpServlet {
         RoomDAO roomDAO = new RoomDAO();
         RoomDTO room = roomDAO.getRoomByID(bookingRoom.getRoomID());
         request.setAttribute("ROOM", room);
+        
+        GuestDAO guestDAO = new GuestDAO();
+        GuestDTO guest = guestDAO.getGuestByID(bookingRoom.getGuestID());
+        request.setAttribute("GUEST_DETAIL", guest);
         
         //Ko lay Guest vi guest o session
              

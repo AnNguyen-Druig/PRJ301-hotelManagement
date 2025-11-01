@@ -20,7 +20,7 @@
     </head>
     <body>
         <%
-            GuestDTO guest = (GuestDTO) session.getAttribute("USER");
+            GuestDTO guest = (GuestDTO) request.getAttribute("GUEST_DETAIL");
             StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");
             if (guest == null) {
                 request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
