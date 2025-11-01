@@ -95,16 +95,17 @@ public class HouseKeepingTaskDAO {
         return result;
     }
     
-    public boolean updateTaskStatus(int taskId, int staffId, String newStatus){
+    public boolean updateTaskStatus(int taskId, int staffId, String newStatus, String newCleanType){
         boolean result = false;
         Connection cn = null;
         try{
             cn = DBUtills.getConnection();
-            String sql = "UPDATE dbo.HOUSEKEEPING_TASK SET Status = ?, AssignedStaff = ? WHERE TaskID = ?";
+            String sql = "UPDATE dbo.HOUSEKEEPING_TASK SET Status = ?, AssignedStaff = ?, CleaningType = ? WHERE TaskID = ?";
             PreparedStatement st = cn.prepareStatement(sql);
             st.setString(1, newStatus);
             st.setInt(2, staffId);
-            st.setInt(3, taskId);         
+            st.setString(3, newCleanType);
+            st.setInt(4, taskId);         
             int affect = st.executeUpdate();
             if(affect > 0){
                 result = true;

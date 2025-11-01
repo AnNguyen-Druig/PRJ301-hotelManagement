@@ -32,6 +32,7 @@ public interface IConstants {
     public final String VIEW_SERVICE_PAGE = "/role/service/ViewServicePage.jsp";
     public final String REPORT_1_PAGE = "/common/ReportJSP/Report1Page.jsp";
     public final String REPORT_2_PAGE = "/common/ReportJSP/Report2Page.jsp";
+    public final String HOUSEKEEPING_REPORT_PAGE = "/role/housekeeping/HouseKeepingReportPage.jsp";
 
     public final String VIEW_REVENUE_REPORT_PAGE = "/role/manager/revenuereportpage.jsp";
     public final String VIEW_TOP_GUEST_PAGE = "/role/manager/top10guestpage.jsp";
@@ -44,10 +45,7 @@ public interface IConstants {
 
     public final String INVOICE_PAGE = "/role/guest/invoicepage.jsp";
     public final String SIGN_UP_STAFF_PAGE = "/role/admin/signupstaff.jsp";
-
-
-
-    
+  
     //Action
     public final String AC_DEFAULT = "default";
     public final String AC_LOGINSTAFF = "Login Staff";
@@ -101,6 +99,8 @@ public interface IConstants {
     public final String AC_FILTER_STAFF = "filterstaff";
     public final String AC_SIGN_UP_STAFF = "signupstaff";
     public final String AC_GO_BACK_GUEST_PAGE = "gobackGuestPage";
+    public final String AC_HOUSEKEEPING_REPORT = "housereport";
+    public final String AC_HOUSEKEEPING_REPORT_PAGE = "housekeepingreport";
     
     
     //Controller
@@ -141,6 +141,7 @@ public interface IConstants {
     public final String CTL_GET_ALL_STAFF = "GetAllStaffController";
     public final String CTL_FILTER_STAFF = "FilterStaffController";
     public final String CTL_SIGN_UP_STAFF = "SignUpStaffController";
+    public final String CTL_HOUSEKEEPING_REPORT = "HouseKeepingReportController";
 
     // ERROR
     public final String ERR_EMPTY_FIELD = "Tên đăng nhập và mật khẩu không được để trống!";

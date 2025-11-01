@@ -307,42 +307,26 @@ AS
 BEGIN
   SET NOCOUNT ON;
 
-  ;WITH DirtyRooms AS (
+  ;WITH DirtyOrOccurp AS (
       SELECT i.RoomID
       FROM inserted i
       JOIN deleted  d ON d.RoomID = i.RoomID
-      WHERE i.Status = N'Dirty' AND ISNULL(d.Status,N'') <> N'Dirty'
+      WHERE i.Status IN (N'Dirty', N'Occurp')
+        AND ISNULL(d.Status, N'') NOT IN (N'Dirty', N'Occurp')
   ),
   NeedTask AS (
       SELECT dr.RoomID
-      FROM DirtyRooms dr
+      FROM DirtyOrOccurp dr
       WHERE NOT EXISTS (
           SELECT 1 
           FROM dbo.HOUSEKEEPING_TASK t
           WHERE t.RoomID = dr.RoomID 
-            AND t.Status IN ('Pending','InProgress')
+            AND t.Status IN (N'Pending', N'InProgress')
       )
-  ),
-  StaffPick AS (
-      SELECT nt.RoomID,
-             sp.StaffID
-      FROM NeedTask nt
-      OUTER APPLY (
-          SELECT TOP (1) s.StaffID
-          FROM dbo.STAFF s
-          LEFT JOIN (
-              SELECT AssignedStaff, COUNT(*) AS OpenTasks
-              FROM dbo.HOUSEKEEPING_TASK
-              WHERE Status IN ('Pending','InProgress')
-              GROUP BY AssignedStaff
-          ) w ON w.AssignedStaff = s.StaffID
-          WHERE s.Role = N'Housekeeping'
-          ORDER BY ISNULL(w.OpenTasks,0), NEWID()   -- ít việc hơn ưu tiên trước
-      ) sp
   )
-  INSERT INTO dbo.HOUSEKEEPING_TASK(RoomID, AssignedStaff, CleaningType, Status)
-  SELECT RoomID, StaffID, N'regular', 'Pending'
-  FROM StaffPick
-  WHERE StaffID IS NOT NULL;  -- đề phòng không có nhân viên Housekeeping
+  INSERT INTO dbo.HOUSEKEEPING_TASK (RoomID, AssignedStaff, CleaningType, Status)
+  SELECT RoomID, NULL, N'regular', N'Pending'
+  FROM NeedTask;
 END;
 GO
+

@@ -95,7 +95,7 @@
                             <button class="back-btn" onclick="window.location.href='MainController?action=pendingpage'">Go to cleaning page</button>
                         </div>
                     <div style="text-align: center; margin-top: 30px;">
-                            <button class="back-btn" onclick="window.location.href='MainController?action=pendingpage'">Go to report page</button>
+                            <button class="back-btn" onclick="window.location.href='MainController?action=housereport'">Go to report page</button>
                         </div>    
                 </tbody>
             </table>

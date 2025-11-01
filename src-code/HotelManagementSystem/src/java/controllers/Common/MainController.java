@@ -176,6 +176,12 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_GO_BACK_GUEST_PAGE:
                     url = IConstants.GUEST_PAGE;
                     break;
+                case IConstants.AC_HOUSEKEEPING_REPORT:
+                    url = IConstants.HOUSEKEEPING_REPORT_PAGE;
+                    break;
+                case IConstants.AC_HOUSEKEEPING_REPORT_PAGE:
+                    url = IConstants.CTL_HOUSEKEEPING_REPORT;
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();

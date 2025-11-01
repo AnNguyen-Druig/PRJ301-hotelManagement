@@ -51,7 +51,7 @@
             <h3>Pending Table</h3>
           <thead>
             <tr>
-                <th>TaskID</th><th>RoomID</th><th>AssignedStaff</th><th>TaskDate</th><th>cleaningType</th><th>status</th><th>Action</th>
+                <th>TaskID</th><th>RoomID</th><th>AssignedStaff</th><th>TaskDate</th><th>status</th><th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -65,18 +65,22 @@
           %>
           
 
-            <tr>
+            <tr style="text-align: center">
               <td><%= s.getTaskID() %></td>
               <td><%= s.getRoomID() %></td>
-              <td><%= s.getAssignedStaff() %></td>
+              <td>UnAssigned</td>
               <td><%= s.getTaskDate() %></td>
-              <td><%= s.getCleaningType() %></td>
               <td><%= s.getStatus() %></td>
               <td>
                   <form action="MainController" method="POST" style="justify-content: center; display: flex; gap: 8px; align-items: center;">
                         <input type="hidden" name="action" value="update_task_status">
                         <input type="hidden" name="TaskID" value="<%= s.getTaskID() %>">
                         <input type="hidden" name="StaffID" value="<%= staff.getStaffID() %>">
+                        <select name="newCleanType">
+                            <option value="Regular" <%= (s.getCleaningType() != null && s.getCleaningType().equals("Regular")) ? "selected" : "" %>>Regular</option>
+                            <option value="DeepCleaning" <%= (s.getCleaningType() != null && s.getCleaningType().equals("DeepCleaning")) ? "selected" : "" %>>Deep</option>
+                            <option value="PostCheckOut" <%= (s.getCleaningType() != null && s.getCleaningType().equals("PostCheckOut")) ? "selected" : "" %>>Post Check-Out</option>
+                        </select>
                         <button type="submit" name="newStatus" value="InProgress">Accept</button>
                   </form>
               </td>
@@ -85,12 +89,12 @@
                     }
                 } else {
           %>
-            <tr><td colspan="7" style="text-align:center">No data</td></tr>
+            <tr><td colspan="6" style="text-align:center">No data</td></tr>
           <% 
                 }
             } else {
           %>
-            <tr><td colspan="7" style="text-align:center">Please login to view tasks</td></tr>
+            <tr><td colspan="6" style="text-align:center">Please login to view tasks</td></tr>
           <% } %>
           </tbody>
         </table>
@@ -112,7 +116,7 @@
                 if (list2 != null && !list2.isEmpty()) {
                     for (HouseKeepingTaskDTO s2 : list2) {
             %>
-            <tr>
+            <tr style="text-align: center">
               <td><%= s2.getTaskID() %></td>
               <td><%= s2.getRoomID() %></td>
               <td><%= s2.getAssignedStaff() %></td>
@@ -125,6 +129,7 @@
                         <input type="hidden" name="TaskID" value="<%= s2.getTaskID() %>">
                         <input type="hidden" name="RoomID" value="<%= s2.getRoomID() %>">
                         <input type="hidden" name="StaffID" value="<%= staff.getStaffID() %>">
+                        <input type="hidden" name="newCleanType" value="<%= s2.getCleaningType() %>">
                         <button type="submit" name="newStatus" value="Completed">Completed</button>
                         <button type="submit" name="newStatus" value="Pending">Canceled</button>
                   </form>

@@ -39,7 +39,7 @@ public class HouseKeepingReportDTO {
         this.priority = priority;
     }
 
-    public HouseKeepingReportDTO(Date date, int roomNumber, String status, String roomType, Date checkIn) {
+    public HouseKeepingReportDTO(int roomNumber, String status, String roomType,Date date, Date checkIn) {
         this.date = date;
         this.roomNumber = roomNumber;
         this.status = status;
