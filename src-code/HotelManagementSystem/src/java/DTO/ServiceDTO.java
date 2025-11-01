@@ -15,12 +15,44 @@ public class ServiceDTO implements Serializable{
     private String serviceName;
     private String serviceType;
     private double price;
+    private int countNumService;
+    private float incomeService;
 
     public ServiceDTO(int serviceId, String serviceName, String serviceType, double price) {
         this.serviceId = serviceId;
         this.serviceName = serviceName;
         this.serviceType = serviceType;
         this.price = price;
+    }
+
+    public ServiceDTO(int serviceId, String serviceName, String serviceType, int countNumService) {
+        this.serviceId = serviceId;
+        this.serviceName = serviceName;
+        this.serviceType = serviceType;
+        this.countNumService = countNumService;
+    }
+
+    public ServiceDTO(int serviceId, String serviceName, String serviceType, float incomeService) {
+        this.serviceId = serviceId;
+        this.serviceName = serviceName;
+        this.serviceType = serviceType;
+        this.incomeService = incomeService;
+    }
+
+    public float getIncomeService() {
+        return incomeService;
+    }
+
+    public void setIncomeService(float incomeService) {
+        this.incomeService = incomeService;
+    }
+
+    public int getCountNumService() {
+        return countNumService;
+    }
+
+    public void setCountNumService(int countNumService) {
+        this.countNumService = countNumService;
     }
 
     public int getServiceId() {
