@@ -59,7 +59,7 @@ public class ChangeStatusBookingCompleteController extends HttpServlet {
 
                 //Gọi DAO thực hiện update status cho Booking và Room
                 bookingUpdateStatus = bookingDAO.updateStatusBooking(bookingID_value, "Complete");
-                roomUpdateStatus = roomDAO.updateRoomStatus(roomID_value, "Dirty");
+                roomUpdateStatus = roomDAO.updateRoomStatus(roomID_value, "Available");
                 if (bookingUpdateStatus == true && roomUpdateStatus == true) {
                     request.setAttribute("SUCCESS", IConstants.SUCC_SAVE_UPDATE_BOOKING);
                 } else {

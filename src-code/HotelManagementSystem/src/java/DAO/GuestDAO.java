@@ -18,41 +18,6 @@ import mylib.DBUtills;
  */
 public class GuestDAO {
 
-//    public boolean createGuest(GuestDTO guest) {
-//        boolean success = false;
-//        Connection cn = null;
-//
-//        try {
-//            cn = DBUtills.getConnection();
-//            String sql = "INSERT INTO GUEST (Username, PasswordHash, FullName, Phone, Email, Address, DateOfBirth, IDNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-//            PreparedStatement ps = cn.prepareStatement(sql);
-//            ps.setString(1, guest.getUsername());
-//            ps.setString(2, guest.getPassword());
-//            ps.setString(3, guest.getFullName());
-//            ps.setString(4, guest.getPhone());
-//            ps.setString(5, guest.getEmail());
-//            ps.setString(6, guest.getAddress());
-//            ps.setDate(7, guest.getDateOfBirth());
-//            ps.setString(8, guest.getIDNumber());
-//
-//            int rowsAffected = ps.executeUpdate();
-//            if (rowsAffected > 0) {
-//                success = true;
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (cn != null) {
-//                    cn.close();
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return success;
-//    }
     public int signUpGuest(GuestDTO guest) {
         int result = 0;
         Connection cn = null;
