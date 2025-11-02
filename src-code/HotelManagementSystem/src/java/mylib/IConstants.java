@@ -175,6 +175,7 @@ public interface IConstants {
     public final String ERR_CANCEL_BOOKING_ROOM = "Bạn huỷ không thành công vì có lỗi xảy ra trong quá trình xử lý";
     public final String ERR_CANCELDATE_BEFORE_CHECKINDATE = "Bạn huỷ không thành công vì phải hủy trước ngày Check-in: ";
     public final String ERR_EMPTY_SERVICE_LIST = "Không tải được dữ liệu của các dịch vụ";
+    public final String ERR_EMPTY_TOTAL_REVENUE = "Chưa có Doanh Thu nào trong thời gian này.";
     
     
     //SUCESSFULL

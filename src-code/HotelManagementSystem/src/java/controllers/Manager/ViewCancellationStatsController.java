@@ -63,7 +63,7 @@ public class ViewCancellationStatsController extends HttpServlet {
                 Date startDate_value = Date.valueOf(startDate);
                 Date endDate_value = Date.valueOf(endDate);
 
-                // Gọi DAO (giả sử hàm trả về int)
+                // Gọi DAO 
                 totalCancelBookingInRange = bookingDAO.countTotalCancelBookingInRange(startDate_value, endDate_value);
 
                 // Gửi lại filter cho JSP

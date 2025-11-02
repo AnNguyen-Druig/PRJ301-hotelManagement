@@ -59,8 +59,8 @@ public class InvoiceDAO {
                 PreparedStatement st = cn.prepareStatement(sql);
                 st.setInt(1, bookingID);
                 ResultSet table = st.executeQuery();
-                if(table!=null) {
-                    while(table.next()) {
+                if (table != null) {
+                    while (table.next()) {
                         int invoiceID = table.getInt("InvoiceID");
                         Date issueDate = table.getDate("IssueDate");
                         double totalAmount = table.getDouble("TotalAmount");
@@ -71,6 +71,106 @@ public class InvoiceDAO {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return result;
+    }
+
+    public double getTotalRevenueByDate(Date date) {
+        double result = 0.0;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "SELECT\n"
+                        + "    SUM(TotalAmount) AS [Tổng Doanh Thu]\n"
+                        + "FROM\n"
+                        + "    INVOICE\n"
+                        + "WHERE\n"
+                        + "    Status = 'Paid'\n"
+                        + "    AND IssueDate = ?";
+                PreparedStatement ps = cn.prepareStatement(sql);
+                ps.setDate(1, date);
+                ResultSet table = ps.executeQuery();
+                if (table != null && table.next()) {
+                    result = table.getDouble("Tổng Doanh Thu");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public double getTotalRevenueByMonth(int month, int year) {
+        double result = 0.0;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "SELECT\n"
+                        + "    SUM(TotalAmount) AS [Tổng Doanh Thu]\n"
+                        + "FROM\n"
+                        + "    INVOICE\n"
+                        + "WHERE\n"
+                        + "    Status = 'Paid'\n"
+                        + "    AND MONTH(IssueDate) = ?  \n"
+                        + "    AND YEAR(IssueDate) = ?";
+                PreparedStatement ps = cn.prepareStatement(sql);
+                ps.setInt(1, month);
+                ps.setInt(2, year);
+                ResultSet table = ps.executeQuery();
+                if (table != null && table.next()) {
+                    result = table.getDouble("Tổng Doanh Thu");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public double getTotalRevenueByYear(int year) {
+        double result = 0.0;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "SELECT SUM(TotalAmount) AS [Tổng Doanh Thu] \n"
+                        + "FROM INVOICE WHERE Status = 'Paid'\n"
+                        + "AND YEAR(IssueDate) = ?";
+                PreparedStatement ps = cn.prepareStatement(sql);
+                ps.setInt(1, year);
+                ResultSet table = ps.executeQuery();
+                if (table != null && table.next()) {
+                    result = table.getDouble("Tổng Doanh Thu");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return result;
     }
