@@ -182,6 +182,9 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_HOUSEKEEPING_REPORT_PAGE:
                     url = IConstants.CTL_HOUSEKEEPING_REPORT;
                     break;
+                case IConstants.AC_SIGN_UP_STAFF:
+                    url = IConstants.CTL_SIGN_UP_STAFF;
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
