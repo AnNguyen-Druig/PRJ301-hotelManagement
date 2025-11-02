@@ -42,7 +42,6 @@ public class BookingRoomController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             int roomID = Integer.parseInt(request.getParameter("roomID"));
-            int guestID = Integer.parseInt(request.getParameter("guestID"));
             String checkInDate = request.getParameter("booking_room_checkInDate").trim();
             String checkOutDate = request.getParameter("booking_room_checkOutDate").trim();
 
@@ -61,10 +60,6 @@ public class BookingRoomController extends HttpServlet {
                 RoomDAO roomDAO = new RoomDAO();
                 RoomDTO room = roomDAO.getRoomByID(roomID);
                 request.setAttribute("ROOM", room);
-
-                GuestDAO guestDAO = new GuestDAO();
-                GuestDTO guest = guestDAO.getGuestByID(guestID);
-                request.setAttribute("GUEST", guest);
 
                 request.getRequestDispatcher(IConstants.BOOKING_ROOM_REGISTER_PAGE).forward(request, response);
             }

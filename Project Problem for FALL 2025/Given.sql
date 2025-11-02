@@ -8,6 +8,10 @@
 USE master;
 GO
 
+ALTER DATABASE HotelManagement
+SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+GO
+
 DROP DATABASE IF EXISTS HotelManagement;
 GO
 
@@ -64,7 +68,13 @@ CREATE TABLE STAFF (
     PasswordHash NVARCHAR(255) NOT NULL,
     Phone NVARCHAR(20),
     Email NVARCHAR(100),
-	Status NVARCHAR(20) NOT NULL DEFAULT N'Active' CHECK (Status IN (N'Active', N'Inactive'))
+    
+    -- CÁC CỘT MỚI ĐƯỢC THÊM VÀO --
+    Address NVARCHAR(200) NULL,
+    IDNumber NVARCHAR(12) UNIQUE NULL,
+	DateOfBirth DATE,
+
+    Status NVARCHAR(20) NOT NULL DEFAULT N'Active' CHECK (Status IN (N'Active', N'Inactive'))
 );
 
 -- ======================================================
@@ -249,26 +259,39 @@ VALUES
 (N'Room Service Delivery', N'Food', 50000), -- 50.000 VNĐ
 (N'Swimming Pool', N'Spa', 250000);    -- 250.000 VNĐ
 
--- STAFF
-INSERT INTO STAFF (FullName, Role, Username, PasswordHash, Phone, Email, Status)
+-- STAFF (Đã cập nhật với DateOfBirth)
+INSERT INTO STAFF (
+    FullName, Role, Username, PasswordHash, Phone, Email, 
+    Address, IDNumber, DateOfBirth, Status
+)
 VALUES 
-(N'Nguyễn Trần Đạt Ân', N'Admin', N'AnNguyen', N'123', N'0123456789', N'nguyentrandatan@gmail.com', N'Active'),
-(N'Trịnh Nhật Quang', N'Admin', N'QuangTrinh', N'456', N'0987654321', N'trinhnhatquang@gmail.com', N'Active'),
-(N'Nguyễn Bá Đại', N'Admin', N'NguyenDai', N'789', N'0123459876', N'nguyenbadai@gmail.com', N'Active'),
-(N'Nguyễn Văn Vỹ', N'Receptionist', N'VanVy', N'111', N'0999900001', N'nguyenvanv@hotel.com', N'Active'),
-(N'Trần Thị Anh', N'Manager', N'AnhTran', N'222', N'0200011112', N'tranthiw@hotel.com', N'Active'),
-(N'Lê Văn Bảo', N'Housekeeping', N'BaoLe', N'333', N'0311122223', N'levanx@hotel.com', N'Active'),
-(N'Phạm Thị Yến', N'ServiceStaff', N'PhamYen', N'444', N'0422233334', N'phamthiy@hotel.com', N'Active'),
-(N'Hoàng Văn An', N'Receptionist', N'AnHoang', N'555', N'04333344445', N'hoangvanz@hotel.com', N'Active'),
-(N'Vũ Thị Lựu', N'Housekeeping', N'VuLuu', N'666', N'06444455556', N'vuthiaa@hotel.com', N'Active'),
-(N'Đặng Văn Bảo', N'ServiceStaff', N'DangBao', N'777', N'07555566667', N'dangvanbb@hotel.com', N'Active'),
-(N'Bùi Thị Cung', N'Manager', N'BuiCung', N'888', N'09666677778', N'buithicc@hotel.com', N'Active'),
-(N'Trần Văn Long', N'Receptionist', N'LongTran', N'1001', N'0905111222', N'longtran@hotel.com', N'Inactive'),
-(N'Lê Thị Hoa', N'Housekeeping', N'HoaLe', N'1002', N'0905333444', N'hoale@hotel.com', N'Inactive'),
-(N'Phan Thanh Tâm', N'ServiceStaff', N'TamPhan', N'1003', N'0905555666', N'tamphan@hotel.com', N'Inactive'),
-(N'Đỗ Hùng Dũng', N'Receptionist', N'DungDo', N'1004', N'0905777888', N'dungdo@hotel.com', N'Inactive'),
-(N'Mai Thị Lan', N'Manager', N'LanMai', N'1005', N'0905999000', N'lanmai@hotel.com', N'Inactive');
+-- Admins
+(N'Nguyễn Trần Đạt Ân', N'Admin', N'AnNguyen', N'123', N'0123456789', N'nguyentrandatan@gmail.com', N'123 Đường A, Quận 1, TP.HCM', N'001080123451', '1990-01-01', N'Active'),
+(N'Trịnh Nhật Quang', N'Admin', N'QuangTrinh', N'456', N'0987654321', N'trinhnhatquang@gmail.com', N'456 Đường B, Quận 3, TP.HCM', N'001080123452', '1992-02-15', N'Active'),
+(N'Nguyễn Bá Đại', N'Admin', N'NguyenDai', N'789', N'0123459876', N'nguyenbadai@gmail.com', N'789 Đường C, Quận 5, TP.HCM', N'001080123453', '1988-11-30', N'Active'),
 
+-- Receptionists (Active)
+(N'Nguyễn Văn Vỹ', N'Receptionist', N'VanVy', N'111', N'0999900001', N'nguyenvanv@hotel.com', N'111 Đường D, Quận 10, TP.HCM', N'001080123454', '1995-03-20', N'Active'),
+(N'Hoàng Văn An', N'Receptionist', N'AnHoang', N'555', N'04333344445', N'hoangvanz@hotel.com', N'222 Đường E, Quận Bình Thạnh, TP.HCM', N'001080123455', '1998-07-07', N'Active'),
+
+-- Managers (Active)
+(N'Trần Thị Anh', N'Manager', N'AnhTran', N'222', N'0200011112', N'tranthiw@hotel.com', N'333 Đường F, Quận Phú Nhuận, TP.HCM', N'001080123456', '1985-12-10', N'Active'),
+(N'Bùi Thị Cung', N'Manager', N'BuiCung', N'888', N'09666677778', N'buithicc@hotel.com', N'444 Đường G, Quận 7, TP.HCM', N'001080123457', '1991-04-25', N'Active'),
+
+-- Housekeeping (Active)
+(N'Lê Văn Bảo', N'Housekeeping', N'BaoLe', N'333', N'0311122223', N'levanx@hotel.com', N'555 Đường H, Quận Gò Vấp, TP.HCM', N'001080123458', '1999-08-14', N'Active'),
+(N'Vũ Thị Lựu', N'Housekeeping', N'VuLuu', N'666', N'06444455556', N'vuthiaa@hotel.com', N'666 Đường I, Quận Tân Bình, TP.HCM', N'001080123459', '1997-06-18', N'Active'),
+
+-- ServiceStaff (Active)
+(N'Phạm Thị Yến', N'ServiceStaff', N'PhamYen', N'444', N'0422233334', N'phamthiy@hotel.com', N'777 Đường K, Quận 12, TP.HCM', N'001080123460', '2000-10-05', N'Active'),
+(N'Đặng Văn Bảo', N'ServiceStaff', N'DangBao', N'777', N'07555566667', N'dangvanbb@hotel.com', N'888 Đường L, TP. Thủ Đức', N'001080123461', '1996-09-09', N'Active'),
+
+-- Inactive Staff
+(N'Trần Văn Long', N'Receptionist', N'LongTran', N'1001', N'0905111222', N'longtran@hotel.com', N'101 Đường M, Quận 1, TP.HCM', N'001080123462', '1994-01-22', N'Inactive'),
+(N'Lê Thị Hoa', N'Housekeeping', N'HoaLe', N'1002', N'0905333444', N'hoale@hotel.com', N'102 Đường N, Quận 3, TP.HCM', N'001080123463', '1993-02-23', N'Inactive'),
+(N'Phan Thanh Tâm', N'ServiceStaff', N'TamPhan', N'1003', N'0905555666', 'tamphan@hotel.com', N'103 Đường O, Quận 5, TP.HCM', N'001080123464', '1992-03-24', N'Inactive'),
+(N'Đỗ Hùng Dũng', N'Receptionist', N'DungDo', N'1004', N'0905777888', N'dungdo@hotel.com', N'104 Đường P, Quận 7, TP.HCM', N'001080123465', '1991-04-25', N'Inactive'),
+(N'Mai Thị Lan', N'Manager', N'LanMai', N'1005', N'0905999000', N'lanmai@hotel.com', N'105 Đường Q, Quận 10, TP.HCM', N'001080123466', '1989-05-26', N'Inactive');
 --TAX 
 INSERT INTO TAX_CONFIG (TaxName, TaxValue, Description)
 VALUES (N'VAT', 0.1, N'Thuế suất Giá trị gia tăng (VAT) hiện hành');

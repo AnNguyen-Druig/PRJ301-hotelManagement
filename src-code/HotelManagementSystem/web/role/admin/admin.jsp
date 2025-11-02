@@ -73,7 +73,7 @@
             <button type="submit" value="<%= IConstants.AC_FILTER_STAFF%>" name="action">Lọc</button>
         </form>
         
-        <<form action="MainController">
+        <<form action="MainController" method="GET">
             <button type="submit" name="action" value="<%= IConstants.AC_SIGN_UP_STAFF %>">Thêm nhân viên</button>
         </form>
 
@@ -88,6 +88,9 @@
                         <th>Username</th>
                         <th>Email</th>
                         <th>Điện thoại</th>
+                        <th>Địa chỉ</th> <%-- THÊM CỘT MỚI --%>
+                        <th>CCCD</th> <%-- THÊM CỘT MỚI --%>
+                        <th>Ngày sinh</th>
                         <th>Trạng thái (Status)</th>
                         <th>Hành động</th>
                     </tr>
@@ -102,6 +105,9 @@
                             <td>${s.userName}</td>
                             <td>${s.email}</td>
                             <td>${s.phone}</td>
+                            <td>${s.address}</td> <%-- THÊM DỮ LIỆU MỚI --%>
+                            <td>${s.idNumber}</td> <%-- THÊM DỮ LIỆU MỚI --%>
+                            <td>${s.dateOfBirth}</td>
                             <td>
                                 <%-- Hiển thị Status đẹp hơn --%>
                                 <c:if test="${s.status == 'Active'}">

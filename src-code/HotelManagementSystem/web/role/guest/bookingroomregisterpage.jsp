@@ -22,7 +22,7 @@
     <body>
         <% 
             RoomDTO room = (RoomDTO) request.getAttribute("ROOM");
-            GuestDTO guest = (GuestDTO) request.getAttribute("GUEST");
+            GuestDTO guest = (GuestDTO) session.getAttribute("USER");
             Date checkInDate = (Date) request.getAttribute("CHECKINDATE");
             Date checkOutDate = (Date) request.getAttribute("CHECKOUTDATE");
             if(room!=null && guest!=null && checkInDate!=null && checkOutDate != null) {       
