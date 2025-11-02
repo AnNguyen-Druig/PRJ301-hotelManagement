@@ -4,11 +4,10 @@
  */
 package controllers.Manager;
 
-import DAO.RoomDAO;
+import DAO.Basic_DAO.RoomDAO;
 import DAO.RoomOccupancyDAO;
 import DTO.RoomOccupancyDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;

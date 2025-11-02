@@ -4,10 +4,10 @@
     Author     : Admin
 --%>
 
+<%@page import="DTO.Basic_DTO.BookingDTO"%>
+<%@page import="DTO.Basic_DTO.StaffDTO"%>
 <%@page import="mylib.IConstants"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="DTO.StaffDTO"%>
-<%@page import="DTO.BookingDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

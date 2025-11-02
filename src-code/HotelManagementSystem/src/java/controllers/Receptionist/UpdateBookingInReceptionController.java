@@ -1,11 +1,11 @@
 package controllers.Receptionist;
 
-import DAO.BookingRoomDAO;
+import DAO.Basic_DAO.BookingRoomDAO;
 
-import DAO.RoomDAO; // Đảm bảo bạn đã import RoomDAO
+import DAO.Basic_DAO.RoomDAO; // Đảm bảo bạn đã import RoomDAO
 
-import DTO.BookingDTO;
-import DTO.RoomDTO;
+import DTO.Basic_DTO.BookingDTO;
+import DTO.Basic_DTO.RoomDTO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

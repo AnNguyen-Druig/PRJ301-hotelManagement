@@ -4,13 +4,13 @@
     Author     : Nguyễn Đại
 --%>
 
+<%@page import="DTO.Basic_DTO.StaffDTO"%>
+<%@page import="DTO.Basic_DTO.HouseKeepingTaskDTO"%>
+<%@page import="DTO.Basic_DTO.RoomDTO"%>
+<%@page import="DTO.Basic_DTO.ServiceDTO"%>
 <%@page import="java.util.HashMap"%>
-<%@page import="DTO.ServiceDTO"%>
-<%@page import="DTO.HouseKeepingTaskDTO"%>
-<%@page import="DTO.StaffDTO"%>
 <%@page import="mylib.IConstants"%>
 <%@page import="java.util.List"%>
-<%@page import="DTO.RoomDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

@@ -5,8 +5,8 @@
 
 package controllers.Service;
 
-import DAO.BookingServiceDAO;
-import DTO.ServiceDTO;
+import DAO.Basic_DAO.BookingServiceDAO;
+import DTO.Basic_DTO.ServiceDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;

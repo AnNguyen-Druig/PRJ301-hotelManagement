@@ -4,8 +4,8 @@
  */
 package controllers.Receptionist;
 
-import DAO.GuestDAO;
-import DTO.GuestDTO;
+import DAO.Basic_DAO.GuestDAO;
+import DTO.Basic_DTO.GuestDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;

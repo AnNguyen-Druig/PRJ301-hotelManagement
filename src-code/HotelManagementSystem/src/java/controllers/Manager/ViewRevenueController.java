@@ -4,7 +4,7 @@
  */
 package controllers.Manager;
 
-import DAO.InvoiceDAO;
+import DAO.Basic_DAO.InvoiceDAO;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.Calendar;

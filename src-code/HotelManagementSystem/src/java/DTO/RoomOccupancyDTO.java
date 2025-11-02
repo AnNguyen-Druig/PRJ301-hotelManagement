@@ -4,6 +4,7 @@
  */
 package DTO;
 
+import DTO.Basic_DTO.RoomDTO;
 import java.sql.Date;
 
 /**

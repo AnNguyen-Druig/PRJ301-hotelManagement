@@ -4,9 +4,9 @@
     Author     : ASUS
 --%>
 
+<%@page import="DTO.Basic_DTO.RoomDTO"%>
+<%@page import="DTO.Basic_DTO.GuestDTO"%>
 <%@page import="java.sql.Date"%>
-<%@page import="DTO.GuestDTO"%>
-<%@page import="DTO.RoomDTO"%>
 <%@page import="java.time.ZoneId"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.format.DateTimeFormatter"%>

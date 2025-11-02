@@ -4,13 +4,13 @@
     Author     : ASUS
 --%>
 
-<%@page import="DTO.StaffDTO"%>
-<%@page import="DAO.TaxDAO"%>
-<%@page import="DTO.RoomDTO"%>
-<%@page import="DTO.GuestDTO"%>
+<%@page import="DTO.Basic_DTO.InvoiceDTO"%>
+<%@page import="DTO.Basic_DTO.PaymentDTO"%>
+<%@page import="DTO.Basic_DTO.GuestDTO"%>
+<%@page import="DTO.Basic_DTO.RoomDTO"%>
+<%@page import="DAO.Basic_DAO.TaxDAO"%>
+<%@page import="DTO.Basic_DTO.StaffDTO"%>
 <%@page import="mylib.IConstants"%>
-<%@page import="DTO.PaymentDTO"%>
-<%@page import="DTO.InvoiceDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

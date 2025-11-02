@@ -4,11 +4,11 @@
     Author     : ASUS
 --%>
 
-<%@page import="DTO.BookingDTO"%>
+<%@page import="DTO.Basic_DTO.GuestDTO"%>
+<%@page import="DTO.Basic_DTO.BookingDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="mylib.IConstants"%>
-<%@page import="DTO.GuestDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

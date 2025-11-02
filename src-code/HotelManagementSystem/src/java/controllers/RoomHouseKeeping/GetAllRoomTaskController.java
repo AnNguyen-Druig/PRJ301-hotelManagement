@@ -5,8 +5,8 @@
 
 package controllers.RoomHouseKeeping;
 
-import DAO.HouseKeepingTaskDAO;
-import DTO.HouseKeepingTaskDTO;
+import DAO.Basic_DAO.HouseKeepingTaskDAO;
+import DTO.Basic_DTO.HouseKeepingTaskDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;

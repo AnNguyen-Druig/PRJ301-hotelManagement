@@ -1,10 +1,10 @@
 <%--
     File   : bookingdetail.jsp (Scriptlet Version with Action Buttons)
 --%>
+<%@page import="DTO.Basic_DTO.BookingDTO"%>
+<%@page import="DTO.Basic_DTO.RoomDTO"%>
 <%@page import="mylib.IConstants"%>
-<%@page import="DTO.RoomDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="DTO.BookingDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

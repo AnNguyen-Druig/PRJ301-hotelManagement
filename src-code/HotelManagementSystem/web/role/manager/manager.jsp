@@ -4,8 +4,8 @@
     Author     : Admin
 --%>
 
+<%@page import="DTO.Basic_DTO.StaffDTO"%>
 <%@page import="mylib.IConstants"%>
-<%@page import="DTO.StaffDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

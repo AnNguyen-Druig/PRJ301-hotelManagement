@@ -4,7 +4,7 @@
     Author     : Admin
 --%>
 
-<%@page import="DTO.ServiceDTO"%>
+<%@page import="DTO.Basic_DTO.ServiceDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

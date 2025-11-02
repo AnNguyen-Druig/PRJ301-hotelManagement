@@ -4,12 +4,11 @@
  */
 package controllers.Common;
 
-import DAO.GuestDAO;
-import DAO.StaffDAO;
-import DTO.GuestDTO;
-import DTO.StaffDTO;
+import DAO.Basic_DAO.GuestDAO;
+import DAO.Basic_DAO.StaffDAO;
+import DTO.Basic_DTO.GuestDTO;
+import DTO.Basic_DTO.StaffDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

@@ -4,12 +4,10 @@
     Author     : Nguyễn Đại
 --%>
 
+<%@page import="DTO.Basic_DTO.BookingServiceDTO"%>
+<%@page import="DTO.Basic_DTO.ServiceDTO"%>
 <%@page import="java.util.Map"%>
-<%@page import="DTO.ServiceDTO"%>
-<%@page import="DTO.ServiceDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="DTO.BookingServiceDTO"%>
-<%@page import="DTO.BookingServiceDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,7 +20,7 @@
         </style>
     </head>
     <body>
-        <jsp:useBean id="STAFF" scope="session" class="DTO.StaffDTO" />
+        <jsp:useBean id="STAFF" scope="session" class="DTO.Basic_DTO.StaffDTO" />
         <h1>Hello ${STAFF.fullName}</h1>
         
         <h2>Booking Services for Booking ${BOOKING_ID}</h2>

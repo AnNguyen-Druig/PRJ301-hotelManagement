@@ -4,7 +4,7 @@
  */
 package controllers.Receptionist;
 
-import DAO.BookingRoomDAO;
+import DAO.Basic_DAO.BookingRoomDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;

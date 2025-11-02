@@ -22,10 +22,10 @@
             int currentYear = Calendar.getInstance().get(Calendar.YEAR);
             Integer selectMonth = (Integer) request.getAttribute("SELECT_MONTH");
             Integer selectYear = (Integer) request.getAttribute("SELECT_YEAR");
-            
+
             Double totalRevenueByYear = (Double) request.getAttribute("REVENUE_BY_SELECT_YEAR");
             Integer selectYearOnly = (Integer) request.getAttribute("SELECTED_YEAR_ONLY");
-            
+
             if (selectDate == null) {
                 selectDate = "";
             }
@@ -33,9 +33,10 @@
         <h2>Báo cáo Doanh Thu theo Ngày (Daily Report)</h2>
         <div>
             <form action="MainController">
-                <label for="selectDate">Chọn ngày:</label>
                 <input type="hidden" name="month" value="<%= selectMonth%>">
                 <input type="hidden" name="year" value="<%= selectYear%>">
+                <input type="hidden" name="selectYear" value="<%= selectYearOnly%>">
+                <label for="selectDate">Chọn ngày:</label>
                 <input type="date" id="selectDate" name="selectDate" value="<%= selectDate%>">
                 <input type="submit" name="action" value="ViewRevenueReport">
             </form>
@@ -54,6 +55,7 @@
             <form action="MainController">
                 <input type="hidden" name="action" value="ViewRevenueReport">
                 <input type="hidden" name="selectDate" value="<%= selectDate%>">
+                <input type="hidden" name="selectYear" value="<%= selectYearOnly%>"> 
                 <label for="monthSelect">Chọn Tháng:</label>
                 <select name="month" id="monthSelect" required>
                     <% for (int m = 1; m <= 12; m++) {
@@ -104,7 +106,7 @@
             <span>Tổng doanh thu của năm <%= selectYearOnly%>:</span>
             <span class="statistic-value"><%= String.format("%,.0f VND", totalRevenueByYear).replace(',', '.')%></span>
         </div>
-        <% } %>
+        <% }%>
 
         <hr/>
         <a href="MainController?action=gobackmanager">Quay lại Dashboard</a>

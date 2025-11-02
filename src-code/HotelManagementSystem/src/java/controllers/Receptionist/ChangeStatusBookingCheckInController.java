@@ -4,9 +4,9 @@
  */
 package controllers.Receptionist;
 
-import DAO.BookingRoomDAO;
-import DAO.RoomDAO;
-import DTO.BookingDTO;
+import DAO.Basic_DAO.BookingRoomDAO;
+import DAO.Basic_DAO.RoomDAO;
+import DTO.Basic_DTO.BookingDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;

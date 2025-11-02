@@ -4,8 +4,8 @@
  */
 package controllers.Guest;
 
-import DAO.BookingRoomDAO;
-import DTO.BookingDTO;
+import DAO.Basic_DAO.BookingRoomDAO;
+import DTO.Basic_DTO.BookingDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;

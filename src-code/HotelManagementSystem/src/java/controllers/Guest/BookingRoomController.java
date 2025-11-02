@@ -5,10 +5,10 @@
 package controllers.Guest;
 
 import controllers.*;
-import DAO.GuestDAO;
-import DAO.RoomDAO;
-import DTO.GuestDTO;
-import DTO.RoomDTO;
+import DAO.Basic_DAO.GuestDAO;
+import DAO.Basic_DAO.RoomDAO;
+import DTO.Basic_DTO.GuestDTO;
+import DTO.Basic_DTO.RoomDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;

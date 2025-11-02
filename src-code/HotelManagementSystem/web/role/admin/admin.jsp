@@ -4,8 +4,8 @@
     Author     : Admin
 --%>
 
+<%@page import="DTO.Basic_DTO.StaffDTO"%>
 <%@page import="mylib.IConstants"%>
-<%@page import="DTO.StaffDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%-- Thêm thư viện JSTL --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>

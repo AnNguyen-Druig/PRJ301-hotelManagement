@@ -5,10 +5,10 @@
 
 package controllers.Guest;
 
-import DAO.BookingRoomDAO;
-import DAO.BookingServiceDAO;
-import DTO.BookingDTO;
-import DTO.BookingServiceDTO;
+import DAO.Basic_DAO.BookingRoomDAO;
+import DAO.Basic_DAO.BookingServiceDAO;
+import DTO.Basic_DTO.BookingDTO;
+import DTO.Basic_DTO.BookingServiceDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;

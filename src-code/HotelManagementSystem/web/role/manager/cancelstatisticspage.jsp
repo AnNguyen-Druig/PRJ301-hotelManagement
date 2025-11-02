@@ -6,7 +6,7 @@
 
 <%@page import="java.util.Map"%>    <%-- <<< CHỈ CẦN IMPORT Map --%>
 <%@page import="java.util.List"%>
-<%@page import="DTO.BookingDTO"%> <%-- Hoặc DTO mới cho thống kê --%>
+<%@page import="DTO.Basic_DTO.BookingDTO"%>
 <%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

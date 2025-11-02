@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAO;
+package DAO.Basic_DAO;
 
-import DTO.BookingDTO;
-import DTO.GuestDTO;
-import DTO.RoomDTO;
+import DTO.Basic_DTO.BookingDTO;
+import DTO.Basic_DTO.GuestDTO;
+import DTO.Basic_DTO.RoomDTO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

@@ -6,8 +6,8 @@
 package controllers.Guest;
 
 import controllers.*;
-import DAO.RoomDAO;
-import DTO.RoomDTO;
+import DAO.Basic_DAO.RoomDAO;
+import DTO.Basic_DTO.RoomDTO;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;

@@ -4,10 +4,10 @@
     Author     : Admin
 --%>
 
-<%@page import="DTO.BookingDTO"%>
+<%@page import="DTO.Basic_DTO.BookingDTO"%>
+<%@page import="DTO.Basic_DTO.RoomDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
-<%@page import="DTO.RoomDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,7 +17,7 @@
         <style> table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; } </style>
     </head>
     <body>
-        <jsp:useBean id="STAFF" scope="session" class="DTO.StaffDTO"/>
+        <jsp:useBean id="STAFF" scope="session" class="DTO.Basic_DTO.StaffDTO"/>
         <h1>Welcome back, ${STAFF.fullName}</h1>
         <h4><a href="MainController?action=logout">Logout</a><h4>
         

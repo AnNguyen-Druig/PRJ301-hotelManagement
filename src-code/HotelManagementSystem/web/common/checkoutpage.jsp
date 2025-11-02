@@ -4,17 +4,17 @@
     Author     : ASUS
 --%>
 
-<%@page import="DAO.TaxDAO"%>
+<%@page import="DTO.Basic_DTO.BookingDTO"%>
+<%@page import="DAO.Basic_DAO.RoomDAO"%>
+<%@page import="DTO.Basic_DTO.RoomDTO"%>
+<%@page import="DTO.Basic_DTO.BookingServiceDTO"%>
+<%@page import="DAO.Basic_DAO.ServiceDAO"%>
+<%@page import="DTO.Basic_DTO.ServiceDTO"%>
+<%@page import="DAO.Basic_DAO.TaxDAO"%>
 <%@page import="mylib.IConstants"%>
-<%@page import="DTO.ServiceDTO"%>
-<%@page import="DAO.ServiceDAO"%>
-<%@page import="DTO.BookingServiceDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="java.time.LocalDate"%>
-<%@page import="DTO.RoomDTO"%>
-<%@page import="DAO.RoomDAO"%>
-<%@page import="DTO.BookingDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

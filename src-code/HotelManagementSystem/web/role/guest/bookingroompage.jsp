@@ -4,15 +4,15 @@
     Author     : ASUS
 --%>
 
-<%@page import="DTO.StaffDTO"%>
+<%@page import="DTO.Basic_DTO.GuestDTO"%>
+<%@page import="DTO.Basic_DTO.RoomDTO"%>
+<%@page import="DTO.Basic_DTO.StaffDTO"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.ZoneId"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.sql.Date"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="DTO.RoomDTO"%>
 <%@page import="mylib.IConstants"%>
-<%@page import="DTO.GuestDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

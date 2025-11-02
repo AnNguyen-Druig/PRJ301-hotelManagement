@@ -5,16 +5,16 @@
 
 package controllers.Guest;
 
-import DAO.BookingRoomDAO;
-import DAO.GuestDAO;
-import DAO.InvoiceDAO;
-import DAO.PaymentDAO;
-import DAO.RoomDAO;
-import DTO.BookingDTO;
-import DTO.GuestDTO;
-import DTO.InvoiceDTO;
-import DTO.PaymentDTO;
-import DTO.RoomDTO;
+import DAO.Basic_DAO.BookingRoomDAO;
+import DAO.Basic_DAO.GuestDAO;
+import DAO.Basic_DAO.InvoiceDAO;
+import DAO.Basic_DAO.PaymentDAO;
+import DAO.Basic_DAO.RoomDAO;
+import DTO.Basic_DTO.BookingDTO;
+import DTO.Basic_DTO.GuestDTO;
+import DTO.Basic_DTO.InvoiceDTO;
+import DTO.Basic_DTO.PaymentDTO;
+import DTO.Basic_DTO.RoomDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;

@@ -5,10 +5,10 @@
 
 package controllers.Service;
 
-import DAO.BookingServiceDAO;
-import DAO.ServiceDAO;
-import DTO.BookingServiceDTO;
-import DTO.ServiceDTO;
+import DAO.Basic_DAO.BookingServiceDAO;
+import DAO.Basic_DAO.ServiceDAO;
+import DTO.Basic_DTO.BookingServiceDTO;
+import DTO.Basic_DTO.ServiceDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;

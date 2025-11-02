@@ -4,6 +4,7 @@
  */
 package DTO;
 
+import DTO.Basic_DTO.GuestDTO;
 import java.sql.Date;
 
 /**

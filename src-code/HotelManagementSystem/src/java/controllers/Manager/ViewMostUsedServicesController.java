@@ -4,8 +4,8 @@
  */
 package controllers.Manager;
 
-import DAO.ServiceDAO;
-import DTO.ServiceDTO;
+import DAO.Basic_DAO.ServiceDAO;
+import DTO.Basic_DTO.ServiceDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;

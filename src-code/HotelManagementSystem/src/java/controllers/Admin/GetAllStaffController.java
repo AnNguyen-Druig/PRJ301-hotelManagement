@@ -5,8 +5,8 @@
 
 package controllers.Admin;
 
-import DAO.StaffDAO;
-import DTO.StaffDTO;
+import DAO.Basic_DAO.StaffDAO;
+import DTO.Basic_DTO.StaffDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
