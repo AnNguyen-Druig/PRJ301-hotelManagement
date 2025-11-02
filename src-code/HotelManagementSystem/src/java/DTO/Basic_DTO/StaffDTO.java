@@ -1,16 +1,14 @@
-<<<<<<< HEAD:src-code/HotelManagementSystem/src/java/DTO/Basic_DTO/StaffDTO.java
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DTO.Basic_DTO;
-=======
-package DTO;
->>>>>>> 1a9f2a6bad5e6491a32c85b92f216c246917448c:src-code/HotelManagementSystem/src/java/DTO/StaffDTO.java
 
 import java.sql.Date;
 
 public class StaffDTO {
+
     private int staffID;
     private String fullName;
     private String role;
@@ -54,11 +52,8 @@ public class StaffDTO {
         this.dateOfBirth = dateOfBirth;
         this.status = status;
     }
-    
-    
 
     // --- Bắt đầu Getters and Setters ---
-    
     public int getStaffID() {
         return staffID;
     }

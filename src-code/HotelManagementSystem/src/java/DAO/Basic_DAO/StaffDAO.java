@@ -1,12 +1,10 @@
-<<<<<<< HEAD:src-code/HotelManagementSystem/src/java/DAO/Basic_DAO/StaffDAO.java
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO.Basic_DAO;
-=======
-package DAO;
->>>>>>> 1a9f2a6bad5e6491a32c85b92f216c246917448c:src-code/HotelManagementSystem/src/java/DAO/StaffDAO.java
+
 
 import DTO.Basic_DTO.StaffDTO;
 import java.sql.Connection;
@@ -30,16 +28,16 @@ public class StaffDAO {
         ResultSet table = null;
         try {
             cn = DBUtills.getConnection();
-            
+
             // CẬP NHẬT CÂU SQL: Thêm DateOfBirth
             String sql = "SELECT StaffID, FullName, Role, Username, PasswordHash, Phone, Email, Status, Address, IDNumber, DateOfBirth "
-                       + "FROM STAFF WHERE Username = ? AND PasswordHash = ? COLLATE Latin1_General_CS_AS";
-            
+                    + "FROM STAFF WHERE Username = ? AND PasswordHash = ? COLLATE Latin1_General_CS_AS";
+
             ps = cn.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
             table = ps.executeQuery();
-            
+
             // Dùng if thay vì while vì Username là UNIQUE
             if (table != null && table.next()) {
                 int staffID = table.getInt("StaffID");
@@ -60,9 +58,15 @@ public class StaffDAO {
         } finally {
             // Đóng tất cả tài nguyên
             try {
-                if (table != null) table.close();
-                if (ps != null) ps.close();
-                if (cn != null) cn.close();
+                if (table != null) {
+                    table.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -83,7 +87,7 @@ public class StaffDAO {
             cn = DBUtills.getConnection();
             // CẬP NHẬT CÂU SQL: Thêm DateOfBirth
             String sql = "SELECT StaffID, FullName, Role, Username, Phone, Email, Status, Address, IDNumber, DateOfBirth "
-                       + "FROM STAFF ORDER BY Role, Status";
+                    + "FROM STAFF ORDER BY Role, Status";
             ps = cn.prepareStatement(sql);
             table = ps.executeQuery();
             if (table != null) {
@@ -107,10 +111,16 @@ public class StaffDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-             try {
-                if (table != null) table.close();
-                if (ps != null) ps.close();
-                if (cn != null) cn.close();
+            try {
+                if (table != null) {
+                    table.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -131,26 +141,26 @@ public class StaffDAO {
             cn = DBUtills.getConnection();
             // CẬP NHẬT CÂU SQL
             String sql = "SELECT StaffID, FullName, Role, Username, Phone, Email, Status, Address, IDNumber, DateOfBirth "
-                       + "FROM STAFF WHERE Role = ? ORDER BY Role, Status";
+                    + "FROM STAFF WHERE Role = ? ORDER BY Role, Status";
             ps = cn.prepareStatement(sql);
             ps.setString(1, role);
-            
+
             table = ps.executeQuery();
             if (table != null) {
                 while (table.next()) {
                     // CẬP NHẬT CONSTRUCTOR DTO
                     StaffDTO staff = new StaffDTO(
-                        table.getInt("StaffID"),
-                        table.getString("FullName"),
-                        table.getString("Role"),
-                        table.getString("Username"),
-                        "", // Password
-                        table.getString("Phone"),
-                        table.getString("Email"),
-                        table.getString("Address"),
-                        table.getString("IDNumber"),
-                        table.getDate("DateOfBirth"),
-                        table.getString("Status")
+                            table.getInt("StaffID"),
+                            table.getString("FullName"),
+                            table.getString("Role"),
+                            table.getString("Username"),
+                            "", // Password
+                            table.getString("Phone"),
+                            table.getString("Email"),
+                            table.getString("Address"),
+                            table.getString("IDNumber"),
+                            table.getDate("DateOfBirth"),
+                            table.getString("Status")
                     );
                     list.add(staff);
                 }
@@ -158,10 +168,16 @@ public class StaffDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-             try {
-                if (table != null) table.close();
-                if (ps != null) ps.close();
-                if (cn != null) cn.close();
+            try {
+                if (table != null) {
+                    table.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -182,26 +198,26 @@ public class StaffDAO {
             cn = DBUtills.getConnection();
             // CẬP NHẬT CÂU SQL
             String sql = "SELECT StaffID, FullName, Role, Username, Phone, Email, Status, Address, IDNumber, DateOfBirth "
-                       + "FROM STAFF WHERE Status = ? ORDER BY Role, Status";
+                    + "FROM STAFF WHERE Status = ? ORDER BY Role, Status";
             ps = cn.prepareStatement(sql);
-            ps.setString(1, status); 
-            
+            ps.setString(1, status);
+
             table = ps.executeQuery();
             if (table != null) {
                 while (table.next()) {
                     // CẬP NHẬT CONSTRUCTOR DTO
                     StaffDTO staff = new StaffDTO(
-                        table.getInt("StaffID"),
-                        table.getString("FullName"),
-                        table.getString("Role"),
-                        table.getString("Username"),
-                        "", // Password
-                        table.getString("Phone"),
-                        table.getString("Email"),
-                        table.getString("Address"),
-                        table.getString("IDNumber"),
-                        table.getDate("DateOfBirth"),
-                        table.getString("Status")
+                            table.getInt("StaffID"),
+                            table.getString("FullName"),
+                            table.getString("Role"),
+                            table.getString("Username"),
+                            "", // Password
+                            table.getString("Phone"),
+                            table.getString("Email"),
+                            table.getString("Address"),
+                            table.getString("IDNumber"),
+                            table.getDate("DateOfBirth"),
+                            table.getString("Status")
                     );
                     list.add(staff);
                 }
@@ -209,10 +225,16 @@ public class StaffDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-             try {
-                if (table != null) table.close();
-                if (ps != null) ps.close();
-                if (cn != null) cn.close();
+            try {
+                if (table != null) {
+                    table.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -233,27 +255,27 @@ public class StaffDAO {
             cn = DBUtills.getConnection();
             // CẬP NHẬT CÂU SQL
             String sql = "SELECT StaffID, FullName, Role, Username, Phone, Email, Status, Address, IDNumber, DateOfBirth "
-                       + "FROM STAFF WHERE Role = ? AND Status = ? ORDER BY Role, Status";
+                    + "FROM STAFF WHERE Role = ? AND Status = ? ORDER BY Role, Status";
             ps = cn.prepareStatement(sql);
             ps.setString(1, role);
             ps.setString(2, status);
-            
+
             table = ps.executeQuery();
             if (table != null) {
                 while (table.next()) {
                     // CẬP NHẬT CONSTRUCTOR DTO
                     StaffDTO staff = new StaffDTO(
-                        table.getInt("StaffID"),
-                        table.getString("FullName"),
-                        table.getString("Role"),
-                        table.getString("Username"),
-                        "", // Password
-                        table.getString("Phone"),
-                        table.getString("Email"),
-                        table.getString("Address"),
-                        table.getString("IDNumber"),
-                        table.getDate("DateOfBirth"),
-                        table.getString("Status")
+                            table.getInt("StaffID"),
+                            table.getString("FullName"),
+                            table.getString("Role"),
+                            table.getString("Username"),
+                            "", // Password
+                            table.getString("Phone"),
+                            table.getString("Email"),
+                            table.getString("Address"),
+                            table.getString("IDNumber"),
+                            table.getDate("DateOfBirth"),
+                            table.getString("Status")
                     );
                     list.add(staff);
                 }
@@ -261,17 +283,23 @@ public class StaffDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-             try {
-                if (table != null) table.close();
-                if (ps != null) ps.close();
-                if (cn != null) cn.close();
+            try {
+                if (table != null) {
+                    table.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return list;
     }
-    
+
     /**
      * Tạo một nhân viên mới.
      */
@@ -285,8 +313,8 @@ public class StaffDAO {
             if (cn != null) {
                 // CẬP NHẬT CÂU SQL INSERT: Thêm DateOfBirth
                 String sql = "INSERT INTO STAFF (FullName, Role, Username, PasswordHash, Phone, Email, Address, IDNumber, DateOfBirth, Status) "
-                           + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
                 ps = cn.prepareStatement(sql);
                 ps.setString(1, staff.getFullName());
                 ps.setString(2, staff.getRole());
@@ -299,19 +327,23 @@ public class StaffDAO {
                 ps.setDate(9, staff.getDateOfBirth()); // Thêm DateOfBirth
                 ps.setString(10, staff.getStatus());
 
-               result = ps.executeUpdate(); // Trả về số dòng bị ảnh hưởng
+                result = ps.executeUpdate(); // Trả về số dòng bị ảnh hưởng
             }
         } catch (Exception e) {
             e.printStackTrace();
             // Ném lỗi (ví dụ: lỗi UNIQUE) để Controller bắt
-            throw new SQLException("Lỗi khi tạo nhân viên: " + e.getMessage()); 
+            throw new SQLException("Lỗi khi tạo nhân viên: " + e.getMessage());
         } finally {
-            if (ps != null) ps.close();
-            if (cn != null) cn.close();
+            if (ps != null) {
+                ps.close();
+            }
+            if (cn != null) {
+                cn.close();
+            }
         }
         return result;
     }
-    
+
     public boolean checkUsernameExisted(String username) {
         boolean result = false;
         Connection cn = null;
@@ -339,5 +371,5 @@ public class StaffDAO {
         }
         return result;
     }
-    
+
 }
