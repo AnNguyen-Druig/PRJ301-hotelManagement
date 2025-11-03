@@ -118,7 +118,10 @@
                                 </c:if>
                             </td>
                             <td>
-                                <a href="MainController?action=editStaff&id=${s.staffID}">Sửa</a>
+                                <form action="MainController" method="POST">
+                                    <input type="hidden" name="staffID" value="${s.staffID}">
+                                    <button type="submit" value="<%= IConstants.AC_UPDATE_STAFF %>" name="action">Sửa đổi</button>
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>

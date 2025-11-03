@@ -29,17 +29,32 @@
                 String typeName = "";
                 Date checkInDate = null;
                 Date checkOutDate = null;
-                if (request.getParameter("roomtype") != null && request.getParameter("booking_room_checkInDate")!=null && request.getParameter("booking_room_checkOutDate")!=null) {
+                if (request.getParameter("roomtype") != null && request.getParameter("booking_room_checkInDate") != null && request.getParameter("booking_room_checkOutDate") != null) {
                     typeName = request.getParameter("roomtype");
-                    checkInDate =  Date.valueOf(request.getParameter("booking_room_checkInDate"));
+                    checkInDate = Date.valueOf(request.getParameter("booking_room_checkInDate"));
                     checkOutDate = Date.valueOf(request.getParameter("booking_room_checkOutDate"));
                 }
+                StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");
+                if (staff != null) {
         %>
-        
+        <form action="MainController" method="POST">
+            <button type="submit" name="action" value="<%= IConstants.AC_TURNBACK_RECEPTION%>">Quay về trang Receptionist</button>
+        </form> </br>
+        <%
+        } else {
+        %>
+        <form action="MainController" method="POST">
+            <button type="submit" name="action" value="<%= IConstants.AC_GO_BACK_GUEST_PAGE%>">Quay về trang Guest</button>
+        </form> </br>
+        <%
+            }
+        %>
+
+
         <form action="MainController" method="POST">    
             <label for="roomtype">Loai Phong</label>
             <select id="roomtype" name="roomtype" required="">
-                <option value="<%= typeName %>">---Chọn---</option>
+                <option value="<%= typeName%>">---Chọn---</option>
                 <option value="AllRoom">AllRoom</option>
                 <option value="Single">Single</option>
                 <option value="Double">Double</option> 
@@ -54,40 +69,40 @@
                 <!-- kiểm tra xem checkInDate co after today không-->
                 <% String errorCheckInDate = (String) request.getAttribute("ERRORCHECKINDATE");
                     if (errorCheckInDate != null && !errorCheckInDate.trim().isEmpty()) {
-                        out.print(errorCheckInDate +": "+ LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-                    } %>
+                        out.print(errorCheckInDate + ": " + LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                    }%>
             </span></br>
-            <input type="date" id="checkInDate" name="booking_room_checkInDate" required="" value="<%= checkInDate %>"></br>  
-                
+            <input type="date" id="checkInDate" name="booking_room_checkInDate" required="" value="<%= checkInDate%>"></br>  
+
             <label for="checkOutDate">NGAY CHECK-OUT:</label>
             <span> 
                 <!-- kiểm tra ngày checkOut phải sau ngày chekIn -->
-                 <% String errorCheckOutDate = (String) request.getAttribute("ERRORCHECKOUTDATE");
+                <% String errorCheckOutDate = (String) request.getAttribute("ERRORCHECKOUTDATE");
                     if (errorCheckOutDate != null && !errorCheckOutDate.trim().isEmpty()) {
-                        out.print(errorCheckOutDate +": "+ (checkInDate));
-                    } %>
+                        out.print(errorCheckOutDate + ": " + (checkInDate));
+                    }%>
             </span> </br> 
-            <input type="date" id="checkOutDate" name="booking_room_checkOutDate" required=""  value="<%= checkOutDate %>"></br>
-            
-            <input type="submit" value="<%= IConstants.AC_FILTER_ROOM %>" name="action">
+            <input type="date" id="checkOutDate" name="booking_room_checkOutDate" required=""  value="<%= checkOutDate%>"></br>
+
+            <input type="submit" value="<%= IConstants.AC_FILTER_ROOM%>" name="action">
         </form>
-            
-            
-            
-            
-<!--         TH1: khi vừa bấm booking ở trang guest.jsp thì sẽ show ra hết các phòng status = "Available" (ko cần roomType, CheckInDate, CheckOutDate);
-             TH2: show ra tất cả các phòng thoả status = "Available" và roomType và checkInDate checkOutDtae-->
-<!--         TH3: show ra tất cả các phòng thoả từ ngày checkin đến checkout-->
+
+
+
+
+        <!--         TH1: khi vừa bấm booking ở trang guest.jsp thì sẽ show ra hết các phòng status = "Available" (ko cần roomType, CheckInDate, CheckOutDate);
+                     TH2: show ra tất cả các phòng thoả status = "Available" và roomType và checkInDate checkOutDtae-->
+        <!--         TH3: show ra tất cả các phòng thoả từ ngày checkin đến checkout-->
 
         <%
             //Hiển thị thông tin tìm kiếm
-            if(typeName!="" && checkInDate!=null && checkOutDate!=null){
-                %>
-                <h3>Bạn vừa tìm kiếm: </h3>
-                <h4>Loại phòng: <%= typeName %></h4>
-                <h4>Ngày CheckIn: <%= checkInDate %></h4>
-                <h4>Ngày CheckOut: <%= checkOutDate %></h4>  
-                <%
+            if (typeName != "" && checkInDate != null && checkOutDate != null) {
+        %>
+        <h3>Bạn vừa tìm kiếm: </h3>
+        <h4>Loại phòng: <%= typeName%></h4>
+        <h4>Ngày CheckIn: <%= checkInDate%></h4>
+        <h4>Ngày CheckOut: <%= checkOutDate%></h4>  
+        <%
             }
             //Hiển thị danh sách phòng
             ArrayList<RoomDTO> roomList = (ArrayList<RoomDTO>) request.getAttribute("ALLROOM");
@@ -100,10 +115,10 @@
         <p>PricePerNight: <%= String.format("%,.0f VND", r.getPricePerNight()).replace(',', '.')%></p>
         <form action="MainController" method="POST">
             <input type="hidden" name="roomID" value="<%= r.getRoomID()%>">
-        <!-- Nếu bấm gửi qua mà checkInDate và checkOutDate đều = null thì sẽ gửi error về thông báo cần phải chọn checkIn và checkOut-->
-            <input type="hidden" name="booking_room_checkInDate" value=" <%= checkInDate %>">
-            <input type="hidden" name="booking_room_checkOutDate" value=" <%= checkOutDate %>">
-            <button type="submit" value="<%= IConstants.AC_BOOKING_ROOM %>" name="action">Dat Phong</button>
+            <!-- Nếu bấm gửi qua mà checkInDate và checkOutDate đều = null thì sẽ gửi error về thông báo cần phải chọn checkIn và checkOut-->
+            <input type="hidden" name="booking_room_checkInDate" value=" <%= checkInDate%>">
+            <input type="hidden" name="booking_room_checkOutDate" value=" <%= checkOutDate%>">
+            <button type="submit" value="<%= IConstants.AC_BOOKING_ROOM%>" name="action">Dat Phong</button>
         </form>
 
         <%

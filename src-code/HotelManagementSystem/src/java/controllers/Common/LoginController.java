@@ -89,7 +89,7 @@ public class LoginController extends HttpServlet {
                         if (guest != null) {
                             session.setAttribute("USER", guest);
 
-                            String url = IConstants.GUEST_PAGE;
+                            String url = IConstants.CTL_VIEW_BOOKING;
                             request.getRequestDispatcher(url).forward(request, response);
                         } else {
                             request.setAttribute("ERROR", IConstants.ERR_INVALID_LOGIN);

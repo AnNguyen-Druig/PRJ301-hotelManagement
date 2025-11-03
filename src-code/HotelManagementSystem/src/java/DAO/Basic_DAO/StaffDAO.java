@@ -5,7 +5,6 @@
  */
 package DAO.Basic_DAO;
 
-
 import DTO.Basic_DTO.StaffDTO;
 import java.sql.Connection;
 import java.sql.Date; // Import java.sql.Date
@@ -372,4 +371,117 @@ public class StaffDAO {
         return result;
     }
 
+    public StaffDTO getStaffByID(int staffID) {
+        StaffDTO result = null;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "SELECT *\n"
+                        + "FROM dbo.STAFF \n"
+                        + "WHERE StaffID = ?";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setInt(1, staffID);
+                ResultSet table = st.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        String fullName = table.getString("FullName");
+                        String role = table.getString("Role");
+                        String userName = table.getString("Username");
+                        String password = table.getString("PasswordHash");
+                        String phone = table.getString("Phone");
+                        String email = table.getString("Email");
+                        String address = table.getString("Address");
+                        String idNumber = table.getString("IDNumber");
+                        Date dateOfBirth = table.getDate("DateOfBirth");
+                        String status = table.getString("Status");
+                        result = new StaffDTO(staffID, fullName, role, userName, password, phone, email, address, idNumber, dateOfBirth, status);
+                    }
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+    }
+
+    public int updateStaff(int staffID, String userName, String password, String phone, String email, String address, String role, Date DateOfBirth, String status) {
+        int result = 0;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "UPDATE STAFF \n"
+                        + "SET Role = ?,\n"
+                        + "	Username = ?,\n"
+                        + "	PasswordHash = ?,\n"
+                        + "	Phone = ?,\n"
+                        + "	Email = ?,\n"
+                        + "	Address = ?,\n"
+                        + "	DateOfBirth = ?,\n"
+                        + "	Status = ?\n"
+                        + "WHERE StaffID = ?";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setString(1, role);
+                st.setString(2, userName);
+                st.setString(3, password);
+                st.setString(4, phone);
+                st.setString(5, email);
+                st.setString(6, address);
+                st.setDate(7, DateOfBirth);
+                st.setString(8, status);
+                st.setInt(9, staffID);
+                result = st.executeUpdate();
+            }
+        } catch (Exception e) {
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public String getUsernameByStaffID(int staffID) {
+        String result = "";
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "SELECT Username\n"
+                        + "FROM dbo.STAFF \n"
+                        + "WHERE StaffID = ?";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setInt(1, staffID);
+                ResultSet table = st.executeQuery();
+                if(table!=null) {
+                    while(table.next()) {
+                        result = table.getString("Username");
+                    }
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 }

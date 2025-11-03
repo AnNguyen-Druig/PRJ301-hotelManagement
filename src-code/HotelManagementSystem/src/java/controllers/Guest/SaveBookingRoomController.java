@@ -76,10 +76,10 @@ public class SaveBookingRoomController extends HttpServlet {
                 
                 if(saveBookingRoom!=0) {
                     request.setAttribute("MSG", IConstants.SUCC_SAVE_BOOKING_ROOM);
-                    request.getRequestDispatcher(IConstants.BOOKING_ROOM_REGISTER_PAGE).forward(request, response);
+                    request.getRequestDispatcher(IConstants.CTL_BOOKING_ROOM).forward(request, response);
                 } else {
                     request.setAttribute("MSG", IConstants.ERR_SAVE_BOOKING_ROOM);
-                    request.getRequestDispatcher(IConstants.BOOKING_ROOM_REGISTER_PAGE).forward(request, response);
+                    request.getRequestDispatcher(IConstants.CTL_BOOKING_ROOM).forward(request, response);
                 }            
             }
         } catch (Exception e) {

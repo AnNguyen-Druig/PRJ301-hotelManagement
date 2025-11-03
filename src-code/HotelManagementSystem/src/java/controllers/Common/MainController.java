@@ -174,7 +174,7 @@ public class MainController extends HttpServlet {
                     url = IConstants.CTL_FILTER_STAFF;
                     break;
                 case IConstants.AC_GO_BACK_GUEST_PAGE:
-                    url = IConstants.GUEST_PAGE;
+                    url = IConstants.CTL_VIEW_BOOKING;
                     break;
                 case IConstants.AC_HOUSEKEEPING_REPORT:
                     url = IConstants.HOUSEKEEPING_REPORT_PAGE;
@@ -184,6 +184,15 @@ public class MainController extends HttpServlet {
                     break;
                 case IConstants.AC_SIGN_UP_STAFF:
                     url = IConstants.CTL_SIGN_UP_STAFF;
+                    break;
+                case IConstants.AC_UPDATE_STAFF:
+                    url = IConstants.CTL_GET_STAFF;
+                    break;
+                case IConstants.AC_EDIT_STAFF:
+                    url = IConstants.CTL_SIGN_UP_STAFF;
+                    break;
+                case IConstants.AC_BACK_TO_ADMIN_PAGE:
+                    url = IConstants.CTL_GET_ALL_STAFF;
                     break;
             }
         } catch (Exception e) {
