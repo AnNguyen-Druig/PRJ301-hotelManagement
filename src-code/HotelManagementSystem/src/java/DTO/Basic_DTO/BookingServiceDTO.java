@@ -18,6 +18,7 @@ public class BookingServiceDTO {
     private Date serviceDate;
     private String status;
     private int AssignedStaff;
+    //Chưa có thuộc tính RequestTime, thuộc tính này dùng để làm gì?
 
     public BookingServiceDTO() {
     }

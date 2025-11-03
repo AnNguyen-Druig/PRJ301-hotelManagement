@@ -4,7 +4,7 @@
  */
 package controllers.Receptionist;
 
-import DAO.Basic_DAO.BookingRoomDAO;
+import DAO.Basic_DAO.BookingDAO;
 import DTO.Basic_DTO.BookingDTO;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class ShowBookingInReception extends HttpServlet {
             }
 
             // 2. Khởi tạo DAO và list
-            BookingRoomDAO bookingDAO = new BookingRoomDAO();
+            BookingDAO bookingDAO = new BookingDAO();
             ArrayList<BookingDTO> list = null; 
 
             // 3. Gọi DAO dựa trên selectedStatus

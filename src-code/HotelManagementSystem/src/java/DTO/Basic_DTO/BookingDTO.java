@@ -19,6 +19,7 @@ public class BookingDTO {
     private Date checkOutDate;
     private Date bookingDate;
     private String status;
+    //Các phần ko thuộc table BOOKING (trong Bookingdetail - Receptionist)
     private String guestName;
     private String roomNumber;
     private String roomType;

@@ -6,7 +6,7 @@
 package controllers.Guest;
 
 import controllers.*;
-import DAO.Basic_DAO.BookingRoomDAO;
+import DAO.Basic_DAO.BookingDAO;
 import DTO.Basic_DTO.BookingDTO;
 import DTO.Basic_DTO.GuestDTO;
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class ViewBookingController extends HttpServlet {
             HttpSession session = request.getSession();
             GuestDTO guest = (GuestDTO) session.getAttribute("USER");
             int guestID = guest.getGuestID();
-            BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
+            BookingDAO bookingRoomDAO = new BookingDAO();
             ArrayList<BookingDTO> listAllBooking =  bookingRoomDAO.getAllBookingByGuestID(guestID);
             ArrayList<BookingDTO> listReservedBooking = new ArrayList<>();
             ArrayList<BookingDTO> listCheckInBooking = new ArrayList<>();

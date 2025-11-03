@@ -20,6 +20,7 @@ public class StaffDTO {
     private String idNumber;
     private Date dateOfBirth; // Cột mới
     private String status;
+    //Đủ các thuộc tính
 
     // Constructor rỗng
     public StaffDTO() {

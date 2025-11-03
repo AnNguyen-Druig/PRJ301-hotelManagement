@@ -10,10 +10,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.TreeMap;
 import mylib.DBUtills;
 
 /**
@@ -374,103 +370,5 @@ public class RoomDAO {
             }
         }
         return result;
-    }
-
-    public int countTotalRoom() {
-        int result = 0;
-        Connection cn = null;
-        try {
-            cn = DBUtills.getConnection();
-            String sql = "SELECT COUNT(RoomID) as [Tổng số phòng] FROM ROOM";
-            PreparedStatement ps = cn.prepareStatement(sql);
-            ResultSet table = ps.executeQuery();
-            if (table != null && table.next()) {
-                int totalBooking = table.getInt("Tổng số phòng");
-                result = totalBooking;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (cn != null) {
-                    cn.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return result;
-    }
-
-    public Map<String, Integer> countTotalRoomByRoomType() {
-        Map<String, Integer> list = new LinkedHashMap<>();
-        Connection cn = null;
-        try {
-            cn = DBUtills.getConnection();
-            String sql = "SELECT rt.TypeName, COUNT(r.RoomID) as [Tổng số phòng] FROM ROOM r JOIN ROOM_TYPE rt ON r.RoomTypeID = rt.RoomTypeID "
-                    + "GROUP BY rt.TypeName ORDER BY [Tổng số phòng] DESC";
-            PreparedStatement ps = cn.prepareStatement(sql);
-            ResultSet table = ps.executeQuery();
-            if (table != null) {
-                while (table.next()) {
-                    String typeName = table.getString("TypeName");
-                    int totalRoom = table.getInt("Tổng số phòng");
-                    list.put(typeName, totalRoom);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (cn != null) {
-                    cn.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        return list;
-    }
-
-    public Map<String, Object> getMonthlyOccupancyPercentage(int month, int year) {
-        Map<String, Object> list = new HashMap<>();
-        String sql = "WITH MonthlyBookedRooms AS ("
-                + " SELECT COUNT(DISTINCT RoomID) AS [Số phòng đang được đặt] "
-                + " FROM BOOKING "
-                + " WHERE MONTH(CheckInDate) = ? AND YEAR(CheckInDate) = ? "
-                + " AND Status IN ('Reserved', 'CheckIn', 'Complete', 'CheckOut')"
-                + "), "
-                + "TotalHotelRooms AS ("
-                + " SELECT COUNT(RoomID) AS [Tổng số phòng] FROM ROOM"
-                + ") "
-                + "SELECT "
-                + " ISNULL(m.[Số phòng đang được đặt], 0) AS [Số phòng đang được đặt], "
-                + " t.[Tổng số phòng], "
-                + " CASE "
-                + "     WHEN t.[Tổng số phòng] = 0 THEN 0.0 "
-                + "     ELSE (CAST(ISNULL(m.[Số phòng đang được đặt], 0) AS DECIMAL(10, 2)) * 100.0 / t.[Tổng số phòng]) "
-                + " END AS [Tỷ lệ phòng được đặt] "
-                + "FROM TotalHotelRooms t, MonthlyBookedRooms m";
-
-        // Dùng try-with-resources để tự động đóng tài nguyên
-        try ( Connection cn = DBUtills.getConnection();  PreparedStatement ps = cn.prepareStatement(sql)) {
-
-            ps.setInt(1, month);
-            ps.setInt(2, year);
-
-            try ( ResultSet rs = ps.executeQuery()) {
-                // Câu truy vấn này luôn trả về 1 hàng
-                if (rs.next()) {
-                    // Lấy kết quả từ SQL và đặt vào Map
-                    list.put("Số phòng đang được đặt", rs.getInt("Số phòng đang được đặt"));
-                    list.put("Tổng số phòng", rs.getInt("Tổng số phòng"));
-                    list.put("Tỷ lệ phòng được đặt", rs.getDouble("Tỷ lệ phòng được đặt"));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace(); // Luôn in lỗi ra
-        }
-        return list; // Trả về Map (có thể rỗng nếu có lỗi)
     }
 }

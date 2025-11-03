@@ -1,6 +1,6 @@
 package controllers.Receptionist;
 
-import DAO.Basic_DAO.BookingRoomDAO;
+import DAO.Basic_DAO.BookingDAO;
 
 import DAO.Basic_DAO.RoomDAO; // Đảm bảo bạn đã import RoomDAO
 
@@ -41,7 +41,7 @@ public class UpdateBookingInReceptionController extends HttpServlet {
             int bookingID = Integer.parseInt(bookingID_str);
 
             // 2. Khởi tạo DAO
-            BookingRoomDAO bookingDAO = new BookingRoomDAO();
+            BookingDAO bookingDAO = new BookingDAO();
             RoomDAO roomDAO = new RoomDAO();
 
             // 3. Lấy dữ liệu

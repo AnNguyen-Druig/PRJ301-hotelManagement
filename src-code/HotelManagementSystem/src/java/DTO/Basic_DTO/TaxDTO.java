@@ -15,6 +15,7 @@ public class TaxDTO {
     private double taxValue;
     private String description;
     private Date LastUpdated;
+    //Thiếu thuộc tính TaxID, tại sao lại ko thêm
 
     public TaxDTO() {
     }

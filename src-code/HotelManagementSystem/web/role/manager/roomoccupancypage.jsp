@@ -3,7 +3,7 @@
     Created on : Oct 27, 2025, 1:22:25 PM
     Author     : Admin
 --%>
-<%@page import="DTO.RoomOccupancyDTO"%>
+<%@page import="DTO.Manager_DTO.RoomOccupancyDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.Calendar"%>
@@ -112,11 +112,6 @@
             List<RoomOccupancyDTO> top10RoomList = (List<RoomOccupancyDTO>) request.getAttribute("ROOM_OCCUPANCY_LIST");
             String errMsg = (String) request.getAttribute("ERROR");
         %>
-
-        <%-- Hiển thị lỗi chung (nếu có) --%>
-        <% if (errMsg != null && !errMsg.isEmpty()) {%>
-        <p class="error-message">Lỗi: <%= errMsg%></p>
-        <% }%>
 
         <%-- Bố cục lưới cho các báo cáo --%>
         <div class.report-grid">

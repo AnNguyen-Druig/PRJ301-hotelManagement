@@ -5,7 +5,7 @@
 
 package controllers.Guest;
 
-import DAO.Basic_DAO.BookingRoomDAO;
+import DAO.Basic_DAO.BookingDAO;
 import DAO.Basic_DAO.GuestDAO;
 import DAO.Basic_DAO.InvoiceDAO;
 import DAO.Basic_DAO.PaymentDAO;
@@ -47,7 +47,7 @@ public class SavePaymentAndInvoiceController extends HttpServlet {
         double total = Double.parseDouble(request.getParameter("total").trim());
         String paymentMethod = request.getParameter("paymentMethod");
         
-        BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
+        BookingDAO bookingRoomDAO = new BookingDAO();
         boolean updateBookingRoomStatus = bookingRoomDAO.updateStatusBooking(bookingID, "CheckOut");
         BookingDTO bookingRoom = bookingRoomDAO.getBookingByBookingIDInReception(bookingID);
         

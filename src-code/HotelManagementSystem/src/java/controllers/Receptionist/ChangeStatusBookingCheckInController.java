@@ -4,7 +4,7 @@
  */
 package controllers.Receptionist;
 
-import DAO.Basic_DAO.BookingRoomDAO;
+import DAO.Basic_DAO.BookingDAO;
 import DAO.Basic_DAO.RoomDAO;
 import DTO.Basic_DTO.BookingDTO;
 import java.io.IOException;
@@ -57,7 +57,7 @@ public class ChangeStatusBookingCheckInController extends HttpServlet {
                 Date checkInDate_value = Date.valueOf(checkInDate);
                 Date checkOutDate_value = Date.valueOf(checkOutDate);
                 
-                BookingRoomDAO bookingDAO = new BookingRoomDAO();   //Khởi tạo bookingDAO để lưu thay đổi: roomID, checkindate, checkoutdate, status
+                BookingDAO bookingDAO = new BookingDAO();   //Khởi tạo bookingDAO để lưu thay đổi: roomID, checkindate, checkoutdate, status
                 RoomDAO roomDAO = new RoomDAO();                    //Khởi tạo roomDAO để lưu thay đổi: roomID và status: Occupied
                 
                 //Khai báo 2 biến để kiểm tra đã Update Status hay chưa

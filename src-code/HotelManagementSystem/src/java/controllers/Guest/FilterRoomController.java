@@ -4,11 +4,10 @@
  */
 package controllers.Guest;
 
-import controllers.*;
+
 import DAO.Basic_DAO.RoomDAO;
 import DTO.Basic_DTO.RoomDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
 import javax.servlet.ServletException;

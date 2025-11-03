@@ -14,6 +14,7 @@ public class RoomDTO {
     private String roomNumber;
     private int roomTypeID;
     private String roomStatus;
+    //Dư các thuộc tính bên dưới, nên tách Room và RoomType ra
     private String typeName;
     private int capacity;
     private double pricePerNight;

@@ -5,7 +5,7 @@
 
 package controllers.Service;
 
-import DAO.Basic_DAO.BookingRoomDAO;
+import DAO.Basic_DAO.BookingDAO;
 import DAO.Basic_DAO.RoomDAO;
 import DAO.Basic_DAO.ServiceDAO;
 import DTO.Basic_DTO.BookingDTO;
@@ -39,7 +39,7 @@ public class GetRoomService extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {  
-            BookingRoomDAO dao = new BookingRoomDAO();
+            BookingDAO dao = new BookingDAO();
             ArrayList<BookingDTO> list = dao.getAllBookingRoom();
             if(list != null && !list.isEmpty()){
                 request.setAttribute("ALLROOM", list);

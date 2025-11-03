@@ -4,7 +4,7 @@
  */
 package controllers.Receptionist;
 
-import DAO.Basic_DAO.BookingRoomDAO;
+import DAO.Basic_DAO.BookingDAO;
 import DAO.Basic_DAO.RoomDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -50,7 +50,7 @@ public class ChangeStatusBookingCancelController extends HttpServlet {
                 int roomID_value = Integer.parseInt(roomID);
 
                 //Khai báo các DAO cần thiết
-                BookingRoomDAO bookingDAO = new BookingRoomDAO();
+                BookingDAO bookingDAO = new BookingDAO();
                 RoomDAO roomDAO = new RoomDAO();
 
                 //Khai báo biến để kiểm tra đã update status hay chưa

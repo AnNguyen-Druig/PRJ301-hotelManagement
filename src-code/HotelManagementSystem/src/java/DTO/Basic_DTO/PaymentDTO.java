@@ -17,6 +17,7 @@ public class PaymentDTO {
     private double amount;
     private String paymentMethod;
     private String status;
+    //Đủ các thuộc tính
 
     public PaymentDTO() {
     }

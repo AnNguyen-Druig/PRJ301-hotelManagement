@@ -13,10 +13,11 @@ import java.sql.Date;
 public class HouseKeepingTaskDTO {
     private int taskID;
     private int roomID;
-    private String assignedStaff;
+    private String assignedStaff;   //Trong table DB, là kiểu dữ liệu int
     private Date taskDate;
     private String cleaningType;
     private String status;
+    //Chưa có thuộc tính Notes, thuộc tính này dùng để làm gì
 
     public HouseKeepingTaskDTO(int taskID, int roomID, String assignedStaff, Date taskDate, String cleaningType, String status) {
         this.taskID = taskID;

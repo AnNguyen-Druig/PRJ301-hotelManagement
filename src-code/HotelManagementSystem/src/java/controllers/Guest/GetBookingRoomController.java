@@ -5,7 +5,7 @@
 
 package controllers.Guest;
 
-import DAO.Basic_DAO.BookingRoomDAO;
+import DAO.Basic_DAO.BookingDAO;
 import DAO.Basic_DAO.BookingServiceDAO;
 import DTO.Basic_DTO.BookingDTO;
 import DTO.Basic_DTO.BookingServiceDTO;
@@ -41,7 +41,7 @@ public class GetBookingRoomController extends HttpServlet {
         int bookingID = Integer.parseInt(request.getParameter("bookingId").trim());
         
         //lấy đối tượng BookingRoom
-        BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
+        BookingDAO bookingRoomDAO = new BookingDAO();
         BookingDTO bookingRoom = bookingRoomDAO.getBookingByBookingIDInReception(bookingID);
         request.setAttribute("BOOKING_ROOM", bookingRoom);
         

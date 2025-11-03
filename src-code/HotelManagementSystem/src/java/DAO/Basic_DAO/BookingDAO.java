@@ -20,7 +20,7 @@ import mylib.DBUtills;
  *
  * @author Admin
  */
-public class BookingRoomDAO {
+public class BookingDAO {
 
     public int saveBookingRoom(BookingDTO booking) {
         int result = 0;
@@ -356,11 +356,13 @@ public class BookingRoomDAO {
     public int countTotalBooking() {
         int result = 0;
         Connection cn = null;
+        PreparedStatement ps = null;
+        ResultSet table = null;
         try {
             cn = DBUtills.getConnection();
             String sql = "SELECT COUNT(BookingID) as [Tổng số booking đã tạo] FROM BOOKING";
-            PreparedStatement ps = cn.prepareStatement(sql);
-            ResultSet table = ps.executeQuery();
+            ps = cn.prepareStatement(sql);
+            table = ps.executeQuery();
             if (table != null && table.next()) {
                 int totalBooking = table.getInt("Tổng số booking đã tạo");
                 result = totalBooking;
@@ -372,6 +374,12 @@ public class BookingRoomDAO {
                 if (cn != null) {
                     cn.close();
                 }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (table != null) {
+                    table.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -382,11 +390,13 @@ public class BookingRoomDAO {
     public int countTotalCancelBooking() {
         int result = 0;
         Connection cn = null;
+        PreparedStatement ps = null;
+        ResultSet table = null;
         try {
             cn = DBUtills.getConnection();
             String sql = "SELECT COUNT(BookingID) AS [Tổng số lượt hủy] FROM BOOKING WHERE Status = 'Canceled'";
-            PreparedStatement ps = cn.prepareStatement(sql);
-            ResultSet table = ps.executeQuery();
+            ps = cn.prepareStatement(sql);
+            table = ps.executeQuery();
             if (table != null && table.next()) {
                 int totalBooking = table.getInt("Tổng số lượt hủy");
                 result = totalBooking;
@@ -397,6 +407,12 @@ public class BookingRoomDAO {
             try {
                 if (cn != null) {
                     cn.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (table != null) {
+                    table.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -408,14 +424,16 @@ public class BookingRoomDAO {
     public double rateCancelBooking() {
         double result = 0;
         Connection cn = null;
+        PreparedStatement ps = null;
+        ResultSet table = null;
         try {
             cn = DBUtills.getConnection();
             String sql = "SELECT CASE WHEN COUNT(BookingID) = 0 THEN 0.0 \n"
                     + "ELSE (CAST(SUM(CASE WHEN Status = 'Canceled' THEN 1 ELSE 0 END) AS DECIMAL(10, 2)) * 100.0 / COUNT(BookingID)) \n"
                     + " END AS [Tỷ lệ hủy phòng]\n"
                     + "FROM BOOKING";
-            PreparedStatement ps = cn.prepareStatement(sql);
-            ResultSet table = ps.executeQuery();
+            ps = cn.prepareStatement(sql);
+            table = ps.executeQuery();
             if (table != null && table.next()) {
                 double rateCancelBooking = table.getDouble("Tỷ lệ hủy phòng");
                 result = rateCancelBooking;
@@ -427,6 +445,12 @@ public class BookingRoomDAO {
                 if (cn != null) {
                     cn.close();
                 }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (table != null) {
+                    table.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -437,13 +461,15 @@ public class BookingRoomDAO {
     public int countTotalCancelBookingInRange(Date startDate, Date endDate) {
         int result = 0;
         Connection cn = null;
+        PreparedStatement ps = null;
+        ResultSet table = null;
         try {
             cn = DBUtills.getConnection();
             String sql = "SELECT COUNT(BookingID) AS [Tổng số lượt hủy] FROM BOOKING WHERE Status = 'Canceled' AND CheckInDate BETWEEN ? AND ?";
-            PreparedStatement ps = cn.prepareStatement(sql);
+            ps = cn.prepareStatement(sql);
             ps.setDate(1, startDate);
             ps.setDate(2, endDate);
-            ResultSet table = ps.executeQuery();
+            table = ps.executeQuery();
             if (table != null && table.next()) {
                 int totalBooking = table.getInt("Tổng số lượt hủy");
                 result = totalBooking;
@@ -455,6 +481,12 @@ public class BookingRoomDAO {
                 if (cn != null) {
                     cn.close();
                 }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (table != null) {
+                    table.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -465,6 +497,8 @@ public class BookingRoomDAO {
     public Map<String, Integer> countTotalCancelBookingInMonthYear() {
         Map<String, Integer> list = new HashMap<>();
         Connection cn = null;
+        PreparedStatement ps = null;
+        ResultSet table = null;
         try {
             cn = DBUtills.getConnection();
             String sql = "SELECT \n"
@@ -474,8 +508,8 @@ public class BookingRoomDAO {
                     + "WHERE Status = 'Canceled'\n"
                     + "GROUP BY FORMAT(BookingDate, 'yyyy-MM')\n"
                     + "ORDER BY [Tháng/Năm] DESC";
-            PreparedStatement ps = cn.prepareStatement(sql);
-            ResultSet table = ps.executeQuery();
+            ps = cn.prepareStatement(sql);
+            table = ps.executeQuery();
             if (table != null) {
                 while (table.next()) {
                     String monthYear = table.getString("Tháng/Năm");
@@ -490,6 +524,12 @@ public class BookingRoomDAO {
                 if (cn != null) {
                     cn.close();
                 }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (table != null) {
+                    table.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -500,6 +540,8 @@ public class BookingRoomDAO {
     public Map<String, Integer> countTotalCancelBookingByRoomType() {
         Map<String, Integer> list = new HashMap<>();
         Connection cn = null;
+        PreparedStatement ps = null;
+        ResultSet table = null;
         try {
             cn = DBUtills.getConnection();
             String sql = "SELECT\n"
@@ -514,11 +556,11 @@ public class BookingRoomDAO {
                     + "WHERE\n"
                     + "    b.Status = 'Canceled'\n"
                     + "GROUP BY\n"
-                    + "    rt.TypeName -- Nhóm theo tên loại phòng\n"
+                    + "    rt.TypeName\n"
                     + "ORDER BY\n"
                     + "    [Tổng số lượt hủy] DESC";
-            PreparedStatement ps = cn.prepareStatement(sql);
-            ResultSet table = ps.executeQuery();
+            ps = cn.prepareStatement(sql);
+            table = ps.executeQuery();
             if (table != null) {
                 while (table.next()) {
                     String roomType = table.getString("TypeName");
@@ -532,6 +574,12 @@ public class BookingRoomDAO {
             try {
                 if (cn != null) {
                     cn.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (table != null) {
+                    table.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
