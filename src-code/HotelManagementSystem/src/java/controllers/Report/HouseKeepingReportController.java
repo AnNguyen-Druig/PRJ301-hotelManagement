@@ -51,13 +51,35 @@ public class HouseKeepingReportController extends HttpServlet {
                     }
                 break;
                 
+                case "report2":
+                    list = dao.getReport2();
+                    if(list != null && !list.isEmpty()){
+                        request.setAttribute("REPORT_2_LIST", list);
+                        request.getRequestDispatcher("MainController?action=housereport").forward(request, response);
+                    }else{
+                        request.setAttribute("Error", "Can't load report 2 please check database");
+                        request.getRequestDispatcher("MainController?action=housereport").forward(request, response);
+                    }
+                break;
+                
                 case "report3":
                     list = dao.getReport3();
                     if(list != null && !list.isEmpty()){
                         request.setAttribute("REPORT_3_LIST", list);
                         request.getRequestDispatcher("MainController?action=housereport").forward(request, response);
                     }else{
-                        request.setAttribute("Error", "Can't load report 1 please check database");
+                        request.setAttribute("Error", "Can't load report 3 please check database");
+                        request.getRequestDispatcher("MainController?action=housereport").forward(request, response);
+                    }
+                break;
+                
+                case "report4":
+                    list = dao.getReport4();
+                    if(list != null && !list.isEmpty()){
+                        request.setAttribute("REPORT_4_LIST", list);
+                        request.getRequestDispatcher("MainController?action=housereport").forward(request, response);
+                    }else{
+                        request.setAttribute("Error", "Can't load report 4 please check database");
                         request.getRequestDispatcher("MainController?action=housereport").forward(request, response);
                     }
                 break;
@@ -68,7 +90,7 @@ public class HouseKeepingReportController extends HttpServlet {
                         request.setAttribute("REPORT_5_LIST", list);
                         request.getRequestDispatcher("MainController?action=housereport").forward(request, response);
                     }else{
-                        request.setAttribute("Error", "Can't load report 1 please check database");
+                        request.setAttribute("Error", "Can't load report 5 please check database");
                         request.getRequestDispatcher("MainController?action=housereport").forward(request, response);
                     }
                 break;

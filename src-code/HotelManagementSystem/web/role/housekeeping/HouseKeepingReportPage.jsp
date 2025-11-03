@@ -119,7 +119,7 @@
         </style>        
     </head>
     <body>
-        <jsp:useBean id="STAFF" scope="session" class="DTO.StaffDTO" />
+        <jsp:useBean id="STAFF" scope="session" class="DTO.Basic_DTO.StaffDTO" />
             <div class="header">
                 <h1>Hello, ${STAFF.fullName} - Report Dashboard</h1>
                 <p>Chọn báo cáo để xem chi tiết</p>
@@ -195,6 +195,47 @@
                 </table>
             </div>
                     
+            <!-- Report 2 Content -->
+            <div id="report2" class="report-content <%= ("report2".equals(showReport) || "all".equals(showReport)) ? "active" : "" %>" <% if ("all".equals(showReport)) { %>style="display: block;"<% } %>>
+                <h3>Room Cleaning Report</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Room Number</th>
+                            <th>Status</th>
+                            <th>Priority</th>
+                            <th>Assigned Staff</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                        List<HouseKeepingReportDTO> report2List = (List<HouseKeepingReportDTO>) request.getAttribute("REPORT_2_LIST");
+                        if (report2List != null && !report2List.isEmpty()) {
+                            for (HouseKeepingReportDTO s : report2List) {
+                    %>
+                        <tr>
+                            <td><%= s.getRoomNumber() %></td>
+                            <td><%= s.getStatus() %></td>
+                            <td><%= s.getPriority() %></td>
+                            
+                        <% if(s.getStaffName() != null){
+                         %> <td><%= s.getStaffName() %> </td><%
+                            }else{
+                            %>
+                            <td>Unassigned</td>
+                            <%
+                            }%>
+                        </tr>
+                    <%
+                            }
+                        } else {
+                    %>
+                        <tr><td colspan="4" class="no-data">No data available</td></tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+                    
                     
             <!-- Report 3 Content -->
             <div id="report3" class="report-content <%= ("report3".equals(showReport) || "all".equals(showReport)) ? "active" : "" %>" <% if ("all".equals(showReport)) { %>style="display: block;"<% } %>>
@@ -221,6 +262,49 @@
                             <td><%= s.getStatus() %></td>
                             <td><%= s.getDate() %></td>
                             <td><%= s.getCheckIn() %></td>
+                        </tr>
+                    <%
+                            }
+                        } else {
+                    %>
+                        <tr><td colspan="5" class="no-data">No data available</td></tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+            
+                    
+            <!-- Report 4 Content -->
+            <div id="report4" class="report-content <%= ("report4".equals(showReport) || "all".equals(showReport)) ? "active" : "" %>" <% if ("all".equals(showReport)) { %>style="display: block;"<% } %>>
+                <h3>Room Cleaning Report</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Room Number</th>
+                            <th>Issue Description</th>
+                            <th>Report Date</th>
+                            <th>Status</th>
+                            <th>Fixed By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                        List<HouseKeepingReportDTO> report4List = (List<HouseKeepingReportDTO>) request.getAttribute("REPORT_4_LIST");
+                        if (report4List != null && !report4List.isEmpty()) {
+                            for (HouseKeepingReportDTO s : report4List) {
+                    %>
+                        <tr>
+                            <td><%= s.getRoomNumber() %></td>
+                            <td><%= s.getIssueDescription() %></td>
+                            <td><%= s.getReportDate() %></td>
+                            <td><%= s.getStatus() %></td>
+                            <% if(s.getStaffName() != null){
+                         %> <td><%= s.getStaffName() %> </td><%
+                            }else{
+                            %>
+                            <td>Unassigned</td>
+                            <%
+                            }%>
                         </tr>
                     <%
                             }

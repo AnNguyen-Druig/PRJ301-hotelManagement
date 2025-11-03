@@ -55,6 +55,69 @@ public class HouseKeepingReportDAO {
         return result;
     }
     
+    public ArrayList<HouseKeepingReportDTO> getReport2(){
+        Connection cn = null;
+        ArrayList<HouseKeepingReportDTO> result = new ArrayList<>();
+        try{
+            cn = DBUtills.getConnection();
+            String sql = "SELECT \n"
+                    + "    R.RoomNumber,\n"
+                    + "    R.Status AS RoomStatus,\n"
+                    + "    CASE \n"
+                    + "        WHEN EXISTS (\n"
+                    + "            SELECT 1 \n"
+                    + "            FROM BOOKING B\n"
+                    + "            WHERE B.RoomID = R.RoomID\n"
+                    + "              AND B.Status = 'Reserved'\n"
+                    + "              AND B.CheckInDate = CAST(GETDATE() AS DATE)\n"
+                    + "        ) THEN N'Urgent'\n"
+                    + "        ELSE N'Normal'\n"
+                    + "    END AS Priority,\n"
+                    + "    S.FullName AS AssignedStaff,\n"
+                    + "    H.Status AS TaskStatus,\n"
+                    + "    H.TaskDate\n"
+                    + "FROM ROOM AS R\n"
+                    + "LEFT JOIN HOUSEKEEPING_TASK AS H ON R.RoomID = H.RoomID\n"
+                    + "LEFT JOIN STAFF AS S ON H.AssignedStaff = S.StaffID\n"
+                    + "WHERE \n"
+                    + "    R.Status IN (N'Dirty', N'Maintenance')\n"
+                    + "    AND (H.Status IN (N'Pending', N'InProgress') OR H.Status IS NULL)\n"
+                    + "ORDER BY \n"
+                    + "    CASE \n"
+                    + "        WHEN EXISTS (\n"
+                    + "            SELECT 1 \n"
+                    + "            FROM BOOKING B\n"
+                    + "            WHERE B.RoomID = R.RoomID\n"
+                    + "              AND B.Status = 'Reserved'\n"
+                    + "              AND B.CheckInDate = CAST(GETDATE() AS DATE)\n"
+                    + "        ) THEN 1 ELSE 2 END,\n"
+                    + "    R.RoomNumber;";
+            PreparedStatement st = cn.prepareStatement(sql);
+            ResultSet table = st.executeQuery();
+            if(table != null){
+                while(table.next()){
+                    int roomNumber = table.getInt("RoomNumber");
+                    String status = table.getString("RoomStatus");
+                    String priority = table.getString("Priority");
+                    String staffName = table.getString("AssignedStaff");
+                    HouseKeepingReportDTO report = new HouseKeepingReportDTO(roomNumber, staffName, status, priority);
+                    result.add(report);
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    
     public ArrayList<HouseKeepingReportDTO> getReport3(){
         Connection cn = null;
         ArrayList<HouseKeepingReportDTO> result = new ArrayList<>();
@@ -76,6 +139,50 @@ public class HouseKeepingReportDAO {
                         Date taskDate = table.getDate("TaskDate");
                         Date checkIn = table.getDate("CheckInDate");
                         HouseKeepingReportDTO report = new HouseKeepingReportDTO(roomNumber, typeName, status, taskDate,checkIn);
+                        result.add(report);
+                    }
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    
+    public ArrayList<HouseKeepingReportDTO> getReport4(){
+        Connection cn = null;
+        ArrayList<HouseKeepingReportDTO> result = new ArrayList<>();
+        try{
+            cn = DBUtills.getConnection();
+            if(cn != null){
+                String sql = "SELECT \n"
+                        + "    R.RoomNumber,\n"
+                        + "    M.Description AS IssueDescription,\n"
+                        + "    M.ReportDate,\n"
+                        + "    M.Status AS IssueStatus,\n"
+                        + "    S.FullName AS FixedBy\n"
+                        + "FROM MAINTENANCE_ISSUE AS M\n"
+                        + "JOIN ROOM AS R ON M.RoomID = R.RoomID\n"
+                        + "LEFT JOIN STAFF AS S ON M.FixedBy = S.StaffID\n"
+                        + "ORDER BY M.ReportDate DESC";
+                PreparedStatement st = cn.prepareStatement(sql);
+                ResultSet table = st.executeQuery();
+                if(table != null){
+                    while(table.next()){
+                        int roomNumber = table.getInt("RoomNumber");
+                        String description = table.getString("IssueDescription");
+                        Date reportDate = table.getDate("ReportDate");
+                        String status = table.getString("IssueStatus");
+                        String fixBy = table.getString("FixedBy");
+                        HouseKeepingReportDTO report = new HouseKeepingReportDTO(roomNumber, fixBy, status, description, reportDate);
                         result.add(report);
                     }
                 }

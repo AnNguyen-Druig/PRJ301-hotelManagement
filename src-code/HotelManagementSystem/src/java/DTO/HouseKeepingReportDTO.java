@@ -16,13 +16,14 @@ public class HouseKeepingReportDTO {
     private String cleaningType;
     private String staffName;
     private String status;
-    private int priority;
+    private String priority;
     private int staffId;
     private String  roomType;
     private Date checkIn;
     private String IssueDescription;
     private int roomCleaned;
     private int deepCleanings;
+    private Date reportDate;
 
     public HouseKeepingReportDTO(Date date, int roomNumber, String cleaningType, String staffName, String status) {
         this.date = date;
@@ -32,7 +33,7 @@ public class HouseKeepingReportDTO {
         this.status = status;
     }
 
-    public HouseKeepingReportDTO(int roomNumber, String staffName, String status, int priority) {
+    public HouseKeepingReportDTO(int roomNumber, String staffName, String status, String priority) {
         this.roomNumber = roomNumber;
         this.staffName = staffName;
         this.status = status;
@@ -54,6 +55,23 @@ public class HouseKeepingReportDTO {
         this.deepCleanings = deepCleanings;
     }
 
+    public HouseKeepingReportDTO(int roomNumber, String staffName, String status, String IssueDescription, Date reportDate) {
+        this.roomNumber = roomNumber;
+        this.staffName = staffName;
+        this.status = status;
+        this.IssueDescription = IssueDescription;
+        this.reportDate = reportDate;
+    }
+
+    public Date getReportDate() {
+        return reportDate;
+    }
+
+    public void setReportDate(Date reportDate) {
+        this.reportDate = reportDate;
+    }
+    
+    
     public Date getDate() {
         return date;
     }
@@ -94,11 +112,11 @@ public class HouseKeepingReportDTO {
         this.status = status;
     }
 
-    public int getPriority() {
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 

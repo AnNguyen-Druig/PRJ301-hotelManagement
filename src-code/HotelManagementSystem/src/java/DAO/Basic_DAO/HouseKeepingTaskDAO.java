@@ -24,17 +24,21 @@ public class HouseKeepingTaskDAO {
         try {
             cn = DBUtills.getConnection();
             if(cn != null) {
-                String sql = "Select *\n"
-                            + "From housekeeping_task as h\n"
-                            + "join STAFF as S on S.StaffID = h.AssignedStaff\n"
-                            + "Where h.Status = 'Pending' OR h.Status = 'Occupied'";
+                String sql = "SELECT TOP (1000) TaskID\n"
+                        + "      ,RoomID\n"
+                        + "      ,AssignedStaff\n"
+                        + "      ,TaskDate\n"
+                        + "      ,CleaningType\n"
+                        + "      ,Status\n"
+                        + "  FROM HotelManagement.dbo.HOUSEKEEPING_TASK\n"
+                        + "  Where Status = 'Pending'";
                 PreparedStatement ps = cn.prepareStatement(sql);
                 ResultSet table = ps.executeQuery();
                 if(table != null) {
                     while(table.next()) {
                         int taskId = table.getInt("TaskID");
                         int roomId = table.getInt("RoomID");
-                        String staffName = table.getString("FullName");
+                        String staffName = table.getString("AssignedStaff");
                         Date taskDate = table.getDate("TaskDate");
                         String status = table.getString("Status");
                         String cleanType = table.getString("CleaningType");

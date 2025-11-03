@@ -181,7 +181,7 @@ CREATE TABLE MAINTENANCE_ISSUE (
 CREATE TABLE dbo.HOUSEKEEPING_TASK(
       TaskID        INT IDENTITY(1,1) PRIMARY KEY,
       RoomID        INT NOT NULL FOREIGN KEY REFERENCES dbo.ROOM(RoomID),
-      AssignedStaff INT NOT NULL FOREIGN KEY REFERENCES dbo.STAFF(StaffID),
+      AssignedStaff INT FOREIGN KEY REFERENCES dbo.STAFF(StaffID),
       TaskDate      DATE NOT NULL DEFAULT CAST(GETDATE() AS DATE),
       CleaningType  NVARCHAR(30) NOT NULL DEFAULT N'regular', -- regular/deep/post-checkout
       Notes         NVARCHAR(255) NULL,
@@ -296,6 +296,61 @@ VALUES
 INSERT INTO TAX_CONFIG (TaxName, TaxValue, Description)
 VALUES (N'VAT', 0.1, N'Thuế suất Giá trị gia tăng (VAT) hiện hành');
 Go
+INSERT INTO DEVICE (DeviceName, RoomID, DeviceType, Status, LastMaintenanceDate)
+VALUES
+(N'Air Conditioner', (SELECT RoomID FROM ROOM WHERE RoomNumber = N'110'), N'Appliance', N'Broken', '2025-10-20'),
+(N'Sink', (SELECT RoomID FROM ROOM WHERE RoomNumber = N'204'), N'Plumbing', N'Under Repair', '2025-10-15'),
+(N'Television', (SELECT RoomID FROM ROOM WHERE RoomNumber = N'308'), N'Electronics', N'Working', '2025-09-25'),
+(N'Ceiling Light', (SELECT RoomID FROM ROOM WHERE RoomNumber = N'107'), N'Lighting', N'Broken', '2025-10-26'),
+(N'Mini Fridge', (SELECT RoomID FROM ROOM WHERE RoomNumber = N'305'), N'Appliance', N'Working', '2025-10-22');
+GO
+-- ======================================================
+-- SEED DATA: Maintenance Issues
+-- ======================================================
+
+INSERT INTO MAINTENANCE_ISSUE (RoomID, DeviceID, Description, ReportDate, Status, FixedBy)
+VALUES
+-- Room 110: Broken AC, not yet fixed
+((SELECT RoomID FROM ROOM WHERE RoomNumber = N'110'),
+ (SELECT DeviceID FROM DEVICE WHERE DeviceName = N'Air Conditioner' AND RoomID = (SELECT RoomID FROM ROOM WHERE RoomNumber = N'110')),
+ N'Air conditioner not cooling properly',
+ '2025-10-25',
+ N'Pending',
+ NULL),
+
+-- Room 204: Plumbing issue fixed by Housekeeping staff
+((SELECT RoomID FROM ROOM WHERE RoomNumber = N'204'),
+ (SELECT DeviceID FROM DEVICE WHERE DeviceName = N'Sink' AND RoomID = (SELECT RoomID FROM ROOM WHERE RoomNumber = N'204')),
+ N'Leaking sink under bathroom cabinet',
+ '2025-10-15',
+ N'Fixed',
+ (SELECT StaffID FROM STAFF WHERE FullName = N'Lê Văn Bảo')),
+
+-- Room 308: Broken TV fixed
+((SELECT RoomID FROM ROOM WHERE RoomNumber = N'308'),
+ (SELECT DeviceID FROM DEVICE WHERE DeviceName = N'Television' AND RoomID = (SELECT RoomID FROM ROOM WHERE RoomNumber = N'308')),
+ N'TV not turning on',
+ '2025-09-30',
+ N'Fixed',
+ (SELECT StaffID FROM STAFF WHERE FullName = N'Đặng Văn Bảo')),
+
+-- Room 107: Light bulb problem, pending
+((SELECT RoomID FROM ROOM WHERE RoomNumber = N'107'),
+ (SELECT DeviceID FROM DEVICE WHERE DeviceName = N'Ceiling Light' AND RoomID = (SELECT RoomID FROM ROOM WHERE RoomNumber = N'107')),
+ N'Ceiling light flickers when turned on',
+ '2025-10-26',
+ N'Pending',
+ NULL),
+
+-- Room 305: Mini-fridge fixed
+((SELECT RoomID FROM ROOM WHERE RoomNumber = N'305'),
+ (SELECT DeviceID FROM DEVICE WHERE DeviceName = N'Mini Fridge' AND RoomID = (SELECT RoomID FROM ROOM WHERE RoomNumber = N'305')),
+ N'Mini fridge not cooling properly',
+ '2025-10-20',
+ N'Fixed',
+ (SELECT StaffID FROM STAFF WHERE FullName = N'Phạm Thị Yến'));
+GO
+
 
 CREATE OR ALTER TRIGGER dbo.trg_BOOKING_SERVICE_AutoAssignStaff
 ON dbo.BOOKING_SERVICE
@@ -334,8 +389,8 @@ BEGIN
       SELECT i.RoomID
       FROM inserted i
       JOIN deleted  d ON d.RoomID = i.RoomID
-      WHERE i.Status IN (N'Dirty', N'Occurp')
-        AND ISNULL(d.Status, N'') NOT IN (N'Dirty', N'Occurp')
+      WHERE i.Status IN (N'Dirty', N'Maintenance')
+        AND ISNULL(d.Status, N'') NOT IN (N'Dirty', N'Maintenance')
   ),
   NeedTask AS (
       SELECT dr.RoomID
