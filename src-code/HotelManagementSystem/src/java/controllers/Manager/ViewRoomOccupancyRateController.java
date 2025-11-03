@@ -5,7 +5,7 @@
 package controllers.Manager;
 
 import DAO.Basic_DAO.RoomDAO;
-import DAO.RoomOccupancyDAO;
+import DAO.Manager_DAO.RoomOccupancyDAO;
 import DTO.Manager_DTO.RoomOccupancyDTO;
 import java.io.IOException;
 import java.util.ArrayList;
