@@ -16,6 +16,7 @@ public class InvoiceDTO {
     private Date issueDate;
     private double totalAmount;
     private String status;
+    //Đủ các thuộc tính
 
     public InvoiceDTO() {
     }

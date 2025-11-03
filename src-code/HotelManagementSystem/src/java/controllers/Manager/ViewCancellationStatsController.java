@@ -4,7 +4,7 @@
  */
 package controllers.Manager;
 
-import DAO.Basic_DAO.BookingRoomDAO;
+import DAO.Basic_DAO.BookingDAO;
 import DTO.Basic_DTO.BookingDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,7 +40,7 @@ public class ViewCancellationStatsController extends HttpServlet {
 
         try {
             // Khởi tạo DAO
-            BookingRoomDAO bookingDAO = new BookingRoomDAO();
+            BookingDAO bookingDAO = new BookingDAO();
 
             // 1. Thực hiện việc 1. totalBooking
             int totalBooking = bookingDAO.countTotalBooking();

@@ -5,8 +5,8 @@
 
 package controllers.Manager;
 
-import DAO.TopFrequentGuestDAO;
-import DTO.TopFrequentGuestDTO;
+import DAO.Manager_DAO.TopFrequentGuestDAO;
+import DTO.Manager_DTO.TopFrequentGuestDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -36,10 +36,17 @@ public class ViewTopGuestsController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = IConstants.VIEW_TOP_GUEST_PAGE;
         try {
-            TopFrequentGuestDAO guestDAO = new TopFrequentGuestDAO();
-            ArrayList<TopFrequentGuestDTO> list = guestDAO.getTop10FrequentGuest();
+            TopFrequentGuestDAO topFrequentGuestDAO = new TopFrequentGuestDAO();
+            ArrayList<TopFrequentGuestDTO> list = topFrequentGuestDAO.getTop10FrequentGuest();
             if(list != null && !list.isEmpty()) {
                 request.setAttribute("ALL_GUEST_LIST", list);
+            } else {
+                request.setAttribute("ERROR", IConstants.ERR_GUESTLIST_EMPTY);
+            }
+            
+            ArrayList<TopFrequentGuestDTO> highestMoneyList = topFrequentGuestDAO.getGuestHighestMoney();
+            if(highestMoneyList != null && !highestMoneyList.isEmpty()) {
+                request.setAttribute("HIGHEST_MONEY_LIST", highestMoneyList);
             } else {
                 request.setAttribute("ERROR", IConstants.ERR_GUESTLIST_EMPTY);
             }

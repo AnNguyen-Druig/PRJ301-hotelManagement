@@ -55,6 +55,8 @@ public class ViewRevenueController extends HttpServlet {
             int selectMonth_value;
             int selectYear_value;
             int selectYearOnly_value;
+            
+            //TH1: Khi các dữ liệu đc chọn để filter
             if (selectDate != null && !selectDate.trim().isEmpty()
                     && defaultToday != null && !defaultToday.trim().isEmpty()
                     && selectMonth != null && !selectMonth.trim().isEmpty()
@@ -63,17 +65,20 @@ public class ViewRevenueController extends HttpServlet {
 
                 //Convert kiểu dữ liệu
                 Date selectDate_value = Date.valueOf(selectDate);
-
                 selectMonth_value = Integer.parseInt(selectMonth);
                 selectYear_value = Integer.parseInt(selectYear);
                 selectYearOnly_value = Integer.parseInt(selectYearOnly);
 
+                // 1. Thực hiện việc lấy ra Tổng Doanh Thu theo Ngày
                 totalRevenueByDate = invoiceDAO.getTotalRevenueByDate(selectDate_value);
                 if (totalRevenueByDate != null) {
                     request.setAttribute("REVENUE_BY_SELECT_DATE", totalRevenueByDate);
+                } else {
+                    request.setAttribute("ERROR", IConstants.ERR_EMPTY_TOTAL_REVENUE);
                 }
                 request.setAttribute("SELECTED_DATE", selectDate);
 
+                // 2. Thực hiện việc lấy ra Tổng Doanh Thu theo Tháng/Năm
                 if (selectMonth_value < 1 || selectMonth_value > 12) {
                     request.setAttribute("ERROR", IConstants.ERR_INVALID_ROOM_MONTH);
                 } else {
@@ -86,22 +91,33 @@ public class ViewRevenueController extends HttpServlet {
                     request.setAttribute("SELECT_MONTH", selectMonth_value);
                     request.setAttribute("SELECT_YEAR", selectYear_value);
                 }
-                
+
+                // 3. Thực hiện việc lấy ra Tổng Doanh Thu theo Năm
                 totalRevenueByYear = invoiceDAO.getTotalRevenueByYear(selectYearOnly_value);
-                if(totalRevenueByYear != null) {
+                if (totalRevenueByYear != null) {
                     request.setAttribute("REVENUE_BY_SELECT_YEAR", totalRevenueByYear);
+                } else {
+                    request.setAttribute("ERROR", IConstants.ERR_EMPTY_TOTAL_REVENUE);
                 }
                 request.setAttribute("SELECTED_YEAR_ONLY", selectYearOnly_value);
-            } else if (selectDate == null || selectDate.trim().isEmpty()
+            } 
+            //TH2: Khi mới tải trang lần đầu thì các dữ liệu bị null, giải quyết TH bị dữ liệu null
+            else if (selectDate == null || selectDate.trim().isEmpty()
                     || selectMonth == null || selectMonth.trim().isEmpty()
                     || selectYear == null || selectYear.trim().isEmpty()
                     || selectYearOnly == null || selectYearOnly.trim().isEmpty()) {
                 Date defaultToday_value = Date.valueOf(defaultToday);
+                
+                // 1. Thực hiện việc lấy ra Tổng Doanh Thu theo Ngày
                 totalRevenueByDate = invoiceDAO.getTotalRevenueByDate(defaultToday_value);
                 if (totalRevenueByDate != null) {
                     request.setAttribute("REVENUE_BY_SELECT_DATE", totalRevenueByDate);
+                } else {
+                    request.setAttribute("ERROR", IConstants.ERR_EMPTY_TOTAL_REVENUE);
                 }
                 request.setAttribute("SELECTED_DATE", defaultToday);
+                
+                // 2. Thực hiện việc lấy ra Tổng Doanh Thu theo Tháng/Năm
                 Calendar now = Calendar.getInstance();
                 selectMonth_value = now.get(Calendar.MONTH) + 1; //+ 1: vì MONTH nó tính tháng 1 là 0 --> bắt đầu là 0 nên phải + 1
                 selectYear_value = now.get(Calendar.YEAR);
@@ -117,11 +133,14 @@ public class ViewRevenueController extends HttpServlet {
                     request.setAttribute("SELECT_MONTH", selectMonth_value);
                     request.setAttribute("SELECT_YEAR", selectYear_value);
                 }
-                
+
+                // 3. Thực hiện việc lấy ra Tổng Doanh Thu theo Năm
                 selectYearOnly_value = now.get(Calendar.YEAR);
                 totalRevenueByYear = invoiceDAO.getTotalRevenueByYear(selectYearOnly_value);
-                if(totalRevenueByYear != null) {
+                if (totalRevenueByYear != null) {
                     request.setAttribute("REVENUE_BY_SELECT_YEAR", totalRevenueByYear);
+                } else {
+                    request.setAttribute("ERROR", IConstants.ERR_EMPTY_TOTAL_REVENUE);
                 }
                 request.setAttribute("SELECTED_YEAR_ONLY", selectYearOnly_value);
             }

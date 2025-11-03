@@ -4,7 +4,7 @@
  */
 package controllers.Guest;
 
-import DAO.Basic_DAO.BookingRoomDAO;
+import DAO.Basic_DAO.BookingDAO;
 import DTO.Basic_DTO.BookingDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,7 +38,7 @@ public class CancelBookingRoomController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String bookingID = request.getParameter("bookingId");
-        BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
+        BookingDAO bookingRoomDAO = new BookingDAO();
         BookingDTO bookingRoom = bookingRoomDAO.getBookingByBookingIDInReception(Integer.parseInt(bookingID.trim()));
 
         //Check ngày ngày HUỶ phải trước ngày CheckIn

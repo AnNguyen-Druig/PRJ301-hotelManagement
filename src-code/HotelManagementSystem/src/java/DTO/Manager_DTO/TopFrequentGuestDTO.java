@@ -2,15 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DTO.Basic_DTO;
+package DTO.Manager_DTO;
 
+import DTO.Basic_DTO.GuestDTO;
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author Admin
  */
-public class GuestDTO {
+public class TopFrequentGuestDTO implements Serializable{
+
     private int guestID;
     private String fullName;
     private String phone;
@@ -20,12 +23,11 @@ public class GuestDTO {
     private Date dateOfBirth;
     private String username;
     private String password;
-    //Đủ các thuộc tính
+    private int bookingCount;
+    private double money;
 
-    public GuestDTO() {
-    }
-
-    public GuestDTO(int guestID, String fullName, String phone, String email, String address, String IDNumber, Date dateOfBirth, String username, String password) {
+    //Constructor Full
+    public TopFrequentGuestDTO(int guestID, String fullName, String phone, String email, String address, String IDNumber, Date dateOfBirth, String username, String password, int bookingCount, double money) {
         this.guestID = guestID;
         this.fullName = fullName;
         this.phone = phone;
@@ -35,38 +37,33 @@ public class GuestDTO {
         this.dateOfBirth = dateOfBirth;
         this.username = username;
         this.password = password;
-    }
-    
-    public GuestDTO(String fullName, String phone, String email, String address, String IDNumber, Date dateOfBirth, String username, String password) {
-        this.fullName = fullName;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.IDNumber = IDNumber;
-        this.dateOfBirth = dateOfBirth;
-        this.username = username;
-        this.password = password;
+        this.bookingCount = bookingCount;
+        this.money = money;
     }
 
-    public GuestDTO(int guestID, String fullName, String phone, String email, String address, Date dateOfBirth, String username, String password) {
+    //Constructor dung de phuc vu chuc nang hien thi top 10 frequent guest
+    public TopFrequentGuestDTO(int guestID, String fullName, String phone, String email, int bookingCount) {
         this.guestID = guestID;
         this.fullName = fullName;
         this.phone = phone;
         this.email = email;
-        this.address = address;
-        this.dateOfBirth = dateOfBirth;
-        this.username = username;
-        this.password = password;
+        this.bookingCount = bookingCount;
     }
-
-    public GuestDTO(int guestID, String fullName, String phone, String email) {
+    
+    //Constructor dung de phuc vu chuc nang hien thi top 10 guest su dung tien nhieu nhat
+    public TopFrequentGuestDTO(int guestID, String fullName, double money) {
         this.guestID = guestID;
         this.fullName = fullName;
-        this.phone = phone;
-        this.email = email;
+        this.money = money;
     }
-    
-    
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
+    }
 
     public int getGuestID() {
         return guestID;
@@ -139,6 +136,12 @@ public class GuestDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
+
+    public int getBookingCount() {
+        return bookingCount;
+    }
+
+    public void setBookingCount(int bookingCount) {
+        this.bookingCount = bookingCount;
+    }
 }

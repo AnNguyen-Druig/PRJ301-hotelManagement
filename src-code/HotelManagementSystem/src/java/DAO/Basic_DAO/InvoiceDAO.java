@@ -78,6 +78,8 @@ public class InvoiceDAO {
     public double getTotalRevenueByDate(Date date) {
         double result = 0.0;
         Connection cn = null;
+        PreparedStatement ps = null;
+        ResultSet table = null;
         try {
             cn = DBUtills.getConnection();
             if (cn != null) {
@@ -88,9 +90,9 @@ public class InvoiceDAO {
                         + "WHERE\n"
                         + "    Status = 'Paid'\n"
                         + "    AND IssueDate = ?";
-                PreparedStatement ps = cn.prepareStatement(sql);
+                ps = cn.prepareStatement(sql);
                 ps.setDate(1, date);
-                ResultSet table = ps.executeQuery();
+                table = ps.executeQuery();
                 if (table != null && table.next()) {
                     result = table.getDouble("Tổng Doanh Thu");
                 }
@@ -101,6 +103,12 @@ public class InvoiceDAO {
             try {
                 if (cn != null) {
                     cn.close();
+                }
+                if(ps != null) {
+                    ps.close();
+                }
+                if(table != null) {
+                    table.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -112,6 +120,8 @@ public class InvoiceDAO {
     public double getTotalRevenueByMonth(int month, int year) {
         double result = 0.0;
         Connection cn = null;
+        PreparedStatement ps = null;
+        ResultSet table = null;
         try {
             cn = DBUtills.getConnection();
             if (cn != null) {
@@ -123,10 +133,10 @@ public class InvoiceDAO {
                         + "    Status = 'Paid'\n"
                         + "    AND MONTH(IssueDate) = ?  \n"
                         + "    AND YEAR(IssueDate) = ?";
-                PreparedStatement ps = cn.prepareStatement(sql);
+                ps = cn.prepareStatement(sql);
                 ps.setInt(1, month);
                 ps.setInt(2, year);
-                ResultSet table = ps.executeQuery();
+                table = ps.executeQuery();
                 if (table != null && table.next()) {
                     result = table.getDouble("Tổng Doanh Thu");
                 }
@@ -137,6 +147,12 @@ public class InvoiceDAO {
             try {
                 if (cn != null) {
                     cn.close();
+                }
+                if(ps != null) {
+                    ps.close();
+                }
+                if(table != null) {
+                    table.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -148,15 +164,17 @@ public class InvoiceDAO {
     public double getTotalRevenueByYear(int year) {
         double result = 0.0;
         Connection cn = null;
+        PreparedStatement ps = null;
+        ResultSet table = null;
         try {
             cn = DBUtills.getConnection();
             if (cn != null) {
                 String sql = "SELECT SUM(TotalAmount) AS [Tổng Doanh Thu] \n"
                         + "FROM INVOICE WHERE Status = 'Paid'\n"
                         + "AND YEAR(IssueDate) = ?";
-                PreparedStatement ps = cn.prepareStatement(sql);
+                ps = cn.prepareStatement(sql);
                 ps.setInt(1, year);
-                ResultSet table = ps.executeQuery();
+                table = ps.executeQuery();
                 if (table != null && table.next()) {
                     result = table.getDouble("Tổng Doanh Thu");
                 }
@@ -167,6 +185,12 @@ public class InvoiceDAO {
             try {
                 if (cn != null) {
                     cn.close();
+                }
+                if(ps != null) {
+                    ps.close();
+                }
+                if(table != null) {
+                    table.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

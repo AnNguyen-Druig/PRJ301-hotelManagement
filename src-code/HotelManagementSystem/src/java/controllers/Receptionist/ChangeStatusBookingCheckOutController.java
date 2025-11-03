@@ -4,7 +4,7 @@
  */
 package controllers.Receptionist;
 
-import DAO.Basic_DAO.BookingRoomDAO;
+import DAO.Basic_DAO.BookingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -46,7 +46,7 @@ public class ChangeStatusBookingCheckOutController extends HttpServlet {
                 int bookingID_value = Integer.parseInt(bookingID);
 
                 //Khai báo các DAO cần thiết
-                BookingRoomDAO bookingDAO = new BookingRoomDAO();
+                BookingDAO bookingDAO = new BookingDAO();
 
                 //Khai báo biến để kiểm tra đã update status hay chưa
                 boolean bookingUpdateStatus = false;

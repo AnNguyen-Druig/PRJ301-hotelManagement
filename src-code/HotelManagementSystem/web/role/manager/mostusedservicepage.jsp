@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="DTO.Manager_DTO.MostUsedServiceDTO"%>
 <%@page import="DTO.Basic_DTO.ServiceDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>
@@ -16,7 +17,7 @@
     </head>
     <body>
         <%
-            ArrayList<ServiceDTO> mostList = (ArrayList) request.getAttribute("MOST_SERVICE");
+            ArrayList<MostUsedServiceDTO> mostList = (ArrayList) request.getAttribute("MOST_SERVICE");
             String errMsg = (String) request.getAttribute("ERROR");
             if (errMsg == null) {
                 errMsg = "";
@@ -38,7 +39,7 @@
             <tbody>
                 <%
                     int rank = 1;
-                    for (ServiceDTO s : mostList) {
+                    for (MostUsedServiceDTO s : mostList) {
                 %>
                 <tr>
                     <td><%= rank++%></td>
@@ -59,10 +60,10 @@
         %>
         
         <%
-            ServiceDTO highestService = (ServiceDTO) request.getAttribute("HIGHEST_INCOME_SERVICE");
+            MostUsedServiceDTO highestService = (MostUsedServiceDTO) request.getAttribute("HIGHEST_INCOME_SERVICE");
             if(highestService != null) {
         %>
-        <h2>Service có doanh thu Cao Nhất: <%= highestService.getServiceName() %> : <%= highestService.getIncomeService()%></h2>
+        <h2>Service có doanh thu Cao Nhất: <%= highestService.getServiceName() %> : <%= String.format("%,.0f", highestService.getIncomeService()).replace(',', '.')%> VND</h2>
         <%
             } else {
         %>
@@ -72,10 +73,10 @@
         %>
         
         <%
-            ServiceDTO lowestService = (ServiceDTO) request.getAttribute("LOWEST_INCOME_SERVICE");
+            MostUsedServiceDTO lowestService = (MostUsedServiceDTO) request.getAttribute("LOWEST_INCOME_SERVICE");
             if(lowestService != null) {
         %>
-        <h2>Service có doanh thu Thấp Nhất: <%= lowestService.getServiceName() %> : <%= lowestService.getIncomeService()  %></h2>
+        <h2>Service có doanh thu Thấp Nhất: <%= lowestService.getServiceName() %> : <%= String.format("%,.0f", lowestService.getIncomeService()).replace(',', '.')%> VND</h2>
         <%
             } else {
         %>
@@ -85,7 +86,7 @@
         %>
 
         <%
-            ArrayList<ServiceDTO> highestList = (ArrayList) request.getAttribute("HIGHEST_LIST");
+            ArrayList<MostUsedServiceDTO> highestList = (ArrayList) request.getAttribute("HIGHEST_LIST");
             if (highestList != null && !highestList.isEmpty()) {
         %>
         <h2>Top các dịch vụ được có doanh thu Cao Nhất</h2>
@@ -102,14 +103,14 @@
             <tbody>
                 <%
                     int rank = 1;
-                    for (ServiceDTO s : highestList) {
+                    for (MostUsedServiceDTO s : highestList) {
                 %>
                 <tr>
                     <td><%= rank++%></td>
                     <td><%= s.getServiceId()%></td>
                     <td><%= s.getServiceType()%></td>
                     <td><%= s.getServiceName()%></td>
-                    <td><%= s.getIncomeService() %></td>
+                    <td><%= String.format("%,.0f", s.getIncomeService()).replace(',', '.')%> VND</td>
                 </tr>
                 <% }%>
             </tbody>

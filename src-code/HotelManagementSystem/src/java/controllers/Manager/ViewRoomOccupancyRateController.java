@@ -6,7 +6,7 @@ package controllers.Manager;
 
 import DAO.Basic_DAO.RoomDAO;
 import DAO.RoomOccupancyDAO;
-import DTO.RoomOccupancyDTO;
+import DTO.Manager_DTO.RoomOccupancyDTO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,13 +42,13 @@ public class ViewRoomOccupancyRateController extends HttpServlet {
             // 1. Khởi tạo DAO cần thiết
             RoomOccupancyDAO roomOccDAO = new RoomOccupancyDAO();
             RoomDAO roomDAO = new RoomDAO();
-            
+
             // 2. Thực hiện việc 1) Tính tổng số phòng hiện có
-            int totalRoom = roomDAO.countTotalRoom();
-            
+            int totalRoom = roomOccDAO.countTotalRoom();
+
             // 3. Thực hiện việc 2) Số lượng phòng theo từng Room Type
-            Map<String, Integer> roomTypeList = roomDAO.countTotalRoomByRoomType();
-            
+            Map<String, Integer> roomTypeList = roomOccDAO.countTotalRoomByRoomType();
+
             // 4. Thực hiện việc 3) Top 10 phòng được đặt nhiều nhất trong tháng/năm
             //                   4) Tỷ lệ phòng được đặt trong tháng/năm
             String checkInMonth = request.getParameter("month");
@@ -57,9 +57,9 @@ public class ViewRoomOccupancyRateController extends HttpServlet {
             int checkInYear_value;
 
             // 5. Kiểm tra checkInMonth và checkInYear có bị null không
-            if(checkInMonth == null || checkInMonth.trim().isEmpty()
+            if (checkInMonth == null || checkInMonth.trim().isEmpty()
                     || checkInYear == null || checkInYear.trim().isEmpty()) {
-                
+
                 //Nếu null thì lấy tháng/năm mặc định theo giờ hệ thống
                 Calendar now = Calendar.getInstance();
                 checkInMonth_value = now.get(Calendar.MONTH) + 1; //+ 1: vì MONTH nó tính tháng 1 là 0 --> bắt đầu là 0 nên phải + 1
@@ -68,7 +68,7 @@ public class ViewRoomOccupancyRateController extends HttpServlet {
                 checkInMonth_value = Integer.parseInt(checkInMonth);
                 checkInYear_value = Integer.parseInt(checkInYear);
             }
-            
+
             // 6. Kiểm tra xem tháng có hợp lệ hay ko: có nằm trong khoảng từ th1-th12 ko
             if (checkInMonth_value < 1 || checkInMonth_value > 12) {
                 request.setAttribute("ERROR", IConstants.ERR_INVALID_ROOM_MONTH);
@@ -79,15 +79,15 @@ public class ViewRoomOccupancyRateController extends HttpServlet {
                 } else {
                     request.setAttribute("ERROR", IConstants.ERR_EMPTY_ROOM_OCCUPANCY_LIST);
                 }
-                
-                Map<String, Object> roomOccRateList = roomDAO.getMonthlyOccupancyPercentage(checkInMonth_value, checkInYear_value);
-                if(roomOccRateList != null && !roomOccRateList.isEmpty()) {
+
+                Map<String, Object> roomOccRateList = roomOccDAO.getMonthlyOccupancyPercentage(checkInMonth_value, checkInYear_value);
+                if (roomOccRateList != null && !roomOccRateList.isEmpty()) {
                     request.setAttribute("OCCUPANCY_STATS", roomOccRateList);
                 } else {
                     request.setAttribute("ERROR", IConstants.ERR_EMPTY_ROOM_OCCUPANCY_RATE_LIST);
                 }
             }
-            
+
             request.setAttribute("TOTAL_ROOMS", totalRoom);
             request.setAttribute("ROOM_COUNT_BY_TYPE", roomTypeList);
             request.setAttribute("SELECTED_MONTH", checkInMonth_value);

@@ -5,7 +5,7 @@
 package controllers.Guest;
 
 import controllers.*;
-import DAO.Basic_DAO.BookingRoomDAO;
+import DAO.Basic_DAO.BookingDAO;
 import DAO.Basic_DAO.RoomDAO;
 import DTO.Basic_DTO.BookingDTO;
 import java.io.IOException;
@@ -71,7 +71,7 @@ public class SaveBookingRoomController extends HttpServlet {
                 
                 
                 BookingDTO bookingRoom = new BookingDTO(guestID, roomID, checkInDate_value, checkOutDate_value, bookingDate_value, "Reserved");
-                BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
+                BookingDAO bookingRoomDAO = new BookingDAO();
                 int saveBookingRoom = bookingRoomDAO.saveBookingRoom(bookingRoom);
                 
                 if(saveBookingRoom!=0) {

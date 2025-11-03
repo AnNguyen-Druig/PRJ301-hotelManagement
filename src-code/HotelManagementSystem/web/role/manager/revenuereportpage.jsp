@@ -15,17 +15,25 @@
     </head>
     <body>
         <%
+            //Lấy ra các dữ liệu của chức năng 1) Tổng Doanh thu lọc theo ngày
             Double totalRevenueBySelectDate = (Double) request.getAttribute("REVENUE_BY_SELECT_DATE");
             String selectDate = (String) request.getAttribute("SELECTED_DATE");
 
+            //Lấy ra các dữ liệu của chức năng 2) Tổng Doanh thu lọc theo tháng/năm
             Double totalRevenueByMonth = (Double) request.getAttribute("REVENUE_BY_MONTH");
             int currentYear = Calendar.getInstance().get(Calendar.YEAR);
             Integer selectMonth = (Integer) request.getAttribute("SELECT_MONTH");
             Integer selectYear = (Integer) request.getAttribute("SELECT_YEAR");
 
+            //Lấy ra các dữ liệu của chức năng 3) Tổng Doanh thu lọc theo năm
             Double totalRevenueByYear = (Double) request.getAttribute("REVENUE_BY_SELECT_YEAR");
             Integer selectYearOnly = (Integer) request.getAttribute("SELECTED_YEAR_ONLY");
 
+            //Lấy ra dữ liệu hiển thị Lỗi
+            String errMsg = (String) request.getAttribute("ERROR");
+            if (errMsg == null) {
+                errMsg = "";
+            }
             if (selectDate == null) {
                 selectDate = "";
             }
@@ -38,7 +46,7 @@
                 <input type="hidden" name="selectYear" value="<%= selectYearOnly%>">
                 <label for="selectDate">Chọn ngày:</label>
                 <input type="date" id="selectDate" name="selectDate" value="<%= selectDate%>">
-                <input type="submit" name="action" value="ViewRevenueReport">
+                <button type="submit" name="action" value="ViewRevenueReport">Xem báo cáo Ngày</button>
             </form>
         </div>
         <% if (totalRevenueBySelectDate != null) {%>
@@ -46,14 +54,13 @@
             <span>Tổng doanh thu của ngày  <%= selectDate%>:</span>
             <span><%= String.format("%,.0f VND", totalRevenueBySelectDate).replace(',', '.')%></span>
         </div>
-        <% } else { %>
-        <p>Chọn khoảng thời gian để xem thống kê.</p>
+        <% } else {%>
+        <p><%= errMsg%></p>
         <% }%>
         <hr/>
         <h2>Báo cáo Doanh Thu theo Tháng (Monthly Report)</h2>    
         <div>
-            <form action="MainController">
-                <input type="hidden" name="action" value="ViewRevenueReport">
+            <form action="MainController">    
                 <input type="hidden" name="selectDate" value="<%= selectDate%>">
                 <input type="hidden" name="selectYear" value="<%= selectYearOnly%>"> 
                 <label for="monthSelect">Chọn Tháng:</label>
@@ -67,8 +74,7 @@
 
                 <label for="yearInput">Chọn Năm:</label>
                 <input type="number" name="year" id="yearInput" value="<%= selectYear%>" min="2000" max="<%= currentYear%>" required>
-
-                <input type="submit" value="Xem Báo cáo">
+                <button type="submit" name="action" value="ViewRevenueReport">Xem báo cáo Tháng</button>
             </form>
         </div>
         <% if (totalRevenueByMonth != null) {%>
@@ -76,13 +82,13 @@
             <span>Tổng doanh thu của tháng <%= selectMonth%> năm <%=  selectYear%>:</span>
             <span><%= String.format("%,.0f VND", totalRevenueByMonth).replace(',', '.')%></span>
         </div>
+        <% } else {%>
+        <p><%= errMsg%></p>
         <% }%>
         <hr/>
         <h2>Báo cáo Doanh Thu theo Năm (Yearly Report)</h2>    
         <div>
             <form action="MainController" method="GET">
-                <input type="hidden" name="action" value="ViewRevenueReport">
-
                 <%-- Gửi kèm trạng thái của 2 form kia --%>
                 <input type="hidden" name="selectDate" value="<%= selectDate%>">
                 <input type="hidden" name="month" value="<%= selectMonth%>">
@@ -97,7 +103,7 @@
                     <% } %>
                 </select>
 
-                <input type="submit" value="Xem Báo cáo Năm">
+                <button type="submit" name="action" value="ViewRevenueReport">Xem báo cáo Năm</button>
             </form>
         </div>
 
@@ -106,6 +112,8 @@
             <span>Tổng doanh thu của năm <%= selectYearOnly%>:</span>
             <span class="statistic-value"><%= String.format("%,.0f VND", totalRevenueByYear).replace(',', '.')%></span>
         </div>
+        <% } else {%>
+        <p><%= errMsg%></p>
         <% }%>
 
         <hr/>

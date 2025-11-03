@@ -5,7 +5,9 @@
 package controllers.Manager;
 
 import DAO.Basic_DAO.ServiceDAO;
+import DAO.Manager_DAO.MostUsedServiceDAO;
 import DTO.Basic_DTO.ServiceDTO;
+import DTO.Manager_DTO.MostUsedServiceDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -38,29 +40,29 @@ public class ViewMostUsedServicesController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = IConstants.VIEW_MOSTUSED_SERVICES_PAGE;
         try {
-            ServiceDAO serviceDAO = new ServiceDAO();
-            ArrayList<ServiceDTO> mostList = serviceDAO.getMostUsedService();
+            MostUsedServiceDAO mostUsedServiceDAO = new MostUsedServiceDAO();
+            ArrayList<MostUsedServiceDTO> mostList = mostUsedServiceDAO.getMostUsedService();
             if (mostList != null && !mostList.isEmpty()) {
                 request.setAttribute("MOST_SERVICE", mostList);
             } else {
                 request.setAttribute("ERROR", IConstants.ERR_EMPTY_SERVICE_LIST);
             }
 
-            ArrayList<ServiceDTO> highestList = serviceDAO.getHighestIncomeServiceList();
+            ArrayList<MostUsedServiceDTO> highestList = mostUsedServiceDAO.getHighestIncomeServiceList();
             if (highestList != null && !highestList.isEmpty()) {
                 request.setAttribute("HIGHEST_LIST", highestList);
             } else {
                 request.setAttribute("ERROR", IConstants.ERR_EMPTY_SERVICE_LIST);
             }
 
-            ServiceDTO highestService = serviceDAO.getHighestIncomeService();
+            MostUsedServiceDTO highestService = mostUsedServiceDAO.getHighestIncomeService();
             if (highestService != null) {
                 request.setAttribute("HIGHEST_INCOME_SERVICE", highestService);
             } else {
                 request.setAttribute("ERROR", IConstants.ERR_EMPTY_SERVICE_LIST);
             }
             
-            ServiceDTO lowestService = serviceDAO.getLowestIncomeService();
+            MostUsedServiceDTO lowestService = mostUsedServiceDAO.getLowestIncomeService();
             if (lowestService != null) {
                 request.setAttribute("LOWEST_INCOME_SERVICE", lowestService);
             } else {

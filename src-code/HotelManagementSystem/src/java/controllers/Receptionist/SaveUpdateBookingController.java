@@ -4,7 +4,7 @@
  */
 package controllers.Receptionist;
 
-import DAO.Basic_DAO.BookingRoomDAO;
+import DAO.Basic_DAO.BookingDAO;
 import DTO.Basic_DTO.BookingDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -53,7 +53,7 @@ public class SaveUpdateBookingController extends HttpServlet {
                 Date checkInDate_value = Date.valueOf(checkInDate);
                 Date checkOutDate_value = Date.valueOf(checkOutDate);
 
-                BookingRoomDAO bookingDAO = new BookingRoomDAO();
+                BookingDAO bookingDAO = new BookingDAO();
                 BookingDTO bookingUpdate = new BookingDTO(bookingID_value, roomID_value, checkInDate_value, checkOutDate_value);
                 int saveUpdateBooking = bookingDAO.saveUpdateBooking(bookingUpdate);
 
