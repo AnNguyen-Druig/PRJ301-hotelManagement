@@ -18,48 +18,6 @@ import mylib.DBUtills;
  */
 public class RoomDAO {
 
-    public ArrayList<RoomDTO> getAllRooms() {
-        ArrayList<RoomDTO> result = new ArrayList<>();
-        Connection cn = null;
-        try {
-            cn = DBUtills.getConnection();
-            if (cn != null) {
-                String sql = "SELECT *\n"
-                        + "FROM dbo.ROOM AS r\n"
-                        + "INNER JOIN dbo.ROOM_TYPE AS rt ON rt.RoomTypeID = r.RoomTypeID\n"
-                        + "WHERE r.Status = ?";
-                PreparedStatement st = cn.prepareStatement(sql);
-                st.setString(1, "Available");
-                ResultSet table = st.executeQuery();
-                if (table != null) {
-                    while (table.next()) {
-                        int roomID = table.getInt("RoomID");
-                        String roomNumber = table.getString("RoomNumber");
-                        int roomTypeID = table.getInt("RoomTypeID");
-                        String roomStatus = table.getString("Status");
-                        String typeName = table.getString("TypeName");
-                        int capacity = table.getInt("Capacity");
-                        double pricePerNight = table.getDouble("PricePerNight");
-                        RoomDTO room = new RoomDTO(roomID, roomNumber, roomTypeID, roomStatus, typeName, capacity, pricePerNight);
-                        result.add(room);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (cn != null) {
-                    cn.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        return result;
-    }
-
     public ArrayList<RoomDTO> getAllRoomsForManager() {
         ArrayList<RoomDTO> result = new ArrayList<>();
         Connection cn = null;

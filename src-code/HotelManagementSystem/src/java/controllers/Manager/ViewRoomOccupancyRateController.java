@@ -41,7 +41,6 @@ public class ViewRoomOccupancyRateController extends HttpServlet {
         try {
             // 1. Khởi tạo DAO cần thiết
             RoomOccupancyDAO roomOccDAO = new RoomOccupancyDAO();
-            RoomDAO roomDAO = new RoomDAO();
 
             // 2. Thực hiện việc 1) Tính tổng số phòng hiện có
             int totalRoom = roomOccDAO.countTotalRoom();

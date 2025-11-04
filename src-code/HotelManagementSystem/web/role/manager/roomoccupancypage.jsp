@@ -111,6 +111,7 @@
             Map<String, Object> occupancyStats = (Map<String, Object>) request.getAttribute("OCCUPANCY_STATS");
             List<RoomOccupancyDTO> top10RoomList = (List<RoomOccupancyDTO>) request.getAttribute("ROOM_OCCUPANCY_LIST");
             String errMsg = (String) request.getAttribute("ERROR");
+            if(errMsg == null) errMsg = "";
         %>
 
         <%-- Bố cục lưới cho các báo cáo --%>
@@ -196,7 +197,7 @@
                     </tbody>
                 </table>
                 <% } else { %>
-                <p class="info-message">Không có phòng nào được đặt trong tháng/năm đã chọn.</p>
+                <p class="info-message"><%= errMsg %></p>
                 <% } %>
             </div>
 
@@ -230,7 +231,7 @@
                     <span class="statistic-value"><%= String.format("%.2f", occupancyPercentage)%>%</span>
                 </div>
                 <% } else { %>
-                <p class="info-message">Không có dữ liệu tỷ lệ cho tháng/năm đã chọn.</p>
+                <p class="info-message"><%= errMsg %></p>
                 <% }%>
             </div>
 

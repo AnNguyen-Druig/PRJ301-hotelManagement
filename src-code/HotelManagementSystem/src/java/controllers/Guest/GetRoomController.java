@@ -7,7 +7,9 @@ package controllers.Guest;
 
 import controllers.*;
 import DAO.Basic_DAO.RoomDAO;
+import DAO.Guest_DAO.ShowRoomDAO;
 import DTO.Basic_DTO.RoomDTO;
+import DTO.Guest_DTO.ShowRoomDTO;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -37,8 +39,8 @@ public class GetRoomController extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            RoomDAO d = new RoomDAO();
-            ArrayList<RoomDTO> list = d.getAllRooms();
+            ShowRoomDAO d = new ShowRoomDAO();
+            ArrayList<ShowRoomDTO> list = d.getAllRooms();
             if(list!=null && !list.isEmpty()) {
                 request.setAttribute("ALLROOM", list);
                 request.getRequestDispatcher(IConstants.BOOKING_ROOM_PAGE).forward(request, response);
@@ -47,6 +49,7 @@ public class GetRoomController extends HttpServlet {
                 request.getRequestDispatcher(IConstants.BOOKING_ROOM_PAGE).forward(request, response);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     } 
 
