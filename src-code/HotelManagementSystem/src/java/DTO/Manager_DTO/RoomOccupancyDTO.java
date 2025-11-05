@@ -4,9 +4,7 @@
  */
 package DTO.Manager_DTO;
 
-import DTO.Basic_DTO.RoomDTO;
 import java.io.Serializable;
-import java.sql.Date;
 
 /**
  *
