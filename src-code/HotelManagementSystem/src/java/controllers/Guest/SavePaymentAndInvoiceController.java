@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 
 package controllers.Guest;
 
@@ -9,22 +5,20 @@ import DAO.Basic_DAO.BookingDAO;
 import DAO.Basic_DAO.GuestDAO;
 import DAO.Basic_DAO.InvoiceDAO;
 import DAO.Basic_DAO.PaymentDAO;
-import DAO.Basic_DAO.RoomDAO;
+import DAO.Guest_DAO.ShowRoomDAO;
 import DTO.Basic_DTO.BookingDTO;
 import DTO.Basic_DTO.GuestDTO;
 import DTO.Basic_DTO.InvoiceDTO;
 import DTO.Basic_DTO.PaymentDTO;
-import DTO.Basic_DTO.RoomDTO;
+import DTO.Guest_DTO.ShowRoomDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
-
-import javax.servlet.annotation.WebServlet;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mylib.IConstants;
+
+import javax.servlet.annotation.WebServlet;
 
 /**
  *
@@ -52,8 +46,8 @@ public class SavePaymentAndInvoiceController extends HttpServlet {
         BookingDTO bookingRoom = bookingRoomDAO.getBookingByBookingIDInReception(bookingID);
         
         //Lay Room
-        RoomDAO roomDAO = new RoomDAO();
-        RoomDTO room = roomDAO.getRoomByID(bookingRoom.getRoomID());
+        ShowRoomDAO roomDAO = new ShowRoomDAO();
+        ShowRoomDTO room = roomDAO.getRoomByID(bookingRoom.getRoomID());
         request.setAttribute("ROOM", room);
         
         GuestDAO guestDAO = new GuestDAO();

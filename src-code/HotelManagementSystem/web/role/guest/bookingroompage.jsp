@@ -110,13 +110,12 @@
             if (roomList != null && !roomList.isEmpty()) {
                 for (ShowRoomDTO r : roomList) {
         %>
-        <p>RoomID: <%= r.getRoomid() %></p>
         <p>TypeName: <%= r.getTypeName()%></p>
         <p>RoomNumber: <%= r.getRoomNumber() %></p>
         <p>Capacity: <%= r.getCapacity()%></p>
         <p>PricePerNight: <%= String.format("%,.0f VND", r.getPricePerNight()).replace(',', '.')%></p>
         <form action="MainController" method="POST">
-            <input type="hidden" name="roomID" value="<%= r.getRoomid()%>">
+            <input type="hidden" name="roomID" value="<%= r.getRoomID()%>">
             <!-- Nếu bấm gửi qua mà checkInDate và checkOutDate đều = null thì sẽ gửi error về thông báo cần phải chọn checkIn và checkOut-->
             <input type="hidden" name="booking_room_checkInDate" value=" <%= checkInDate%>">
             <input type="hidden" name="booking_room_checkOutDate" value=" <%= checkOutDate%>">

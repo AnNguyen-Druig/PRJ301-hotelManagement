@@ -5,12 +5,12 @@
 
 package controllers.Guest;
 
-import controllers.*;
 import DAO.Basic_DAO.BookingDAO;
+import DAO.Guest_DAO.BookingRoomDetailDAO;
 import DTO.Basic_DTO.BookingDTO;
 import DTO.Basic_DTO.GuestDTO;
+import DTO.Guest_DTO.BookingRoomDetailDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 
@@ -43,12 +43,12 @@ public class ViewBookingController extends HttpServlet {
             HttpSession session = request.getSession();
             GuestDTO guest = (GuestDTO) session.getAttribute("USER");
             int guestID = guest.getGuestID();
-            BookingDAO bookingRoomDAO = new BookingDAO();
-            ArrayList<BookingDTO> listAllBooking =  bookingRoomDAO.getAllBookingByGuestID(guestID);
-            ArrayList<BookingDTO> listReservedBooking = new ArrayList<>();
-            ArrayList<BookingDTO> listCheckInBooking = new ArrayList<>();
-            if(listAllBooking!=null && !listAllBooking.isEmpty()) {
-                for(BookingDTO b : listAllBooking) {
+            BookingRoomDetailDAO bookingRoomDetailDAO = new BookingRoomDetailDAO();
+            ArrayList<BookingRoomDetailDTO> listAllActiveBooking =  bookingRoomDetailDAO.getActiveBookingRoomDetailByGuestID(guestID);
+            ArrayList<BookingRoomDetailDTO> listReservedBooking = new ArrayList<>();
+            ArrayList<BookingRoomDetailDTO> listCheckInBooking = new ArrayList<>();
+            if(listAllActiveBooking!=null && !listAllActiveBooking.isEmpty()) {
+                for(BookingRoomDetailDTO b : listAllActiveBooking) {
                     if(b.getStatus().equals("Reserved")) {
                         listReservedBooking.add(b);
                     } else if(b.getStatus().equals("CheckIn")) {

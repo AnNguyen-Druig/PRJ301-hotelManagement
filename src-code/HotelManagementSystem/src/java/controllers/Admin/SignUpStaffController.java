@@ -148,9 +148,9 @@ public class SignUpStaffController extends HttpServlet {
                         request.getRequestDispatcher(IConstants.SIGNUP_SUCCESS_PAGE).forward(request, response);
                     }
                 } else {
+                    //staffID tu editpage gui qua 
+                    int staffID = Integer.parseInt(request.getParameter("staffID").trim());
                     if (action.equals(IConstants.AC_EDIT_STAFF)) {
-                        //staffID tu editpage gui qua 
-                        int staffID = Integer.parseInt(request.getParameter("staffID").trim());
                         int updateStaff = staffDAO.updateStaff(staffID, username, password, phone, email, address, role, dateOfBirth_value,status);
                         if (updateStaff != 0) {
                             request.setAttribute("SUCCESS_MSG", IConstants.SUCC_UPDATE_STAFF);
@@ -161,7 +161,7 @@ public class SignUpStaffController extends HttpServlet {
                         StaffDTO staff = staffDAO.getStaffByID(staffID);
                         request.setAttribute("STAFF", staff);
                         request.getRequestDispatcher(IConstants.EDIT_STAFF_PAGE).forward(request, response);
-                    }
+                    } 
                 }
 
             }

@@ -105,6 +105,7 @@ public interface IConstants {
     public final String AC_UPDATE_STAFF = "updatestaff";
     public final String AC_EDIT_STAFF = "editstaff";
     public final String AC_BACK_TO_ADMIN_PAGE = "backtoadminpage";
+    public final String AC_DELETE_STAFF = "deletestaff";
     
     //Controller
     public final String CTL_LOGIN = "LoginController";
@@ -184,7 +185,7 @@ public interface IConstants {
 
     public final String ERR_EMPTY_TOTAL_REVENUE = "Chưa có Doanh Thu nào trong thời gian này.";
     public final String ERR_UPDATE_STAFF = "Cập nhật thông tin nhân viên THẤT BẠI";
-    
+    public final String ERR_DELETE_STAFF = "Xoá nhân viên THẤT BẠI";
 
     
     //SUCESSFULL
@@ -193,4 +194,6 @@ public interface IConstants {
     public final String SUCC_SAVE_UPDATE_BOOKING = "Bạn đã cập nhật thông tin thành công.";
     public final String SUCC_CANCEL_BOOKING_ROOM = "Bạn đã huỷ thành công, mã đặt phòng đã huỷ có ID là: ";
     public final String SUCC_UPDATE_STAFF = "Bạn đã cập nhật thông tin nhân viên thành công";
+    public final String SUCC_DELETE_STAFF = "Bạn đã xoá nhân viên thành công";
+    
 }

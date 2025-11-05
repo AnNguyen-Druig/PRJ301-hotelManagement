@@ -315,7 +315,7 @@ public class StaffDAO {
                         + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                 ps = cn.prepareStatement(sql);
-                ps.setString(1, staff.getFullName());
+                ps.setNString(1, staff.getFullName());
                 ps.setString(2, staff.getRole());
                 ps.setString(3, staff.getUserName());
                 ps.setString(4, staff.getPassword()); // DTO lưu PasswordHash trong trường "password"
@@ -466,11 +466,36 @@ public class StaffDAO {
                 PreparedStatement st = cn.prepareStatement(sql);
                 st.setInt(1, staffID);
                 ResultSet table = st.executeQuery();
-                if(table!=null) {
-                    while(table.next()) {
+                if (table != null) {
+                    while (table.next()) {
                         result = table.getString("Username");
                     }
                 }
+            }
+        } catch (Exception e) {
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public int deleteStaffByID(int staffID) {
+        int result = 0;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "DELETE FROM STAFF\n"
+                        + "WHERE StaffID = ?";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setInt(1, staffID);
+                result = st.executeUpdate();      
             }
         } catch (Exception e) {
         } finally {

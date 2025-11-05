@@ -5,8 +5,8 @@
 package controllers.Guest;
 
 
-import DAO.Basic_DAO.RoomDAO;
-import DTO.Basic_DTO.RoomDTO;
+import DAO.Guest_DAO.ShowRoomDAO;
+import DTO.Guest_DTO.ShowRoomDTO;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -58,8 +58,8 @@ public class FilterRoomController extends HttpServlet {
             } else {
                 //Lấy tất cả phòng có status Available từ ngày checkIn đến checkOut (ko cần theo RoomType)
                 if (roomType.equalsIgnoreCase("AllRoom")) {
-                    RoomDAO d = new RoomDAO();
-                    ArrayList<RoomDTO> list = d.filterAvailableRoomsByDateRange(checkInDate_value, checkOutDate_value);
+                    ShowRoomDAO d = new ShowRoomDAO();
+                    ArrayList<ShowRoomDTO> list = d.filterAvailableRoomsByDateRange(checkInDate_value, checkOutDate_value);
                     if (list != null && !list.isEmpty()) {
                         request.setAttribute("ALLROOM", list);
                         request.getRequestDispatcher(IConstants.BOOKING_ROOM_PAGE).forward(request, response);
@@ -69,8 +69,8 @@ public class FilterRoomController extends HttpServlet {
                     }
                 } else {
                     //Lấy phòng theo RoomType và checkIn,checkOut
-                    RoomDAO d = new RoomDAO();
-                    ArrayList<RoomDTO> list = d.filterRoomType(roomType, checkInDate_value, checkOutDate_value);
+                    ShowRoomDAO d = new ShowRoomDAO();
+                    ArrayList<ShowRoomDTO> list = d.filterRoomType(roomType, checkInDate_value, checkOutDate_value);
                     if (list != null && !list.isEmpty()) {
                         request.setAttribute("ALLROOM", list);
                         request.getRequestDispatcher(IConstants.BOOKING_ROOM_PAGE).forward(request, response);

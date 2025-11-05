@@ -1,3 +1,5 @@
+<%@page import="DTO.Basic_DTO.StaffDTO"%>
+<%@page import="DTO.Basic_DTO.GuestDTO"%>
 <%@page import="DTO.Basic_DTO.ServiceDTO"%>
 <%@page import="DTO.Basic_DTO.BookingDTO"%>
 <%@page import="mylib.IConstants"%>
@@ -54,7 +56,12 @@
     </head>
     <body>
 
-        <%
+        <%  
+            GuestDTO guest = (GuestDTO) session.getAttribute("USER");
+            StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");
+            if (guest == null && staff == null) {
+                request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
+            } else {
             String bookingID = request.getParameter("bookingId");
         %>
 
@@ -83,10 +90,6 @@
                             <td><%= s.getServiceType()%></td>
                             <td><%= s.getPrice()%></td>
                             <td>
-                                <!--            <form action="MainController" method="post" style="display:inline">
-                                               Action controller để ghi DB 
-                                              <a href="AddServiceController?ServiceID=<%=s.getServiceId()%>">add</a>
-                                            </form>-->
                                 <form action="MainController">
                                     <input type="hidden" name="bookingId" value="<%= bookingID%>">
                                     <input type="hidden" name="ServiceID" value="<%=s.getServiceId()%>">
@@ -166,6 +169,18 @@
             </div>
         </div>
 
+        
+        <% if (staff != null) {
+        %>
         <a class="back" href="MainController?action=getroomservice">⬅ Back to room</a>
+        <%
+        } else {
+        %>
+        <form action="MainController" method="POST">
+            <button type="submit" name="action" value="<%= IConstants.AC_GO_BACK_GUEST_PAGE%>">Quay về trang Guest</button>
+        </form>
+        <%
+                }
+            }%>
     </body>
 </html>

@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@page import="DTO.Guest_DTO.ShowRoomDTO"%>
 <%@page import="DTO.Basic_DTO.InvoiceDTO"%>
 <%@page import="DTO.Basic_DTO.PaymentDTO"%>
 <%@page import="DTO.Basic_DTO.GuestDTO"%>
@@ -27,7 +28,7 @@
             } else {
                 InvoiceDTO invoice = (InvoiceDTO) request.getAttribute("INVOICE");
                 PaymentDTO payment = (PaymentDTO) request.getAttribute("PAYMENT");
-                RoomDTO room = (RoomDTO) request.getAttribute("ROOM");
+                ShowRoomDTO room = (ShowRoomDTO) request.getAttribute("ROOM");
                 
                 //Lấy VAT 
                 TaxDAO taxDAO = new TaxDAO();
@@ -58,7 +59,7 @@
             <table style="width:100%;font-size:15px;border-collapse:collapse;">
                 <tr><td style="color:#555;width:35%;">Số phòng:</td><td><%= room.getRoomNumber()%></td></tr>
                 <tr><td style="color:#555;">Loại phòng:</td><td><%= room.getTypeName() %></td></tr>
-                <tr><td style="color:#555;">Tình trạng phòng:</td><td><%= room.getRoomStatus() %></td></tr>
+                <tr><td style="color:#555;">Sức chứa:</td><td><%= room.getCapacity() %></td></tr>
             </table>
 
             <br>

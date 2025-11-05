@@ -63,7 +63,7 @@
                     <label for="staff_fullname" class="form-label">Họ và tên <span class="orange">* Không cập nhật họ và tên</span>
                         <span class="red">${requestScope.ERROR_FULLNAME}</span>
                     </label>
-                        <input type="text" class="form-control" name="staff_fullname" required="" readonly="" value="${param.staff_fullname != null ? param.staff_fullname : requestScope.STAFF.fullName}">
+                    <input type="text" class="form-control" name="staff_fullname" required="" readonly="" value="${param.staff_fullname != null ? param.staff_fullname : requestScope.STAFF.fullName}">
                 </div>
                 <div class="mb-3">
                     <label for="staff_phone" class="form-label">Số điện thoại <span class="red">*</span>
@@ -87,7 +87,7 @@
                     <label for="staff_idnumber" class="form-label">CCCD/CMND <span class="orange">*Không cập nhật CCCD</span>
                         <span class="red">${requestScope.ERROR_IDNUMBER}</span>
                     </label>
-                        <input type="number" class="form-control" name="staff_idnumber" required="" readonly="" value="${param.staff_idnumber != null ? param.staff_idnumber : requestScope.STAFF.idNumber}">
+                    <input type="number" class="form-control" name="staff_idnumber" required="" readonly="" value="${param.staff_idnumber != null ? param.staff_idnumber : requestScope.STAFF.idNumber}">
                 </div>
                 <div class="mb-3">
                     <label for="staff_address" class="form-label">Địa chỉ</label>
@@ -113,19 +113,19 @@
                     <input type="radio" name="staff_status" id="status_inactive" value="Inactive" ${(param.staff_status != null ? param.staff_status : requestScope.STAFF.status) == 'Inactive' ? 'checked' : ''}>
                     <label for="status_inactive">Inactive</label>
                 </div>
-<!--                 Gui theo staffID de SignUpStaffController dung trong update va delete-->
+                <!--                 Gui theo staffID de SignUpStaffController dung trong update va delete-->
                 <input type="hidden" name="staffID" value="${requestScope.STAFF.staffID}">
                 <button class="btn btn-primary form-control" type="submit" value="<%= IConstants.AC_EDIT_STAFF%>" name="action">Cập nhật thông tin</button>
             </form>
         </div>
-            <form action="MainController" method="POST">
-                <button type="submit" name="action" value="backtoadminpage">Quay lại</button>
-            </form>
+        <form action="MainController" method="POST">
+            <button type="submit" name="action" value="backtoadminpage">Quay lại</button>
+        </form>
         <%
             }
         %>
     </body>
-     <script>
+    <script>
         //Dùng để kiểm tra 2 mật khẩu có khớp với nhau không
         function kiemTraMatKhau() {
             password = document.getElementById("staff_password").value;

@@ -4,13 +4,10 @@
  */
 package controllers.Guest;
 
-import controllers.*;
-import DAO.Basic_DAO.GuestDAO;
-import DAO.Basic_DAO.RoomDAO;
-import DTO.Basic_DTO.GuestDTO;
-import DTO.Basic_DTO.RoomDTO;
+
+import DAO.Guest_DAO.ShowRoomDAO;
+import DTO.Guest_DTO.ShowRoomDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import javax.servlet.ServletException;
 
@@ -57,8 +54,8 @@ public class BookingRoomController extends HttpServlet {
                 request.setAttribute("CHECKINDATE", checkInDate_value);
                 request.setAttribute("CHECKOUTDATE", checkOutDate_value);
 
-                RoomDAO roomDAO = new RoomDAO();
-                RoomDTO room = roomDAO.getRoomByID(roomID);
+                ShowRoomDAO roomDAO = new ShowRoomDAO();
+                ShowRoomDTO room = roomDAO.getRoomByID(roomID);
                 request.setAttribute("ROOM", room);
 
                 request.getRequestDispatcher(IConstants.BOOKING_ROOM_REGISTER_PAGE).forward(request, response);

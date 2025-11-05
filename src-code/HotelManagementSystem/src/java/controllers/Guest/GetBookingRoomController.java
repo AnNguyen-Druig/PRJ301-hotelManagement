@@ -7,10 +7,11 @@ package controllers.Guest;
 
 import DAO.Basic_DAO.BookingDAO;
 import DAO.Basic_DAO.BookingServiceDAO;
+import DAO.Guest_DAO.BookingRoomDetailDAO;
 import DTO.Basic_DTO.BookingDTO;
 import DTO.Basic_DTO.BookingServiceDTO;
+import DTO.Guest_DTO.BookingRoomDetailDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 
@@ -41,9 +42,9 @@ public class GetBookingRoomController extends HttpServlet {
         int bookingID = Integer.parseInt(request.getParameter("bookingId").trim());
         
         //lấy đối tượng BookingRoom
-        BookingDAO bookingRoomDAO = new BookingDAO();
-        BookingDTO bookingRoom = bookingRoomDAO.getBookingByBookingIDInReception(bookingID);
-        request.setAttribute("BOOKING_ROOM", bookingRoom);
+        BookingRoomDetailDAO bookingRoomDetailDAO = new BookingRoomDetailDAO();
+        BookingRoomDetailDTO bookingRoomDetailDTO = bookingRoomDetailDAO.getBookingRoomDetailByBookingID(bookingID);
+        request.setAttribute("BOOKING_ROOM", bookingRoomDetailDTO);
         
         //lấy list BookingService mà BookingRoom đã đặt
         BookingServiceDAO bookingServiceDAO = new BookingServiceDAO();

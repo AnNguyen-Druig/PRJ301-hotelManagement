@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="DTO.Guest_DTO.BookingRoomDetailDTO"%>
 <%@page import="DTO.Basic_DTO.BookingDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>
@@ -37,38 +38,35 @@
             }
             //Kết thúc thông tin Huy Dat Phong
 
-            ArrayList<BookingDTO> listReservedBooking = (ArrayList<BookingDTO>) request.getAttribute("RESERVED_BOOKING");
+            ArrayList<BookingRoomDetailDTO> listReservedBooking = (ArrayList<BookingRoomDetailDTO>) request.getAttribute("RESERVED_BOOKING");
             if (listReservedBooking != null && !listReservedBooking.isEmpty()) {
         %>
         <table>
             <tr>
-                <th>Booking ID</th>
-                <th>Guest ID</th>
-                <th>Guest Name</th>
-                <th>Room ID</th>
                 <th>Room Number</th>
+                <th>Guest Name</th>
                 <th>Room Type</th>
                 <th>Check-in Date</th>
                 <th>Check-out Date</th>
                 <th>Booking Date</th>
+                <th>PricePerNight</th>
                 <th>Status</th>
                     <%
-                        for (BookingDTO b : listReservedBooking) {
+                        for (BookingRoomDetailDTO b : listReservedBooking) {
                     %>
             <tr> 
-                <td><%= b.getBookingID()%></td>
-                <td><%= b.getGuestID()%></td>
-                <td><%= b.getGuestName()%></td>
-                <td><%= b.getRoomID()%></td>
                 <td><%= b.getRoomNumber()%></td>
+                <td><%= b.getGuestName()%></td>
                 <td><%= b.getRoomType()%></td>
                 <td><%= b.getCheckInDate()%></td>
                 <td><%= b.getCheckOutDate()%></td>
                 <td><%= b.getBookingDate()%></td>
+                <td><%= b.getPricePerNight() %></td>
                 <td><%= b.getStatus()%></td>
                 <td>
                     <form action="MainController" method="POST">
-                        <input type="hidden" name="bookingId" value="<%= b.getBookingID()%>">
+                        <input type="hidden" name="bookingID" value="<%= b.getBookingID()%>">
+                        <input type="hidden" name="checkInDate" value="<%= b.getCheckInDate() %>">
                         <button type="submit" name="action" value="<%= IConstants.AC_CANCEL_BOOKING_ROOM%>">Huỷ đặt phòng</button> 
                     </form>
                 </td>
@@ -89,34 +87,30 @@
         %>
         <h2>Các Đơn Đặt Phòng Đang Ở</h2>
         <%
-            ArrayList<BookingDTO> listCheckInBooking = (ArrayList<BookingDTO>) request.getAttribute("CHECKIN_BOOKING");
+            ArrayList<BookingRoomDetailDTO> listCheckInBooking = (ArrayList<BookingRoomDetailDTO>) request.getAttribute("CHECKIN_BOOKING");
             if (listCheckInBooking != null && !listCheckInBooking.isEmpty()) {
         %>
         <table>
             <tr>
-                <th>Booking ID</th>
-                <th>Guest ID</th>
+                 <th>Room Number</th>
                 <th>Guest Name</th>
-                <th>Room ID</th>
-                <th>Room Number</th>
                 <th>Room Type</th>
                 <th>Check-in Date</th>
                 <th>Check-out Date</th>
                 <th>Booking Date</th>
+                <th>PricePerNight</th>
                 <th>Status</th>
                     <%
-                        for (BookingDTO b : listCheckInBooking) {
+                        for (BookingRoomDetailDTO b : listCheckInBooking) {
                     %>
             <tr> 
-                <td><%= b.getBookingID()%></td>
-                <td><%= b.getGuestID()%></td>
-                <td><%= b.getGuestName()%></td>
-                <td><%= b.getRoomID()%></td>
                 <td><%= b.getRoomNumber()%></td>
+                <td><%= b.getGuestName()%></td>
                 <td><%= b.getRoomType()%></td>
                 <td><%= b.getCheckInDate()%></td>
                 <td><%= b.getCheckOutDate()%></td>
                 <td><%= b.getBookingDate()%></td>
+                <td><%= b.getPricePerNight() %></td>
                 <td><%= b.getStatus()%></td>
                 <td>
                     <form action="MainController">

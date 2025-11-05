@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@page import="DTO.Guest_DTO.ShowRoomDTO"%>
 <%@page import="DTO.Basic_DTO.StaffDTO"%>
 <%@page import="mylib.IConstants"%>
 <%@page import="DTO.Basic_DTO.RoomDTO"%>
@@ -23,7 +24,7 @@
     </head>
     <body>
         <%
-            RoomDTO room = (RoomDTO) request.getAttribute("ROOM");
+            ShowRoomDTO room = (ShowRoomDTO) request.getAttribute("ROOM");
             GuestDTO guest = (GuestDTO) session.getAttribute("USER");
             Date checkInDate = (Date) request.getAttribute("CHECKINDATE");
             Date checkOutDate = (Date) request.getAttribute("CHECKOUTDATE");
@@ -53,6 +54,12 @@
                 <lable for="IDNumber">SO CAN CUOC CONG DAN: </lable>
                 <input type="number" name="guest_IDNumber" id="IDNumber" readonly="" value="<%= guest.getIDNumber()%>">
             </div>
+            </br>
+
+            <div>
+                <lable for="roomNumber">SO PHONG: </lable>
+                <input type="text" name="room_roomNumber" id="roomNumber" readonly="" value="<%= room.getRoomNumber()%>">
+            </div> 
             </br>
 
             <div>
@@ -97,32 +104,35 @@
             <!--   gửi theo booking_room_checkInDate và booking_room_checkOutDate vẫn còn trong request đến SaveBookingRoom để BookingRoomController nhận ròi gửi lại trang này -->
             <input type="hidden" name="booking_room_checkInDate" value="<%= request.getParameter("booking_room_checkInDate")%>">
             <input type="hidden" name="booking_room_checkOutDate" value="<%= request.getParameter("booking_room_checkOutDate")%>">
-            <% }
-            String msg = (String) request.getAttribute("MSG");
-            if (msg != null && !msg.isEmpty()) {
-                out.print(msg);
-            } else {
-                %>
-                <button type="submit" name="action" value="<%= IConstants.AC_SAVE_BOOKING_ROOM %>">Booking</button>
-                <%
-            }
-        %>          
+            <%
+                String msg = (String) request.getAttribute("MSG");
+                if (msg != null && !msg.isEmpty()) {
+                    out.print(msg);
+                } else {
+            %>
+            <button type="submit" name="action" value="<%= IConstants.AC_SAVE_BOOKING_ROOM%>">Booking</button>
+            <%
+                }
+            %>          
         </form>
         <%
-        StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");
-        if(staff!=null) {
-            %>
-            <form action="MainController" method="POST">
-                <button type="submit" name="action" value="<%= IConstants.AC_TURNBACK_RECEPTION %>">Quay về trang Receptionist</button>
-            </form>
+            StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");
+            if (staff != null) {
+        %>
+        <form action="MainController" method="POST">
+            <button type="submit" name="action" value="<%= IConstants.AC_TURNBACK_RECEPTION%>">Quay về trang Receptionist</button>
+        </form>
         <%
         } else {
-             %>
-            <form action="MainController" method="POST">
-                <button type="submit" name="action" value="<%= IConstants.AC_GO_BACK_GUEST_PAGE %>">Quay về trang Guest</button>
-            </form>
+        %>
+        <form action="MainController" method="POST">
+            <button type="submit" name="action" value="<%= IConstants.AC_GO_BACK_GUEST_PAGE%>">Quay về trang Guest</button>
+        </form>
         <%
-        }
+                }
+            } else {
+                request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
+            }
         %>
     </body>
 </html>

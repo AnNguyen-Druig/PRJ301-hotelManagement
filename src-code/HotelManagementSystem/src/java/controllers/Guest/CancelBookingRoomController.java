@@ -37,13 +37,13 @@ public class CancelBookingRoomController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String bookingID = request.getParameter("bookingId");
-        BookingDAO bookingRoomDAO = new BookingDAO();
-        BookingDTO bookingRoom = bookingRoomDAO.getBookingByBookingIDInReception(Integer.parseInt(bookingID.trim()));
-
+        String bookingID = request.getParameter("bookingID");
+        String checkInDate = request.getParameter("checkInDate");
+        Date checInDate_value = Date.valueOf(checkInDate);
         //Check ngày ngày HUỶ phải trước ngày CheckIn
         Date today = new Date(System.currentTimeMillis());
-        if (today.before(bookingRoom.getCheckInDate())) {
+        if (today.before(checInDate_value)) {
+            BookingDAO bookingRoomDAO = new BookingDAO();
             boolean cancel = bookingRoomDAO.updateStatusBooking(Integer.parseInt(bookingID.trim()), "Canceled");
             if (cancel == true) {
                 request.setAttribute("MESSAGE", IConstants.SUCC_CANCEL_BOOKING_ROOM + bookingID);
@@ -53,7 +53,7 @@ public class CancelBookingRoomController extends HttpServlet {
                 request.getRequestDispatcher(IConstants.CTL_VIEW_BOOKING).forward(request, response);
             }
         } else {
-            request.setAttribute("MESSAGE", IConstants.ERR_CANCELDATE_BEFORE_CHECKINDATE + bookingRoom.getCheckInDate());
+            request.setAttribute("MESSAGE", IConstants.ERR_CANCELDATE_BEFORE_CHECKINDATE + checInDate_value);
             request.getRequestDispatcher(IConstants.CTL_VIEW_BOOKING).forward(request, response);
         }
 

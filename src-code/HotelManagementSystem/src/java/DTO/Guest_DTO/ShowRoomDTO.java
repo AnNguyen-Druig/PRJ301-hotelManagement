@@ -9,7 +9,7 @@ package DTO.Guest_DTO;
  * @author Admin
  */
 public class ShowRoomDTO {
-    private int roomid;
+    private int roomID;
     private String roomNumber;
     private String typeName;
     private int capacity;
@@ -18,20 +18,20 @@ public class ShowRoomDTO {
     public ShowRoomDTO() {
     }
 
-    public ShowRoomDTO(int roomid, String roomNumber, String typeName, int capacity, double pricePerNight) {
-        this.roomid = roomid;
+    public ShowRoomDTO(int roomID, String roomNumber, String typeName, int capacity, double pricePerNight) {
+        this.roomID = roomID;
         this.roomNumber = roomNumber;
         this.typeName = typeName;
         this.capacity = capacity;
         this.pricePerNight = pricePerNight;
     }
 
-    public int getRoomid() {
-        return roomid;
+    public int getRoomID() {
+        return roomID;
     }
 
-    public void setRoomid(int roomid) {
-        this.roomid = roomid;
+    public void setRoomID(int roomID) {
+        this.roomID = roomID;
     }
 
     public String getRoomNumber() {
@@ -65,6 +65,7 @@ public class ShowRoomDTO {
     public void setPricePerNight(double pricePerNight) {
         this.pricePerNight = pricePerNight;
     }
+
     
     
 }
