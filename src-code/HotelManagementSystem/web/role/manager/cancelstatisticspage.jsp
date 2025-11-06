@@ -99,6 +99,11 @@
 
             // Lấy lỗi chung
             String errMsg = (String) request.getAttribute("ERROR");
+            if(errMsg == null) errMsg = "";
+            
+            //Loi cua phan danh sach Cancel Booking theo Room Type
+            String errMsgRT = (String) request.getAttribute("ERROR_ROOMTYPE_LIST");
+            if(errMsgRT == null) errMsgRT = "";
 
             // Giá trị mặc định
             if (totalBookings == null) {
@@ -117,12 +122,7 @@
                 endDateFilter = "";
         %>
 
-        <%-- Hiển thị lỗi nếu có --%>
-        <% if (errMsg != null) {%>
-        <p class="error-message">Lỗi: <%= errMsg%></p>
-        <% }%>
-
-        <%-- 1 & 2 & 6. Thống kê tổng quát --%>
+        <%-- 1 & 2 & 3. Thống kê tổng quát --%>
         <div class="report-section">
             <h3>Thống kê Tổng quát</h3>
             <div class="statistic">
@@ -134,14 +134,14 @@
                 <span class="statistic-value"><%= totalCancellations%></span>
             </div>
             <div class="statistic">
-                <span class="statistic-label">6. Tỷ lệ hủy (Tổng hủy / Tổng booking):</span>
+                <span class="statistic-label">3. Tỷ lệ hủy (Tổng hủy / Tổng booking):</span>
                 <span class="statistic-value"><%= formattedRate%>%</span>
             </div>
         </div>
 
-        <%-- 3. Hủy theo khoảng thời gian --%>
+        <%-- 4. Hủy theo khoảng thời gian --%>
         <div class="report-section">
-            <h3>3. Số lượt hủy theo Khoảng thời gian</h3>
+            <h3>4. Số lượt hủy theo Khoảng thời gian</h3>
             <div class="filter-form">
                 <form action="MainController" method="POST">
                     <label for="startDate">Từ ngày:</label>
@@ -157,15 +157,15 @@
                 <span class="statistic-value"><%= cancellationsInRange%></span>
             </div>
             <% } else if (startDateFilter != "" || endDateFilter != "") { %>
-            <p class="info-message">Không có lượt hủy nào trong khoảng thời gian đã chọn.</p>
+            <p class="info-message"><%= errMsg %></p>
             <% } else { %>
             <p class="info-message">Chọn khoảng thời gian để xem thống kê.</p>
             <% } %>
         </div>
 
-        <%-- 4. Hủy theo Tháng/Năm --%>
+        <%-- 5. Hủy theo Tháng/Năm --%>
         <div class="report-section">
-            <h3>4. Số lượt hủy theo Tháng/Năm (Dựa trên ngày đặt)</h3>
+            <h3>5. Số lượt hủy theo Tháng/Năm (Dựa trên ngày đặt)</h3>
             <%-- Vòng lặp vẫn dùng Map.Entry --%>
             <% if (cancellationsByMonth != null && !cancellationsByMonth.isEmpty()) { %>
             <table>
@@ -185,13 +185,13 @@
                 </tbody>
             </table>
             <% } else { %>
-            <p class="info-message">Chưa có dữ liệu hủy theo tháng/năm.</p>
+            <p class="info-message"><%= errMsg %></p>
             <% } %>
         </div>
 
-        <%-- 5. Hủy theo Loại phòng --%>
+        <%-- 6. Hủy theo Loại phòng --%>
         <div class="report-section">
-            <h3>5. Số lượt hủy theo Loại phòng</h3>
+            <h3>6. Số lượt hủy theo Loại phòng</h3>
             <%-- Vòng lặp vẫn dùng Map.Entry --%>
             <% if (cancellationsByRoomType != null && !cancellationsByRoomType.isEmpty()) { %>
             <table>
@@ -211,7 +211,7 @@
                 </tbody>
             </table>
             <% } else { %>
-            <p class="info-message">Chưa có dữ liệu hủy theo loại phòng.</p>
+            <p class="info-message"><%= errMsgRT %></p>
             <% }%>
         </div>
 
