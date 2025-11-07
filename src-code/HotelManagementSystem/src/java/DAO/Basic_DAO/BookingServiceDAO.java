@@ -58,7 +58,7 @@ public class BookingServiceDAO {
                 String sql = "Select [Booking_Service_ID],bs.[BookingID],[ServiceID],[Quantity],[ServiceDate],bs.[Status],[AssignedStaff]\n"
                         + "FROM dbo.BOOKING_SERVICE as bs\n"
                         + "INNER JOIN dbo.BOOKING as b ON b.BookingID = bs.BookingID\n"
-                        + "WHERE bs.BookingID = ?";
+                        + "WHERE bs.BookingID = ? AND bs.Status = 'Pending'";
                 PreparedStatement st = cn.prepareStatement(sql);
                 st.setInt(1, bookingID);
                 ResultSet table = st.executeQuery();
