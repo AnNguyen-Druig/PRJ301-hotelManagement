@@ -57,7 +57,7 @@ public class ShowRoomDAO {
         return result;
     }
     
-     public ArrayList<ShowRoomDTO> filterAvailableRoomsByDateRange(Date checkInDate, Date checkOutDate) {
+    public ArrayList<ShowRoomDTO> filterAvailableRoomsByDateRange(Date checkInDate, Date checkOutDate) {
         ArrayList<ShowRoomDTO> result = new ArrayList<>();
         Connection cn = null;
         try {
@@ -72,7 +72,7 @@ public class ShowRoomDAO {
                         + "  AND r.RoomID NOT IN (\n"
                         + "        SELECT b.RoomID\n"
                         + "        FROM BOOKING b\n"
-                        + "        WHERE b.Status IN ('Reserved','CheckIn','CheckOut', 'Canceled') -- chỉ loại trừ các booking đang còn hiệu lực\n"
+                        + "        WHERE b.Status IN ('Reserved','CheckIn','CheckOut') -- chỉ loại trừ các booking đang còn hiệu lực\n"
                         + "          AND (\n"
                         + "               (b.CheckInDate < ?)\n"
                         + "               AND (b.CheckOutDate > ?)\n"
@@ -124,7 +124,7 @@ public class ShowRoomDAO {
                         + "  AND r.RoomID NOT IN (\n"
                         + "        SELECT b.RoomID\n"
                         + "        FROM BOOKING b\n"
-                        + "        WHERE b.Status IN ('Reserved','CheckIn','CheckOut', 'Canceled') -- chỉ loại trừ các booking đang còn hiệu lực\n"
+                        + "        WHERE b.Status IN ('Reserved','CheckIn','CheckOut') -- chỉ loại trừ các booking đang còn hiệu lực\n"
                         + "          AND (\n"
                         + "               (b.CheckInDate < ?)\n"
                         + "               AND (b.CheckOutDate > ?)\n"

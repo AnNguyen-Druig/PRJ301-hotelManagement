@@ -150,7 +150,8 @@ public class SignUpStaffController extends HttpServlet {
                     StaffDTO staff = new StaffDTO(fullname, role, username, password, phone, email, address, idNumber, dateOfBirth_value, status);
                     int signUpStaff = staffDAO.createStaff(staff);
                     if (signUpStaff != 0) {
-                        request.getRequestDispatcher(IConstants.SIGNUP_SUCCESS_PAGE).forward(request, response);
+                        request.setAttribute("SUCCESS", IConstants.SUCC_SIGNUP);
+                        request.getRequestDispatcher(IConstants.SIGN_UP_STAFF_PAGE).forward(request, response);
                     }
                 } else {
                     //staffID tu editpage gui qua 

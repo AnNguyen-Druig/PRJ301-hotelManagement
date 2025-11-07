@@ -50,8 +50,6 @@
                 </li>
             </ul>
         </div>
-
-        <p><a href="LogoutController?action=logout">Logout</a></p>
         <%}%>
     </body>
 </html>

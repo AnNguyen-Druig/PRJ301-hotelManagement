@@ -199,5 +199,5 @@ public interface IConstants {
     public final String SUCC_CANCEL_BOOKING_ROOM = "Bạn đã huỷ đặt phòng thành công";
     public final String SUCC_UPDATE_STAFF = "Bạn đã cập nhật thông tin nhân viên thành công";
     public final String SUCC_DELETE_STAFF = "Bạn đã xoá nhân viên thành công";
-    
+    public final String SUCC_SIGNUP = "Bạn đã đăng ký thành công.";
 }

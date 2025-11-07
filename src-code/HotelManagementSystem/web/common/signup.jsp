@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="DTO.Basic_DTO.StaffDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -91,12 +92,6 @@
             if (idNumber == null) {
                 idNumber = "";
             }
-
-            String nhanThongBaoEmail = (String) request.getAttribute("nhanThongBaoEmail");
-            if (nhanThongBaoEmail == null) {
-                nhanThongBaoEmail = "";
-            }
-
         %>
 
         <h1 style="text-align: center;">Đăng Ký Thành Viên</h1>
@@ -157,14 +152,25 @@
                     <label for="condition" class="form-label">Đồng ý với các điều khoản của Hotel <span class="red">*</span></label>
                     <input type="checkbox" class="form-check-input" name="condition" id="condition" required="" onchange="kiemTraDongYCondition()">
                 </div>
-                <div class="mb-3">
-                    <label for="nhanemail" class="form-label">Đồng ý nhận email thông báo khuyến mãi</label>
-                    <input type="checkbox" class="form-check-input" name="nhanemail">
-                </div>
 
                 <input class="btn btn-primary form-control" type="submit" value="Signup" name="action" id="submit" style="visibility: hidden">
             </form>
             <p><%= errorMsg%></p>
+
+            <%
+                String succMsg = (String) request.getAttribute("SUCCESS");
+                StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");
+                if (succMsg != null) {
+                    if(staff != null) {
+            %>
+            
+            <a href="MainController?action=TurnBackReceptionPage">Quay lại trang của Lễ tân</a>
+            <%}else{%>
+            <a href="MainController?action=Login Member">Quay về trang đăng nhập</a>
+            <%}%>
+            <span><%= succMsg%></span>
+            <%}%>
+            
         </div>
     </body>
 

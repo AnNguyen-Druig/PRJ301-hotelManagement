@@ -192,10 +192,10 @@ public class GuestDAO {
                 if (cn != null) {
                     cn.close();
                 }
-                if(ps != null) {
+                if (ps != null) {
                     ps.close();
-                } 
-                if(table != null) {
+                }
+                if (table != null) {
                     table.close();
                 }
             } catch (Exception e) {
@@ -213,5 +213,33 @@ public class GuestDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean checkIDNumberExisted(String id) {
+        boolean result = false;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+
+            String sql = "SELECT * FROM GUEST WHERE IDNumber = ?";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet table = ps.executeQuery();
+
+            while (table.next()) {
+                result = true;  //true có nghĩa là username đó đã tồn tại rồi -> báo lỗi
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 }

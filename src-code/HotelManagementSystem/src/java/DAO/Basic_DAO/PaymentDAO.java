@@ -17,7 +17,7 @@ import mylib.DBUtills;
  */
 public class PaymentDAO {
 
-    public int savePaymentStatusPending(int bookindID, double amount, String paymentMethod) {
+    public int savePaymentStatusCompleted(int bookindID, double amount, String paymentMethod) {
         int result = 0;
         Connection cn = null;
         try {
@@ -29,7 +29,7 @@ public class PaymentDAO {
                 st.setInt(1, bookindID);
                 st.setDouble(2, amount);
                 st.setString(3, paymentMethod);
-                st.setString(4, "Pending");
+                st.setString(4, "Completed");
                 result = st.executeUpdate();
             }
         } catch (Exception e) {

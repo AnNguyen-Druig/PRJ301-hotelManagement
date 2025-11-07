@@ -91,20 +91,28 @@
                 </div>
                 <div class="mb-3">
                     <label>Trạng thái</label> </br>
-                    
+
                     <input type="radio" name="staff_status" id="status_active" required="" value="Active" ${param.staff_status == 'Active' ? 'checked' : ''}>
                     <label for="status_active">Active</label>
-                    
+
                     <input type="radio" name="staff_status" id="status_inactive" value="Inactive" ${param.staff_status == 'Inactive' ? 'checked' : ''}>
                     <label for="status_inactive">Inactive</label>
                 </div>
-         
+
+                <%
+                    String succMsg = (String) request.getAttribute("SUCCESS");
+                    if (succMsg != null) {
+                %>
+                <p><%= succMsg%></p>
+                <%} else {%>
                 <button class="btn btn-primary form-control" type="submit" value="<%= IConstants.AC_SIGN_UP_STAFF%>" name="action">Đăng ký nhân viên</button>
+                <%}%>
             </form>
         </div>
-            <form action="MainController" method="POST">
-                <button type="submit" name="action" value="backtoadminpage">Quay lại</button>
-            </form>
+
+        <form action="MainController" method="POST">
+            <button type="submit" name="action" value="backtoadminpage">Quay lại</button>
+        </form>
     </body>
 
     <script>

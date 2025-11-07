@@ -17,21 +17,22 @@ import mylib.DBUtills;
  * @author Nguyễn Đại
  */
 public class ReportDAO {
-    public ArrayList<ReportDTO> report1(){
+
+    public ArrayList<ReportDTO> report1() {
         ArrayList<ReportDTO> result = new ArrayList<>();
         Connection cn = null;
         try {
             cn = DBUtills.getConnection();
             if (cn != null) {
-                String sql = "SELECT BS.ServiceDate, G.FullName, B.RoomID, S.ServiceName, BS.Quantity, BS.Status\n"
-                            + "FROM DBO.BOOKING_SERVICE AS BS\n"
-                            + "JOIN BOOKING AS B ON B.BookingID = BS.BookingID\n"
-                            + "JOIN GUEST AS G ON G.GuestID = B.GuestID\n"
-                            + "JOIN SERVICE AS S ON S.ServiceID = BS.ServiceID";
+                String sql = "SELECT BS.ServiceDate, G.FullName, B.RoomID, S.ServiceName, BS.Quantity, BS.Status \n"
+                        + "FROM DBO.BOOKING_SERVICE AS BS JOIN BOOKING AS B ON B.BookingID = BS.BookingID\n"
+                        + "JOIN GUEST AS G ON G.GuestID = B.GuestID\n"
+                        + "JOIN SERVICE AS S ON S.ServiceID = BS.ServiceID\n"
+                        + "ORDER BY BS.Quantity DESC";
                 PreparedStatement st = cn.prepareStatement(sql);
                 ResultSet table = st.executeQuery();
-                if(table != null){
-                    while(table.next()){
+                if (table != null) {
+                    while (table.next()) {
                         Date serviceDate = table.getDate("ServiceDate");
                         String guestName = table.getString("FullName");
                         int roomId = table.getInt("RoomID");
@@ -58,30 +59,31 @@ public class ReportDAO {
         }
         return result;
     }
-    
-    public ArrayList<ReportDTO> report2(){
+
+    public ArrayList<ReportDTO> report2() {
         ArrayList<ReportDTO> result = new ArrayList<>();
         Connection cn = null;
         try {
             cn = DBUtills.getConnection();
             if (cn != null) {
                 String sql = "SELECT G.FullName, B.RoomID, S.ServiceName, BS.Quantity, ST.FullName as AssignedStaff, BS.RequestTime\n"
-                            + "FROM DBO.BOOKING_SERVICE AS BS\n"
-                            + "JOIN BOOKING AS B ON B.BookingID = BS.BookingID\n"
-                            + "JOIN GUEST AS G ON G.GuestID = B.GuestID\n"
-                            + "JOIN SERVICE AS S ON S.ServiceID = BS.ServiceID\n"
-                            + "LEFT JOIN STAFF AS ST ON ST.StaffID = BS.AssignedStaff";
+                        + "FROM DBO.BOOKING_SERVICE AS BS\n"
+                        + "JOIN BOOKING AS B ON B.BookingID = BS.BookingID\n"
+                        + "JOIN GUEST AS G ON G.GuestID = B.GuestID\n"
+                        + "JOIN SERVICE AS S ON S.ServiceID = BS.ServiceID\n"
+                        + "LEFT JOIN STAFF AS ST ON ST.StaffID = BS.AssignedStaff\n"
+                        + "ORDER BY BS.Quantity DESC";
                 PreparedStatement st = cn.prepareStatement(sql);
                 ResultSet table = st.executeQuery();
-                if(table != null){
-                    while(table.next()){
+                if (table != null) {
+                    while (table.next()) {
                         String guestName = table.getString("FullName");
                         int roomNumber = table.getInt("RoomID");
                         String serviceName = table.getString("ServiceName");
                         int quantity = table.getInt("Quantity");
                         String assignedStaff = table.getString("AssignedStaff");
                         int requestTime = table.getInt("RequestTime");
-                        
+
                         ReportDTO report = new ReportDTO(guestName, roomNumber, serviceName, quantity, assignedStaff, requestTime);
                         result.add(report);
                     }
@@ -100,13 +102,13 @@ public class ReportDAO {
         }
         return result;
     }
-    
-    public ArrayList<ReportDTO> report3(){
+
+    public ArrayList<ReportDTO> report3() {
         ArrayList<ReportDTO> result = new ArrayList<>();
         Connection cn = null;
-        try{
+        try {
             cn = DBUtills.getConnection();
-            if(cn != null){
+            if (cn != null) {
                 String sql = "SELECT  st.FullName      AS StaffName,\n"
                         + "        sv.ServiceName,\n"
                         + "        bs.ServiceDate  AS [Date],\n"
@@ -119,8 +121,8 @@ public class ReportDAO {
                         + "ORDER BY [Date], StaffName, ServiceName;";
                 PreparedStatement st = cn.prepareStatement(sql);
                 ResultSet table = st.executeQuery();
-                if(table != null){
-                    while(table.next()){
+                if (table != null) {
+                    while (table.next()) {
                         String staffName = table.getString("StaffName");
                         String serviceName = table.getString("ServiceName");
                         Date serviceDate = table.getDate("Date");
@@ -131,7 +133,7 @@ public class ReportDAO {
                     }
                 }
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
@@ -144,13 +146,13 @@ public class ReportDAO {
         }
         return result;
     }
-    
-    public ArrayList<ReportDTO> report4(Date serviceDate){
+
+    public ArrayList<ReportDTO> report4(Date serviceDate) {
         ArrayList<ReportDTO> result = new ArrayList<>();
         Connection cn = null;
-        try{
+        try {
             cn = DBUtills.getConnection();
-            if(cn != null){
+            if (cn != null) {
                 String sql = "SELECT s.ServiceName, SUM(bs.Quantity) AS Quantity, SUM(bs.Quantity * s.Price) AS TotalRevenue, CAST(bs.ServiceDate AS date) AS Period\n"
                         + "FROM BOOKING_SERVICE bs\n"
                         + "JOIN SERVICE s ON s.ServiceID = bs.ServiceID\n"
@@ -161,8 +163,8 @@ public class ReportDAO {
                 PreparedStatement st = cn.prepareStatement(sql);
                 st.setDate(1, serviceDate);
                 ResultSet table = st.executeQuery();
-                if(table != null){
-                    while(table.next()){
+                if (table != null) {
+                    while (table.next()) {
                         String serviceName = table.getString("ServiceName");
                         int quantity = table.getInt("Quantity");
                         double totalRevenue = table.getDouble("TotalRevenue");
@@ -171,8 +173,8 @@ public class ReportDAO {
                         result.add(report);
                     }
                 }
-            }    
-        }catch (Exception e) {
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {

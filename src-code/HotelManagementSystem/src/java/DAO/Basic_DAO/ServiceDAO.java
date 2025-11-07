@@ -64,7 +64,7 @@ public class ServiceDAO {
                 }
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return result;
     }

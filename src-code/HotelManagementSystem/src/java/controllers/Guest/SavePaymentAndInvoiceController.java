@@ -65,7 +65,7 @@ public class SavePaymentAndInvoiceController extends HttpServlet {
         request.setAttribute("INVOICE", invoice);
         
         PaymentDAO paymentDAO = new PaymentDAO();
-        int savePayment = paymentDAO.savePaymentStatusPending(bookingID, total, paymentMethod);
+        int savePayment = paymentDAO.savePaymentStatusCompleted(bookingID, total, paymentMethod);
         PaymentDTO payment = paymentDAO.getPaymentByBookingID(bookingID);
         request.setAttribute("PAYMENT", payment);
         

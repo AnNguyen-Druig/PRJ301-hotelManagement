@@ -38,8 +38,7 @@ public class SignUpController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        //String url = IConstants.SIGNUP_PAGE;
-        
+        String url = IConstants.SIGNUP_PAGE;
         try {
             String username = request.getParameter("guest_username");
             String password = request.getParameter("guest_password");
@@ -107,17 +106,19 @@ public class SignUpController extends HttpServlet {
                 if (!idNumber.matches("^\\d{12}$")) {
                     request.setAttribute("ERROR_IDNUMBER", IConstants.ERR_INVALID_IDNUMBER);
                     hasError = true;
+                } else if (guestDAO.checkIDNumberExisted(idNumber)) {
+                    request.setAttribute("ERROR_IDNUMBER", IConstants.ERR_IDNUMBER_EXISTED);
+                    hasError = true;
                 }
 
                 if (hasError) {
-                    request.getRequestDispatcher(IConstants.SIGNUP_PAGE).forward(request, response);
+                    request.getRequestDispatcher(url).forward(request, response);
                     return;
+                } else {
+                    GuestDTO guest = new GuestDTO(fullname, phone, email, address, idNumber, dateOfBirth_value, username, password);
+                    guestDAO.signUpGuest(guest);
+                    request.setAttribute("SUCCESS", IConstants.SUCC_SIGNUP);
                 }
-
-                GuestDTO guest = new GuestDTO(fullname, phone, email, address, idNumber, dateOfBirth_value, username, password);
-                guestDAO.signUpGuest(guest);
-                String url = IConstants.SIGNUP_SUCCESS_PAGE;
-
                 request.getRequestDispatcher(url).forward(request, response);
             }
 
