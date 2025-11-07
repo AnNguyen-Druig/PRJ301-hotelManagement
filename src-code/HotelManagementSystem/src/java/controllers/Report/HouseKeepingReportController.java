@@ -5,8 +5,8 @@
 
 package controllers.Report;
 
-import controllers.RoomHouseKeeping.HouseKeepingReportDAO;
-import DTO.HouseKeepingReportDTO;
+import DAO.Report_DAO.HouseKeepingReportDAO;
+import DTO.Report_DTO.HouseKeepingReportDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;

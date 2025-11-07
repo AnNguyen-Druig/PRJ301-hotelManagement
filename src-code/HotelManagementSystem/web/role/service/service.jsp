@@ -61,6 +61,7 @@
                          out.print("<tr><td colspan='7' style='color:red; text-align:center;'>" + error + "</td></tr>");
                     }
                 %>
+        </table>
             </tbody>
     </body>
 </html>

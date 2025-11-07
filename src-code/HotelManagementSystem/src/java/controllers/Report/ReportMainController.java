@@ -5,8 +5,8 @@
 
 package controllers.Report;
 
-import controllers.Service.ReportDAO;
-import DTO.ReportDTO;
+import DAO.Report_DAO.ReportDAO;
+import DTO.Report_DTO.ReportDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;

@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controllers.Service;
+package DAO.Report_DAO;
 
-import DTO.ReportDTO;
+import DTO.Report_DTO.ReportDTO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -68,12 +68,13 @@ public class ReportDAO {
             cn = DBUtills.getConnection();
             if (cn != null) {
                 String sql = "SELECT G.FullName, B.RoomID, S.ServiceName, BS.Quantity, ST.FullName as AssignedStaff, BS.RequestTime\n"
-                        + "FROM DBO.BOOKING_SERVICE AS BS\n"
-                        + "JOIN BOOKING AS B ON B.BookingID = BS.BookingID\n"
-                        + "JOIN GUEST AS G ON G.GuestID = B.GuestID\n"
-                        + "JOIN SERVICE AS S ON S.ServiceID = BS.ServiceID\n"
-                        + "LEFT JOIN STAFF AS ST ON ST.StaffID = BS.AssignedStaff\n"
-                        + "ORDER BY BS.Quantity DESC";
+                        + "                        FROM DBO.BOOKING_SERVICE AS BS\n"
+                        + "                        JOIN BOOKING AS B ON B.BookingID = BS.BookingID\n"
+                        + "                        JOIN GUEST AS G ON G.GuestID = B.GuestID\n"
+                        + "                        JOIN SERVICE AS S ON S.ServiceID = BS.ServiceID\n"
+                        + "                        LEFT JOIN STAFF AS ST ON ST.StaffID = BS.AssignedStaff\n"
+                        + "                        WHERE BS.STATUS = 'Pending'\n"
+                        + "                        ORDER BY BS.Quantity DESC";
                 PreparedStatement st = cn.prepareStatement(sql);
                 ResultSet table = st.executeQuery();
                 if (table != null) {

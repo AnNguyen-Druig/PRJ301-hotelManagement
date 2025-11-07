@@ -5,7 +5,7 @@
 --%>
 
 <%@page import="java.util.List"%>
-<%@page import="DTO.ReportDTO"%>
+<%@page import="DTO.Report_DTO.ReportDTO"%>
 <%@page import="mylib.IConstants"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -208,6 +208,7 @@
                             <th>Quantity</th>
                             <th>Assigned Staff</th>
                             <th>Request Time</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -223,6 +224,7 @@
                             <td><%= s.getQuantity() %></td>
                             <td><%= s.getAssignedStaff() != null ? s.getAssignedStaff() : "Not Assigned" %></td>
                             <td><%= s.getRequestTime() %> minutes</td>
+                            <td>Pending</td>
                         </tr>
                     <%
                             }

@@ -162,7 +162,7 @@
                     <tfoot>
                         <tr>
                             <td class="total" colspan="5">Tổng: </td>
-                            <td style="text-align:center"><%= String.format("%,.0f VND", GrandTotal).replace(',', '.')%>$</td>
+                            <td style="text-align:center"><%= String.format("%,.0f VND", GrandTotal).replace(',', '.')%></td>
                         </tr>
                     </tfoot>
                 </table>

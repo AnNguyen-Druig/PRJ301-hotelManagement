@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controllers.RoomHouseKeeping;
+package DAO.Report_DAO;
 
-import DTO.HouseKeepingReportDTO;
+import DTO.Report_DTO.HouseKeepingReportDTO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
