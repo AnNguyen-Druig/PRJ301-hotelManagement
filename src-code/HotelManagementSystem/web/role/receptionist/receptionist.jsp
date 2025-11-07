@@ -27,7 +27,7 @@
             if(staff == null) {
                 request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
             } else {
-            String makeBookingErr = (String) request.getAttribute("ERROR"); // Lỗi chung
+            String makeBookingErr = (String) request.getAttribute("ERROR"); 
             if(makeBookingErr == null) {
                 makeBookingErr = "";
             }
@@ -39,13 +39,13 @@
             }
         %>
 
-        <h1>Welcome <%= (staff != null) ? staff.getFullName() : "Receptionist" %>!</h1>
+        <h1>Welcome <%= staff.getFullName() %> Receptionist</h1>
         <p><a href="MainController?action=logout">Logout</a></p>
 
         <h3>Tạo Booking</h3>
         <form action="MainController">
             <input type="text" name="guest_idnumber" placeholder="Nhập số CCCD">
-            <input type="submit" name="action" value="Make new Booking">
+            <button type="submit" name="action" value="Make new Booking">Đặt phòng</button>
             <span style="color:red;"><%= makeBookingErr %></span>
         </form>
 
@@ -53,29 +53,26 @@
 
         <hr/>
 
-        <%-- ==================== Phần Filter theo Status ==================== --%>
+        <%-- ==================== Filter theo Status ==================== --%>
         <h3>Lọc danh sách Booking</h3>
         <div class="filter-form">
-            <%-- Form này sẽ submit về MainController để tải lại danh sách --%>
             <form action="MainController">
-                 <%-- Luôn gửi kèm action để MainController biết cần làm gì --%>
                 <input type="hidden" name="action" value="TurnBackReceptionPage"> 
                 <label for="statusSelect">Chọn trạng thái:</label>
                 <select name="selectedStatus" id="statusSelect" onchange="this.form.submit();">
                     <%-- Option mặc định là "All" --%>
-                    <option value="All" <%= "All".equals(selectedStatus) ? "selected" : "" %>>Tất cả</option>
+                    <option value="All" <%= selectedStatus.equals("All") ? "selected" : "" %>>Tất cả</option>
                     <%-- Các status khác --%>
-                    <option value="Reserved" <%= "Reserved".equals(selectedStatus) ? "selected" : "" %>>Reserved</option>
-                    <option value="CheckIn" <%= "CheckIn".equals(selectedStatus) ? "selected" : "" %>>CheckIn</option>
-                    <option value="CheckOut" <%= "CheckOut".equals(selectedStatus) ? "selected" : "" %>>CheckOut</option>
-                    <option value="Canceled" <%= "Canceled".equals(selectedStatus) ? "selected" : "" %>>Canceled</option>
-                    <option value="Complete" <%= "Complete".equals(selectedStatus) ? "selected" : "" %>>Complete</option>
+                    <option value="Reserved" <%= selectedStatus.equals("Reserved") ? "selected" : "" %>>Reserved</option>
+                    <option value="CheckIn" <%= selectedStatus.equals("CheckIn") ? "selected" : "" %>>CheckIn</option>
+                    <option value="CheckOut" <%= selectedStatus.equals("CheckOut") ? "selected" : "" %>>CheckOut</option>
+                    <option value="Canceled" <%= selectedStatus.equals("Canceled") ? "selected" : "" %>>Canceled</option>
+                    <option value="Complete" <%= selectedStatus.equals("Complete") ? "selected" : "" %>>Complete</option>
                 </select>
                 <%-- Không cần nút submit vì đã có onchange --%>
             </form>
         </div>
         <%-- =============================================================== --%>
-
 
         <%
             // Lấy danh sách booking (đã được lọc bởi Controller)
@@ -117,7 +114,6 @@
                             <td><%= b.getBookingDate() %></td>
                             <td><%= b.getStatus() %></td>
                             <td>
-                                <%-- Link Update vẫn trỏ đến MainController --%>
                                 <a href="MainController?action=UpdateBooking&bookingID=<%= b.getBookingID() %>">Update</a>
                             </td>
                         </tr>

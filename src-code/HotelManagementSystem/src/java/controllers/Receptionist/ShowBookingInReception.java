@@ -5,7 +5,9 @@
 package controllers.Receptionist;
 
 import DAO.Basic_DAO.BookingDAO;
+import DAO.Receptionist_DAO.ShowBookingDAO;
 import DTO.Basic_DTO.BookingDTO;
+import DTO.Receptionist_DTO.ShowBookingDTO;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -44,21 +46,21 @@ public class ShowBookingInReception extends HttpServlet {
                 selectedStatus = "All"; // Mặc định hiển thị tất cả khi vào trang lần đầu
             }
 
-            // 2. Khởi tạo DAO và list
-            BookingDAO bookingDAO = new BookingDAO();
-            ArrayList<BookingDTO> list = null; 
+            // 2. Khởi tạo DAO và list            
+            ShowBookingDAO showBookingDAO = new ShowBookingDAO();
+            ArrayList<ShowBookingDTO> resultList = null; 
 
             // 3. Gọi DAO dựa trên selectedStatus
             if (selectedStatus.equals("All")) {
-                list = bookingDAO.getAllBookingRoomGuest();
+                resultList = showBookingDAO.getAllBookingRoomGuest();
             } else {
                 // Các trường hợp khác gọi cùng 1 hàm lọc
-                list = bookingDAO.getBookingListByStatus(selectedStatus);
+                resultList = showBookingDAO.getBookingListByStatus(selectedStatus);
             }
 
             // 4. Đặt kết quả vào request
-            if (list != null && !list.isEmpty()) {
-                request.setAttribute("ALLBOOKING", list);
+            if (resultList != null && !resultList.isEmpty()) {
+                request.setAttribute("ALLBOOKING", resultList);
             } else {
                 // Nếu list rỗng hoặc null, đặt thông báo lỗi
                 request.setAttribute("BOOKING_LIST_ERROR", IConstants.ERR_EMPTYBOOKING + " (Trạng thái: " + selectedStatus + ")");

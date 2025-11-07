@@ -160,15 +160,17 @@ public class GuestDAO {
     public GuestDTO getGuestByIDNumber(String idnumber) {
         GuestDTO guest = null;
         Connection cn = null;
+        PreparedStatement ps = null;
+        ResultSet table = null;
         try {
             cn = DBUtills.getConnection();
             if (cn != null) {
-                String sql = "SELECT [GuestID], [Username],[PasswordHash],[FullName],[Phone],[Email],[Address], [DateOfBirth]"
-                        + " FROM [dbo].[GUEST] "
-                        + "WHERE [IDNumber] = ?";
-                PreparedStatement st = cn.prepareStatement(sql);
-                st.setString(1, idnumber);
-                ResultSet table = st.executeQuery();
+                String sql = "SELECT GuestID, Username, PasswordHash, FullName, Phone, Email, Address, DateOfBirth"
+                        + " FROM dbo.GUEST "
+                        + "WHERE IDNumber = ?";
+                ps = cn.prepareStatement(sql);
+                ps.setString(1, idnumber);
+                table = ps.executeQuery();
                 if (table != null) {
                     while (table.next()) {
                         int guestID = table.getInt("GuestID");
@@ -189,6 +191,12 @@ public class GuestDAO {
             try {
                 if (cn != null) {
                     cn.close();
+                }
+                if(ps != null) {
+                    ps.close();
+                } 
+                if(table != null) {
+                    table.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

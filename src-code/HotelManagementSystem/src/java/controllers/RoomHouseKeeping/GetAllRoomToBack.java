@@ -8,7 +8,6 @@ package controllers.RoomHouseKeeping;
 import DAO.Basic_DAO.RoomDAO;
 import DTO.Basic_DTO.RoomDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

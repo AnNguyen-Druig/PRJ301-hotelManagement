@@ -187,6 +187,9 @@ public interface IConstants {
     public final String ERR_EMPTY_TOTAL_REVENUE = "Chưa có Doanh Thu nào trong thời gian này.";
     public final String ERR_UPDATE_STAFF = "Cập nhật thông tin nhân viên THẤT BẠI";
     public final String ERR_DELETE_STAFF = "Xoá nhân viên THẤT BẠI";
+    public final String ERR_EMPTY_CANCEL_BOOKING_INRANGE = "Không có lượt hủy nào trong khoảng thời gian đã chọn.";
+    public final String ERR_EMPTY_CANCEL_BOOKING_BY_MONTH = "Chưa có dữ liệu hủy theo tháng/năm.";
+    public final String ERR_EMPTY_CANCEL_BOOKING_BY_ROOMTYPE = "Chưa có dữ liệu hủy theo loại phòng.";
 
     
     //SUCESSFULL

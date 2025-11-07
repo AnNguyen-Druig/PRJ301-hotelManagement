@@ -84,10 +84,19 @@ public class ViewCancellationStatsController extends HttpServlet {
             request.setAttribute("CANCELLATION_RATE", rateCancelBooking);
             if (totalCancelBookingInRange != null) { // Chỉ set nếu đã tính
                 request.setAttribute("CANCELLATIONS_IN_RANGE", totalCancelBookingInRange);
+            } else {
+                request.setAttribute("ERROR", IConstants.ERR_EMPTY_CANCEL_BOOKING_INRANGE);
             }
-            request.setAttribute("CANCELLATIONS_BY_MONTH", monthYearList);
-            request.setAttribute("CANCELLATIONS_BY_ROOM_TYPE", roomTypeList);
-
+            if(monthYearList != null && !monthYearList.isEmpty()) {
+                request.setAttribute("CANCELLATIONS_BY_MONTH", monthYearList);
+            } else {
+                request.setAttribute("ERROR", IConstants.ERR_EMPTY_CANCEL_BOOKING_BY_MONTH);
+            }
+            if(roomTypeList != null && !roomTypeList.isEmpty()) {
+                request.setAttribute("CANCELLATIONS_BY_ROOM_TYPE", roomTypeList);
+            } else {
+                request.setAttribute("ERROR_ROOMTYPE_LIST", IConstants.ERR_EMPTY_CANCEL_BOOKING_BY_ROOMTYPE);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("ERROR", IConstants.ERR_EMPTY_CANCEL_BOOKING_LIST);
