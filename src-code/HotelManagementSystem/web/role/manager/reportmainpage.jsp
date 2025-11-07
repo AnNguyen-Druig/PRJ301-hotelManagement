@@ -121,7 +121,7 @@
     </head>
     <body>
         <div class="container">
-            <jsp:useBean id="STAFF" scope="session" class="DTO.StaffDTO" />
+            <jsp:useBean id="STAFF" scope="session" class="DTO.Basic_DTO.StaffDTO" />
             <div class="header">
                 <h1>Hello, ${STAFF.fullName} - Report Dashboard</h1>
                 <p>Chọn báo cáo để xem chi tiết</p>

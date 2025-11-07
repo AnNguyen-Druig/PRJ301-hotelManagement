@@ -27,7 +27,8 @@ public class ReportDAO {
                             + "FROM DBO.BOOKING_SERVICE AS BS\n"
                             + "JOIN BOOKING AS B ON B.BookingID = BS.BookingID\n"
                             + "JOIN GUEST AS G ON G.GuestID = B.GuestID\n"
-                            + "JOIN SERVICE AS S ON S.ServiceID = BS.ServiceID";
+                            + "JOIN SERVICE AS S ON S.ServiceID = BS.ServiceID\n"
+                            + "ORDER BY BS.QUANTITY DESC";
                 PreparedStatement st = cn.prepareStatement(sql);
                 ResultSet table = st.executeQuery();
                 if(table != null){
@@ -70,7 +71,8 @@ public class ReportDAO {
                             + "JOIN BOOKING AS B ON B.BookingID = BS.BookingID\n"
                             + "JOIN GUEST AS G ON G.GuestID = B.GuestID\n"
                             + "JOIN SERVICE AS S ON S.ServiceID = BS.ServiceID\n"
-                            + "LEFT JOIN STAFF AS ST ON ST.StaffID = BS.AssignedStaff";
+                            + "LEFT JOIN STAFF AS ST ON ST.StaffID = BS.AssignedStaff\n"
+                            + "ORDER BY BS.QUANTITY DESC";
                 PreparedStatement st = cn.prepareStatement(sql);
                 ResultSet table = st.executeQuery();
                 if(table != null){
