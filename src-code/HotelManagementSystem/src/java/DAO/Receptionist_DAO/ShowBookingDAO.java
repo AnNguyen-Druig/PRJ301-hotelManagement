@@ -19,7 +19,7 @@ import mylib.DBUtills;
  */
 public class ShowBookingDAO {
 
-    //
+    //Hàm này dùng để hiển thị toàn bộ Booking với select 'All'
     public ArrayList<ShowBookingDTO> getAllBookingRoomGuest() {
         Connection cn = null;
         PreparedStatement ps = null;
@@ -70,6 +70,7 @@ public class ShowBookingDAO {
         return result;
     }
 
+    //Hàm này dùng để hiển thị các Booking phù hợp với status đc chọn
     public ArrayList<ShowBookingDTO> getBookingListByStatus(String status) {
         Connection cn = null;
         PreparedStatement ps = null;
@@ -118,5 +119,50 @@ public class ShowBookingDAO {
             }
         }
         return list;
+    }
+
+    //Hàm này dùng để hiển thị Booking trong phần Update trong role Reception
+    //BookingDetail
+    public ShowBookingDTO getBookingByBookingIDInReception(int bookingID) {
+        Connection cn = null;
+        ShowBookingDTO result = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "SELECT b.BookingID, g.GuestID, g.FullName, r.RoomID, r.RoomNumber, rt.RoomTypeID, rt.TypeName, b.CheckInDate, "
+                        + "b.CheckOutDate, b.BookingDate, b.Status FROM BOOKING b JOIN GUEST g ON b.GuestID = g.GuestID \n"
+                        + "JOIN ROOM r ON b.RoomID = r.RoomID JOIN ROOM_TYPE rt ON r.RoomTypeID = rt.RoomTypeID\n"
+                        + "WHERE b.BookingID = ?";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setInt(1, bookingID);
+                ResultSet table = st.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        int guestID = table.getInt("GuestID");
+                        String guestName = table.getString("FullName");
+                        int roomID = table.getInt("RoomID");
+                        String roomNumber = table.getString("RoomNumber");
+                        int roomTypeID = table.getInt("RoomTypeID");
+                        String roomType = table.getString("TypeName");
+                        Date checkInDate = table.getDate("CheckInDate");
+                        Date checkOutDate = table.getDate("CheckOutDate");
+                        Date bookingDate = table.getDate("BookingDate");
+                        String status = table.getString("Status");
+                        result = new ShowBookingDTO(bookingID, guestID, roomID, checkInDate, checkOutDate, bookingDate, status, guestName, roomNumber, roomType, roomTypeID);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 }

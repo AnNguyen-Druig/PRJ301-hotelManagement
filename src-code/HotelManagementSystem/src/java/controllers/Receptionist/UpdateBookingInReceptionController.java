@@ -1,11 +1,10 @@
 package controllers.Receptionist;
 
-import DAO.Basic_DAO.BookingDAO;
 
 import DAO.Basic_DAO.RoomDAO; // Đảm bảo bạn đã import RoomDAO
-
-import DTO.Basic_DTO.BookingDTO;
+import DAO.Receptionist_DAO.ShowBookingDAO;
 import DTO.Basic_DTO.RoomDTO;
+import DTO.Receptionist_DTO.ShowBookingDTO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,57 +37,58 @@ public class UpdateBookingInReceptionController extends HttpServlet {
 
             // 1. Lấy bookingID
             String bookingID_str = request.getParameter("bookingID");
-            int bookingID = Integer.parseInt(bookingID_str);
+            if (bookingID_str != null && !bookingID_str.trim().isEmpty()) {
+                int bookingID = Integer.parseInt(bookingID_str);
 
-            // 2. Khởi tạo DAO
-            BookingDAO bookingDAO = new BookingDAO();
-            RoomDAO roomDAO = new RoomDAO();
+                // 2. Khởi tạo DAO
+                ShowBookingDAO bookingDAO = new ShowBookingDAO();
+                RoomDAO roomDAO = new RoomDAO();
 
-            // 3. Lấy dữ liệu
-            BookingDTO booking = bookingDAO.getBookingByBookingIDInReception(bookingID);
-            List<RoomDTO> allRoomTypes = roomDAO.getAllRoomType();
+                // 3. Lấy dữ liệu
+                ShowBookingDTO booking = bookingDAO.getBookingByBookingIDInReception(bookingID);
+                List<RoomDTO> allRoomTypes = roomDAO.getAllRoomType();
 
-            int roomTypeIdToLoad = 0; // Biến để lưu ID loại phòng cần tải danh sách phòng trống
-            int selectedRoomTypeID = 0;
-            // 4. Xử lý tải lại danh sách phòng
-            String selectedRoomTypeIdStr = request.getParameter("roomTypeID");
-            if (selectedRoomTypeIdStr != null && !selectedRoomTypeIdStr.isEmpty()) {
-                selectedRoomTypeID = Integer.parseInt(selectedRoomTypeIdStr);
-                if(selectedRoomTypeID != 0) {
-                    roomTypeIdToLoad = selectedRoomTypeID;
-                    request.setAttribute("SELECTED_ROOM_TYPE_ID", roomTypeIdToLoad);
+                int roomTypeIdToLoad = 0; // Biến để lưu ID loại phòng cần tải danh sách phòng trống
+                int selectedRoomTypeID = 0;
+                // 4. Xử lý tải lại danh sách phòng
+                String selectedRoomTypeIdStr = request.getParameter("roomTypeID");
+                if (selectedRoomTypeIdStr != null && !selectedRoomTypeIdStr.isEmpty()) {
+                    selectedRoomTypeID = Integer.parseInt(selectedRoomTypeIdStr);
+                    if (selectedRoomTypeID != 0) {
+                        roomTypeIdToLoad = selectedRoomTypeID;
+                        request.setAttribute("SELECTED_ROOM_TYPE_ID", roomTypeIdToLoad);
+                    }
+                } else {
+                    roomTypeIdToLoad = booking.getRoomTypeID();
                 }
-            } else {
-                roomTypeIdToLoad = booking.getRoomTypeID();
-            }
-            
-            // 5. Lấy danh sách Room có status là 'Available'
-            List<RoomDTO> availableRooms = roomDAO.getAvailableRoomsByTypeId(roomTypeIdToLoad);
-            
-            // 6. Tạo lại danh sách Room để hiển thị room đã bị Booking chuyển status từ 'Available' thành 'Occupied'
-            ArrayList<RoomDTO> listContainRoomBooking = new ArrayList<>();
-            RoomDTO room = new RoomDTO();
-            room.setRoomID(booking.getRoomID());
-            room.setRoomNumber(booking.getRoomNumber());
-            listContainRoomBooking.add(room);   //Thêm room đã bị Booking chuyển status thành 'Occupied'
-            
-            // 7. Thêm các room có status là 'Available' khác(nếu có và KHÁC phòng hiện tại của booking) 
-            //  từ danh sách 'availableRooms' vào danh sách cuối cùng 'listContainRoomBooking'.
-            //  để tiếp tục thực hiện nhiệm vụ cho status 'Reserved'
-            if(availableRooms != null && !availableRooms.isEmpty()) {
-                for (RoomDTO availableRoom : availableRooms) {
-                    //Chỉ thêm khi nó khác với phòng hiện tại (phòng đã đc Booking chuyển status thành 'Occupied')
-                    if(availableRoom.getRoomID() != booking.getRoomID()) {
-                        listContainRoomBooking.add(availableRoom);
+
+                // 5. Lấy danh sách Room có status là 'Available'
+                List<RoomDTO> availableRooms = roomDAO.getAvailableRoomsByTypeId(roomTypeIdToLoad);
+
+                // 6. Tạo lại danh sách Room để hiển thị room đã bị Booking chuyển status từ 'Available' thành 'Occupied'
+                ArrayList<RoomDTO> listContainRoomBooking = new ArrayList<>();
+                RoomDTO room = new RoomDTO();
+                room.setRoomID(booking.getRoomID());
+                room.setRoomNumber(booking.getRoomNumber());
+                listContainRoomBooking.add(room);   //Thêm room đã bị Booking chuyển status thành 'Occupied'
+
+                // 7. Thêm các room có status là 'Available' khác(nếu có và khác phòng hiện tại của booking) 
+                //  từ danh sách 'availableRooms' vào danh sách cuối cùng 'listContainRoomBooking'.
+                //  để tiếp tục thực hiện nhiệm vụ cho status 'Reserved'
+                if (availableRooms != null && !availableRooms.isEmpty()) {
+                    for (RoomDTO availableRoom : availableRooms) {
+                        //Chỉ thêm khi nó khác với phòng hiện tại (phòng đã đc Booking chuyển status thành 'Occupied')
+                        if (availableRoom.getRoomID() != booking.getRoomID()) {
+                            listContainRoomBooking.add(availableRoom);
+                        }
                     }
                 }
+
+                // 8. Gửi dữ liệu sang JSP
+                request.setAttribute("AVAILABLE_ROOMS_LIST", listContainRoomBooking);
+                request.setAttribute("BOOKING_DETAIL", booking);
+                request.setAttribute("ROOM_TYPES_LIST", allRoomTypes);
             }
-
-            // 8. Gửi dữ liệu sang JSP
-            request.setAttribute("AVAILABLE_ROOMS_LIST", listContainRoomBooking);
-            request.setAttribute("BOOKING_DETAIL", booking);
-            request.setAttribute("ROOM_TYPES_LIST", allRoomTypes);
-
         } catch (Exception e) {
             e.printStackTrace();
             // Nếu có lỗi, đặt thông báo và đổi URL sang trang an toàn

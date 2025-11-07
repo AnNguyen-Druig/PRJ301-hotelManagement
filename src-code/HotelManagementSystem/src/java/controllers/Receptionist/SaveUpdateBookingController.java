@@ -53,16 +53,27 @@ public class SaveUpdateBookingController extends HttpServlet {
                 Date checkInDate_value = Date.valueOf(checkInDate);
                 Date checkOutDate_value = Date.valueOf(checkOutDate);
 
-                BookingDAO bookingDAO = new BookingDAO();
-                BookingDTO bookingUpdate = new BookingDTO(bookingID_value, roomID_value, checkInDate_value, checkOutDate_value);
-                int saveUpdateBooking = bookingDAO.saveUpdateBooking(bookingUpdate);
-
-                if (saveUpdateBooking != 0) {
-                    request.setAttribute("SUCCESS", IConstants.SUCC_SAVE_UPDATE_BOOKING);
+                //Check checkInDate phai > now 
+                Date today = new Date(System.currentTimeMillis());
+                if (checkInDate_value.before(today) || checkInDate_value.equals(today)) {
+                    request.setAttribute("ERRORCHECKINDATE", IConstants.ERR_CHECKINDATE_ISBEFORE_TODAY);
+                    request.getRequestDispatcher(IConstants.CTL_UPDATE_BOOKING_IN_RECEPTION).forward(request, response);
+                } else if (checkOutDate_value.before(checkInDate_value) || checkOutDate_value.equals(checkInDate_value)) {
+                    //checkOutDate > checkInDate
+                    request.setAttribute("ERRORCHECKOUTDATE", IConstants.ERR_CHECKOUTDATE_ISBEFORE_CHECKINDATE);
+                    request.getRequestDispatcher(IConstants.CTL_UPDATE_BOOKING_IN_RECEPTION).forward(request, response);
                 } else {
-                    request.setAttribute("ERROR", IConstants.ERR_SAVE_UPDATE_BOOKING);
+                    BookingDAO bookingDAO = new BookingDAO();
+                    BookingDTO bookingUpdate = new BookingDTO(bookingID_value, roomID_value, checkInDate_value, checkOutDate_value);
+                    int saveUpdateBooking = bookingDAO.saveUpdateBooking(bookingUpdate);
+
+                    if (saveUpdateBooking != 0) {
+                        request.setAttribute("SUCCESS", IConstants.SUCC_SAVE_UPDATE_BOOKING);
+                    } else {
+                        request.setAttribute("ERROR", IConstants.ERR_SAVE_UPDATE_BOOKING);
+                    }
+                    request.getRequestDispatcher(IConstants.CTL_UPDATE_BOOKING_IN_RECEPTION + "?bookingID=" + bookingID).forward(request, response);
                 }
-                request.getRequestDispatcher(IConstants.CTL_UPDATE_BOOKING_IN_RECEPTION + "?bookingID=" + bookingID).forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

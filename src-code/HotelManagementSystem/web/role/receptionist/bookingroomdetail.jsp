@@ -1,6 +1,7 @@
 <%--
     File   : bookingdetail.jsp (Scriptlet Version with Action Buttons)
 --%>
+<%@page import="DTO.Receptionist_DTO.ShowBookingDTO"%>
 <%@page import="DTO.Basic_DTO.BookingDTO"%>
 <%@page import="DTO.Basic_DTO.RoomDTO"%>
 <%@page import="mylib.IConstants"%>
@@ -19,13 +20,18 @@
     <body>
         <%
             // Lấy dữ liệu từ request scope
-            BookingDTO booking = (BookingDTO) request.getAttribute("BOOKING_DETAIL");
+            ShowBookingDTO booking = (ShowBookingDTO) request.getAttribute("BOOKING_DETAIL");
             List<RoomDTO> roomTypes = (List<RoomDTO>) request.getAttribute("ROOM_TYPES_LIST");
             List<RoomDTO> availableRooms = (List<RoomDTO>) request.getAttribute("AVAILABLE_ROOMS_LIST");
             Integer selectedRoomTypeId = (Integer) request.getAttribute("SELECTED_ROOM_TYPE_ID");
+            String errCheckinDate = (String) request.getAttribute("ERRORCHECKINDATE");
+            String errCheckoutDate = (String) request.getAttribute("ERRORCHECKOUTDATE");
+            
+            if(errCheckinDate == null) errCheckinDate = "";
+            if(errCheckoutDate == null) errCheckoutDate = "";
 
             if (booking != null) {
-                boolean isChangeable = "Reserved".equals(booking.getStatus());
+                boolean isChangeable = booking.getStatus().equals("Reserved");
                 String currentStatus = booking.getStatus(); // Lấy trạng thái hiện tại
         %>
 
@@ -81,12 +87,14 @@
             <% }%>
             <hr/>
 
-            <%-- Phần ngày Check-in/Check-out (giữ nguyên) --%>
-            <label for="checkInDate">Check-in Date:</label>
+            <%-- Phần ngày Check-in/Check-out --%>
+            <label for="checkInDate">Ngày Check-in:</label>
             <input type="date" id="checkInDate" name="checkInDate" value="<%= booking.getCheckInDate()%>" <%= !isChangeable ? "readonly" : ""%>>
+            <span><%= errCheckinDate %></span>
             <br/><br/>
-            <label for="checkOutDate">Check-out Date:</label>
+            <label for="checkOutDate">Ngày Check-out:</label>
             <input type="date" id="checkOutDate" name="checkOutDate" value="<%= booking.getCheckOutDate()%>" <%= !isChangeable ? "readonly" : ""%>>
+            <span><%= errCheckoutDate %></span>
             <br/><br/>
             <p>Booking Date: <%= booking.getBookingDate()%></p>
 
@@ -95,12 +103,12 @@
             <input type="hidden" name="status" value="<%= currentStatus%>" />
 
             <%-- Chỉ hiển thị nút hành động phù hợp --%>
-            <% if ("Reserved".equals(currentStatus)) { %>
+            <% if (currentStatus.equals("Reserved")) { %>
             <input type="submit" name="action" value="Check In" formaction="MainController"/>
             <input type="submit" name="action" value="Cancel Booking" formaction="MainController">
-            <% } else if ("CheckIn".equals(currentStatus)) {%>
+            <% } else if (currentStatus.equals("CheckIn")) {%>
             <a href="MainController?action=checkoutbookingroom&bookingId=<%= booking.getBookingID() %>">CheckOut và tạo hóa đơn</a>
-            <% } else if ("CheckOut".equals(currentStatus)) { %>
+            <% } else if (currentStatus.equals("CheckOut")) { %>
             <input type="submit" name="action" value="Approve Checkout" formaction="MainController"/>
             <% } %>
             <%-- Các trạng thái khác (Canceled, Complete) không có nút hành động --%>
@@ -111,10 +119,10 @@
                 String errMsg = (String) request.getAttribute("ERROR");
             %>
             <% if (sucMsg != null) {%>
-            <h3 style="color: green;"><%= sucMsg%></h3> <%-- Dùng h3 hoặc p --%>
+            <h3 style="color: green;"><%= sucMsg%></h3>
             <% } %>
             <% if (errMsg != null) {%>
-            <h3 style="color: red;">Lỗi: <%= errMsg%></h3> <%-- Dùng h3 hoặc p --%>
+            <h3 style="color: red;">Lỗi: <%= errMsg%></h3> 
             <% } %>
             <%-- Nút Lưu thay đổi (cho phòng, ngày) chỉ hiển thị khi status là Reserved --%>
             <% if (isChangeable) { %>

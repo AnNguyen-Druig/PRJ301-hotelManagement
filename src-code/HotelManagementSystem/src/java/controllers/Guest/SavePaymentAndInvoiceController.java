@@ -6,11 +6,13 @@ import DAO.Basic_DAO.GuestDAO;
 import DAO.Basic_DAO.InvoiceDAO;
 import DAO.Basic_DAO.PaymentDAO;
 import DAO.Guest_DAO.ShowRoomDAO;
+import DAO.Receptionist_DAO.ShowBookingDAO;
 import DTO.Basic_DTO.BookingDTO;
 import DTO.Basic_DTO.GuestDTO;
 import DTO.Basic_DTO.InvoiceDTO;
 import DTO.Basic_DTO.PaymentDTO;
 import DTO.Guest_DTO.ShowRoomDTO;
+import DTO.Receptionist_DTO.ShowBookingDTO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,9 +43,10 @@ public class SavePaymentAndInvoiceController extends HttpServlet {
         double total = Double.parseDouble(request.getParameter("total").trim());
         String paymentMethod = request.getParameter("paymentMethod");
         
-        BookingDAO bookingRoomDAO = new BookingDAO();
-        boolean updateBookingRoomStatus = bookingRoomDAO.updateStatusBooking(bookingID, "CheckOut");
-        BookingDTO bookingRoom = bookingRoomDAO.getBookingByBookingIDInReception(bookingID);
+        ShowBookingDAO showBookingDAO = new ShowBookingDAO();
+        BookingDAO booking = new BookingDAO();
+        boolean updateBookingRoomStatus = booking.updateStatusBooking(bookingID, "CheckOut");
+        ShowBookingDTO bookingRoom = showBookingDAO.getBookingByBookingIDInReception(bookingID);
         
         //Lay Room
         ShowRoomDAO roomDAO = new ShowRoomDAO();
