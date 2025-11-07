@@ -132,7 +132,6 @@
                 <button class="report-btn" type="button" onclick="window.location.href='ReportMainController?action=report2'">Report 2</button>
                 <button class="report-btn" type="button" onclick="window.location.href='ReportMainController?action=report3'">Report 3</button>
                 <button class="report-btn" type="button" onclick="loadReport4()">Report 4</button>
-                <button class="report-btn" type="button" onclick="showAllReports()">Load All</button>
             </div>
             
             <%
@@ -303,7 +302,7 @@
                         <tr>
                             <td><%= s.getServiceName() %></td>
                             <td><%= s.getQuantity() %></td>
-                            <td><%= String.format("%.2f", s.getTotalRevenue()) %></td>
+                            <td><%= String.format("%,.0f VND", s.getTotalRevenue()).replace(',', '.') %></td>
                             <td><%= s.getPeriod() %></td>
                         </tr>
                     <%
@@ -318,7 +317,7 @@
             
             <div style="text-align: center; margin-top: 30px;">
                 <button class="back-btn" onclick="window.location.href='MainController?action=<%=IConstants.AC_VIEW_REPORT_PAGE%>'">Reset Reports</button>
-                <button class="back-btn" onclick="window.location.href='MainController?action=gobackmanager'">Go Back</button>
+                <button class="back-btn" onclick="window.location.href='MainController?action=getroomservice'">Go Back</button>
             </div>
         </div>
         

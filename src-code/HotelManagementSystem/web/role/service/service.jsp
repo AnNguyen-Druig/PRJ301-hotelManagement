@@ -20,6 +20,7 @@
         <jsp:useBean id="STAFF" scope="session" class="DTO.Basic_DTO.StaffDTO"/>
         <h1>Welcome back, ${STAFF.fullName}</h1>
         <h4><a href="MainController?action=logout">Logout</a><h4>
+        <h4><a href="MainController?action=reportpage">Báo cáo các dịch vụ sử dụng chi tiết</a></h4>
         
         <table style="width:100%">
             <thead>

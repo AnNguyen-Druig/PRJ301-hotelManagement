@@ -5,7 +5,7 @@
 
 package controllers.Report;
 
-import DAO.HouseKeepingReportDAO;
+import controllers.RoomHouseKeeping.HouseKeepingReportDAO;
 import DTO.HouseKeepingReportDTO;
 import java.io.IOException;
 import java.io.PrintWriter;

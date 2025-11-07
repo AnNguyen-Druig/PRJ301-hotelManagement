@@ -88,7 +88,7 @@
                             <td><%= s.getServiceId()%></td>
                             <td><%= s.getServiceName()%></td>
                             <td><%= s.getServiceType()%></td>
-                            <td><%= s.getPrice()%></td>
+                            <td><%= String.format("%,.0f VND", s.getPrice()).replace(',', '.')%></td>
                             <td>
                                 <form action="MainController">
                                     <input type="hidden" name="bookingId" value="<%= bookingID%>">
@@ -142,7 +142,7 @@
                         <td><%= s.getServiceName()%></td>
                         <td><%= s.getServiceType()%></td>
                         <td><input type="number" name="txtquantity" min="1" value="<%= cart.get(s)%>"></td>
-                        <td><%= s.getPrice()%></td>
+                        <td><%= String.format("%,.0f VND", s.getPrice()).replace(',', '.') %></td>
 
                         <td style="text-align:center">
                             <input type="hidden" name="serviceid" value="<%= s.getServiceId()%>">
@@ -162,7 +162,7 @@
                     <tfoot>
                         <tr>
                             <td class="total" colspan="5">Tổng: </td>
-                            <td style="text-align:center"><%= GrandTotal%>$</td>
+                            <td style="text-align:center"><%= String.format("%,.0f VND", GrandTotal).replace(',', '.')%>$</td>
                         </tr>
                     </tfoot>
                 </table>

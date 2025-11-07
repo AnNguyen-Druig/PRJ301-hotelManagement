@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAO;
+package controllers.Service;
 
 import DTO.ReportDTO;
 import java.sql.Connection;
@@ -18,22 +18,23 @@ import mylib.DBUtills;
  */
 public class ReportDAO {
 
-    public ArrayList<ReportDTO> report1() {
+    public ArrayList<ReportDTO> report1(Date serviceDate) {
         ArrayList<ReportDTO> result = new ArrayList<>();
         Connection cn = null;
         try {
             cn = DBUtills.getConnection();
             if (cn != null) {
                 String sql = "SELECT BS.ServiceDate, G.FullName, B.RoomID, S.ServiceName, BS.Quantity, BS.Status \n"
-                        + "FROM DBO.BOOKING_SERVICE AS BS JOIN BOOKING AS B ON B.BookingID = BS.BookingID\n"
-                        + "JOIN GUEST AS G ON G.GuestID = B.GuestID\n"
-                        + "JOIN SERVICE AS S ON S.ServiceID = BS.ServiceID\n"
-                        + "ORDER BY BS.Quantity DESC";
+                        + "                        FROM DBO.BOOKING_SERVICE AS BS JOIN BOOKING AS B ON B.BookingID = BS.BookingID\n"
+                        + "                        JOIN GUEST AS G ON G.GuestID = B.GuestID\n"
+                        + "                        JOIN SERVICE AS S ON S.ServiceID = BS.ServiceID\n"
+                        + "                        Where BS.ServiceDate = ?\n"
+                        + "                        ORDER BY BS.Quantity DESC";
                 PreparedStatement st = cn.prepareStatement(sql);
+                    st.setDate(1, serviceDate);
                 ResultSet table = st.executeQuery();
                 if (table != null) {
                     while (table.next()) {
-                        Date serviceDate = table.getDate("ServiceDate");
                         String guestName = table.getString("FullName");
                         int roomId = table.getInt("RoomID");
                         String serviceName = table.getString("ServiceName");

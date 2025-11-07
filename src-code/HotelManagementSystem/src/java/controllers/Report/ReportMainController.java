@@ -5,7 +5,7 @@
 
 package controllers.Report;
 
-import DAO.ReportDAO;
+import controllers.Service.ReportDAO;
 import DTO.ReportDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,13 +38,15 @@ public class ReportMainController extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
+        String defaultToday = java.time.LocalDate.now().toString();
         if (action == null) action = IConstants.REPORT_MAIN_PAGE;
         ReportDAO dao = new ReportDAO();
         ArrayList<ReportDTO> list = new ArrayList<>();
         try {
             switch(action){
                 case "report1":
-                    list = dao.report1();
+                    Date todayDate = Date.valueOf(defaultToday);
+                    list = dao.report1(todayDate);
                     if(list != null && !list.isEmpty()){
                         request.setAttribute("REPORT_1_LIST", list);
                         request.getRequestDispatcher("MainController?action=reportpage").forward(request, response);
@@ -92,25 +94,6 @@ public class ReportMainController extends HttpServlet {
                     request.getRequestDispatcher("MainController?action=reportpage").forward(request, response);
                 break;
                 
-                case "manaReport":
-                    // Load Report 1 data
-                    ArrayList<ReportDTO> report1List = dao.report1();
-                    request.setAttribute("REPORT_1_LIST", report1List);
-
-                    // Load Report 2 data
-                    ArrayList<ReportDTO> report2List = dao.report2();
-                    request.setAttribute("REPORT_2_LIST", report2List);
-
-                    //Load Report 3 data
-                    ArrayList<ReportDTO> report3List = dao.report3();
-                    request.setAttribute("REPORT_3_LIST", report3List);
-
-                    // Set show all reports
-                    request.setAttribute("SHOW_REPORT", "all");
-
-                    // Forward to the main report page
-                    request.getRequestDispatcher(IConstants.REPORT_MAIN_PAGE).forward(request, response);
-                break;
             }
           
         }catch(Exception e){

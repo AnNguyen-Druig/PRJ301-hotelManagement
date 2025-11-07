@@ -28,7 +28,6 @@ public interface IConstants {
     public final String BOOKING_ROOM_DETAIL_PAGE = "/role/receptionist/bookingroomdetail.jsp";
     public final String BOOKING_ROOM_VIEW_PAGE = "/role/guest/bookingroomview.jsp";
     public final String CHECKOUT_PAGE = "/common/checkoutpage.jsp";
-    public final String REPORT_MAIN_PAGE = "/role/manager/reportmainpage.jsp";
     public final String VIEW_SERVICE_PAGE = "/role/service/ViewServicePage.jsp";
     public final String REPORT_1_PAGE = "/common/ReportJSP/Report1Page.jsp";
     public final String REPORT_2_PAGE = "/common/ReportJSP/Report2Page.jsp";
@@ -39,7 +38,7 @@ public interface IConstants {
     public final String VIEW_MOSTUSED_SERVICES_PAGE = "/role/manager/mostusedservicepage.jsp";
     public final String VIEW_ROOM_OCCUPANCY_PAGE = "/role/manager/roomoccupancypage.jsp";
     public final String VIEW_CANCEL_STATISTICS_PAGE = "/role/manager/cancelstatisticspage.jsp";
-//    public final String REPORT_MAIN_PAGE = "role/manager/reportmainpage.jsp";
+    public final String REPORT_MAIN_PAGE = "/role/service/reportmainpage.jsp";
 
     public final String HOUSEKEEPING_CLEANING_PAGE = "/role/housekeeping/CleaningRoomPage.jsp";
 
