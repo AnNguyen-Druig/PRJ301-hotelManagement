@@ -230,7 +230,7 @@
                             }
                         } else {
                     %>
-                        <tr><td colspan="6" class="no-data">No completed services found</td></tr>
+                        <tr><td colspan="7" class="no-data">No completed services found</td></tr>
                     <% } %>
                     </tbody>
                 </table>
