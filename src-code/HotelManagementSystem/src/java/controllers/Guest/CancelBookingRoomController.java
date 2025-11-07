@@ -46,7 +46,7 @@ public class CancelBookingRoomController extends HttpServlet {
             BookingDAO bookingRoomDAO = new BookingDAO();
             boolean cancel = bookingRoomDAO.updateStatusBooking(Integer.parseInt(bookingID.trim()), "Canceled");
             if (cancel == true) {
-                request.setAttribute("MESSAGE", IConstants.SUCC_CANCEL_BOOKING_ROOM + bookingID);
+                request.setAttribute("MESSAGE", IConstants.SUCC_CANCEL_BOOKING_ROOM);
                 request.getRequestDispatcher(IConstants.CTL_VIEW_BOOKING).forward(request, response);
             } else {
                 request.setAttribute("MESSAGE", IConstants.ERR_CANCEL_BOOKING_ROOM);

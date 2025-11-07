@@ -326,7 +326,7 @@ public class StaffDAO {
                 ps.setDate(9, staff.getDateOfBirth()); // Thêm DateOfBirth
                 ps.setString(10, staff.getStatus());
 
-                result = ps.executeUpdate(); // Trả về số dòng bị ảnh hưởng
+                result = ps.executeUpdate(); 
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -352,6 +352,34 @@ public class StaffDAO {
             String sql = "SELECT * FROM STAFF WHERE Username = ?";
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setString(1, username);
+            ResultSet table = ps.executeQuery();
+
+            while (table.next()) {
+                result = true;  //true có nghĩa là username đó đã tồn tại rồi -> báo lỗi
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    
+    public boolean checkIDNumberExisted(String id) {
+        boolean result = false;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+
+            String sql = "SELECT * FROM STAFF WHERE IDNumber = ?";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setString(1, id);
             ResultSet table = ps.executeQuery();
 
             while (table.next()) {

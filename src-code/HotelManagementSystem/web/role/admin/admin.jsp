@@ -80,9 +80,6 @@
             <button type="submit" name="action" value="<%= IConstants.AC_SIGN_UP_STAFF %>">Thêm nhân viên</button>
         </form>
         
-       <!-- Hiện kết quả thành công sau khi xoá staff, Thất bại được thông báo bên trang editpage -->
-        <h4 class="green">${requestScope.SUCCESS}</h4>
-        
         <%-- BẢNG HIỂN THỊ KẾT QUẢ --%>
         <c:if test="${not empty STAFF_LIST}">
             <table>

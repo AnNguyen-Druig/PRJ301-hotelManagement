@@ -160,6 +160,7 @@ public interface IConstants {
     public final String ERR_INVALID_PHONE = "Số điện thoại phải bắt đầu bằng 0 và có 10 kí tự số!";
     public final String ERR_INVALID_EMAIL = "Email không hợp lệ!";
     public final String ERR_INVALID_IDNUMBER = "CCCD/CMND phải có 12 kí tự số!";
+    public final String ERR_IDNUMBER_EXISTED ="CCCD/CMND đã tồn tại";
     public final String ERR_CHECKINDATE_ISBEFORE_TODAY = "Ngày checkin phải sau ngày hôm nay";
     public final String ERR_CHECKOUTDATE_ISBEFORE_CHECKINDATE = "Ngày checkout phải sau ngày checkin";
     public final String ERR_REQUIRE_SELECT_DATERANGE = "Bạn cần phải chọn Loai Phong va ngày CheckIn, CheckOut";
@@ -192,7 +193,7 @@ public interface IConstants {
     public final String SUCC_SAVE_BOOKING_ROOM = "Bạn đã đặt phòng thành công";
     public final String SUCC_SAVE_BOOKING_SERVICE =  "Bạn đã đặt dịch vụ thành công.";
     public final String SUCC_SAVE_UPDATE_BOOKING = "Bạn đã cập nhật thông tin thành công.";
-    public final String SUCC_CANCEL_BOOKING_ROOM = "Bạn đã huỷ thành công, mã đặt phòng đã huỷ có ID là: ";
+    public final String SUCC_CANCEL_BOOKING_ROOM = "Bạn đã huỷ đặt phòng thành công";
     public final String SUCC_UPDATE_STAFF = "Bạn đã cập nhật thông tin nhân viên thành công";
     public final String SUCC_DELETE_STAFF = "Bạn đã xoá nhân viên thành công";
     

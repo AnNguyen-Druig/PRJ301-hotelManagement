@@ -27,13 +27,16 @@
             if (guest == null) {
                 request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
             } else {
-                String typeName = "";
                 Date checkInDate = null;
                 Date checkOutDate = null;
-                if (request.getParameter("roomtype") != null && request.getParameter("booking_room_checkInDate") != null && request.getParameter("booking_room_checkOutDate") != null) {
-                    typeName = request.getParameter("roomtype");
-                    checkInDate = Date.valueOf(request.getParameter("booking_room_checkInDate"));
-                    checkOutDate = Date.valueOf(request.getParameter("booking_room_checkOutDate"));
+                
+                String checkInStr = request.getParameter("booking_room_checkInDate");
+                String checkOutStr = request.getParameter("booking_room_checkOutDate");
+
+                if (checkInStr!=null && !checkInStr.trim().equals("null")
+                       && checkOutStr!=null && !checkOutStr.trim().equals("null")) {
+                    checkInDate = Date.valueOf(checkInStr);
+                    checkOutDate = Date.valueOf(checkOutStr);
                 }
                 StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");
                 if (staff != null) {
@@ -55,14 +58,14 @@
         <form action="MainController" method="POST">    
             <label for="roomtype">Loai Phong</label>
             <select id="roomtype" name="roomtype" required="">
-                <option value="<%= typeName%>">---Chọn---</option>
-                <option value="AllRoom">AllRoom</option>
-                <option value="Single">Single</option>
-                <option value="Double">Double</option> 
-                <option value="Suite">Suite</option>
-                <option value="Deluxe">Deluxe</option>
-                <option value="Family">Family</option>
-                <option value="Executive">Executive</option>
+                <option value="">---Chọn---</option>
+                <option value="AllRoom" ${param.roomtype == 'AllRoom' ? 'selected' : ''}>AllRoom</option>
+                <option value="Single"  ${param.roomtype == 'Single' ? 'selected' : ''}>Single</option>
+                <option value="Double"  ${param.roomtype == 'Double' ? 'selected' : ''}>Double</option> 
+                <option value="Suite"  ${param.roomtype == 'Suite' ? 'selected' : ''}>Suite</option>
+                <option value="Deluxe"  ${param.roomtype == 'Deluxe' ? 'selected' : ''}>Deluxe</option>
+                <option value="Family"  ${param.roomtype == 'Family' ? 'selected' : ''}>Family</option>
+                <option value="Executive" ${param.roomtype == 'Executive' ? 'selected' : ''}>Executive</option>
             </select>
             </br> 
             <label for="checkInDate">NGAY CHECK-IN:</label>
@@ -97,10 +100,10 @@
 
         <%
             //Hiển thị thông tin tìm kiếm
-            if (typeName != "" && checkInDate != null && checkOutDate != null) {
+            if (checkInDate != null && checkOutDate != null) {
         %>
         <h3>Bạn vừa tìm kiếm: </h3>
-        <h4>Loại phòng: <%= typeName%></h4>
+        <h4>Loại phòng: ${param.roomtype}</h4>
         <h4>Ngày CheckIn: <%= checkInDate%></h4>
         <h4>Ngày CheckOut: <%= checkOutDate%></h4>  
         <%
@@ -111,7 +114,7 @@
                 for (ShowRoomDTO r : roomList) {
         %>
         <p>TypeName: <%= r.getTypeName()%></p>
-        <p>RoomNumber: <%= r.getRoomNumber() %></p>
+        <p>RoomNumber: <%= r.getRoomNumber()%></p>
         <p>Capacity: <%= r.getCapacity()%></p>
         <p>PricePerNight: <%= String.format("%,.0f VND", r.getPricePerNight()).replace(',', '.')%></p>
         <form action="MainController" method="POST">

@@ -35,6 +35,7 @@
             String bookingId = request.getParameter("bookingId");
             if (message != null && !message.isEmpty()) {
                 out.println(message);
+        %></br><%
             }
             //Kết thúc thông tin Huy Dat Phong
 
@@ -79,7 +80,7 @@
             } else {
                 String error = (String) request.getAttribute("ERROR");
                 if (error != null && !error.isEmpty()) {
-                    out.print(error);
+                    out.println(error);
                 } else {
                     out.print("Không có thông tin phòng giữ chỗ");
                 }
@@ -128,7 +129,7 @@
                     } else {
                         String error = (String) request.getAttribute("ERROR");
                         if (error != null && !error.isEmpty()) {
-                            out.print(error);
+                            out.println(error);
                         } else {
                             out.print("Không có thông tin phòng đã checkin");
                         }

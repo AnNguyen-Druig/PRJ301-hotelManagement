@@ -4,7 +4,6 @@
  */
 package DAO.Guest_DAO;
 
-import DTO.Basic_DTO.BookingDTO;
 import DTO.Guest_DTO.BookingRoomDetailDTO;
 import java.sql.Connection;
 import java.sql.Date;

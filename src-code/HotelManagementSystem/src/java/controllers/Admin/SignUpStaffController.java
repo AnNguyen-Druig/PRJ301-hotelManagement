@@ -55,12 +55,12 @@ public class SignUpStaffController extends HttpServlet {
             String status = request.getParameter("staff_status");
             String action = request.getParameter("action");
 
-            //Phân biệt Signup và Update bằng staffID vì Signup ko có staffID
-
             if (username != null && password != null && password_again != null && fullname != null
                     && phone != null && email != null && address != null && dateOfBirth != null && idNumber != null
                     && role != null && status != null) {
-
+                //Phân biệt Signup và Update bằng staffID vì Signup ko có staffID
+                String staffIDStr = request.getParameter("staffID");
+                
                 StaffDAO staffDAO = new StaffDAO();
                 boolean hasError = false;
 
@@ -79,13 +79,13 @@ public class SignUpStaffController extends HttpServlet {
 
                 // Kiểm tra username
                 //staffID == null thì là signup nên cần kiểm tra
-                if (request.getParameter("staffID") == null) {
+                if (staffIDStr == null) {
                     if (staffDAO.checkUsernameExisted(username)) {
                         request.setAttribute("ERROR_USERNAME", IConstants.ERR_INVALID_USERNAME);
                         hasError = true;
                     }
                 } else { //nếu khác null là update
-                    int staffID = Integer.parseInt(request.getParameter("staffID").trim());
+                    int staffID = Integer.parseInt(staffIDStr.trim());
                     //lấy tên gốc 
                     String originalUsername = staffDAO.getUsernameByStaffID(staffID);
                     
@@ -127,6 +127,11 @@ public class SignUpStaffController extends HttpServlet {
                 if (!idNumber.matches("^\\d{12}$")) {
                     request.setAttribute("ERROR_IDNUMBER", IConstants.ERR_INVALID_IDNUMBER);
                     hasError = true;
+                } else if(request.getParameter("staffID") == null) {
+                    if(staffDAO.checkIDNumberExisted(idNumber)) {
+                        request.setAttribute("ERROR_IDNUMBER", IConstants.ERR_IDNUMBER_EXISTED);
+                        hasError = true;
+                    }
                 }
 
                 if (hasError && action.equals(IConstants.AC_SIGN_UP_STAFF)) {
@@ -134,7 +139,7 @@ public class SignUpStaffController extends HttpServlet {
                     return;
                 } else if (hasError && action.equals(IConstants.AC_EDIT_STAFF)) {
                     //khi có lỗi quay về editpage thì STAFF trong requestScope đã biến mất nên cần phải gửi lại STAFF
-                    int staffID = Integer.parseInt(request.getParameter("staffID").trim());
+                    int staffID = Integer.parseInt(staffIDStr.trim());
                     StaffDTO staff = staffDAO.getStaffByID(staffID);
                     request.setAttribute("STAFF", staff);
                     request.getRequestDispatcher(IConstants.EDIT_STAFF_PAGE).forward(request, response);
@@ -149,7 +154,7 @@ public class SignUpStaffController extends HttpServlet {
                     }
                 } else {
                     //staffID tu editpage gui qua 
-                    int staffID = Integer.parseInt(request.getParameter("staffID").trim());
+                    int staffID = Integer.parseInt(staffIDStr.trim());
                     if (action.equals(IConstants.AC_EDIT_STAFF)) {
                         int updateStaff = staffDAO.updateStaff(staffID, username, password, phone, email, address, role, dateOfBirth_value,status);
                         if (updateStaff != 0) {
