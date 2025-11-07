@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="DTO.Receptionist_DTO.ShowBookingDTO"%>
 <%@page import="DTO.Basic_DTO.BookingDTO"%>
 <%@page import="DTO.Basic_DTO.StaffDTO"%>
 <%@page import="mylib.IConstants"%>
@@ -76,7 +77,7 @@
 
         <%
             // Lấy danh sách booking (đã được lọc bởi Controller)
-            ArrayList<BookingDTO> bookingList = (ArrayList) request.getAttribute("ALLBOOKING");
+            ArrayList<ShowBookingDTO> bookingList = (ArrayList) request.getAttribute("ALLBOOKING");
             String bookingListError = (String) request.getAttribute("BOOKING_LIST_ERROR"); // Lỗi riêng của danh sách booking
             if (bookingListError == null) bookingListError = "";
         %>
@@ -101,7 +102,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% for (BookingDTO b : bookingList) { %>
+                    <% for (ShowBookingDTO b : bookingList) { %>
                         <tr>
                             <td><%= b.getBookingID() %></td>
                             <td><%= b.getGuestID() %></td>
