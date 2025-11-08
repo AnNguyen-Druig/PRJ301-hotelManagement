@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="mylib.IConstants"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,10 +13,6 @@
         <title>Home Page</title>
     </head>
     <body>
-        <a href="<%=request.getContextPath()%>/MainController?action=default"">
-            <img src="<%=request.getContextPath()%>/img/logo.jpg" alt="Logo"/>
-        </a>
-        <a href="MainController?action=booking">Booking</a>
-        <a href="MainController?action=Login Staff">Đăng Nhập/Đăng Ký</a>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
     </body>
 </html>

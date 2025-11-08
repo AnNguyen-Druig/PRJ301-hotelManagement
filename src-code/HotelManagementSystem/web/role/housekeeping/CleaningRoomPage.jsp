@@ -32,6 +32,7 @@
       </style>
     </head>
     <body>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <!-- Display success/error messages -->
         <% if (request.getAttribute("SUCCESS") != null) { %>
             <div style="color: green; margin: 10px 0; padding: 10px; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px;">

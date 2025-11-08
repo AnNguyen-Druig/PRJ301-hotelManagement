@@ -16,6 +16,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <%
             ArrayList<MostUsedServiceDTO> mostList = (ArrayList) request.getAttribute("MOST_SERVICE");
             String errMsg = (String) request.getAttribute("ERROR");

@@ -55,7 +55,7 @@
         </style>
     </head>
     <body>
-
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <%  
             GuestDTO guest = (GuestDTO) session.getAttribute("USER");
             StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");

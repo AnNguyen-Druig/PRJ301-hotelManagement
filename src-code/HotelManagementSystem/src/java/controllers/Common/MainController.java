@@ -194,6 +194,9 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_BACK_TO_ADMIN_PAGE:
                     url = IConstants.CTL_GET_ALL_STAFF;
                     break;
+                case IConstants.AC_CONTACT:
+                    url = IConstants.CONTACT_PAGE;
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();

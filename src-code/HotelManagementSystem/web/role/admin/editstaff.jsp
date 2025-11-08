@@ -29,6 +29,7 @@
         </style>
     </head>
     <body>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <%
             StaffDTO staffsession = (StaffDTO) session.getAttribute("STAFF");
             if (staffsession == null) {
