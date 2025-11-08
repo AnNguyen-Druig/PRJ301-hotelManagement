@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="DTO.Service_DTO.GetBookingRoomForServiceDTO"%>
 <%@page import="mylib.IConstants"%>
 <%@page import="DTO.Basic_DTO.BookingDTO"%>
 <%@page import="DTO.Basic_DTO.RoomDTO"%>
@@ -33,7 +34,7 @@
                 <tr>
                     <th>BookingID</th>
                     <th>RoomID</th>
-                    <th>GuestName</th>
+                    <th>GuestID</th>
                     <th>RoomStatus</th>
                     <th>CheckInDate</th>
                     <th>ChooseRoom</th>
@@ -41,16 +42,16 @@
             </thead>
             <tbody>
                 <%
-                    List<BookingDTO> list = (List<BookingDTO>) request.getAttribute("ALLROOM");
+                    List<GetBookingRoomForServiceDTO> list = (List<GetBookingRoomForServiceDTO>) request.getAttribute("ALLROOM");
                     if (list != null && !list.isEmpty()) {
-                        for (BookingDTO room : list) {
+                        for (GetBookingRoomForServiceDTO room : list) {
                 %>
                 <tr>
                     <td><%= room.getBookingID()%></td>
                     <td><%= room.getRoomID()%></td>
-                    <td><%= room.getGuestName()%></td>
+                    <td><%= room.getGuestName() %></td>
                     <td><%= room.getStatus()%></td>
-                    <td><%= room.getCheckInDate()%></td>
+                    <td><%= room.getCheckinDate() %></td>
                     <td>
                         <form action="MainController" method="POST" style="display:inline">
                             <input type="hidden" name="bookingId" value="<%= room.getBookingID()%>"/>

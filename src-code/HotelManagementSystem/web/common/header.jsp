@@ -83,10 +83,13 @@
                                             action = IConstants.AC_MANAGER_GO_BACK;
                                             break;
                                         case "ServiceStaff":
-                                            action = IConstants.AC_GO_BACK_SERVICE_PAGE;
+                                            action = IConstants.AC_GET_ROOM_SERVICE;
                                             break;
                                         case "Admin":
                                             action = IConstants.AC_BACK_TO_ADMIN_PAGE;
+                                            break;
+                                        case "Housekeeping":
+                                            action = IConstants.AC_BACK_TO_HOUSEKEEPING;
                                             break;
                                         default:
                                             action = IConstants.AC_GO_BACK_GUEST_PAGE;
