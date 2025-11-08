@@ -161,16 +161,17 @@
                 String succMsg = (String) request.getAttribute("SUCCESS");
                 StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");
                 if (succMsg != null) {
-                    if(staff != null) {
             %>
-            
-            <a href="MainController?action=TurnBackReceptionPage">Quay lại trang của Lễ tân</a>
-            <%}else{%>
-            <a href="MainController?action=Login Member">Quay về trang đăng nhập</a>
-            <%}%>
             <span><%= succMsg%></span>
             <%}%>
             
+            <%
+                if (staff != null) {
+            %>
+            <a href="MainController?action=TurnBackReceptionPage">Quay lại trang của Lễ tân</a>
+            <%} else {%>
+            <a href="MainController?action=Login Member">Quay về trang đăng nhập</a>
+            <%}%>
         </div>
     </body>
 

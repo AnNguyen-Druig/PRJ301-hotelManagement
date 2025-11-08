@@ -120,11 +120,12 @@
             </form>
         </div>
         <form action="MainController" method="POST">
-            <button type="submit" name="action" value="backtoadminpage">Quay lại</button>
+            <button type="submit" name="action" value="<%= IConstants.AC_BACK_TO_ADMIN_PAGE %>">Quay lại</button>
         </form>
         <%
             }
         %>
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
     <script>
         //Dùng để kiểm tra 2 mật khẩu có khớp với nhau không

@@ -124,8 +124,10 @@ public class ShowBookingDAO {
     //Hàm này dùng để hiển thị Booking trong phần Update trong role Reception
     //BookingDetail
     public ShowBookingDTO getBookingByBookingIDInReception(int bookingID) {
-        Connection cn = null;
         ShowBookingDTO result = null;
+        Connection cn = null;
+        PreparedStatement ps = null;
+        ResultSet table = null;
         try {
             cn = DBUtills.getConnection();
             if (cn != null) {
@@ -133,9 +135,9 @@ public class ShowBookingDAO {
                         + "b.CheckOutDate, b.BookingDate, b.Status FROM BOOKING b JOIN GUEST g ON b.GuestID = g.GuestID \n"
                         + "JOIN ROOM r ON b.RoomID = r.RoomID JOIN ROOM_TYPE rt ON r.RoomTypeID = rt.RoomTypeID\n"
                         + "WHERE b.BookingID = ?";
-                PreparedStatement st = cn.prepareStatement(sql);
-                st.setInt(1, bookingID);
-                ResultSet table = st.executeQuery();
+                ps = cn.prepareStatement(sql);
+                ps.setInt(1, bookingID);
+                table = ps.executeQuery();
                 if (table != null) {
                     while (table.next()) {
                         int guestID = table.getInt("GuestID");
@@ -158,6 +160,12 @@ public class ShowBookingDAO {
             try {
                 if (cn != null) {
                     cn.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (table != null) {
+                    table.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

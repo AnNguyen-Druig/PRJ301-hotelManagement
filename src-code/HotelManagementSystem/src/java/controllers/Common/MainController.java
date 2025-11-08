@@ -204,6 +204,9 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_EDIT_TAX_VALUE:
                     url = IConstants.CTL_EDIT_TAXVALUE_AND_SERVICEVALUE;
                     break;
+                case IConstants.AC_EDIT_SERVICE_PRICE:
+                    url = IConstants.CTL_EDIT_TAXVALUE_AND_SERVICEVALUE;
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();

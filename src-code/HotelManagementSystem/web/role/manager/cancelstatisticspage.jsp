@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="mylib.IConstants"%>
 <%@page import="java.util.Map"%>    <%-- <<< CHỈ CẦN IMPORT Map --%>
 <%@page import="java.util.List"%>
 <%@page import="DTO.Basic_DTO.BookingDTO"%>
@@ -218,6 +219,6 @@
 
         <%-- Nút quay lại --%>
         <a href="MainController?action=gobackmanager" class="back-link">Quay lại Dashboard</a>
-
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 </html>

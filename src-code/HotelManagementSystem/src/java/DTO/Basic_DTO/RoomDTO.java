@@ -14,47 +14,23 @@ public class RoomDTO {
     private String roomNumber;
     private int roomTypeID;
     private String roomStatus;
-    //Dư các thuộc tính bên dưới, nên tách Room và RoomType ra
-    private String typeName;
-    private int capacity;
-    private double pricePerNight;
-    private String assignedStaff;
 
     public RoomDTO() {
     }
 
-    public RoomDTO(int roomID, String roomNumber, int roomTypeID, String roomStatus, String typeName, int capacity, double pricePerNight) {
+    //Constructor Full
+    public RoomDTO(int roomID, String roomNumber, int roomTypeID, String roomStatus) {
         this.roomID = roomID;
         this.roomNumber = roomNumber;
         this.roomTypeID = roomTypeID;
         this.roomStatus = roomStatus;
-        this.typeName = typeName;
-        this.capacity = capacity;
-        this.pricePerNight = pricePerNight;
     }
 
-    public RoomDTO(String roomNumber, int roomTypeID, String roomStatus, String typeName, int capacity, double pricePerNight) {
-        this.roomNumber = roomNumber;
-        this.roomTypeID = roomTypeID;
-        this.roomStatus = roomStatus;
-        this.typeName = typeName;
-        this.capacity = capacity;
-        this.pricePerNight = pricePerNight;
-    }
-
-    public RoomDTO(int roomID, String roomNumber, String typeName, int capacity, double pricePerNight) {
+    public RoomDTO(int roomID, String roomNumber) {
         this.roomID = roomID;
         this.roomNumber = roomNumber;
-        this.typeName = typeName;
-        this.capacity = capacity;
-        this.pricePerNight = pricePerNight;
     }
 
-    public RoomDTO(int roomTypeID, String typeName) {
-        this.roomTypeID = roomTypeID;
-        this.typeName = typeName;
-    }
-    
     public int getRoomID() {
         return roomID;
     }
@@ -86,29 +62,4 @@ public class RoomDTO {
     public void setRoomStatus(String roomStatus) {
         this.roomStatus = roomStatus;
     }
-
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    public double getPricePerNight() {
-        return pricePerNight;
-    }
-
-    public void setPricePerNight(double pricePerNight) {
-        this.pricePerNight = pricePerNight;
-    }
-
 }

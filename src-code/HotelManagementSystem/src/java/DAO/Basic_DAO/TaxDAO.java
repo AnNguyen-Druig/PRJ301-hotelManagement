@@ -66,7 +66,7 @@ public class TaxDAO {
                         double taxValue = table.getDouble("TaxValue");
                         String description = table.getString("Description");
                         Date LastUpdated = table.getDate("LastUpdated");
-                        TaxDTO t = new TaxDTO(taxName, taxName, taxValue, description, LastUpdated);
+                        TaxDTO t = new TaxDTO(taxID, taxName, taxValue, description, LastUpdated);
                         result.add(t);
                     }
                 }
@@ -84,18 +84,50 @@ public class TaxDAO {
         }
         return result;
     }
-    
+
     public int updateTaxValue(int taxID, double taxValue) {
         int result = 0;
         Connection cn = null;
         try {
             cn = DBUtills.getConnection();
-            if(cn!=null) {
-                String sql = "  UPDATE TAX_CONFIG SET TaxValue = ? WHERE TaxID = ?";
+            if (cn != null) {
+                String sql = "  UPDATE TAX_CONFIG SET TaxValue = ?,LastUpdated = GETDATE() WHERE TaxID = ?";
                 PreparedStatement st = cn.prepareStatement(sql);
                 st.setDouble(1, taxValue);
                 st.setInt(2, taxID);
                 result = st.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public double originalTaxValue(int taxID) {
+        Connection cn = null;
+        double result = 0;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "SELECT TaxValue\n"
+                        + "  FROM TAX_CONFIG\n"
+                        + "  WHERE TaxID = ?";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setInt(1, taxID);
+                ResultSet table = st.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        result = table.getDouble("TaxValue");
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

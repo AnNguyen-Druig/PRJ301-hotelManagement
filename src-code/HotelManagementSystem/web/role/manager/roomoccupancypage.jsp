@@ -3,6 +3,7 @@
     Created on : Oct 27, 2025, 1:22:25 PM
     Author     : Admin
 --%>
+<%@page import="mylib.IConstants"%>
 <%@page import="DTO.Manager_DTO.RoomOccupancyDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
@@ -240,7 +241,7 @@
 
         <%-- Nút quay lại --%>
         <a href="MainController?action=gobackmanager" class="back-link">Quay lại Dashboard</a>
-
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 </html>
 

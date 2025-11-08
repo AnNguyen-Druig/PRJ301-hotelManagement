@@ -13,6 +13,7 @@ public interface IConstants {
     //View
     public final String DEFAULT_PAGE = "/common/homepage.jsp";
     public final String HEADER_PAGE = "/common/header.jsp";
+    public final String FOOTER_PAGE = "/common/footer.jsp";
     public final String LOGIN_PAGE = "/common/login.jsp";
     public final String SIGNUP_PAGE = "/common/signup.jsp";
     public final String SIGNUP_SUCCESS_PAGE = "/common/signup_success.jsp";
@@ -113,6 +114,7 @@ public interface IConstants {
 
     public final String AC_CONTACT = "contact";
     public final String AC_EDIT_TAX_VALUE = "edittaxvalue";
+    public final String AC_EDIT_SERVICE_PRICE = "editserviceprice";
     
     //Controller
     public final String CTL_LOGIN = "LoginController";
@@ -201,7 +203,9 @@ public interface IConstants {
     public final String ERR_EMPTY_CANCEL_BOOKING_BY_ROOMTYPE = "Chưa có dữ liệu hủy theo loại phòng.";
     public final String ERR_EMPTY_LIST_TAX = "Không có dữ liệu thuế";
     public final String ERR_EMPTY_LIST_SERVICE = "Không có dữ liệu dịch vụ";
-
+    public final String ERR_EDIT_TAX_VALUE = "Thay đổi giá thuế THẤT BẠI";
+    public final String ERR_EDIT_SERVICE_PRICE = "Thay đổi giá tiền dịch vụ THẤT BẠI";
+    public final String ERR_OLD_VALUE = "Vui lòng cập nhật giá trị mới";
     
     //SUCESSFULL
     public final String SUCC_SAVE_BOOKING_ROOM = "Bạn đã đặt phòng thành công";
@@ -211,4 +215,6 @@ public interface IConstants {
     public final String SUCC_UPDATE_STAFF = "Bạn đã cập nhật thông tin nhân viên thành công";
     public final String SUCC_DELETE_STAFF = "Bạn đã xoá nhân viên thành công";
     public final String SUCC_SIGNUP = "Bạn đã đăng ký thành công.";
+    public final String SUCC_EDIT_TAX_VALUE = "Thay đổi giá thuế THÀNH CÔNG";
+    public final String SUCC_EDIT_SERVICE_PRICE = "Thay đổi giá tiền dịch vụ THÀNH CÔNG";
 }

@@ -16,10 +16,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Service DashBoard</title>
         <style> table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-            padding: 8px;
-        } </style>
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 8px;
+            } </style>
     </head>
     <body>
         <jsp:useBean id="STAFF" scope="session" class="DTO.Basic_DTO.StaffDTO"/>
@@ -45,32 +45,37 @@
                     if (list != null && !list.isEmpty()) {
                         for (BookingDTO room : list) {
                 %>
-            <form action="MainController" method="POST">
                 <tr>
-
                     <td><%= room.getBookingID()%></td>
                     <td><%= room.getRoomID()%></td>
                     <td><%= room.getGuestName()%></td>
                     <td><%= room.getStatus()%></td>
                     <td><%= room.getCheckInDate()%></td>
-                    <td><input type="hidden" name="bookingId" value="<%=room.getBookingID()%>"/>
-                        <button type="submit" name="action" value="ChooseService">Choose</button>
-                        <button type="submit" name="action" value="ViewServiceCtrl">View</button></td>
-
+                    <td>
+                        <form action="MainController" method="POST" style="display:inline">
+                            <input type="hidden" name="bookingId" value="<%= room.getBookingID()%>"/>
+                            <button type="submit" name="action" value="ChooseService">Choose</button>
+                            <input type="hidden" name="bookingId" value="<%= room.getBookingID()%>"/>
+                            <button type="submit" name="action" value="ViewServiceCtrl">View</button>
+                        </form>
+                    </td>
                 </tr>
-            </form>
-            <%
+                <%
                     }
                 } else {
-                    out.print("<tr><td colspan='7' style='text-align:center;'>Không có thông tin phòng.</td></tr>");
-                }
-                String error = (String) request.getAttribute("ERROR");
-                if (error != null) {
-                    out.print("<tr><td colspan='7' style='color:red; text-align:center;'>" + error + "</td></tr>");
-                }
-            %>
-        </tbody>
-    </table>
-
-</body>
+                %>
+                <tr><td colspan="7" style="text-align:center;">Không có thông tin phòng.</td></tr>
+                <%
+                    }
+                    String error = (String) request.getAttribute("ERROR");
+                    if (error != null) {
+                %>
+                <tr><td colspan="7" style="color:red; text-align:center;"><%= error%></td></tr>
+                    <%
+                        }
+                    %>
+            </tbody>
+        </table>
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
+    </body>
 </html>

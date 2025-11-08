@@ -34,68 +34,68 @@
         <h2>KIỂM TRA THÔNG TIN ĐẶT PHÒNG</h2>
         <form action="MainController" method="POST">
             <div>
-                <lable for="fullname">HO VA TEN: </lable>
+                <label for="fullname">HO VA TEN: </label>
                 <input type="text" name="guest_fullname" id="fullname" readonly="" value="<%= guest.getFullName()%>">
             </div>
             </br>
 
             <div>
-                <lable for="phone">SO DIEN THOAI: </lable>
-                <input type="number" name="guest_phone" id="phone" readonly="" value="<%= guest.getPhone()%>">
+                <label for="phone">SO DIEN THOAI: </label>
+                <input type="text" name="guest_phone" id="phone" readonly="" value="<%= guest.getPhone()%>">
             </div>
             </br>
 
             <div>
-                <lable for="email">EMAIL: </lable>
+                <label for="email">EMAIL:</label>
                 <input type="email" name="guest_email" id="email" readonly="" value="<%= guest.getEmail()%>">
             </div>
             </br>
 
             <div>
-                <lable for="IDNumber">SO CAN CUOC CONG DAN: </lable>
-                <input type="number" name="guest_IDNumber" id="IDNumber" readonly="" value="<%= guest.getIDNumber()%>">
+                <label for="IDNumber">SO CAN CUOC CONG DAN: </label>
+                <input type="text" name="guest_IDNumber" id="IDNumber" readonly="" value="<%= guest.getIDNumber()%>">
             </div>
             </br>
 
             <div>
-                <lable for="roomNumber">SO PHONG: </lable>
+                <label for="roomNumber">SO PHONG: </label>>
                 <input type="text" name="room_roomNumber" id="roomNumber" readonly="" value="<%= room.getRoomNumber()%>">
             </div> 
             </br>
 
             <div>
-                <lable for="typeName">LOAI PHONG: </lable>
+                <label for="typeName">LOAI PHONG: </label>>
                 <input type="text" name="room_typeName" id="typeName" readonly="" value="<%= room.getTypeName()%>">
             </div> 
             </br>
 
             <div>
-                <lable for="capacity">SUC CHUA: </lable>
-                <input type="number" name="room_capacity" id="capacity" readonly="" value="<%= room.getCapacity()%>">
+                <label for="capacity">SUC CHUA: </label>>
+                <input type="text" name="room_capacity" id="capacity" readonly="" value="<%= room.getCapacity()%>">
             </div> 
             </br>
 
             <div>
-                <lable for="pricePerNight">GIA PHONG/MOT DEM: </lable>
+                <label for="pricePerNight">GIA PHONG/MOT DEM: </label>
                 <input type="text" name="room_pricePerNight" id="pricePerNight" readonly="" value="<%= String.format("%,.0f VND", room.getPricePerNight()).replace(',', '.')%>">
             </div>
             </br>
 
             <div>
                 <label for="checkInDate">NGAY CHECK-IN:</label>
-                <input type="date" id="checkInDate" name="booking_room_checkInDate" readonly="" value="<%= checkInDate%>">
+                <input type="text" id="checkInDate" name="booking_room_checkInDate" readonly="" value="<%= checkInDate%>">
             </div>
             </br>
 
             <div>
                 <label for="checkOutDate">NGAY CHECK-OUT:</label>
-                <input type="date" id="checkOutDate" name="booking_room_checkOutDate"  readonly="" value="<%= checkOutDate%>">
+                <input type="text" id="checkOutDate" name="booking_room_checkOutDate"  readonly="" value="<%= checkOutDate%>">
             </div>
             </br>
 
             <div>
                 <label for="bookingDate">NGAY DAT PHONG:</label>
-                <input type="date" id="bookingDate" name="booking_room_bookingDate" 
+                <input type="text" id="bookingDate" name="booking_room_bookingDate" 
                        value="<%= LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))%>" 
                        readonly>
             </div>
@@ -135,5 +135,6 @@
                 request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
             }
         %>
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 </html>

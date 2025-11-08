@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="mylib.IConstants"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.sql.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -119,5 +120,6 @@
 
         <hr/>
         <a href="MainController?action=gobackmanager">Quay lại Dashboard</a>
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 </html>

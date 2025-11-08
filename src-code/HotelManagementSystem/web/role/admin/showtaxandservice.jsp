@@ -26,6 +26,7 @@
                 if (listTax != null && !listTax.isEmpty()) {
 
         %>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <table>
             <tr>
                 <th>Mã thuế</th>
@@ -47,8 +48,16 @@
                         <button type="submit" name="action" value="<%= IConstants.AC_EDIT_TAX_VALUE %>">Thay doi gia thue</button> 
                     </form>
                 </td>
-            <span>${requestScope.MSG}</span>
+                <td><%
+                    String taxID = request.getParameter("taxid");
+                    if(taxID != null) {
+                        if(Integer.parseInt(taxID) == t.getTaxID()) {
+                        %>${requestScope.MSG_TAX}<%
+                    }
+                    }
+                    %></td>
             </tr> 
+            
             <%
                 }
             %>
@@ -75,12 +84,21 @@
                 <td><%= s.getServiceId() %></td>
                 <td><%= s.getServiceName() %></td>
                 <td><%= s.getServiceType() %></td>
-                <td><%= s.getPrice() %></td>
                 <td>
                     <form action="MainController" method="POST">
-                        <button type="submit" name="action" value="<%= IConstants.AC_CANCEL_BOOKING_ROOM%>">Huỷ đặt phòng</button> 
+                        <input type="text" name="serviceprice" value="<%= String.format("%,.0f", s.getPrice()).replace(',', '.') %>">VND 
+                        <input type="hidden" name="serviceid" value="<%= s.getServiceId()%>">
+                        <button type="submit" name="action" value="<%= IConstants.AC_EDIT_SERVICE_PRICE %>">Thay đổi giá dịch vụ</button> </br>
                     </form>
                 </td>
+                <td><%  //hiện thông báo theo từng dòng bằng cách so sánh id
+                    String serviceid = request.getParameter("serviceid");
+                    if(serviceid!=null) {
+                        if(Integer.parseInt(serviceid) == s.getServiceId()) {
+                        %><span>${requestScope.MSG_SERVICE}</span><%
+                    }
+                    }
+                    %></td>
             </tr> 
             <%
                 }

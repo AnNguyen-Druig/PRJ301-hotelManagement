@@ -346,5 +346,6 @@
                 window.location.href = 'ReportMainController?action=manaReport';
             }
         </script>
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 </html>

@@ -1,6 +1,7 @@
 <%--
     File   : bookingdetail.jsp (Scriptlet Version with Action Buttons)
 --%>
+<%@page import="DTO.Basic_DTO.RoomTypeDTO"%>
 <%@page import="DTO.Receptionist_DTO.ShowBookingDTO"%>
 <%@page import="DTO.Basic_DTO.BookingDTO"%>
 <%@page import="DTO.Basic_DTO.RoomDTO"%>
@@ -22,7 +23,7 @@
         <%
             // Lấy dữ liệu từ request scope
             ShowBookingDTO booking = (ShowBookingDTO) request.getAttribute("BOOKING_DETAIL");
-            List<RoomDTO> roomTypes = (List<RoomDTO>) request.getAttribute("ROOM_TYPES_LIST");
+            List<RoomTypeDTO> roomTypes = (List<RoomTypeDTO>) request.getAttribute("ROOM_TYPES_LIST");
             List<RoomDTO> availableRooms = (List<RoomDTO>) request.getAttribute("AVAILABLE_ROOMS_LIST");
             Integer selectedRoomTypeId = (Integer) request.getAttribute("SELECTED_ROOM_TYPE_ID");
             String errCheckinDate = (String) request.getAttribute("ERRORCHECKINDATE");
@@ -38,7 +39,7 @@
 
         <h1>Thông Tin Đặt Phòng - ID: <%= booking.getBookingID()%></h1>
 
-        <%-- Form này vẫn submit về UpdateBookingInReceptionController khi chọn loại phòng --%>
+        <%-- Form này submit về UpdateBookingInReceptionController khi chọn loại phòng --%>
         <form action="UpdateBookingInReceptionController" method="POST" id="bookingDetailForm">
             <input type="hidden" name="bookingID" value="<%= booking.getBookingID()%>" />
             <input type="hidden" name="roomID" value="<%= booking.getRoomID()%>" <%= isChangeable ? "disabled" : ""%> />
@@ -52,13 +53,13 @@
             <select name="roomTypeID" id="roomTypeSelect" onchange="document.getElementById('bookingDetailForm').submit();" <%= !isChangeable ? "disabled" : ""%>>
                 <option value="">Chọn loại phòng</option>
                 <% if (roomTypes != null) {
-                        for (RoomDTO type : roomTypes) {
+                        for (RoomTypeDTO type : roomTypes) {
                             String selectedAttr = "";
                             if (selectedRoomTypeId != null) {
                                 if (type.getRoomTypeID() == selectedRoomTypeId) {
                                     selectedAttr = "selected";
                                 }
-                            } else {
+                            } else {    //dùng để hiển thị ra Loại phòng hiện tại khi mới vào trang lần đầu
                                 if (type.getRoomTypeID() == booking.getRoomTypeID()) {
                                     selectedAttr = "selected";
                                 }
@@ -105,12 +106,14 @@
 
             <%-- Chỉ hiển thị nút hành động phù hợp --%>
             <% if (currentStatus.equals("Reserved")) { %>
-            <input type="submit" name="action" value="Check In" formaction="MainController"/>
-            <input type="submit" name="action" value="Cancel Booking" formaction="MainController">
+            <button type="submit" name="action" value="Check In" formaction="MainController">Check In</button>
+            <button type="submit" name="action" value="Cancel Booking" formaction="MainController">Huỷ đặt phòng</button>
             <% } else if (currentStatus.equals("CheckIn")) {%>
-            <a href="MainController?action=checkoutbookingroom&bookingId=<%= booking.getBookingID() %>">CheckOut và tạo hóa đơn</a>
+<!--        Khi bấm nút 'CheckOut và tạo hóa đơn' thì thuộc tính bookingId đc gửi ngầm theo và gửi đến MainController chứ ko phải UpdateBookingInReceptionController-->
+            <input type="hidden" name="bookingId" value="<%= booking.getBookingID() %>">    
+            <button type="submit" name="action" value="checkoutbookingroom" formaction="MainController">CheckOut và tạo hóa đơn</button>
             <% } else if (currentStatus.equals("CheckOut")) { %>
-            <input type="submit" name="action" value="Approve Checkout" formaction="MainController"/>
+            <button type="submit" name="action" value="Approve Checkout" formaction="MainController">Chấp nhận Checkout</button>
             <% } %>
             <%-- Các trạng thái khác (Canceled, Complete) không có nút hành động --%>
 
@@ -135,6 +138,6 @@
         <% } else { %>
         <h1>Không có danh sách Booking!</h1>
         <% }%>
-
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 </html>

@@ -6,9 +6,10 @@
 package controllers.RoomHouseKeeping;
 
 import DAO.Basic_DAO.RoomDAO;
+import DAO.HouseKeepingDAO.GetRoomForHouseKeepingDAO;
 import DTO.Basic_DTO.RoomDTO;
+import DTO.HouseKeeping_DTO.GetRoomForHouseKeepingDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -39,16 +40,15 @@ public class ManageRoomStatus extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = IConstants.MANAGE_ROOM_STATUS;
         try {
-            RoomDAO dao = new RoomDAO();
-            ArrayList<RoomDTO> list = dao.getAllRoomsForManager();
+            GetRoomForHouseKeepingDAO dao = new GetRoomForHouseKeepingDAO();
+            ArrayList<GetRoomForHouseKeepingDTO> list = dao.getAllRoomsForManager();
             if(list != null && !list.isEmpty()){
                 request.setAttribute("ROOM_LIST", list);
             }else{
                 request.setAttribute("ERROR", "No room found in database");
             }
-          
         }catch(Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -79,7 +79,7 @@ public class ManageRoomStatus extends HttpServlet {
         String url = IConstants.MANAGE_ROOM_STATUS;
        try {
             String action = request.getParameter("action");
-            RoomDAO dao = new RoomDAO();
+            GetRoomForHouseKeepingDAO dao = new GetRoomForHouseKeepingDAO();
 
             if (IConstants.AC_PERFORM_UPDATE.equals(action)) {
                 int roomId = Integer.parseInt(request.getParameter("roomId"));
@@ -87,9 +87,8 @@ public class ManageRoomStatus extends HttpServlet {
                 dao.updateRoomStatus(roomId, newStatus);
             }
             
-            List<RoomDTO> roomList = dao.getAllRoomsForManager();
+            List<GetRoomForHouseKeepingDTO> roomList = dao.getAllRoomsForManager();
             request.setAttribute("ROOM_LIST", roomList);
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

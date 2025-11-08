@@ -6,7 +6,9 @@
 package controllers.RoomHouseKeeping;
 
 import DAO.Basic_DAO.RoomDAO;
+import DAO.HouseKeepingDAO.GetRoomForHouseKeepingDAO;
 import DTO.Basic_DTO.RoomDTO;
+import DTO.HouseKeeping_DTO.GetRoomForHouseKeepingDTO;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -34,8 +36,8 @@ public class GetAllRoomToBack extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            RoomDAO dao = new RoomDAO();
-            ArrayList<RoomDTO> list = dao.getAllRoomsForManager();
+            GetRoomForHouseKeepingDAO dao = new GetRoomForHouseKeepingDAO();
+            ArrayList<GetRoomForHouseKeepingDTO> list = dao.getAllRoomsForManager();
             if(list != null && !list.isEmpty()){
                 request.setAttribute("ROOM_LIST", list);
                 request.getRequestDispatcher(IConstants.MANAGE_ROOM_STATUS).forward(request, response);
@@ -44,7 +46,7 @@ public class GetAllRoomToBack extends HttpServlet {
                 request.getRequestDispatcher(IConstants.MANAGE_ROOM_STATUS).forward(request, response);
             }
         }catch(Exception e){
-            
+            e.printStackTrace();
         }
     } 
 

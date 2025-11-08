@@ -127,5 +127,6 @@
             <p style="color:red;"><%= !bookingListError.isEmpty() ? bookingListError : "Không có booking nào phù hợp với trạng thái đã chọn." %></p>
         <% } %>
         <% } %>
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 </html>
