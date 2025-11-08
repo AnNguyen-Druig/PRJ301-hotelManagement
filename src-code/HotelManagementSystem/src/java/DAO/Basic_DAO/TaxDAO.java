@@ -4,9 +4,12 @@
  */
 package DAO.Basic_DAO;
 
+import DTO.Basic_DTO.TaxDTO;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import mylib.DBUtills;
 
 /**
@@ -27,9 +30,44 @@ public class TaxDAO {
                 PreparedStatement st = cn.prepareStatement(sql);
                 st.setString(1, taxName);
                 ResultSet table = st.executeQuery();
-                if(table!=null){
-                    while(table.next()) {
+                if (table != null) {
+                    while (table.next()) {
                         result = table.getDouble("TaxValue");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<TaxDTO> getAllTax() {
+        ArrayList<TaxDTO> result = new ArrayList<>();
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if (cn != null) {
+                String sql = "SELECT [TaxID],[TaxName],[TaxValue],[Description],[LastUpdated]\n"
+                        + "FROM dbo.TAX_CONFIG ";
+                PreparedStatement st = cn.prepareStatement(sql);
+                ResultSet table = st.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        int taxID = table.getInt("TaxID");
+                        String taxName = table.getString("TaxName");
+                        double taxValue = table.getDouble("TaxValue");
+                        String description = table.getString("Description");
+                        Date LastUpdated = table.getDate("LastUpdated");
+                        TaxDTO t = new TaxDTO(taxName, taxName, taxValue, description, LastUpdated);
+                        result.add(t);
                     }
                 }
             }

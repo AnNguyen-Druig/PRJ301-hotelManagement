@@ -76,8 +76,12 @@
             <button type="submit" value="<%= IConstants.AC_FILTER_STAFF%>" name="action">Lọc</button>
         </form>
         
-        <<form action="MainController" method="GET">
+        <form action="MainController" method="GET">
             <button type="submit" name="action" value="<%= IConstants.AC_SIGN_UP_STAFF %>">Thêm nhân viên</button>
+        </form>
+        
+        <form action="MainController" method="POST">
+            <button type="submit" name="action" value="<%= IConstants.AC_EDIT_TAX_AND_SERVICE %>">Sửa đổi thuế và dịch vụ</button>
         </form>
         
         <%-- BẢNG HIỂN THỊ KẾT QUẢ --%>

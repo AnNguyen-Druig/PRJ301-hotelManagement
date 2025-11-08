@@ -45,6 +45,7 @@ public interface IConstants {
     public final String INVOICE_PAGE = "/role/guest/invoicepage.jsp";
     public final String SIGN_UP_STAFF_PAGE = "/role/admin/signupstaff.jsp";
     public final String EDIT_STAFF_PAGE = "/role/admin/editstaff.jsp";
+    public final String SHOW_TAX_AND_SERVICE_PAGE = "/role/admin/showtaxandservice.jsp";
   
     //Action
     public final String AC_DEFAULT = "default";
@@ -105,6 +106,7 @@ public interface IConstants {
     public final String AC_EDIT_STAFF = "editstaff";
     public final String AC_BACK_TO_ADMIN_PAGE = "backtoadminpage";
     public final String AC_DELETE_STAFF = "deletestaff";
+    public final String AC_EDIT_TAX_AND_SERVICE = "edittaxandservice";
     
     //Controller
     public final String CTL_LOGIN = "LoginController";
@@ -146,6 +148,7 @@ public interface IConstants {
     public final String CTL_SIGN_UP_STAFF = "SignUpStaffController";
     public final String CTL_HOUSEKEEPING_REPORT = "HouseKeepingReportController";
     public final String CTL_GET_STAFF = "GetStaffController";
+    public final String CTL_GET_ALL_TAX_AND_SERVICE = "GetAllTaxAndService";
 
     // ERROR
     public final String ERR_EMPTY_FIELD = "Tên đăng nhập và mật khẩu không được để trống!";
@@ -189,6 +192,8 @@ public interface IConstants {
     public final String ERR_EMPTY_CANCEL_BOOKING_INRANGE = "Không có lượt hủy nào trong khoảng thời gian đã chọn.";
     public final String ERR_EMPTY_CANCEL_BOOKING_BY_MONTH = "Chưa có dữ liệu hủy theo tháng/năm.";
     public final String ERR_EMPTY_CANCEL_BOOKING_BY_ROOMTYPE = "Chưa có dữ liệu hủy theo loại phòng.";
+    public final String ERR_EMPTY_LIST_TAX = "Không có dữ liệu thuế";
+    public final String ERR_EMPTY_LIST_SERVICE = "Không có dữ liệu dịch vụ";
 
     
     //SUCESSFULL

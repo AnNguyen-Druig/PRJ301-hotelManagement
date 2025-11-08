@@ -11,6 +11,7 @@ import java.sql.Date;
  * @author ASUS
  */
 public class TaxDTO {
+    private String taxID;
     private String taxName;
     private double taxValue;
     private String description;
@@ -20,11 +21,20 @@ public class TaxDTO {
     public TaxDTO() {
     }
 
-    public TaxDTO(String taxName, double taxValue, String description, Date LastUpdated) {
+    public TaxDTO(String taxID, String taxName, double taxValue, String description, Date LastUpdated) {
+        this.taxID = taxID;
         this.taxName = taxName;
         this.taxValue = taxValue;
         this.description = description;
         this.LastUpdated = LastUpdated;
+    }
+
+    public String getTaxID() {
+        return taxID;
+    }
+
+    public void setTaxID(String taxID) {
+        this.taxID = taxID;
     }
 
     public String getTaxName() {
@@ -58,6 +68,8 @@ public class TaxDTO {
     public void setLastUpdated(Date LastUpdated) {
         this.LastUpdated = LastUpdated;
     }
+
+   
     
     
 }
