@@ -7,7 +7,6 @@ package controllers.Receptionist;
 import DAO.Basic_DAO.BookingDAO;
 import DTO.Basic_DTO.BookingDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,7 +52,7 @@ public class SaveUpdateBookingController extends HttpServlet {
                 Date checkInDate_value = Date.valueOf(checkInDate);
                 Date checkOutDate_value = Date.valueOf(checkOutDate);
 
-                //Check checkInDate phai > now 
+                //Check checkInDate phải > now 
                 Date today = new Date(System.currentTimeMillis());
                 if (checkInDate_value.before(today) || checkInDate_value.equals(today)) {
                     request.setAttribute("ERRORCHECKINDATE", IConstants.ERR_CHECKINDATE_ISBEFORE_TODAY);

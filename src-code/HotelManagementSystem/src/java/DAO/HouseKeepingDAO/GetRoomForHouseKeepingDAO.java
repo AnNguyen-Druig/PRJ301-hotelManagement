@@ -2,12 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAO.Basic_DAO;
+package DAO.HouseKeepingDAO;
 
 import DTO.Basic_DTO.RoomDTO;
-import DTO.Guest_DTO.ShowRoomDTO;
+import DTO.HouseKeeping_DTO.GetRoomForHouseKeepingDTO;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -15,29 +14,32 @@ import mylib.DBUtills;
 
 /**
  *
- * @author ASUS
+ * @author Admin
  */
-public class RoomDAO {
+public class GetRoomForHouseKeepingDAO {
 
-    public ArrayList<RoomDTO> getAvailableRoomsByTypeId(int roomTypeID) {
-        ArrayList<RoomDTO> list = new ArrayList<>();
+    public ArrayList<GetRoomForHouseKeepingDTO> getAllRoomsForManager() {
+        ArrayList<GetRoomForHouseKeepingDTO> result = new ArrayList<>();
         Connection cn = null;
-        PreparedStatement ps = null;
+        PreparedStatement st = null;
         ResultSet table = null;
         try {
             cn = DBUtills.getConnection();
             if (cn != null) {
-                String sql = "SELECT RoomID, RoomNumber FROM ROOM WHERE RoomTypeID = ? AND Status = 'Available'";
-                ps = cn.prepareStatement(sql);
-                ps.setInt(1, roomTypeID);
-                table = ps.executeQuery();
+                String sql = "SELECT R.RoomID, R.RoomNumber, R.RoomTypeID, R.Status, RT.TypeName\n"
+                        + "FROM dbo.ROOM as R\n"
+                        + "INNER JOIN dbo.ROOM_TYPE as RT on RT.RoomTypeID = r.RoomTypeID";
+                st = cn.prepareStatement(sql);
+                table = st.executeQuery();
                 if (table != null) {
                     while (table.next()) {
                         int roomID = table.getInt("RoomID");
                         String roomNumber = table.getString("RoomNumber");
+                        String status = table.getString("Status");
+                        String typeName = table.getString("TypeName");
 
-                        RoomDTO room = new RoomDTO(roomID, roomNumber);
-                        list.add(room);
+                        GetRoomForHouseKeepingDTO room = new GetRoomForHouseKeepingDTO(roomID, roomNumber, status, typeName);
+                        result.add(room);
                     }
                 }
             }
@@ -48,8 +50,8 @@ public class RoomDAO {
                 if (cn != null) {
                     cn.close();
                 }
-                if (ps != null) {
-                    ps.close();
+                if (st != null) {
+                    st.close();
                 }
                 if (table != null) {
                     table.close();
@@ -58,7 +60,7 @@ public class RoomDAO {
                 e.printStackTrace();
             }
         }
-        return list;
+        return result;
     }
 
     public boolean updateRoomStatus(int roomId, String newStatus) {
@@ -84,7 +86,7 @@ public class RoomDAO {
                 if (cn != null) {
                     cn.close();
                 }
-                if(ps != null) {
+                if (ps != null) {
                     ps.close();
                 }
             } catch (Exception e) {
