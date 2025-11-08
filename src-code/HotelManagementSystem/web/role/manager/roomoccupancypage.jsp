@@ -87,6 +87,7 @@
         </style>
     </head>
     <body>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <h1>Báo cáo - Tỷ lệ Lấp đầy & Hoạt động Phòng</h1>
 
         <%

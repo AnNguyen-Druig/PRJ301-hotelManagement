@@ -14,6 +14,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <%
             ArrayList<TopFrequentGuestDTO> list = (ArrayList) request.getAttribute("ALL_GUEST_LIST");
             ArrayList<TopFrequentGuestDTO> highestMoneyList = (ArrayList) request.getAttribute("HIGHEST_MONEY_LIST");

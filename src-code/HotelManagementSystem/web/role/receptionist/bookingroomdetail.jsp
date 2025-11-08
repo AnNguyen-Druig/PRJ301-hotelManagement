@@ -18,6 +18,7 @@
             }</style>
     </head>
     <body>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <%
             // Lấy dữ liệu từ request scope
             ShowBookingDTO booking = (ShowBookingDTO) request.getAttribute("BOOKING_DETAIL");

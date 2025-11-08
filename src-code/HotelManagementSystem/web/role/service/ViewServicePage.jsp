@@ -4,6 +4,7 @@
     Author     : Nguyễn Đại
 --%>
 
+<%@page import="mylib.IConstants"%>
 <%@page import="DTO.Basic_DTO.BookingServiceDTO"%>
 <%@page import="DTO.Basic_DTO.ServiceDTO"%>
 <%@page import="java.util.Map"%>
@@ -21,6 +22,7 @@
     </head>
     <body>
         <jsp:useBean id="STAFF" scope="session" class="DTO.Basic_DTO.StaffDTO" />
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <h1>Hello ${STAFF.fullName}</h1>
         
         <h2>Booking Services for Booking ${BOOKING_ID}</h2>

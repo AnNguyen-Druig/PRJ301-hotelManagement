@@ -14,6 +14,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <%
             //Lấy ra các dữ liệu của chức năng 1) Tổng Doanh thu lọc theo ngày
             Double totalRevenueBySelectDate = (Double) request.getAttribute("REVENUE_BY_SELECT_DATE");

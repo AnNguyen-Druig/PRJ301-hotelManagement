@@ -38,6 +38,7 @@
         </style>
     </head>
     <body>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <%
             // Kiểm tra session (giữ nguyên)
             StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");
