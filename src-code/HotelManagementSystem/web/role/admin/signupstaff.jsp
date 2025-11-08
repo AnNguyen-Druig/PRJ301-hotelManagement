@@ -114,6 +114,7 @@
         <form action="MainController" method="POST">
             <button type="submit" name="action" value="backtoadminpage">Quay lại</button>
         </form>
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 
     <script>

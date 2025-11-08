@@ -125,6 +125,7 @@
         <%
             }
         %>
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
     <script>
         //Dùng để kiểm tra 2 mật khẩu có khớp với nhau không

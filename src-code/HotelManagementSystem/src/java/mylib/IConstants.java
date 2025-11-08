@@ -13,6 +13,7 @@ public interface IConstants {
     //View
     public final String DEFAULT_PAGE = "/common/homepage.jsp";
     public final String HEADER_PAGE = "/common/header.jsp";
+    public final String FOOTER_PAGE = "/common/footer.jsp";
     public final String LOGIN_PAGE = "/common/login.jsp";
     public final String SIGNUP_PAGE = "/common/signup.jsp";
     public final String SIGNUP_SUCCESS_PAGE = "/common/signup_success.jsp";

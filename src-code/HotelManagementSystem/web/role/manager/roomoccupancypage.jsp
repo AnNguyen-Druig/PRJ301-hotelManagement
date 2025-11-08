@@ -241,7 +241,7 @@
 
         <%-- Nút quay lại --%>
         <a href="MainController?action=gobackmanager" class="back-link">Quay lại Dashboard</a>
-
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 </html>
 

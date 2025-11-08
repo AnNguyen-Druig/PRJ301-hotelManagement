@@ -135,6 +135,6 @@
         <% } else { %>
         <h1>Không có danh sách Booking!</h1>
         <% }%>
-
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 </html>

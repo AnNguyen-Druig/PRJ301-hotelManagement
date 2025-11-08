@@ -172,5 +172,6 @@
         <%
                 }
             }%>
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 </html>

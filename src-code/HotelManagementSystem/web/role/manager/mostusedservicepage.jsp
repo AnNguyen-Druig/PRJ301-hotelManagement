@@ -125,5 +125,6 @@
             }
         %>
         <a href="MainController?action=gobackmanager">Quay lại Dashboard</a>
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 </html>

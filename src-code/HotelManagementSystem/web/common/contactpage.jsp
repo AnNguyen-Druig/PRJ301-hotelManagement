@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="mylib.IConstants"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <h1>Thông Tin Liên Hệ</h1>
         <h2>Student 1: Trịnh Nhật Quang</h2>
         <h3>Email: trinhnhatquang99@gmail.com</h3>
@@ -22,5 +24,6 @@
         
         <h3>Ủng hộ chúng tôi</h3>
         <img src="<%=request.getContextPath()%>/img/QR.jpg" alt="QR"/>
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 </html>

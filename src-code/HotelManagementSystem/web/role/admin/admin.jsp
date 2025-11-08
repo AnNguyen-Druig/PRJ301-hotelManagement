@@ -144,5 +144,6 @@
                 request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
             }
         %>
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 </html>

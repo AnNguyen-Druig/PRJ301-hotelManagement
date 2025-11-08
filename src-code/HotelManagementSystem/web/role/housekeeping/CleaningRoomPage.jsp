@@ -151,5 +151,6 @@
     </div>
 
         <a class="back" href="MainController?action=backtohousekeeping">⬅ Back to room</a>
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 </html>

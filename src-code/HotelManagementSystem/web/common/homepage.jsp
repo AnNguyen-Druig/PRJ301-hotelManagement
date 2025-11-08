@@ -14,5 +14,6 @@
     </head>
     <body>
         <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
+        <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 </html>
