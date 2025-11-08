@@ -119,6 +119,7 @@
         </style>        
     </head>
     <body>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <jsp:useBean id="STAFF" scope="session" class="DTO.Basic_DTO.StaffDTO" />
             <div class="header">
                 <h1>Hello, ${STAFF.fullName} - Report Dashboard</h1>

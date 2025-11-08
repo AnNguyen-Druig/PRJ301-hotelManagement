@@ -12,6 +12,7 @@ public interface IConstants {
 
     //View
     public final String DEFAULT_PAGE = "/common/homepage.jsp";
+    public final String HEADER_PAGE = "/common/header.jsp";
     public final String LOGIN_PAGE = "/common/login.jsp";
     public final String SIGNUP_PAGE = "/common/signup.jsp";
     public final String SIGNUP_SUCCESS_PAGE = "/common/signup_success.jsp";
@@ -32,20 +33,21 @@ public interface IConstants {
     public final String REPORT_1_PAGE = "/common/ReportJSP/Report1Page.jsp";
     public final String REPORT_2_PAGE = "/common/ReportJSP/Report2Page.jsp";
     public final String HOUSEKEEPING_REPORT_PAGE = "/role/housekeeping/HouseKeepingReportPage.jsp";
-
     public final String VIEW_REVENUE_REPORT_PAGE = "/role/manager/revenuereportpage.jsp";
     public final String VIEW_TOP_GUEST_PAGE = "/role/manager/top10guestpage.jsp";
     public final String VIEW_MOSTUSED_SERVICES_PAGE = "/role/manager/mostusedservicepage.jsp";
     public final String VIEW_ROOM_OCCUPANCY_PAGE = "/role/manager/roomoccupancypage.jsp";
     public final String VIEW_CANCEL_STATISTICS_PAGE = "/role/manager/cancelstatisticspage.jsp";
     public final String REPORT_MAIN_PAGE = "/role/service/reportmainpage.jsp";
-
     public final String HOUSEKEEPING_CLEANING_PAGE = "/role/housekeeping/CleaningRoomPage.jsp";
-
     public final String INVOICE_PAGE = "/role/guest/invoicepage.jsp";
     public final String SIGN_UP_STAFF_PAGE = "/role/admin/signupstaff.jsp";
     public final String EDIT_STAFF_PAGE = "/role/admin/editstaff.jsp";
+
     public final String SHOW_TAX_AND_SERVICE_PAGE = "/role/admin/showtaxandservice.jsp";
+
+    public final String CONTACT_PAGE = "/common/contactpage.jsp";
+
   
     //Action
     public final String AC_DEFAULT = "default";
@@ -106,7 +108,11 @@ public interface IConstants {
     public final String AC_EDIT_STAFF = "editstaff";
     public final String AC_BACK_TO_ADMIN_PAGE = "backtoadminpage";
     public final String AC_DELETE_STAFF = "deletestaff";
+
     public final String AC_EDIT_TAX_AND_SERVICE = "edittaxandservice";
+
+    public final String AC_CONTACT = "contact";
+    public final String AC_EDIT_TAX_VALUE = "edittaxvalue";
     
     //Controller
     public final String CTL_LOGIN = "LoginController";
@@ -149,6 +155,7 @@ public interface IConstants {
     public final String CTL_HOUSEKEEPING_REPORT = "HouseKeepingReportController";
     public final String CTL_GET_STAFF = "GetStaffController";
     public final String CTL_GET_ALL_TAX_AND_SERVICE = "GetAllTaxAndService";
+    public final String CTL_EDIT_TAXVALUE_AND_SERVICEVALUE = "EditTaxValueAndServiceValue";
 
     // ERROR
     public final String ERR_EMPTY_FIELD = "Tên đăng nhập và mật khẩu không được để trống!";

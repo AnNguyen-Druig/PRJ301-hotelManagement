@@ -20,6 +20,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <%
             GuestDTO guest = (GuestDTO) request.getAttribute("GUEST_DETAIL");
             StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");

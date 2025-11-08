@@ -30,6 +30,7 @@
         </style>
     </head>
     <body>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <div class="container">
             <% 
                 StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");

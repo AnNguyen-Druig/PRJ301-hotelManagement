@@ -18,6 +18,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <%
             GuestDTO guest = (GuestDTO) session.getAttribute("USER");
             if (guest == null) {

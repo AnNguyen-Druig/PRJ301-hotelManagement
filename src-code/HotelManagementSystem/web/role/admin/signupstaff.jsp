@@ -22,6 +22,7 @@
         </style>
     </head>
     <body>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <h1 style="text-align: center;">Đăng Ký Nhân Viên</h1>
 
         <div class="container">

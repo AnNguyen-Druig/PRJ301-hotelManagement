@@ -194,8 +194,15 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_BACK_TO_ADMIN_PAGE:
                     url = IConstants.CTL_GET_ALL_STAFF;
                     break;
+
                 case IConstants.AC_EDIT_TAX_AND_SERVICE:
                     url = IConstants.CTL_GET_ALL_TAX_AND_SERVICE;
+                    break;
+                case IConstants.AC_CONTACT:
+                    url = IConstants.CONTACT_PAGE;
+                    break;
+                case IConstants.AC_EDIT_TAX_VALUE:
+                    url = IConstants.CTL_EDIT_TAXVALUE_AND_SERVICEVALUE;
                     break;
             }
         } catch (Exception e) {

@@ -79,6 +79,33 @@ public class TaxDAO {
                     cn.close();
                 }
             } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    
+    public int updateTaxValue(int taxID, double taxValue) {
+        int result = 0;
+        Connection cn = null;
+        try {
+            cn = DBUtills.getConnection();
+            if(cn!=null) {
+                String sql = "  UPDATE TAX_CONFIG SET TaxValue = ? WHERE TaxID = ?";
+                PreparedStatement st = cn.prepareStatement(sql);
+                st.setDouble(1, taxValue);
+                st.setInt(2, taxID);
+                result = st.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return result;

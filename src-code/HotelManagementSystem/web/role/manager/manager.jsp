@@ -14,6 +14,7 @@
         <title>Manager Page</title>
     </head>
     <body>
+        <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <%
             // Lấy thông tin Manager từ session
             StaffDTO manager = (StaffDTO) session.getAttribute("STAFF");

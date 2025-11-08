@@ -30,22 +30,24 @@
             <tr>
                 <th>Mã thuế</th>
                 <th>Tên thuế</th>
-                <th>Giá thuế</th>
                 <th>Mô tả</th>
                 <th>Lần cuối cập nhật</th>
+                <th>Giá thuế</th>
                     <%                        for (TaxDTO t : listTax) {
                     %>
             <tr> 
                 <td><%= t.getTaxID()%></td>
-                <td><%= t.getTaxName()%></td>
-                <td><%= t.getTaxValue()%></td>
+                <td><%= t.getTaxName()%></td>   
                 <td><%= t.getDescription()%></td>
                 <td><%= t.getLastUpdated()%></td>
                 <td>
                     <form action="MainController" method="POST">
-                        <button type="submit" name="action" value="<%= IConstants.AC_CANCEL_BOOKING_ROOM%>">Huỷ đặt phòng</button> 
+                        <input type="text" name="taxvalue" value="<%= t.getTaxValue() %>">
+                        <input type="hidden" name="taxid" value="<%= t.getTaxID()%>">
+                        <button type="submit" name="action" value="<%= IConstants.AC_EDIT_TAX_VALUE %>">Thay doi gia thue</button> 
                     </form>
                 </td>
+            <span>${requestScope.MSG}</span>
             </tr> 
             <%
                 }
