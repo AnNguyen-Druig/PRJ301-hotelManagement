@@ -128,8 +128,9 @@
             double VAT = taxDAO.getTaxValueByTaxName("VAT");
             double totalAfterVAT = (total * VAT) + total;
         %>
-        <h3>TỔNG TIỀN CẦN THANH TOÁN (CHƯA TÍNH VAT) <%= String.format("%,.0f VND", total).replace(',', '.')%></h3>
-        <h3>TỔNG TIỀN CẦN THANH TOÁN (ĐÃ TÍNH VAT) <%= String.format("%,.0f VND", totalAfterVAT).replace(',', '.')%></h3>
+        <h3>TỔNG TIỀN CẦN THANH TOÁN (CHƯA TÍNH VAT): <%= String.format("%,.0f VND", total).replace(',', '.')%></h3>
+        <h3>VAT: <%=  String.format("%,.0f VND", total * VAT).replace(',', '.') %> </h3>
+        <h3>TỔNG TIỀN CẦN THANH TOÁN (ĐÃ TÍNH VAT): <%= String.format("%,.0f VND", totalAfterVAT).replace(',', '.')%></h3>
         <h3>Chọn phương thức thanh toán:</h3>
 
         <form action="MainController" method="post">
