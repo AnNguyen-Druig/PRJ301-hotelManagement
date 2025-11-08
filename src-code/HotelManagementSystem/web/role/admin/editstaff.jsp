@@ -79,10 +79,10 @@
                     <input type="email" class="form-control" name="staff_email" required="" value="${param.staff_email  != null ? param.staff_email : requestScope.STAFF.email}">
                 </div>
                 <div class="mb-3">
-                    <label for="staff_dateofbirth" class="form-label">Ngày sinh <span class="red">*</span>
+                    <label for="staff_dateofbirth" class="form-label">Ngày sinh<span class="orange">*Không cập nhật Ngày/Tháng/Năm sinh</span>
                         <span class="red">${requestScope.ERROR_DATEOFBIRTH}</span>
                     </label>
-                    <input type="date" class="form-control" name="staff_dateofbirth" required="" value="${param.staff_dateofbirth  != null ? param.staff_dateofbirth : requestScope.STAFF.dateOfBirth}">
+                    <input type="date" class="form-control" name="staff_dateofbirth" required="" readonly="" value="${param.staff_dateofbirth  != null ? param.staff_dateofbirth : requestScope.STAFF.dateOfBirth}">
                 </div>
                 <div class="mb-3">
                     <label for="staff_idnumber" class="form-label">CCCD/CMND <span class="orange">*Không cập nhật CCCD</span>

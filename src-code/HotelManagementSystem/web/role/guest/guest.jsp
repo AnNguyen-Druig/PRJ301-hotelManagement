@@ -63,7 +63,7 @@
                 <td><%= b.getCheckInDate()%></td>
                 <td><%= b.getCheckOutDate()%></td>
                 <td><%= b.getBookingDate()%></td>
-                <td><%= b.getPricePerNight() %></td>
+                <td><%= String.format("%,.0f VND",b.getPricePerNight()).replace(',', '.') %></td>
                 <td><%= b.getStatus()%></td>
                 <td>
                     <form action="MainController" method="POST">
@@ -112,7 +112,7 @@
                 <td><%= b.getCheckInDate()%></td>
                 <td><%= b.getCheckOutDate()%></td>
                 <td><%= b.getBookingDate()%></td>
-                <td><%= b.getPricePerNight() %></td>
+                <td><%= String.format("%,.0f VND",b.getPricePerNight()).replace(',', '.') %></td>
                 <td><%= b.getStatus()%></td>
                 <td>
                     <form action="MainController">
