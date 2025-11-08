@@ -69,6 +69,33 @@
                     <ul>
                         <li><a href="MainController?action=default">Trang chủ</a></li>
                         <li><a href="MainController?action=contact">Contact</a></li>
+                            <%
+                                String action = "";
+                                if (staff != null) {
+                                    String role = staff.getRole();
+                                    switch (role) {
+                                        case "Receptionist":
+                                            action = IConstants.AC_TURNBACK_RECEPTION;
+                                            break;
+                                        case "Manager":
+                                            action = IConstants.AC_MANAGER_GO_BACK;
+                                            break;
+                                        case "ServiceStaff":
+                                            action = IConstants.AC_GO_BACK_SERVICE_PAGE;
+                                            break;
+                                        case "Admin":
+                                            action = IConstants.AC_BACK_TO_ADMIN_PAGE;
+                                            break;
+                                        default:
+                                            action = IConstants.AC_GO_BACK_GUEST_PAGE;
+                                            break;
+                                    }
+                            %>       
+                                    <li><a href="MainController?action=<%= action%>">Quay về trang <%= staff.getRole()%></a></li>
+                            <%        
+                                }
+                            %>
+                        
                     </ul>
                 </div>    
             </div>
