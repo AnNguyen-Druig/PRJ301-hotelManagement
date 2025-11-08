@@ -23,6 +23,7 @@
             }
             .header-logo img {
                 height: 50px; /* Giới hạn chiều cao logo */
+                border-radius: 50%;
             }
             .header-menu ul {
                 list-style: none;
@@ -30,6 +31,7 @@
                 margin: 0;
                 display: flex; /* Dàn các mục menu theo hàng ngang */
                 background-color: #f8f8f8;
+                justify-content: center;
             }
             .header-menu li a {
                 display: block;
@@ -93,6 +95,11 @@
                             %>       
                                     <li><a href="MainController?action=<%= action%>">Quay về trang <%= staff.getRole()%></a></li>
                             <%        
+                                } else if(guest != null) {
+                                    action = IConstants.AC_GO_BACK_GUEST_PAGE;
+                            %>
+                                    <li><a href="MainController?action=<%= action%>">Quay về trang Khách</a></li>
+                            <%
                                 }
                             %>
                         
