@@ -33,14 +33,13 @@
                     <th>ChooseRoom</th>
                 </tr>
             </thead>
-            <tbody>
                 <%
                     List<BookingDTO> list = (List<BookingDTO>) request.getAttribute("ALLROOM");
                     if (list != null && !list.isEmpty()) {
                         for (BookingDTO room : list) {
                 %>
-                <tr>
-                    <form action="MainController" method="POST">
+                <tbody>
+                    <tr>                   
                         <td><%= room.getBookingID() %></td>
                         <td><%= room.getRoomID() %></td>
                         <td><%= room.getGuestName() %></td>
@@ -48,9 +47,10 @@
                         <td><%= room.getCheckInDate() %></td>
                         <td><input type="hidden" name="bookingId" value="<%=room.getBookingID()%>"/>
                             <button type="submit" name="action" value="ChooseService">Choose</button>
-                            <button type="submit" name="action" value="ViewServiceCtrl">View</button></td>
-                        </form>
-                </tr>
+                            <button type="submit" name="action" value="ViewServiceCtrl">View</button></td>                       
+                    </tr>
+                </tbody>
+                
                 <%
                         }
                     } else {
@@ -62,6 +62,5 @@
                     }
                 %>
         </table>
-            </tbody>
     </body>
 </html>
