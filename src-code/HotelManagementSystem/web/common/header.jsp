@@ -16,32 +16,51 @@
         <style>
             .header-logo {
                 display: flex;
-                justify-content: space-between; /* Đẩy logo và link (Đăng nhập/xuất) ra 2 bên */
+                justify-content: space-between;
                 align-items: center;
-                padding: 10px;
+                padding: 10px 20px; /* Tăng padding trái/phải */
                 border-bottom: 1px solid #eee;
+                background-color: #ffffff; /* Nền logo luôn là màu trắng */
             }
             .header-logo img {
-                height: 50px; /* Giới hạn chiều cao logo */
+                height: 50px;
                 border-radius: 50%;
             }
+            .header-logo a { /* CSS cho link Đăng nhập/xuất */
+                text-decoration: none;
+                color: #0056b3;
+                font-weight: bold;
+                padding: 8px 12px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                transition: background-color 0.3s, color 0.3s;
+            }
+            .header-logo a:hover {
+                background-color: #f0f0f0;
+            }
+
+            /* === SỬA MÀU SẮC MENU === */
             .header-menu ul {
                 list-style: none;
                 padding: 0;
                 margin: 0;
-                display: flex; /* Dàn các mục menu theo hàng ngang */
-                background-color: #f8f8f8;
+                display: flex;
+                background-color: #004a99; /* Màu xanh đậm (dễ nhìn hơn) */
                 justify-content: center;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Thêm bóng mờ */
             }
             .header-menu li a {
                 display: block;
                 padding: 15px 20px;
                 text-decoration: none;
-                color: #333;
+                color: #ffffff; /* Chữ màu trắng */
+                font-weight: bold; /* Chữ đậm hơn */
+                transition: background-color 0.3s;
             }
             .header-menu li a:hover {
-                background-color: #ddd;
+                background-color: #003366; /* Màu xanh đậm hơn khi hover */
             }
+            /* === HẾT PHẦN SỬA === */
         </style>
     </head>
     <body>
@@ -96,16 +115,16 @@
                                             break;
                                     }
                             %>       
-                                    <li><a href="MainController?action=<%= action%>">Quay về trang <%= staff.getRole()%></a></li>
-                            <%        
-                                } else if(guest != null) {
-                                    action = IConstants.AC_GO_BACK_GUEST_PAGE;
+                        <li><a href="MainController?action=<%= action%>">Quay về trang <%= staff.getRole()%></a></li>
+                            <%
+                            } else if (guest != null) {
+                                action = IConstants.AC_GO_BACK_GUEST_PAGE;
                             %>
-                                    <li><a href="MainController?action=<%= action%>">Quay về trang Khách</a></li>
+                        <li><a href="MainController?action=<%= action%>">Quay về trang Khách</a></li>
                             <%
                                 }
                             %>
-                        
+
                     </ul>
                 </div>    
             </div>
