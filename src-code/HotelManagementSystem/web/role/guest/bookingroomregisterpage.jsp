@@ -58,19 +58,19 @@
             </br>
 
             <div>
-                <label for="roomNumber">SO PHONG: </label>>
+                <label for="roomNumber">SO PHONG: </label>
                 <input type="text" name="room_roomNumber" id="roomNumber" readonly="" value="<%= room.getRoomNumber()%>">
             </div> 
             </br>
 
             <div>
-                <label for="typeName">LOAI PHONG: </label>>
+                <label for="typeName">LOAI PHONG: </label>
                 <input type="text" name="room_typeName" id="typeName" readonly="" value="<%= room.getTypeName()%>">
             </div> 
             </br>
 
             <div>
-                <label for="capacity">SUC CHUA: </label>>
+                <label for="capacity">SUC CHUA: </label>
                 <input type="text" name="room_capacity" id="capacity" readonly="" value="<%= room.getCapacity()%>">
             </div> 
             </br>
