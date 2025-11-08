@@ -4,6 +4,8 @@
     Author     : Admin
 --%>
 
+<%@page import="DTO.HouseKeeping_DTO.GetRoomForHouseKeepingDTO"%>
+<%@page import="DAO.HouseKeepingDAO.GetRoomForHouseKeepingDAO"%>
 <%@page import="DTO.Basic_DTO.RoomDTO"%>
 <%@page import="DTO.Basic_DTO.StaffDTO"%>
 <%@page import="mylib.IConstants"%>
@@ -62,23 +64,23 @@
                 </thead>
                 <tbody>
                     <%
-                        List<RoomDTO> list = (List<RoomDTO>) request.getAttribute("ROOM_LIST");
+                        List<GetRoomForHouseKeepingDTO> list = (List<GetRoomForHouseKeepingDTO>) request.getAttribute("ROOM_LIST");
                         if (list != null && !list.isEmpty()) {
-                            for (RoomDTO room : list) {
+                            for (GetRoomForHouseKeepingDTO room : list) {
                     %>
                     <tr>
                         <td><%= room.getRoomNumber() %></td>
                         <td><%= room.getTypeName() %></td>
-                        <td><%= room.getRoomStatus() %></td>
+                        <td><%= room.getStatus() %></td>
 
                         <td>
                             <form action="MainController" method="POST" style="display: flex; align-items: center;">
                                 <input type="hidden" name="roomId" value="<%= room.getRoomID() %>" />
                                 <select name="newStatus">
-                                    <option value="Available" <% if ("Available".equals(room.getRoomStatus())) out.print("selected"); %>>Available</option>
-                                    <option value="Dirty" <% if ("Dirty".equals(room.getRoomStatus())) out.print("selected"); %>>Dirty</option>
-                                    <option value="Maintenance" <% if ("Maintenance".equals(room.getRoomStatus())) out.print("selected"); %>>Maintenance</option>
-                                    <option value="Occupied" <% if ("Occupied".equals(room.getRoomStatus())) out.print("selected"); %>>Occupied</option>
+                                    <option value="Available" <% if ("Available".equals(room.getStatus())) out.print("selected"); %>>Available</option>
+                                    <option value="Dirty" <% if ("Dirty".equals(room.getStatus())) out.print("selected"); %>>Dirty</option>
+                                    <option value="Maintenance" <% if ("Maintenance".equals(room.getStatus())) out.print("selected"); %>>Maintenance</option>
+                                    <option value="Occupied" <% if ("Occupied".equals(room.getStatus())) out.print("selected"); %>>Occupied</option>
                                 </select>
                                 <%-- Quan trọng: action của button trỏ đến action mới đã tạo --%>
                                 <button type="submit" name="action" value="perform_room_update">Update</button>

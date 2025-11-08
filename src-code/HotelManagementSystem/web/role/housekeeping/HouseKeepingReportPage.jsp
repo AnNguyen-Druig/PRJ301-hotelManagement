@@ -7,7 +7,6 @@
 <%@page import="DTO.Report_DTO.HouseKeepingReportDTO"%>
 <%@page import="mylib.IConstants"%>
 <%@page import="java.util.List"%>
-<%@page import="DTO.HouseKeepingReportDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
