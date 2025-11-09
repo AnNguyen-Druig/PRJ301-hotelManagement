@@ -16,7 +16,6 @@ public interface IConstants {
     public final String FOOTER_PAGE = "/common/footer.jsp";
     public final String LOGIN_PAGE = "/common/login.jsp";
     public final String SIGNUP_PAGE = "/common/signup.jsp";
-    public final String SIGNUP_SUCCESS_PAGE = "/common/signup_success.jsp";
     public final String BOOKING_ROOM_PAGE = "/role/guest/bookingroompage.jsp";
     public final String ADMIN_PAGE = "/role/admin/admin.jsp";
     public final String RECEPTIONIST_PAGE = "/role/receptionist/receptionist.jsp";
