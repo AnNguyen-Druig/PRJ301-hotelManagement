@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="DTO.Basic_DTO.StaffDTO"%>
 <%@page import="mylib.IConstants"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,6 +24,12 @@
     </head>
     <body>
         <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
+        <%
+            StaffDTO staffsession = (StaffDTO) session.getAttribute("STAFF");
+            if (staffsession == null) {
+                request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
+            } else {
+        %>
         <h1 style="text-align: center;">Đăng Ký Nhân Viên</h1>
 
         <div class="container">
@@ -114,6 +121,9 @@
         <form action="MainController" method="POST">
             <button type="submit" name="action" value="backtoadminpage">Quay lại</button>
         </form>
+        <%
+        }
+        %>
         <jsp:include page="<%= IConstants.FOOTER_PAGE%>" />
     </body>
 

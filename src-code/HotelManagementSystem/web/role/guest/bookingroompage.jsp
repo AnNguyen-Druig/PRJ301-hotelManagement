@@ -21,6 +21,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
+    <style>
+        .red {
+            color: red
+        }
+    </style>
     <body>
         <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <%
@@ -91,7 +96,7 @@
 
             <input type="submit" value="<%= IConstants.AC_FILTER_ROOM%>" name="action">
         </form>
-
+            <p class="red">${requestScope.ERROR_REQUIRED}</p>
 
 
 
@@ -128,7 +133,7 @@
 
         <%
                     }
-                } else {
+                } else { //thông báo het phong tu FilterController
                     String error = (String) request.getAttribute("ERROR");
                     if (error != null && !error.trim().isEmpty()) {
                         out.print(error);

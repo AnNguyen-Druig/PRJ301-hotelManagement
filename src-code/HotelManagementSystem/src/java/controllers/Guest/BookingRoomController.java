@@ -44,8 +44,8 @@ public class BookingRoomController extends HttpServlet {
 
             //nếu người dùng chưa chọn CheckIn và CheckOut ở trang bookingroompage.jsp thì gửi ERROR về lại trang đó kêu người dùng chọn
             if (checkInDate.equals("null") || checkOutDate.equals("null")) {
-                request.setAttribute("ERROR", IConstants.ERR_REQUIRE_SELECT_DATERANGE);
-                request.getRequestDispatcher(IConstants.BOOKING_ROOM_PAGE).forward(request, response);
+                request.setAttribute("ERROR_REQUIRED", IConstants.ERR_REQUIRE_SELECT_DATERANGE);
+                request.getRequestDispatcher(IConstants.CTL_GETROOM).forward(request, response);
 
             } else {
                 Date checkInDate_value = Date.valueOf(checkInDate.trim());
