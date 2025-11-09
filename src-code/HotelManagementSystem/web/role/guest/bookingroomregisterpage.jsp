@@ -21,7 +21,98 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/styles.css">
     </head>
+     <style>
+        /* ==============================
+           BOOKING INFORMATION PAGE STYLES
+           ============================== */
+        main {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 40px 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            text-align: center;
+            color: #004a99;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #004a99;
+            display: inline-block;
+            width: 250px;
+        }
+
+        input[type="text"], input[type="email"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: calc(100% - 260px);
+            font-size: 14px;
+            background-color: #f9f9f9;
+        }
+
+        form div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        button {
+            background-color: #004a99;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            align-self: center;
+            margin-top: 20px;
+            transition: background-color 0.25s ease;
+        }
+
+        button:hover {
+            background-color: #0066cc;
+        }
+
+        .message {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 25px;
+            }
+
+            form div {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            label {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+
+            input[type="text"], input[type="email"] {
+                width: 100%;
+            }
+        }
+    </style>
     <body>
         <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <%
@@ -117,20 +208,6 @@
             %>          
         </form>
         <%
-            StaffDTO staff = (StaffDTO) session.getAttribute("STAFF");
-            if (staff != null) {
-        %>
-        <form action="MainController" method="POST">
-            <button type="submit" name="action" value="<%= IConstants.AC_TURNBACK_RECEPTION%>">Quay về trang Receptionist</button>
-        </form>
-        <%
-        } else {
-        %>
-        <form action="MainController" method="POST">
-            <button type="submit" name="action" value="<%= IConstants.AC_GO_BACK_GUEST_PAGE%>">Quay về trang Guest</button>
-        </form>
-        <%
-                }
             } else {
                 request.getRequestDispatcher(IConstants.LOGIN_PAGE).forward(request, response);
             }

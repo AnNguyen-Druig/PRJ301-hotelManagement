@@ -16,7 +16,88 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/styles.css">
     </head>
+    <style>
+        /* ==============================
+           GUEST PAGE STYLES (phụ)
+           ============================== */
+
+        main {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+
+        h1, h2 {
+            color: #004a99;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        /* Nút hành động */
+        button {
+            background-color: #004a99;
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.25s ease;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #0066cc;
+        }
+
+        /* Bảng hiển thị dữ liệu */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 14px;
+            background-color: #fff;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #004a99;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f6fa;
+        }
+
+        tr:hover {
+            background-color: #e8f1ff;
+        }
+
+        /* Thông báo / message */
+        .message {
+            text-align: center;
+            color: #004a99;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+
+        .error {
+            text-align: center;
+            color: #cc0000;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+    </style>
     <body>
         <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <%
@@ -26,14 +107,14 @@
             } else {
         %>
         <h1>Welcome <%= guest.getFullName()%> Guest!</h1>
-        <a href="MainController?action=logout">Logout</a>
         <form>
-            <button type="submit" name="action" value="<%= IConstants.AC_BOOKING%>">Đặt phòng ngay</button>
+            <div style="text-align:center; margin-bottom:30px;">
+                <button type="submit" name="action" value="<%= IConstants.AC_BOOKING%>">Đặt phòng ngay</button>
+            </div>   
         </form>
         <h2>Các Đơn Đặt Phòng Đã Giữ Chỗ</h2>
         <%  //Nhận thông tin HUY DAT PHONG
             String message = (String) request.getAttribute("MESSAGE");
-            String bookingId = request.getParameter("bookingId");
             if (message != null && !message.isEmpty()) {
                 out.println(message);
         %></br><%
@@ -45,14 +126,15 @@
         %>
         <table>
             <tr>
-                <th>Room Number</th>
-                <th>Guest Name</th>
-                <th>Room Type</th>
-                <th>Check-in Date</th>
-                <th>Check-out Date</th>
-                <th>Booking Date</th>
-                <th>PricePerNight</th>
-                <th>Status</th>
+                <th>Số phòng</th>
+                <th>Họ và tên khách hàng</th>
+                <th>Loại phòng</th>
+                <th>Ngày check-in</th>
+                <th>Ngày check-out</th>
+                <th>Ngày đặt phòng</th>
+                <th>Giá tiền/một đêm</th>
+                <th>Trạng thái Booking</th>
+                <th>Hành động</th>
                     <%
                         for (BookingRoomDetailDTO b : listReservedBooking) {
                     %>
@@ -94,14 +176,15 @@
         %>
         <table>
             <tr>
-                 <th>Room Number</th>
-                <th>Guest Name</th>
-                <th>Room Type</th>
-                <th>Check-in Date</th>
-                <th>Check-out Date</th>
-                <th>Booking Date</th>
-                <th>PricePerNight</th>
-                <th>Status</th>
+                <th>Số phòng</th>
+                <th>Họ và tên khách hàng</th>
+                <th>Loại phòng</th>
+                <th>Ngày check-in</th>
+                <th>Ngày check-out</th>
+                <th>Ngày đặt phòng</th>
+                <th>Giá tiền/một đêm</th>
+                <th>Trạng thái Booking</th>
+                <th>Hành động</th>
                     <%
                         for (BookingRoomDetailDTO b : listCheckInBooking) {
                     %>

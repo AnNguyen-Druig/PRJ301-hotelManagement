@@ -15,6 +15,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin Dashboard</title>
+         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/styles.css">
         <style>
             table {
                 width: 100%;
@@ -35,6 +36,114 @@
             .green{
                 color: green;
             }
+            main {
+                max-width: 1200px;
+                margin: 40px auto;
+                background-color: #ffffff;
+                border-radius: 10px;
+                box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+                padding: 40px;
+            }
+
+            h1, h3 {
+                text-align: center;
+                color: #004a99;
+            }
+
+            hr {
+                margin: 20px 0;
+            }
+
+            form {
+                margin: 15px 0;
+                text-align: center;
+            }
+
+            label {
+                font-weight: bold;
+                color: #004a99;
+                margin-right: 8px;
+            }
+
+            select {
+                padding: 8px 12px;
+                border-radius: 6px;
+                border: 1px solid #ccc;
+                margin: 0 8px;
+                font-size: 14px;
+            }
+
+            button {
+                background-color: #004a99;
+                color: #fff;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background-color 0.25s ease;
+                font-size: 14px;
+            }
+
+            button:hover {
+                background-color: #0066cc;
+            }
+
+            /* Bảng hiển thị nhân viên */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 25px;
+                font-size: 14px;
+            }
+
+            th, td {
+                border: 1px solid #ddd;
+                padding: 12px;
+                text-align: center;
+            }
+
+            th {
+                background-color: #004a99;
+                color: #fff;
+            }
+
+            tr:nth-child(even) {
+                background-color: #f2f6fa;
+            }
+
+            tr:hover {
+                background-color: #e8f1ff;
+            }
+
+            .status-active {
+                color: green;
+                font-weight: bold;
+            }
+
+            .status-inactive {
+                color: red;
+                font-weight: bold;
+            }
+
+            p {
+                text-align: center;
+                color: #004a99;
+                font-weight: bold;
+                margin-top: 20px;
+            }
+
+            @media (max-width: 768px) {
+                main {
+                    padding: 20px;
+                }
+                table {
+                    font-size: 12px;
+                }
+                button {
+                    padding: 6px 12px;
+                    font-size: 12px;
+                }
+            }
         </style>
     </head>
     <body>
@@ -45,7 +154,6 @@
             if (staff != null) {
         %>
         <h1>Welcome <%= staff.getFullName()%> Staff!</h1>
-        <h4><a href="MainController?action=logout">Logout</a></h4>
 
         <hr>
         <h3>Quản lý Nhân viên</h3>
@@ -76,15 +184,15 @@
 
             <button type="submit" value="<%= IConstants.AC_FILTER_STAFF%>" name="action">Lọc</button>
         </form>
-        
+
         <form action="MainController" method="GET">
-            <button type="submit" name="action" value="<%= IConstants.AC_SIGN_UP_STAFF %>">Thêm nhân viên</button>
+            <button type="submit" name="action" value="<%= IConstants.AC_SIGN_UP_STAFF%>">Thêm nhân viên</button>
         </form>
-        
+
         <form action="MainController" method="POST">
-            <button type="submit" name="action" value="<%= IConstants.AC_EDIT_TAX_AND_SERVICE %>">Sửa đổi thuế và dịch vụ</button>
+            <button type="submit" name="action" value="<%= IConstants.AC_EDIT_TAX_AND_SERVICE%>">Sửa đổi thuế và dịch vụ</button>
         </form>
-        
+
         <%-- BẢNG HIỂN THỊ KẾT QUẢ --%>
         <c:if test="${not empty STAFF_LIST}">
             <table>
@@ -128,7 +236,7 @@
                             <td>
                                 <form action="MainController" method="POST">
                                     <input type="hidden" name="staffID" value="${s.staffID}">
-                                    <button type="submit" value="<%= IConstants.AC_UPDATE_STAFF %>" name="action">Sửa đổi</button>
+                                    <button type="submit" value="<%= IConstants.AC_UPDATE_STAFF%>" name="action">Sửa đổi</button>
                                 </form>
                             </td>
                         </tr>

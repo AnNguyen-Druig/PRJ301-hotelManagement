@@ -50,6 +50,7 @@ public class FilterRoomController extends HttpServlet {
             Date today = new Date(System.currentTimeMillis());
             if (checkInDate_value.before(today) || checkInDate_value.equals(today)) {
                 request.setAttribute("ERRORCHECKINDATE", IConstants.ERR_CHECKINDATE_ISBEFORE_TODAY);
+                request.setAttribute("TODAY", today);
                 request.getRequestDispatcher(IConstants.BOOKING_ROOM_PAGE).forward(request, response);
             } else if (checkOutDate_value.before(checkInDate_value) || checkOutDate_value.equals(checkInDate_value)) {
                 //checkOutDate > checkInDate
