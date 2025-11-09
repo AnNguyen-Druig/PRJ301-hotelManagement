@@ -24,7 +24,164 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/styles.css">
     </head>
+    <style>
+        
+
+        h2 {
+            color: #004a99;
+            border-bottom: 3px solid #004a99;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        h3 {
+            color: #004a99;
+            margin: 25px 0 15px;
+            font-size: 20px;
+        }
+
+        h4 {
+            color: #d9534f;
+            font-weight: bold;
+            margin: 15px 0;
+            font-size: 18px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 15px;
+            background: #fff;
+        }
+
+        th {
+            background-color: #004a99;
+            color: white;
+            padding: 14px 12px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: middle;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tr:hover {
+            background-color: #e6f3ff;
+            transition: background 0.3s;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #004a99;
+        }
+
+        .total {
+            font-size: 18px;
+            font-weight: bold;
+            color: #d9534f;
+            text-align: right;
+            margin: 15px 0;
+        }
+
+        .error {
+            background: #f2dede;
+            color: #a94442;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .payment-options label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .payment-options label:hover {
+            background-color: #f0f8ff;
+        }
+
+        .payment-options input[type="radio"] {
+            margin: 0;
+        }
+
+        button {
+            background-color: #004a99;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 5px 10px 0;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #003366;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .footer-actions {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #ffc107;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                margin: 15px;
+            }
+            table, th, td {
+                font-size: 14px;
+            }
+            .payment-options label {
+                font-size: 15px;
+            }
+        }
+    </style>
     <body>
         <jsp:include page="<%= IConstants.HEADER_PAGE%>" />
         <% GuestDTO guest = (GuestDTO) session.getAttribute("USER");
@@ -47,7 +204,7 @@
             long numberOfNights = ChronoUnit.DAYS.between(checkInLocalDate, checkOutLocalDate);
         %>
         <!-- khi thanh toán thất bại sẽ thông báo lỗi ở đây --> 
-        ${requestScope.ERROR};
+        ${requestScope.ERROR}
         <table>
             <tr>
                 <th>Số phòng</th>

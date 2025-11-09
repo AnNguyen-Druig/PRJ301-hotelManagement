@@ -19,14 +19,7 @@
     </head>
     <style>
         /* Bổ sung style nội tuyến để mở rộng style.css */
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+        
 
         h2 {
             color: #004a99;
