@@ -107,7 +107,7 @@
             } else {
         %>
         <h1>Welcome <%= guest.getFullName()%> Guest!</h1>
-        <form>
+        <form action="MainController" method="POST">
             <div style="text-align:center; margin-bottom:30px;">
                 <button type="submit" name="action" value="<%= IConstants.AC_BOOKING%>">Đặt phòng ngay</button>
             </div>   

@@ -57,7 +57,6 @@ public class SavePaymentAndInvoiceController extends HttpServlet {
         GuestDTO guest = guestDAO.getGuestByID(bookingRoom.getGuestID());
         request.setAttribute("GUEST_DETAIL", guest);
         
-        //Ko lay Guest vi guest o session
              
         InvoiceDAO invoiceDAO = new InvoiceDAO();
         int saveInvoice = invoiceDAO.saveInvoiceStatusPaid(bookingID, total);

@@ -17,9 +17,7 @@ import mylib.DBUtills;
 
 public class StaffDAO {
 
-    /**
-     * Dùng để kiểm tra đăng nhập.
-     */
+  
     public StaffDTO getLoginStaff(String username, String password) {
         Connection cn = null;
         StaffDTO result = null;
@@ -73,9 +71,7 @@ public class StaffDAO {
         return result;
     }
 
-    /**
-     * Lấy tất cả nhân viên.
-     */
+    
     public List<StaffDTO> getAllStaff() {
         Connection cn = null;
         List<StaffDTO> list = new ArrayList<>();
@@ -127,9 +123,9 @@ public class StaffDAO {
         return list;
     }
 
-    /**
-     * Lọc nhân viên chỉ theo Role.
-     */
+
+//      Lọc nhân viên chỉ theo Role.
+
     public List<StaffDTO> getStaffByRole(String role) {
         Connection cn = null;
         List<StaffDTO> list = new ArrayList<>();
