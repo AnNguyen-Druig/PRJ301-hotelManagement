@@ -41,6 +41,8 @@ public class SignUpStaffController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         try {
             String username = request.getParameter("staff_username");
             String password = request.getParameter("staff_password");
@@ -60,7 +62,7 @@ public class SignUpStaffController extends HttpServlet {
                     && role != null && status != null) {
                 //Phân biệt Signup và Update bằng staffID vì Signup ko có staffID
                 String staffIDStr = request.getParameter("staffID");
-                
+
                 StaffDAO staffDAO = new StaffDAO();
                 boolean hasError = false;
 
@@ -88,9 +90,9 @@ public class SignUpStaffController extends HttpServlet {
                     int staffID = Integer.parseInt(staffIDStr.trim());
                     //lấy tên gốc 
                     String originalUsername = staffDAO.getUsernameByStaffID(staffID);
-                    
+
                     //chỉ kiểm tra trùng lặp username khi mà tên gốc khác tên username hứng ở trên
-                    if(!username.equals(originalUsername) && staffDAO.checkUsernameExisted(username)) {
+                    if (!username.equals(originalUsername) && staffDAO.checkUsernameExisted(username)) {
                         request.setAttribute("ERROR_USERNAME", IConstants.ERR_INVALID_USERNAME);
                         hasError = true;
                     }
@@ -127,8 +129,8 @@ public class SignUpStaffController extends HttpServlet {
                 if (!idNumber.matches("^\\d{12}$")) {
                     request.setAttribute("ERROR_IDNUMBER", IConstants.ERR_INVALID_IDNUMBER);
                     hasError = true;
-                } else if(request.getParameter("staffID") == null) {
-                    if(staffDAO.checkIDNumberExisted(idNumber)) {
+                } else if (request.getParameter("staffID") == null) {
+                    if (staffDAO.checkIDNumberExisted(idNumber)) {
                         request.setAttribute("ERROR_IDNUMBER", IConstants.ERR_IDNUMBER_EXISTED);
                         hasError = true;
                     }
@@ -157,7 +159,7 @@ public class SignUpStaffController extends HttpServlet {
                     //staffID tu editpage gui qua 
                     int staffID = Integer.parseInt(staffIDStr.trim());
                     if (action.equals(IConstants.AC_EDIT_STAFF)) {
-                        int updateStaff = staffDAO.updateStaff(staffID, username, password, phone, email, address, role, dateOfBirth_value,status);
+                        int updateStaff = staffDAO.updateStaff(staffID, username, password, phone, email, address, role, dateOfBirth_value, status);
                         if (updateStaff != 0) {
                             request.setAttribute("SUCCESS_MSG", IConstants.SUCC_UPDATE_STAFF);
                         } else {
@@ -167,7 +169,7 @@ public class SignUpStaffController extends HttpServlet {
                         StaffDTO staff = staffDAO.getStaffByID(staffID);
                         request.setAttribute("STAFF", staff);
                         request.getRequestDispatcher(IConstants.EDIT_STAFF_PAGE).forward(request, response);
-                    } 
+                    }
                 }
 
             }

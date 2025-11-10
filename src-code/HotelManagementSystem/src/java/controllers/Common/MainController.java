@@ -30,6 +30,8 @@ public class MainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String url = IConstants.DEFAULT_PAGE;
         try {
             String action = request.getParameter("action");
@@ -54,7 +56,7 @@ public class MainController extends HttpServlet {
                     url = IConstants.CTL_LOGOUT;
                     break;
                 case IConstants.AC_BOOKING:
-                    url = IConstants.CTL_GETROOM ;
+                    url = IConstants.CTL_GETROOM;
                     break;
                 case IConstants.AC_BOOKING_ROOM:
                     url = IConstants.CTL_BOOKING_ROOM;
@@ -65,7 +67,7 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_UPDATE_STATUS:
                     url = IConstants.CTL_MANAGE_ROOM_STATUS;
                     break;
-                case IConstants.AC_PERFORM_UPDATE: 
+                case IConstants.AC_PERFORM_UPDATE:
                     url = IConstants.CTL_MANAGE_ROOM_STATUS;
                     break;
                 case IConstants.AC_SAVE_BOOKING_ROOM:
@@ -170,7 +172,7 @@ public class MainController extends HttpServlet {
                 case IConstants.AC_CANCEL_BOOKING_ROOM:
                     url = IConstants.CTL_CANCEL_BOOKING_ROOM;
                     break;
-                case IConstants.AC_FILTER_STAFF: 
+                case IConstants.AC_FILTER_STAFF:
                     url = IConstants.CTL_FILTER_STAFF;
                     break;
                 case IConstants.AC_GO_BACK_GUEST_PAGE:
