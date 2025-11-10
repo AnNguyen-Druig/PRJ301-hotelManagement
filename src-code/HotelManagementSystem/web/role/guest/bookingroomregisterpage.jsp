@@ -21,9 +21,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/styles.css">
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/styles.css">
     </head>
-     <style>
+    <style>
         /* ==============================
            BOOKING INFORMATION PAGE STYLES
            ============================== */
@@ -88,7 +88,7 @@
 
         .message {
             text-align: center;
-            color: red;
+            color: green;
             font-weight: bold;
             margin-top: 15px;
         }
@@ -111,6 +111,18 @@
             input[type="text"], input[type="email"] {
                 width: 100%;
             }
+        }
+        .success-msg {
+            background-color: #e6ffed;
+            color: #047857;
+            border: 1px solid #34d399;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeIn 0.6s ease-in-out;
+            box-shadow: 0 2px 6px rgba(0, 128, 0, 0.1);
         }
     </style>
     <body>
@@ -199,8 +211,10 @@
             <%
                 String msg = (String) request.getAttribute("MSG");
                 if (msg != null && !msg.isEmpty()) {
-                    out.print(msg);
-                } else {
+            %>
+            <p class="success-msg"><%= msg%></p>
+            <%
+            } else {
             %>
             <button type="submit" name="action" value="<%= IConstants.AC_SAVE_BOOKING_ROOM%>">Booking</button>
             <%

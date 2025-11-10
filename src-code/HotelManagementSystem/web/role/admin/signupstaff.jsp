@@ -68,6 +68,21 @@
             .footer-space {
                 margin-bottom: 60px; /* tránh footer đè form */
             }
+            
+            .green {
+                color: #155724;                    /* chữ xanh đậm */
+                background-color: #d4edda;         /* nền xanh nhạt */
+                border: 1px solid #c3e6cb;         /* viền xanh nhạt */
+                padding: 12px 20px;                /* đệm trong */
+                border-radius: 8px;                /* bo góc */
+                text-align: center;                /* căn giữa */
+                font-weight: bold;                 /* in đậm */
+                font-size: 18px;                   /* chữ to hơn */
+                width: 60%;                        /* không quá dài */
+                margin: 25px auto;                 /* căn giữa khối */
+                box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* đổ bóng nhẹ */
+                animation: fadeIn 0.5s ease;       /* hiệu ứng xuất hiện nhẹ */
+            }
         </style>
     </head>
     <body>
@@ -159,7 +174,7 @@
                     String succMsg = (String) request.getAttribute("SUCCESS");
                     if (succMsg != null) {
                 %>
-                <p><%= succMsg%></p>
+                <p class="green"><%= succMsg%></p>
                 <%} else {%>
                 <button class="btn btn-primary form-control" type="submit" value="<%= IConstants.AC_SIGN_UP_STAFF%>" name="action">Đăng ký nhân viên</button>
                 <%}%>

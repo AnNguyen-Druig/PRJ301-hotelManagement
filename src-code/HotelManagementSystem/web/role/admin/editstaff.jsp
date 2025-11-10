@@ -31,7 +31,7 @@
                 background-color: #f5f8fc;
             }
 
-           
+
 
             h1 {
                 text-align: center;
@@ -69,9 +69,15 @@
                 background-color: #666;
             }
 
-            .red { color: red; }
-            .green { color: green; }
-            .orange { color: orange; }
+            .red {
+                color: red;
+            }
+            .green {
+                color: green;
+            }
+            .orange {
+                color: orange;
+            }
 
             form {
                 margin-bottom: 20px;
@@ -79,6 +85,23 @@
 
             .footer-space {
                 margin-bottom: 60px; /* tránh footer đè form */
+            }
+
+            h4.green,
+            h4.red {
+                text-align: center;       /* căn giữa */
+                font-weight: bold;        /* in đậm */
+                margin-top: 25px;         /* cách phần trên */
+                font-size: 18px;          /* to hơn một chút */
+            }
+
+            /* màu nền nhẹ cho nổi bật */
+            h4.green {
+                color: #155724;
+            }
+
+            h4.red {
+                color: #721c24;
             }
         </style>
     </head>
@@ -91,8 +114,7 @@
             } else {
         %>
         <h1 style="text-align: center;">Cập Nhập Thông Tin Nhân Viên</h1>
-        <h4 class="green">${requestScope.SUCCESS_MSG}</h4>
-        <h4 class="red">${requestScope.ERROR_MSG}</h4>
+
 
         <div class="container">
             <form action="MainController" method="POST">
@@ -173,7 +195,8 @@
                 <button class="btn btn-primary form-control mt-3" type="submit" value="<%= IConstants.AC_EDIT_STAFF%>" name="action">Cập nhật thông tin</button>
             </form>
         </div>
-
+        <h4 class="green">${requestScope.SUCCESS_MSG}</h4>
+        <h4 class="red">${requestScope.ERROR_MSG}</h4>
         <%
             }
         %>
