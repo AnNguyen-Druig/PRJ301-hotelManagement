@@ -399,7 +399,7 @@
                                     } else {
                                         double total = 0;
                                         for (ServiceDTO s : cart.keySet()) {
-                                            total += cart.get(s) * s.getPrice();
+                                            total = cart.get(s) * s.getPrice();
                                 %>
                                 <tr>
                                     <form action="MainController" style="display:contents">
@@ -409,7 +409,7 @@
                                         <td data-label="Số Lượng">
                                             <input type="number" name="txtquantity" min="1" value="<%= cart.get(s)%>">
                                         </td>
-                                        <td data-label="Giá"><%= String.format("%,.0f VND", s.getPrice()).replace(',', '.') %></td>
+                                        <td data-label="Giá"><%= String.format("%,.0f VND", total).replace(',', '.') %></td>
                                         <td data-label="Thao Tác">
                                             <div class="action-buttons">
                                                 <input type="hidden" name="serviceid" value="<%= s.getServiceId()%>">
@@ -423,7 +423,7 @@
                                 </tr>
                                 <%
                                         }
-                                        GrandTotal = total;
+                                        GrandTotal += total;
                                     }
                                 %>
                             </tbody>

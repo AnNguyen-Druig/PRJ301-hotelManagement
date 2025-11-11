@@ -205,9 +205,6 @@
             </br> 
             <input type="hidden" name="roomID" value="<%= room.getRoomID()%>">
             <input type="hidden" name="guestID" value="<%= guest.getGuestID()%>">
-            <!--   gửi theo booking_room_checkInDate và booking_room_checkOutDate vẫn còn trong request đến SaveBookingRoom để BookingRoomController nhận ròi gửi lại trang này -->
-            <input type="hidden" name="booking_room_checkInDate" value="<%= request.getParameter("booking_room_checkInDate")%>">
-            <input type="hidden" name="booking_room_checkOutDate" value="<%= request.getParameter("booking_room_checkOutDate")%>">
             <%
                 String msg = (String) request.getAttribute("MSG");
                 if (msg != null && !msg.isEmpty()) {
