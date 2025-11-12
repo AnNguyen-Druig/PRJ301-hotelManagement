@@ -27,11 +27,10 @@ public class GetBookingRoomForServiceDAO {
         try {
             cn = DBUtills.getConnection();
             if (cn != null) {
-                String sql = "Select B.BookingID, B.RoomID, G.FullName, B.CheckInDate, B.Status\n"
-                        + "from dbo.BOOKING as B\n"
-                        + "JOIN dbo.GUEST AS G ON B.GuestID = G.GuestID "
-                        + "LEFT JOIN dbo.BOOKING_SERVICE AS BS ON BS.BookingID = B.BookingID "
-                        + "Where B.Status = ?";
+                String sql = "SELECT DISTINCT B.BookingID, B.RoomID, G.FullName, B.CheckInDate, B.Status\n"
+                        + "FROM dbo.BOOKING AS B\n"
+                        + "JOIN dbo.GUEST AS G ON B.GuestID = G.GuestID\n"
+                        + "WHERE B.Status = ?";
                 st = cn.prepareStatement(sql);
                 st.setString(1, "CheckIn");
                 table = st.executeQuery();
@@ -53,12 +52,6 @@ public class GetBookingRoomForServiceDAO {
             try {
                 if (cn != null) {
                     cn.close();
-                }
-                if(st != null) {
-                    st.close();
-                }
-                if(table != null) {
-                    table.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
